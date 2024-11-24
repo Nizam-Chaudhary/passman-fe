@@ -90,6 +90,7 @@ function App() {
                   </FormItem>
                 )}
               />
+                <FormField render={password} name={"password" {...field} />/}
               <Button className="text-center w-full" type="submit">
                 Sign Up
               </Button>
