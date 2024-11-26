@@ -1,5 +1,10 @@
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { Button } from '@/components/ui/button';
+import {
+	Card,
+	CardContent,
+	CardFooter,
+	CardHeader,
+} from '@/components/ui/card';
 import {
 	Form,
 	FormControl,
@@ -7,18 +12,18 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { NavLink } from 'react-router'
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { NavLink } from 'react-router';
 
-import { z } from 'zod'
+import { z } from 'zod';
 
 const loginSchema = z.object({
 	email: z.string().email('Please enter valid email'),
 	password: z.string().min(10, 'Must contain at least 10 characters'),
-})
+});
 
 export default function Login() {
 	const loginForm = useForm<z.infer<typeof loginSchema>>({
@@ -27,10 +32,10 @@ export default function Login() {
 			email: '',
 			password: '',
 		},
-	})
+	});
 
 	function onSubmit(values: z.infer<typeof loginSchema>) {
-		console.log('Values: ', values)
+		console.log('Values: ', values);
 	}
 
 	return (
@@ -38,7 +43,7 @@ export default function Login() {
 			{/* <Card className="w-[30rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"> */}
 			<Card className="m-auto min-w-96 w-2/6 my-32">
 				<CardHeader className="text-center text-2xl">
-					Log in to your account
+					Login to your account
 				</CardHeader>
 				<CardContent>
 					<Form {...loginForm}>
@@ -83,12 +88,12 @@ export default function Login() {
 					</Form>
 				</CardContent>
 				<CardFooter className="flex justify-center">
-					New to Passman?
+					New to Passman?&nbsp;
 					<NavLink to="/sign-up" end>
-						Sign up
+						Sign Up
 					</NavLink>
 				</CardFooter>
 			</Card>
 		</>
-	)
+	);
 }

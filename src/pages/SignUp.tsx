@@ -1,5 +1,10 @@
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { Button } from '@/components/ui/button';
+import {
+	Card,
+	CardContent,
+	CardFooter,
+	CardHeader,
+} from '@/components/ui/card';
 import {
 	Form,
 	FormControl,
@@ -7,19 +12,19 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { NavLink } from 'react-router'
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { NavLink } from 'react-router';
 
-import { z } from 'zod'
+import { z } from 'zod';
 
 const signUpSchema = z.object({
 	userName: z.string().min(3, 'Please Enter user name'),
 	email: z.string().email('Please enter valid email'),
 	password: z.string().min(10, 'Must contain at least 10 characters'),
-})
+});
 
 export default function SignUp() {
 	const signUpForm = useForm<z.infer<typeof signUpSchema>>({
@@ -29,10 +34,10 @@ export default function SignUp() {
 			email: '',
 			password: '',
 		},
-	})
+	});
 
 	function onSubmit(values: z.infer<typeof signUpSchema>) {
-		console.log('Values: ', values)
+		console.log('Values: ', values);
 	}
 
 	return (
@@ -98,12 +103,12 @@ export default function SignUp() {
 					</Form>
 				</CardContent>
 				<CardFooter className="flex justify-center">
-					Already have an account?
+					Already have an account?&nbsp;
 					<NavLink to="/login" end>
-						sign in
+						Login
 					</NavLink>
 				</CardFooter>
 			</Card>
 		</>
-	)
+	);
 }
