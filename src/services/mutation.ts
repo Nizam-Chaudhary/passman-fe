@@ -1,9 +1,16 @@
-import { SignUpData } from '@/types/signup';
+import { LoginUserData } from '@/types/login';
+import { SignUpUserData } from '@/types/signup';
 import { useMutation } from '@tanstack/react-query';
-import { signUpUser } from './api';
+import { loginInUser, signUpUser } from './api';
 
 export function useSignUpUser() {
 	return useMutation({
-		mutationFn: (data: SignUpData) => signUpUser(data),
+		mutationFn: (data: SignUpUserData) => signUpUser(data),
+	});
+}
+
+export function useLoginUser() {
+	return useMutation({
+		mutationFn: (data: LoginUserData) => loginInUser(data),
 	});
 }

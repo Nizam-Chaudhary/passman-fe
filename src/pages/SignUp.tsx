@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input';
 import LoadingSpinner from '@/components/ui/loadingSpinner';
 import { useToast } from '@/hooks/use-toast';
 import { useSignUpUser } from '@/services/mutation';
-import { SignUpData, signUpUserSchema } from '@/types/signup';
+import { SignUpUserData, signUpUserSchema } from '@/types/signup';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { NavLink, useNavigate } from 'react-router';
@@ -38,7 +38,7 @@ export default function SignUp() {
 		},
 	});
 
-	function onSubmit(data: SignUpData) {
+	function onSubmit(data: SignUpUserData) {
 		mutateSignUpUser.mutate(data, {
 			onError: (error) => {
 				toast({
@@ -58,7 +58,6 @@ export default function SignUp() {
 
 	return (
 		<>
-			{/* <Card className="w-[30rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"> */}
 			<Card className="m-auto min-w-96 w-2/6 my-32">
 				<CardHeader className="text-center text-2xl">
 					Create your account

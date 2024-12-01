@@ -14,19 +14,20 @@ import {
 	FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import LoadingSpinner from '@/components/ui/loadingSpinner';
+import { useToast } from '@/hooks/use-toast';
+import { useLoginUser } from '@/services/mutation';
+import { loginSchema, LoginUserData } from '@/types/login';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { NavLink } from 'react-router';
-
-import { z } from 'zod';
-
-const loginSchema = z.object({
-	email: z.string().email('Please enter valid email'),
-	password: z.string().min(10, 'Must contain at least 10 characters'),
-});
+import { NavLink, useNavigate } from 'react-router';
 
 export default function Login() {
-	const loginForm = useForm<z.infer<typeof loginSchema>>({
+	const { toast } = useToast();
+	const navigate = useNavigate();
+	const mutateLoginUser = useLoginUser();
+
+	const loginForm = useForm<LoginUserData>({
 		resolver: zodResolver(loginSchema),
 		defaultValues: {
 			email: '',
@@ -34,13 +35,26 @@ export default function Login() {
 		},
 	});
 
-	function onSubmit(values: z.infer<typeof loginSchema>) {
-		console.log('Values: ', values);
+	function onSubmit(data: LoginUserData) {
+		mutateLoginUser.mutate(data, {
+			onError: (error) => {
+				toast({
+					variant: 'destructive',
+					title: 'Error logging in!',
+					description: error.message,
+				});
+			},
+			onSuccess: () => {
+				toast({
+					title: 'Logged in successfully!',
+				});
+				navigate('/');
+			},
+		});
 	}
 
 	return (
 		<>
-			{/* <Card className="w-[30rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"> */}
 			<Card className="m-auto min-w-96 w-2/6 my-32">
 				<CardHeader className="text-center text-2xl">
 					Login to your account
@@ -84,9 +98,11 @@ export default function Login() {
 							<Button
 								className="text-center w-full"
 								type="submit"
-								disabled={!loginForm.formState.isDirty}
+								disabled={
+									!loginForm.formState.isDirty || mutateLoginUser.isPending
+								}
 							>
-								Login
+								{mutateLoginUser.isPending ? <LoadingSpinner /> : 'Login'}
 							</Button>
 						</form>
 					</Form>

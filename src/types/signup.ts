@@ -6,5 +6,4 @@ export const signUpUserSchema = z.object({
 	password: z.string().min(10, 'Must contain at least 10 characters'),
 });
 
-export type SignUpData = z.infer<typeof signUpUserSchema>;
-
+export type SignUpUserData = z.infer<typeof signUpUserSchema>;
