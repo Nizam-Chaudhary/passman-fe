@@ -81,7 +81,11 @@ export default function Login() {
 									</FormItem>
 								)}
 							/>
-							<Button className="text-center w-full" type="submit">
+							<Button
+								className="text-center w-full"
+								type="submit"
+								disabled={!loginForm.formState.isDirty}
+							>
 								Login
 							</Button>
 						</form>

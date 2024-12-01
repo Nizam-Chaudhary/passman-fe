@@ -96,7 +96,11 @@ export default function SignUp() {
 									</FormItem>
 								)}
 							/>
-							<Button className="text-center w-full" type="submit">
+							<Button
+								className="text-center w-full"
+								type="submit"
+								disabled={!signUpForm.formState.isDirty}
+							>
 								Sign Up
 							</Button>
 						</form>
