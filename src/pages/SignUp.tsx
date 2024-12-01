@@ -14,21 +14,23 @@ import {
 	FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import LoadingSpinner from '@/components/ui/loadingSpinner';
+import { useToast } from '@/hooks/use-toast';
+import { useSignUpUser } from '@/services/mutation';
+import { SignUpData, signUpUserSchema } from '@/types/signup';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 
 import { z } from 'zod';
 
-const signUpSchema = z.object({
-	userName: z.string().min(3, 'Please Enter user name'),
-	email: z.string().email('Please enter valid email'),
-	password: z.string().min(10, 'Must contain at least 10 characters'),
-});
-
 export default function SignUp() {
-	const signUpForm = useForm<z.infer<typeof signUpSchema>>({
-		resolver: zodResolver(signUpSchema),
+	const { toast } = useToast();
+	const navigate = useNavigate();
+	const mutateSignUpUser = useSignUpUser();
+
+	const signUpForm = useForm<z.infer<typeof signUpUserSchema>>({
+		resolver: zodResolver(signUpUserSchema),
 		defaultValues: {
 			userName: '',
 			email: '',
@@ -36,8 +38,22 @@ export default function SignUp() {
 		},
 	});
 
-	function onSubmit(values: z.infer<typeof signUpSchema>) {
-		console.log('Values: ', values);
+	function onSubmit(data: SignUpData) {
+		mutateSignUpUser.mutate(data, {
+			onError: (error) => {
+				toast({
+					variant: 'destructive',
+					title: 'Error Signing up!',
+					description: error.message,
+				});
+			},
+			onSuccess: () => {
+				toast({
+					title: 'Signed up successfully!',
+				});
+				navigate('/');
+			},
+		});
 	}
 
 	return (
@@ -99,9 +115,11 @@ export default function SignUp() {
 							<Button
 								className="text-center w-full"
 								type="submit"
-								disabled={!signUpForm.formState.isDirty}
+								disabled={
+									!signUpForm.formState.isDirty || mutateSignUpUser.isPending
+								}
 							>
-								Sign Up
+								{mutateSignUpUser.isPending ? <LoadingSpinner /> : 'Sign Up'}
 							</Button>
 						</form>
 					</Form>

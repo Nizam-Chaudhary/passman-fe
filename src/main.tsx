@@ -7,6 +7,7 @@ import './index.css';
 import HomePage from './pages/Home.tsx';
 import Login from './pages/Login.tsx';
 import SignUp from './pages/SignUp.tsx';
+import { Toaster } from './components/ui/toaster.tsx';
 
 const queryClient = new QueryClient();
 
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')!).render(
 	<StrictMode>
 		<QueryClientProvider client={queryClient}>
 			<ReactQueryDevtools initialIsOpen={false} />
+			<Toaster />
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<HomePage />} />
