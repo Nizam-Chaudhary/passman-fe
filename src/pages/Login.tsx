@@ -109,7 +109,7 @@ export default function Login() {
 				</CardContent>
 				<CardFooter className="flex justify-center">
 					New to Passman?&nbsp;
-					<NavLink to="/sign-up" end>
+					<NavLink to="/sign-up" className="text-blue-700" end>
 						Sign Up
 					</NavLink>
 				</CardFooter>

@@ -125,7 +125,7 @@ export default function SignUp() {
 				</CardContent>
 				<CardFooter className="flex justify-center">
 					Already have an account?&nbsp;
-					<NavLink to="/login" end>
+					<NavLink to="/login" className="text-blue-700" end>
 						Login
 					</NavLink>
 				</CardFooter>
