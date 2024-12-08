@@ -16,8 +16,8 @@ import {
 import { Input } from '@/components/ui/input';
 import LoadingSpinner from '@/components/ui/loadingSpinner';
 import { useToast } from '@/hooks/use-toast';
+import { loginSchema, LoginUserData } from '@/lib/types/login';
 import { useLoginUser } from '@/services/mutation';
-import { loginSchema, LoginUserData } from '@/types/login';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { NavLink, useNavigate } from 'react-router';

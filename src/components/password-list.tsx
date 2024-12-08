@@ -21,12 +21,12 @@ export function PasswordList() {
 					<CardDescription>Vault description</CardDescription>
 				</CardHeader>
 				<CardContent>
-					{passwords.map((_value, index) => (
+					{passwords.map((value, index) => (
 						<div key={index} className="m-2 inline-flex w-full">
 							<Avatar></Avatar>
-							Password1
+							Password{value}
 							<br />
-							email@g.com
+							email@g{value}.com
 						</div>
 					))}
 				</CardContent>

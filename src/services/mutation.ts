@@ -1,5 +1,5 @@
-import { LoginUserData } from '@/types/login';
-import { SignUpUserData } from '@/types/signup';
+import { LoginUserData } from '@/lib/types/login';
+import { SignUpUserData } from '@/lib/types/signup';
 import { useMutation } from '@tanstack/react-query';
 import { loginInUser, signUpUser } from './api';
 

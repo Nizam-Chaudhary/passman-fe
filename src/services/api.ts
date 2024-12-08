@@ -1,6 +1,6 @@
-import { ApiResponse } from '@/types/common';
-import { LoginUserData } from '@/types/login';
-import { SignUpUserData } from '@/types/signup';
+import { ApiResponse } from '@/lib/types/common';
+import { LoginUserData } from '@/lib/types/login';
+import { SignUpUserData } from '@/lib/types/signup';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
