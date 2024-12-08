@@ -2,12 +2,14 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { PasswordList } from '@/components/password-list';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { KeyRound, LockIcon, Search } from 'lucide-react';
+import { useNavigate } from 'react-router';
 import { PasswordView } from './password-view';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { VaultComboBox } from './vault-combo-box';
 
 export default function HomePage() {
+  const navigate = useNavigate();
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -21,6 +23,7 @@ export default function HomePage() {
               <Button
                 variant="default"
                 className="ms-2 flex justify-between items-center"
+                onClick={() => navigate('/login')}
               >
                 Add Password
                 <KeyRound />

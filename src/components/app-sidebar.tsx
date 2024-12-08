@@ -1,21 +1,13 @@
 import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
   Frame,
   GalleryVerticalEnd,
   Lock,
-  LockKeyholeOpen,
   Map,
   Notebook,
   PieChart,
-  Settings2,
-  SquareTerminal,
 } from 'lucide-react';
 
 import { NavMain } from './nav-main';
-import { NavProjects } from './nav-projects';
 import { NavUser } from './nav-user';
 import { TeamSwitcher } from './team-swicher';
 import {
