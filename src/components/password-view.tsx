@@ -6,7 +6,7 @@ for (let i = 0; i < 100; i++) {
 	passwords[i] = i;
 }
 
-export function PasswordList() {
+export function PasswordView() {
 	return (
 		<>
 			<Card className="w-1/2 ms-2 me-2">
