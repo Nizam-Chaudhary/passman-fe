@@ -9,21 +9,21 @@ import { Toaster } from './components/ui/toaster.tsx';
 const queryClient = new QueryClient();
 
 export function App() {
-	return (
-		<>
-			<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-				<QueryClientProvider client={queryClient}>
-					<ReactQueryDevtools initialIsOpen={false} />
-					<Toaster />
-					<BrowserRouter>
-						<Routes>
-							<Route path="/" element={<HomePage />} />
-							<Route path="/sign-up" element={<SignUp />} />
-							<Route path="/login" element={<Login />} />
-						</Routes>
-					</BrowserRouter>
-				</QueryClientProvider>
-			</ThemeProvider>
-		</>
-	);
+  return (
+    <>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <Toaster />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/login" element={<Login />} />
+            </Routes>
+          </BrowserRouter>
+        </QueryClientProvider>
+      </ThemeProvider>
+    </>
+  );
 }
