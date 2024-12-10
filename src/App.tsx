@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { BrowserRouter, Route, Routes } from 'react-router';
-import HomePage from './components/Home.tsx';
+import Home from './components/Home.tsx';
 import Login from './components/Login.tsx';
 import SignUp from './components/SignUp.tsx';
 import { ThemeProvider } from './components/theme-provider.tsx';
@@ -17,7 +17,7 @@ export function App() {
           <Toaster />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<Home />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
             </Routes>

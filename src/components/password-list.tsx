@@ -1,5 +1,5 @@
-import { Avatar } from './ui/avatar';
-import { Card, CardContent } from './ui/card';
+import { Password } from './password';
+import { ScrollArea } from './ui/scroll-area';
 
 const passwords: number[] = [];
 for (let i = 0; i < 100; i++) {
@@ -9,18 +9,15 @@ for (let i = 0; i < 100; i++) {
 export function PasswordList() {
   return (
     <>
-      <Card className="w-1/2 ms-2 me-2">
-        <CardContent>
-          {passwords.map((value, index) => (
-            <div key={index} className="m-2 inline-flex w-full">
-              <Avatar></Avatar>
-              Password{value}
-              <br />
-              email@g{value}.com
-            </div>
-          ))}
-        </CardContent>
-      </Card>
+      <ScrollArea className="h-[88svh] w-1/2 rounded-md border">
+        {passwords.map((value, index) => (
+          <Password
+            key={index}
+            site={value.toString()}
+            email={value.toString()}
+          />
+        ))}
+      </ScrollArea>
     </>
   );
 }

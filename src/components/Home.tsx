@@ -8,12 +8,12 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { VaultComboBox } from './vault-combo-box';
 
-export default function HomePage() {
+export default function Home() {
   const navigate = useNavigate();
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main>
+      <main className="w-full">
         <div className="flex items-center  justify-between mt-2 mb-2">
           <div className="flex items-center w-1/2 me-5 justify-between gap-1">
             <SidebarTrigger className="align-middle size-6 ms-2" />
@@ -35,7 +35,7 @@ export default function HomePage() {
             <Search className="absolute inset-y-2 right-3 w-5 h-5 text-gray-500 pointer-events-none" />
           </div>
         </div>
-        <div className="flex items-center m-2">
+        <div className="flex m-1">
           <PasswordList />
           <PasswordView />
         </div>
