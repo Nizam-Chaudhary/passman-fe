@@ -9,7 +9,7 @@ for (let i = 0; i < 100; i++) {
 export function PasswordView() {
   return (
     <>
-      <Card className="w-1/2 h-auto ms-2 me-2">
+      <Card>
         <CardContent>
           <Label>Site</Label>
         </CardContent>
