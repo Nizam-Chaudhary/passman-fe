@@ -8,7 +8,6 @@ for (let i = 0; i < 100; i++) {
 }
 
 export function PasswordList() {
-    console.log("window", window.innerHeight);
     return (
         <>
             <Card className="h-[calc(100vh-2rem)]">

@@ -22,14 +22,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router";
 
-import { z } from "zod";
-
 export default function SignUp() {
     const { toast } = useToast();
     const navigate = useNavigate();
     const mutateSignUpUser = useSignUpUser();
 
-    const signUpForm = useForm<z.infer<typeof signUpUserSchema>>({
+    const signUpForm = useForm<SignUpUserData>({
         resolver: zodResolver(signUpUserSchema),
         defaultValues: {
             userName: "",
