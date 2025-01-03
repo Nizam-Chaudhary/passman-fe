@@ -13,11 +13,11 @@ export function PasswordList() {
             <Card className="h-[calc(100vh-2rem)]">
                 <CardContent className="p-0">
                     <ScrollArea className="h-[calc(100vh-2rem)]">
-                        {passwords.map(() => (
+                        {passwords.map((value, index) => (
                             <PasswordRow
-                            // key={index}
-                            // site={value.toString()}
-                            // title={value.toString()}
+                                key={index}
+                                // site={value.toString()}
+                                // title={value.toString()}
                             />
                         ))}
                     </ScrollArea>

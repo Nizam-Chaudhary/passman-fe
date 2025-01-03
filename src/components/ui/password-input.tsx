@@ -6,8 +6,6 @@ import { ComponentProps, forwardRef, useState } from "react";
 
 const PasswordInput = forwardRef<HTMLInputElement, ComponentProps<"input">>(
     ({ className, ...props }, ref) => {
-        const disabled =
-            props.value === "" || props.value === undefined || props.disabled;
         const [showPassword, setShowPassword] = useState(false);
 
         return (
@@ -15,15 +13,17 @@ const PasswordInput = forwardRef<HTMLInputElement, ComponentProps<"input">>(
                 <Input
                     type={showPassword ? "text" : "password"}
                     ref={ref}
-                    className={cn("hide-password-toggle pr-10", className)}
+                    className={cn("hide-password-toggle", className)}
                     {...props}
                 />
                 <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => setShowPassword((prev) => !prev)}
-                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                    disabled={disabled}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        setShowPassword((prev) => !prev);
+                    }}
+                    className="absolute right-8 top-0 h-full hover:bg-transparent"
                 >
                     {showPassword ? (
                         <EyeOffIcon className="size-4" aria-hidden="true" />

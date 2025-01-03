@@ -5,7 +5,7 @@ import Home from "./components/Home.tsx";
 import Login from "./components/Login.tsx";
 import SignUp from "./components/SignUp.tsx";
 import { ThemeProvider } from "./components/theme-provider.tsx";
-import { Toaster } from "./components/ui/toaster.tsx";
+import { Toaster } from "@/components/ui/toaster.tsx";
 const queryClient = new QueryClient();
 
 export function App() {
