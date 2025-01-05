@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { useToast } from "@/hooks/use-toast";
 import { loginSchema, LoginUserData } from "@/lib/types/login";
-import { useLoginUser } from "@/services/mutation";
+import { useLoginUser } from "@/services/mutation/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router";
@@ -102,10 +102,10 @@ export default function Login() {
                             <Button
                                 className="text-center w-full"
                                 type="submit"
-                                // disabled={
-                                //   !loginForm.formState.isDirty || mutateLoginUser.isPending
-                                // }
-                                onClick={() => navigate("/")}
+                                disabled={
+                                    !loginForm.formState.isDirty ||
+                                    mutateLoginUser.isPending
+                                }
                             >
                                 {mutateLoginUser.isPending ? (
                                     <LoadingSpinner />

@@ -4,12 +4,14 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 // import { KeyRound, LockIcon, Search } from 'lucide-react';
 // import { useNavigate } from 'react-router';
 import { PasswordView } from "./password-view";
+import { useEffect } from "react";
 // import { Button } from './ui/button';
 // import { Input } from './ui/input';
 // import { VaultComboBox } from './vault-combo-box';
 
 export default function Home() {
     // const navigate = useNavigate();
+
     return (
         <div className="">
             <SidebarProvider>

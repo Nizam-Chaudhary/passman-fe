@@ -6,9 +6,13 @@ import Login from "./components/Login.tsx";
 import SignUp from "./components/SignUp.tsx";
 import { ThemeProvider } from "./components/theme-provider.tsx";
 import { Toaster } from "@/components/ui/toaster.tsx";
+import { useEffect } from "react";
 const queryClient = new QueryClient();
 
 export function App() {
+    useEffect(() => {
+        console.log("env", import.meta.env.VITE_BE_BASE_URL);
+    });
     return (
         <>
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">

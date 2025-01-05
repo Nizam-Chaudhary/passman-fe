@@ -78,6 +78,7 @@ export function PasswordView() {
                                                 type="text"
                                                 placeholder="Enter Title"
                                                 className="mt-2"
+                                                value={field.value || ""}
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -97,6 +98,7 @@ export function PasswordView() {
                                                 type="text"
                                                 placeholder="Enter Site"
                                                 className="mt-2"
+                                                value={field.value || ""}
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -117,6 +119,7 @@ export function PasswordView() {
                                                     type="text"
                                                     placeholder="Enter Username / Email"
                                                     className="mt-2"
+                                                    value={field.value || ""}
                                                 />
                                                 <CopyToClipboard
                                                     text={field.value ?? ""}
@@ -195,6 +198,7 @@ export function PasswordView() {
                                                 rows={6}
                                                 className="mt-2 max-h-[150px]"
                                                 placeholder="Enter Notes"
+                                                value={field.value || ""}
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -202,7 +206,7 @@ export function PasswordView() {
                                 )}
                             />
                             <Button
-                                className="text-center w-full bg-blue-700 hover:bg-blue-600 text-white mt-4"
+                                className="text-center w-full bg-blue-700 hover:bg-blue-600 text-white"
                                 type="submit"
                             >
                                 Save
