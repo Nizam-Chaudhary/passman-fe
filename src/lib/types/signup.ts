@@ -12,4 +12,14 @@ export const signUpUserSchema = z.object({
         .regex(/[^A-Za-z0-9]/, "Must contain at least one special character"),
 });
 
-export type SignUpUserData = z.infer<typeof signUpUserSchema>;
+export type SignUpUserFormData = z.infer<typeof signUpUserSchema>;
+
+export type MasterKey = {
+    iv: string;
+    encrypted: string;
+};
+
+export type SignUpUserData = z.infer<typeof signUpUserSchema> & {
+    masterKey: MasterKey;
+    recoveryMasterKey: MasterKey;
+};

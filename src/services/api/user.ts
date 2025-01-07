@@ -1,30 +1,41 @@
 import { ApiResponse } from "@/lib/types/common";
 import { LoginUserData } from "@/lib/types/login";
-import { SignUpUserData } from "@/lib/types/signup";
+import { SignUpUserFormData } from "@/lib/types/signup";
+import axios, { isAxiosError } from "axios";
 
-setGlobalOrigin(import.meta.env.VITE_BE_BASE_URL);
-setGlobalDispatcher(agent);
+const instance = axios.create({
+    baseURL: import.meta.env.VITE_BE_BASE_URL,
+});
 
-export async function signUpUser(payload: SignUpUserData) {
-    const { body, statusCode } = await request(`/api/v1/users/sign-up`, {
-        method: "POST",
-        body: JSON.stringify(payload),
-    });
-    const data = (await body.json()) as ApiResponse;
-    return { data, statusCode };
+export async function signUpUser(payload: SignUpUserFormData) {
+    try {
+        return await instance.post<ApiResponse>(
+            "/api/v1/users/sign-up",
+            payload
+        );
+    } catch (error: unknown) {
+        if (isAxiosError(error)) {
+            throw error?.response?.data;
+        }
+        throw { message: "Error signing up!" };
+    }
 }
 
 export async function loginInUser(payload: LoginUserData) {
-    const { body, statusCode } = await request(`/api/v1/users/login`, {
-        method: "POST",
-        body: JSON.stringify(payload),
-    });
-    const data = (await body.json()) as ApiResponse;
-    return { data, statusCode };
+    try {
+        return await instance.post<ApiResponse>(
+            "/api/v1/users/sign-in",
+            payload
+        );
+    } catch (error: unknown) {
+        console.log("isAxiosError(error)", isAxiosError(error));
+        if (isAxiosError(error)) {
+            throw error?.response?.data;
+        }
+        throw { message: "Error logging in!" };
+    }
 }
 
 export async function logoutUser() {
-    const { body, statusCode } = await request(`/api/v1/users/logout`);
-    const data = (await body.json()) as ApiResponse;
-    return { data, statusCode };
+    return await instance.get<ApiResponse>("/api/v1/users/logout");
 }

@@ -38,3 +38,22 @@ export const editPasswordSchema = z
     });
 
 export type EditPassword = z.infer<typeof editPasswordSchema>;
+
+export type Password = {
+    id: number;
+    username?: string;
+    email?: string;
+    password: string;
+    appName: string;
+    baseUrl?: string;
+    specificUrl?: string;
+    faviconUrl?: string;
+    notes?: string;
+    createdAt?: string;
+    updatedAt?: string;
+};
+
+export type PasswordList = {
+    status: "success";
+    data: Password[];
+};

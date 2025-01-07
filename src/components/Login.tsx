@@ -38,10 +38,10 @@ export default function Login() {
     function onSubmit(data: LoginUserData) {
         mutateLoginUser.mutate(data, {
             onError: (error) => {
+                console.log("error", error);
                 toast({
                     variant: "destructive",
-                    title: "Error logging in!",
-                    description: error.message,
+                    title: error?.message,
                 });
             },
             onSuccess: () => {
@@ -102,10 +102,7 @@ export default function Login() {
                             <Button
                                 className="text-center w-full"
                                 type="submit"
-                                disabled={
-                                    !loginForm.formState.isDirty ||
-                                    mutateLoginUser.isPending
-                                }
+                                disabled={mutateLoginUser.isPending}
                             >
                                 {mutateLoginUser.isPending ? (
                                     <LoadingSpinner />

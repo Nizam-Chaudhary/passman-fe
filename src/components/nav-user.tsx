@@ -25,6 +25,9 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "@/components/ui/sidebar";
+import { useLogoutUser } from "@/services/mutation/user";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router";
 
 export function NavUser({
     user,
@@ -36,6 +39,26 @@ export function NavUser({
     };
 }) {
     const { isMobile } = useSidebar();
+    const { toast } = useToast();
+    const navigate = useNavigate();
+    const logoutMutation = useLogoutUser();
+
+    function logout() {
+        logoutMutation.mutate(undefined, {
+            onError() {
+                toast({
+                    variant: "destructive",
+                    description: "Error logging out!",
+                });
+            },
+            onSuccess() {
+                toast({
+                    description: "Logged out successfully.",
+                });
+                navigate("/login");
+            },
+        });
+    }
 
     return (
         <SidebarMenu>
@@ -116,7 +139,7 @@ export function NavUser({
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>
+                        <DropdownMenuItem onClick={logout}>
                             <LogOut />
                             Log out
                         </DropdownMenuItem>

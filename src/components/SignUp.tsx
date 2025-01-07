@@ -16,7 +16,15 @@ import {
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { useToast } from "@/hooks/use-toast";
-import { SignUpUserData, signUpUserSchema } from "@/lib/types/signup";
+import { getKeysFromIndexedDB, storeKeyInIndexedDB } from "@/lib/indexedDb";
+import { SignUpUserFormData, signUpUserSchema } from "@/lib/types/signup";
+import {
+    deriveKey,
+    encrypt,
+    generateMasterKey,
+    generateRecoveryKey,
+    generateSalt,
+} from "@/lib/encryption.helper";
 import { useSignUpUser } from "@/services/mutation/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -27,7 +35,7 @@ export default function SignUp() {
     const navigate = useNavigate();
     const mutateSignUpUser = useSignUpUser();
 
-    const signUpForm = useForm<SignUpUserData>({
+    const signUpForm = useForm<SignUpUserFormData>({
         resolver: zodResolver(signUpUserSchema),
         defaultValues: {
             userName: "",
@@ -36,8 +44,20 @@ export default function SignUp() {
         },
     });
 
-    function onSubmit(data: SignUpUserData) {
-        mutateSignUpUser.mutate(data, {
+    async function onSubmit(data: SignUpUserFormData) {
+        const userKey = await deriveKey(data.password, generateSalt());
+        console.log("userKey", userKey);
+
+        const masterKey = await encrypt(generateMasterKey(), userKey);
+        console.log("masterKey", masterKey);
+
+        const recoveryMasterKey = await encrypt(generateRecoveryKey(), userKey);
+        console.log("recoveryMasterKey", recoveryMasterKey);
+
+        const payload = { ...data, masterKey, recoveryMasterKey };
+        console.log("payload", payload);
+
+        mutateSignUpUser.mutate(payload, {
             onError: (error) => {
                 toast({
                     variant: "destructive",
@@ -45,11 +65,18 @@ export default function SignUp() {
                     description: error.message,
                 });
             },
-            onSuccess: () => {
+            onSuccess: async () => {
                 toast({
                     title: "Signed up successfully!",
                 });
-                navigate("/login");
+                const testkey = await storeKeyInIndexedDB(
+                    userKey.toString(),
+                    "userKey"
+                );
+                console.log("testkey", testkey);
+                const key = await getKeysFromIndexedDB("userKey");
+                console.log("key", key);
+                await navigate("/login");
             },
         });
     }
