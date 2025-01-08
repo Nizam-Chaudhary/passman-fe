@@ -19,6 +19,7 @@ import {
     FormMessage,
 } from "./ui/form";
 import { useToast } from "@/hooks/use-toast";
+import { ScrollArea } from "./ui/scroll-area";
 
 export function PasswordView() {
     const { toast } = useToast();
@@ -42,178 +43,187 @@ export function PasswordView() {
     return (
         <>
             <Card className="h-[calc(100vh-2rem)]">
-                <CardHeader>
-                    <div>
-                        <div className="flex justify-between items-center">
-                            <Avatar className="size-8 rounded-lg">
-                                <AvatarImage src="src/assets/shadcn.jpg" />
-                                <AvatarFallback>CN</AvatarFallback>
-                            </Avatar>
+                <ScrollArea className="h-[calc(100vh-2rem)]">
+                    <CardHeader>
+                        <div>
+                            <div className="flex justify-between items-center">
+                                <Avatar className="size-8 rounded-lg">
+                                    <AvatarImage src="src/assets/shadcn.jpg" />
+                                    <AvatarFallback>CN</AvatarFallback>
+                                </Avatar>
 
-                            <Button variant="destructive" className="size-10">
-                                <TrashIcon />
-                            </Button>
+                                <Button
+                                    variant="destructive"
+                                    className="size-10"
+                                >
+                                    <TrashIcon />
+                                </Button>
+                            </div>
+                            <Separator className="mt-4" />
                         </div>
-                        <Separator className="mt-4" />
-                    </div>
-                </CardHeader>
-                <CardContent>
-                    <Form {...editPasswordForm}>
-                        <form
-                            onSubmit={editPasswordForm.handleSubmit(
-                                onEditSubmit
-                            )}
-                            className="space-y-2"
-                        >
-                            <FormField
-                                control={editPasswordForm.control}
-                                name="appName"
-                                render={({ field }) => (
-                                    <FormItem className="mt-2">
-                                        <FormLabel>Title</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                {...field}
-                                                id="appName"
-                                                type="text"
-                                                placeholder="Enter Title"
-                                                className="mt-2"
-                                                value={field.value || ""}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
+                    </CardHeader>
+                    <CardContent>
+                        <Form {...editPasswordForm}>
+                            <form
+                                onSubmit={editPasswordForm.handleSubmit(
+                                    onEditSubmit
                                 )}
-                            />
-                            <FormField
-                                control={editPasswordForm.control}
-                                name="baseUrl"
-                                render={({ field }) => (
-                                    <FormItem className="mt-2">
-                                        <FormLabel>Site</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                {...field}
-                                                id="site"
-                                                type="text"
-                                                placeholder="Enter Site"
-                                                className="mt-2"
-                                                value={field.value || ""}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={editPasswordForm.control}
-                                name="username"
-                                render={({ field }) => (
-                                    <FormItem className="mt-2">
-                                        <FormLabel>Username / Email</FormLabel>
-                                        <FormControl>
-                                            <div className="relative">
+                                className="space-y-2"
+                            >
+                                <FormField
+                                    control={editPasswordForm.control}
+                                    name="appName"
+                                    render={({ field }) => (
+                                        <FormItem className="mt-2">
+                                            <FormLabel>Title</FormLabel>
+                                            <FormControl>
                                                 <Input
                                                     {...field}
-                                                    id="username"
+                                                    id="appName"
                                                     type="text"
-                                                    placeholder="Enter Username / Email"
+                                                    placeholder="Enter Title"
                                                     className="mt-2"
                                                     value={field.value || ""}
                                                 />
-                                                <CopyToClipboard
-                                                    text={field.value ?? ""}
-                                                >
-                                                    <Button
-                                                        size="sm"
-                                                        variant="ghost"
-                                                        className="absolute top-0 right-0 cursor-pointer h-full hover:bg-transparent"
-                                                        onClick={(e) => {
-                                                            e.preventDefault();
-                                                            toast({
-                                                                description:
-                                                                    "Username copied to clipboard",
-                                                            });
-                                                        }}
-                                                    >
-                                                        <ClipboardCopyIcon />
-                                                    </Button>
-                                                </CopyToClipboard>
-                                            </div>
-                                        </FormControl>
-
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={editPasswordForm.control}
-                                name="password"
-                                render={({ field }) => (
-                                    <FormItem className="mt-2">
-                                        <FormLabel>Password</FormLabel>
-                                        <FormControl>
-                                            <div className="relative">
-                                                <PasswordInput
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={editPasswordForm.control}
+                                    name="baseUrl"
+                                    render={({ field }) => (
+                                        <FormItem className="mt-2">
+                                            <FormLabel>Site</FormLabel>
+                                            <FormControl>
+                                                <Input
                                                     {...field}
-                                                    id="password"
-                                                    placeholder="Enter Password"
+                                                    id="site"
+                                                    type="text"
+                                                    placeholder="Enter Site"
                                                     className="mt-2"
+                                                    value={field.value || ""}
                                                 />
-
-                                                <CopyToClipboard
-                                                    text={field.value}
-                                                >
-                                                    <Button
-                                                        size="sm"
-                                                        variant="ghost"
-                                                        className="absolute top-0 right-0 cursor-pointer h-full hover:bg-transparent"
-                                                        onClick={(e) => {
-                                                            e.preventDefault();
-                                                            toast({
-                                                                description:
-                                                                    "Password copied to clipboard",
-                                                            });
-                                                        }}
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={editPasswordForm.control}
+                                    name="username"
+                                    render={({ field }) => (
+                                        <FormItem className="mt-2">
+                                            <FormLabel>
+                                                Username / Email
+                                            </FormLabel>
+                                            <FormControl>
+                                                <div className="relative">
+                                                    <Input
+                                                        {...field}
+                                                        id="username"
+                                                        type="text"
+                                                        placeholder="Enter Username / Email"
+                                                        className="mt-2"
+                                                        value={
+                                                            field.value || ""
+                                                        }
+                                                    />
+                                                    <CopyToClipboard
+                                                        text={field.value ?? ""}
                                                     >
-                                                        <ClipboardCopyIcon />
-                                                    </Button>
-                                                </CopyToClipboard>
-                                            </div>
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={editPasswordForm.control}
-                                name="notes"
-                                render={({ field }) => (
-                                    <FormItem className="mt-2">
-                                        <FormLabel>Notes</FormLabel>
-                                        <FormControl>
-                                            <Textarea
-                                                {...field}
-                                                id="notes"
-                                                rows={6}
-                                                className="mt-2 max-h-[150px]"
-                                                placeholder="Enter Notes"
-                                                value={field.value || ""}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <Button
-                                className="text-center w-full bg-blue-700 hover:bg-blue-600 text-white"
-                                type="submit"
-                            >
-                                Save
-                            </Button>
-                        </form>
-                    </Form>
-                </CardContent>
+                                                        <Button
+                                                            size="sm"
+                                                            variant="ghost"
+                                                            className="absolute top-0 right-0 cursor-pointer h-full hover:bg-transparent"
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                toast({
+                                                                    description:
+                                                                        "Username copied to clipboard",
+                                                                });
+                                                            }}
+                                                        >
+                                                            <ClipboardCopyIcon />
+                                                        </Button>
+                                                    </CopyToClipboard>
+                                                </div>
+                                            </FormControl>
+
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={editPasswordForm.control}
+                                    name="password"
+                                    render={({ field }) => (
+                                        <FormItem className="mt-2">
+                                            <FormLabel>Password</FormLabel>
+                                            <FormControl>
+                                                <div className="relative">
+                                                    <PasswordInput
+                                                        {...field}
+                                                        id="password"
+                                                        placeholder="Enter Password"
+                                                        className="mt-2"
+                                                    />
+
+                                                    <CopyToClipboard
+                                                        text={field.value}
+                                                    >
+                                                        <Button
+                                                            size="sm"
+                                                            variant="ghost"
+                                                            className="absolute top-0 right-0 cursor-pointer h-full hover:bg-transparent"
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                toast({
+                                                                    description:
+                                                                        "Password copied to clipboard",
+                                                                });
+                                                            }}
+                                                        >
+                                                            <ClipboardCopyIcon />
+                                                        </Button>
+                                                    </CopyToClipboard>
+                                                </div>
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={editPasswordForm.control}
+                                    name="notes"
+                                    render={({ field }) => (
+                                        <FormItem className="mt-2">
+                                            <FormLabel>Notes</FormLabel>
+                                            <FormControl>
+                                                <Textarea
+                                                    {...field}
+                                                    id="notes"
+                                                    rows={6}
+                                                    className="mt-2 max-h-[150px]"
+                                                    placeholder="Enter Notes"
+                                                    value={field.value || ""}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <Button
+                                    className="text-center w-full bg-blue-700 hover:bg-blue-600 text-white"
+                                    type="submit"
+                                >
+                                    Save
+                                </Button>
+                            </form>
+                        </Form>
+                    </CardContent>
+                </ScrollArea>
             </Card>
         </>
     );

@@ -1,4 +1,7 @@
-export async function storeKeyInIndexedDB(encryptedKey: string, keyId: string) {
+export async function storeKeyInIndexedDB(
+    encryptedKey: CryptoKey,
+    keyId: string
+) {
     const dbRequest = indexedDB.open("KeyDatabase", 1);
 
     dbRequest.onupgradeneeded = function () {
@@ -9,17 +12,30 @@ export async function storeKeyInIndexedDB(encryptedKey: string, keyId: string) {
     };
 
     return new Promise((resolve, reject) => {
-        dbRequest.onsuccess = function () {
+        dbRequest.onsuccess = async function () {
             const db = dbRequest.result;
-            const transaction = db.transaction("keys", "readwrite");
-            const store = transaction.objectStore("keys");
-            store.put({
-                id: keyId,
-                key: encryptedKey,
-                timestamp: Date.now(),
-            });
-            transaction.oncomplete = resolve;
-            transaction.onerror = reject;
+            try {
+                // Export the CryptoKey to JWK format
+                const exportedKey = await crypto.subtle.exportKey(
+                    "jwk",
+                    encryptedKey
+                );
+
+                const transaction = db.transaction("keys", "readwrite");
+                const store = transaction.objectStore("keys");
+
+                // Store the exported key
+                store.put({
+                    id: keyId,
+                    key: exportedKey,
+                    timestamp: Date.now(),
+                });
+
+                transaction.oncomplete = resolve;
+                transaction.onerror = reject;
+            } catch (error) {
+                reject(error);
+            }
         };
 
         dbRequest.onerror = function () {
@@ -28,7 +44,9 @@ export async function storeKeyInIndexedDB(encryptedKey: string, keyId: string) {
     });
 }
 
-export async function getKeysFromIndexedDB(keyId: string) {
+export async function getKeysFromIndexedDB(
+    keyId: string
+): Promise<CryptoKey | null> {
     const dbRequest = indexedDB.open("KeyDatabase", 1);
 
     return new Promise((resolve, reject) => {
@@ -38,8 +56,27 @@ export async function getKeysFromIndexedDB(keyId: string) {
             const store = transaction.objectStore("keys");
             const request = store.get(keyId);
 
-            request.onsuccess = function () {
-                resolve(request.result ? request.result : null);
+            request.onsuccess = async function () {
+                const record = request.result;
+                if (!record) {
+                    resolve(null);
+                    return;
+                }
+
+                try {
+                    // Import the JWK back into a CryptoKey
+                    const importedKey = await crypto.subtle.importKey(
+                        "jwk",
+                        record.key,
+                        { name: "AES-GCM" }, // Algorithm details must match those used during derivation
+                        false,
+                        ["encrypt", "decrypt"]
+                    );
+
+                    resolve(importedKey);
+                } catch (error) {
+                    reject(error);
+                }
             };
             request.onerror = reject;
         };

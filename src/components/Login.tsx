@@ -13,9 +13,12 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
+import { jwtDecode } from "jwt-decode";
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { useToast } from "@/hooks/use-toast";
+import { deriveKey, generateSalt } from "@/lib/encryption.helper";
+import { storeKeyInIndexedDB } from "@/lib/indexedDb";
 import { loginSchema, LoginUserData } from "@/lib/types/login";
 import { useLoginUser } from "@/services/mutation/user";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,13 +41,17 @@ export default function Login() {
     function onSubmit(data: LoginUserData) {
         mutateLoginUser.mutate(data, {
             onError: (error) => {
-                console.log("error", error);
                 toast({
                     variant: "destructive",
                     title: error?.message,
                 });
             },
-            onSuccess: () => {
+            onSuccess: async (res) => {
+                const token = res.data.data.token;
+                const userData = jwtDecode(token);
+                localStorage.setItem("userData", JSON.stringify(userData));
+                const userKey = await deriveKey(data.password, generateSalt());
+                await storeKeyInIndexedDB(userKey, "userKey");
                 toast({
                     title: "Logged in successfully!",
                 });

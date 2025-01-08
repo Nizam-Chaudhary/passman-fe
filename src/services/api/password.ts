@@ -3,7 +3,6 @@ import axios, { isAxiosError } from "axios";
 
 const instance = axios.create({
     baseURL: import.meta.env.VITE_BE_BASE_URL,
-    withCredentials: true,
 });
 
 export async function getPasswords() {

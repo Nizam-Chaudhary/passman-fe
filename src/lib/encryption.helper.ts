@@ -25,7 +25,7 @@ export async function deriveKey(
         },
         keyMaterial,
         { name: "AES-GCM", length: 256 },
-        false, // This means we won't use the derived key for encryption directly here
+        true, // This means we won't use the derived key for encryption directly here
         ["encrypt", "decrypt"]
     );
 

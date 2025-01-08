@@ -46,16 +46,12 @@ export default function SignUp() {
 
     async function onSubmit(data: SignUpUserFormData) {
         const userKey = await deriveKey(data.password, generateSalt());
-        console.log("userKey", userKey);
 
         const masterKey = await encrypt(generateMasterKey(), userKey);
-        console.log("masterKey", masterKey);
 
         const recoveryMasterKey = await encrypt(generateRecoveryKey(), userKey);
-        console.log("recoveryMasterKey", recoveryMasterKey);
 
         const payload = { ...data, masterKey, recoveryMasterKey };
-        console.log("payload", payload);
 
         mutateSignUpUser.mutate(payload, {
             onError: (error) => {
@@ -69,13 +65,7 @@ export default function SignUp() {
                 toast({
                     title: "Signed up successfully!",
                 });
-                const testkey = await storeKeyInIndexedDB(
-                    userKey.toString(),
-                    "userKey"
-                );
-                console.log("testkey", testkey);
-                const key = await getKeysFromIndexedDB("userKey");
-                console.log("key", key);
+                await storeKeyInIndexedDB(userKey, "userKey");
                 await navigate("/login");
             },
         });
@@ -146,10 +136,7 @@ export default function SignUp() {
                             <Button
                                 className="text-center w-full"
                                 type="submit"
-                                disabled={
-                                    !signUpForm.formState.isDirty ||
-                                    mutateSignUpUser.isPending
-                                }
+                                disabled={mutateSignUpUser.isPending}
                             >
                                 {mutateSignUpUser.isPending ? (
                                     <LoadingSpinner />

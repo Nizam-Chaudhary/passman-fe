@@ -1,5 +1,5 @@
 import { ApiResponse } from "@/lib/types/common";
-import { LoginUserData } from "@/lib/types/login";
+import { LoginResponse, LoginUserData } from "@/lib/types/login";
 import { SignUpUserFormData } from "@/lib/types/signup";
 import axios, { isAxiosError } from "axios";
 
@@ -23,7 +23,7 @@ export async function signUpUser(payload: SignUpUserFormData) {
 
 export async function loginInUser(payload: LoginUserData) {
     try {
-        return await instance.post<ApiResponse>(
+        return await instance.post<LoginResponse>(
             "/api/v1/users/sign-in",
             payload
         );
@@ -34,8 +34,4 @@ export async function loginInUser(payload: LoginUserData) {
         }
         throw { message: "Error logging in!" };
     }
-}
-
-export async function logoutUser() {
-    return await instance.get<ApiResponse>("/api/v1/users/logout");
 }
