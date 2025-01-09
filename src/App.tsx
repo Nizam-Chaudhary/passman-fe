@@ -1,12 +1,27 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { createBrowserRouter, RouterProvider } from "react-router";
 import Home from "./components/Home.tsx";
 import Login from "./components/Login.tsx";
 import SignUp from "./components/SignUp.tsx";
 import { ThemeProvider } from "./components/theme-provider.tsx";
 import { Toaster } from "@/components/ui/toaster.tsx";
 const queryClient = new QueryClient();
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Home />,
+    },
+    {
+        path: "/sign-up",
+        element: <SignUp />,
+    },
+    {
+        path: "/login",
+        element: <Login />,
+    },
+]);
 
 export function App() {
     return (
@@ -15,13 +30,7 @@ export function App() {
                 <QueryClientProvider client={queryClient}>
                     <ReactQueryDevtools initialIsOpen={false} />
                     <Toaster />
-                    <BrowserRouter>
-                        <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/sign-up" element={<SignUp />} />
-                            <Route path="/login" element={<Login />} />
-                        </Routes>
-                    </BrowserRouter>
+                    <RouterProvider router={router} />
                 </QueryClientProvider>
             </ThemeProvider>
         </>

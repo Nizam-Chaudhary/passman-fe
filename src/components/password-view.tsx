@@ -42,8 +42,8 @@ export function PasswordView() {
     };
     return (
         <>
-            <Card className="h-[calc(100vh-2rem)]">
-                <ScrollArea className="h-[calc(100vh-2rem)]">
+            <Card className="h-[calc(100vh-5.5rem)]">
+                <ScrollArea className="h-[calc(100vh-5.5rem)]">
                     <CardHeader>
                         <div>
                             <div className="flex justify-between items-center">

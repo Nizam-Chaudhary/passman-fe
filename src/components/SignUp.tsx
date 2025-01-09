@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { useToast } from "@/hooks/use-toast";
-import { getKeysFromIndexedDB, storeKeyInIndexedDB } from "@/lib/indexedDb";
+import { storeKeyInIndexedDB } from "@/lib/indexedDb";
 import { SignUpUserFormData, signUpUserSchema } from "@/lib/types/signup";
 import {
     deriveKey,

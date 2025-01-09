@@ -43,6 +43,7 @@ export function NavUser({
 
     function logout() {
         localStorage.removeItem("userData");
+        localStorage.removeItem("token");
         navigate("/login");
         toast({
             description: "Logged out successfully",

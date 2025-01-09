@@ -49,6 +49,7 @@ export default function Login() {
             onSuccess: async (res) => {
                 const token = res.data.data.token;
                 const userData = jwtDecode(token);
+                localStorage.setItem("token", token);
                 localStorage.setItem("userData", JSON.stringify(userData));
                 const userKey = await deriveKey(data.password, generateSalt());
                 await storeKeyInIndexedDB(userKey, "userKey");
