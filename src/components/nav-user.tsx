@@ -47,6 +47,7 @@ export function NavUser({
         navigate("/login");
         toast({
             description: "Logged out successfully",
+            className: "bg-green-700",
         });
     }
 

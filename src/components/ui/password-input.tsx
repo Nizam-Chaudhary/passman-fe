@@ -23,7 +23,7 @@ const PasswordInput = forwardRef<HTMLInputElement, ComponentProps<"input">>(
                         e.preventDefault();
                         setShowPassword((prev) => !prev);
                     }}
-                    className="absolute right-8 top-0 h-full hover:bg-transparent"
+                    className="absolute right-0 top-0 h-full hover:bg-transparent"
                 >
                     {showPassword ? (
                         <EyeOffIcon className="size-4" aria-hidden="true" />

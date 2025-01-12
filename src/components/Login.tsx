@@ -24,6 +24,7 @@ import { useLoginUser } from "@/services/mutation/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router";
+import { PasswordInput } from "./ui/password-input";
 
 export default function Login() {
     const { toast } = useToast();
@@ -42,7 +43,7 @@ export default function Login() {
         mutateLoginUser.mutate(data, {
             onError: (error) => {
                 toast({
-                    variant: "destructive",
+                    className: "bg-red-700",
                     title: error?.message,
                 });
             },
@@ -54,6 +55,7 @@ export default function Login() {
                 const userKey = await deriveKey(data.password, generateSalt());
                 await storeKeyInIndexedDB(userKey, "userKey");
                 toast({
+                    className: "bg-green-700",
                     title: "Logged in successfully!",
                 });
                 navigate("/");
@@ -97,9 +99,8 @@ export default function Login() {
                                     <FormItem>
                                         <FormLabel>Password</FormLabel>
                                         <FormControl>
-                                            <Input
+                                            <PasswordInput
                                                 placeholder="Password"
-                                                type="password"
                                                 {...field}
                                             />
                                         </FormControl>

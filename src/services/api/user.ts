@@ -28,7 +28,6 @@ export async function loginInUser(payload: LoginUserData) {
             payload
         );
     } catch (error: unknown) {
-        console.log("isAxiosError(error)", isAxiosError(error));
         if (isAxiosError(error)) {
             throw error?.response?.data;
         }

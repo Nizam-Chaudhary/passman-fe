@@ -1,59 +1,47 @@
 import { z } from "zod";
 
-export const editPasswordSchema = z
-    .object({
-        username: z
-            .string()
-            .transform((val) => (val === "" ? null : val))
-            .optional(),
-        email: z
-            .string()
-            .transform((val) => (val === "" ? null : val))
-            .optional(),
-        password: z.string().min(1, "Password is required"),
-        appName: z
-            .string()
-            .transform((val) => (val === "" ? null : val))
-            .optional(),
-        baseUrl: z
-            .string()
-            .transform((val) => (val === "" ? null : val))
-            .optional(),
-        specificUrl: z
-            .string()
-            .transform((val) => (val === "" ? null : val))
-            .optional(),
-        faviconUrl: z
-            .string()
-            .transform((val) => (val === "" ? null : val))
-            .optional(),
-        notes: z
-            .string()
-            .transform((val) => (val === "" ? null : val))
-            .optional(),
-    })
-    .refine((data) => data.username != null || data.email != null, {
-        message: "Either username or email must be provided",
-        path: ["username"],
-    });
+export const passwordSchema = z.object({
+    site: z.string().min(1, "Site is required"),
+    username: z.string().min(1, "Username is required"),
+    password: z.string().min(1, "Password is required"),
+    note: z
+        .string()
+        .transform((val) => (val === "" ? null : val))
+        .nullable()
+        .optional(),
+});
 
-export type EditPassword = z.infer<typeof editPasswordSchema>;
+export type Password = z.infer<typeof passwordSchema>;
 
-export type Password = {
+export const passwordPayloadSchema = passwordSchema.extend({
+    password: z.object({
+        iv: z.string(),
+        encrypted: z.string(),
+    }),
+});
+
+export type PasswordPayload = z.infer<typeof passwordPayloadSchema>;
+
+export type GetPassword = {
     id: number;
-    username?: string;
-    email?: string;
-    password: string;
-    appName: string;
-    baseUrl?: string;
-    specificUrl?: string;
+    site: string;
+    username: string;
+    password: {
+        iv: string;
+        encrypted: string;
+    };
     faviconUrl?: string;
-    notes?: string;
-    createdAt?: string;
-    updatedAt?: string;
+    note: string;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type GetPasswordById = {
+    status: "success";
+    data: GetPassword;
 };
 
 export type PasswordList = {
     status: "success";
-    data: Password[];
+    data: GetPassword[];
 };

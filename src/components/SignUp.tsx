@@ -29,6 +29,7 @@ import { useSignUpUser } from "@/services/mutation/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router";
+import { PasswordInput } from "./ui/password-input";
 
 export default function SignUp() {
     const { toast } = useToast();
@@ -56,13 +57,14 @@ export default function SignUp() {
         mutateSignUpUser.mutate(payload, {
             onError: (error) => {
                 toast({
-                    variant: "destructive",
+                    className: "bg-red-700",
                     title: "Error Signing up!",
                     description: error.message,
                 });
             },
             onSuccess: async () => {
                 toast({
+                    className: "bg-green-700",
                     title: "Signed up successfully!",
                 });
                 await storeKeyInIndexedDB(userKey, "userKey");
@@ -123,9 +125,8 @@ export default function SignUp() {
                                     <FormItem>
                                         <FormLabel>Password</FormLabel>
                                         <FormControl>
-                                            <Input
+                                            <PasswordInput
                                                 placeholder="Password"
-                                                type="password"
                                                 {...field}
                                             />
                                         </FormControl>
