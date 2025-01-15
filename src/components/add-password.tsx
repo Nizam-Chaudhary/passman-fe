@@ -29,6 +29,9 @@ import { useAddPassword } from "@/services/mutation/password";
 import { Input } from "./ui/input";
 import { PasswordInput } from "./ui/password-input";
 import { Textarea } from "./ui/textarea";
+import { USER_KEY } from "@/lib/constants";
+import { useStore } from "@/store/store";
+import { useShallow } from "zustand/react/shallow";
 
 type Props = {
     open: boolean;
@@ -36,6 +39,13 @@ type Props = {
 };
 export default function AddPassword({ open, setOpen }: Props) {
     const { toast } = useToast();
+
+    const { currentVault } = useStore(
+        useShallow((state) => ({
+            currentVault: state.currentVault,
+        }))
+    );
+
     const addPasswordMutation = useAddPassword();
     const form = useForm<Password>({
         resolver: zodResolver(passwordSchema),
@@ -48,7 +58,7 @@ export default function AddPassword({ open, setOpen }: Props) {
     });
 
     const onSubmit: SubmitHandler<Password> = async (data) => {
-        const encryptionKey = await getKeysFromIndexedDB("userKey");
+        const encryptionKey = await getKeysFromIndexedDB(USER_KEY);
         if (!encryptionKey) {
             toast({
                 className: "bg-red-700",
@@ -61,6 +71,7 @@ export default function AddPassword({ open, setOpen }: Props) {
         const payload = passwordPayloadSchema.parse({
             ...data,
             password: encryptedPassword,
+            vaultId: currentVault?.id,
         });
 
         addPasswordMutation.mutate(payload, {

@@ -9,46 +9,32 @@ import { VaultComboBox } from "./vault-combo-box";
 import AddPassword from "./add-password";
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router";
-import { useQueryClient } from "@tanstack/react-query";
 import debounce from "lodash/debounce";
 
 export default function Home() {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [searchTerm, setSearchTerm] = useState("");
-    const queryClient = useQueryClient();
     const [openAddPasswordDialog, setOpenAddPasswordDialog] = useState(false);
 
-    const debouncedRefetch = useMemo(
+    const debouncedSearch = useMemo(
         () =>
-            debounce(() => {
-                queryClient.refetchQueries({
-                    queryKey: ["passwords"],
-                    exact: true,
-                });
-            }, 300),
-        [queryClient]
+            debounce((searchTerm: string) => {
+                if (searchTerm === "") {
+                    searchParams.delete("q");
+                } else {
+                    searchParams.set("q", searchTerm);
+                }
+                setSearchParams(searchParams);
+            }, 500),
+        [searchParams, setSearchParams]
     );
 
+    // Cleanup the debounced function on unmount
     useEffect(() => {
-        if (searchTerm === "") {
-            searchParams.delete("q");
-        } else {
-            searchParams.set("q", searchTerm);
-        }
-        setSearchParams(searchParams);
-
-        debouncedRefetch();
-
         return () => {
-            debouncedRefetch.cancel();
+            debouncedSearch.cancel();
         };
-    }, [
-        searchTerm,
-        queryClient,
-        searchParams,
-        setSearchParams,
-        debouncedRefetch,
-    ]);
+    }, [debouncedSearch]);
+
     return (
         <div>
             <SidebarProvider>
@@ -68,8 +54,10 @@ export default function Home() {
                                     className="pr-10"
                                     placeholder="Search"
                                     onChange={(e) => {
-                                        setSearchTerm(e.target.value);
+                                        const searchTerm = e.target.value;
+                                        debouncedSearch(searchTerm);
                                     }}
+                                    defaultValue={searchParams.get("q") || ""}
                                 />
                                 <Search className="absolute right-3 w-5 h-5 text-gray-500 pointer-events-none" />
                             </div>

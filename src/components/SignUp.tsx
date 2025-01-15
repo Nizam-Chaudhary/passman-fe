@@ -30,6 +30,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router";
 import { PasswordInput } from "./ui/password-input";
+import { USER_KEY } from "@/lib/constants";
 
 export default function SignUp() {
     const { toast } = useToast();
@@ -67,7 +68,7 @@ export default function SignUp() {
                     className: "bg-green-700",
                     title: "Signed up successfully!",
                 });
-                await storeKeyInIndexedDB(userKey, "userKey");
+                await storeKeyInIndexedDB(userKey, USER_KEY);
                 await navigate("/login");
             },
         });

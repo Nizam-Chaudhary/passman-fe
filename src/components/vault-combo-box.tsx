@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
-import { Check, ChevronsUpDown } from "lucide-react";
-import { useState } from "react";
+import { Check, ChevronsUpDown, PlusIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import {
     Command,
@@ -11,12 +11,28 @@ import {
     CommandList,
 } from "./ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-
-const vaults = ["Default", "Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"];
+import { useVaults } from "@/services/queries/vault";
+import { useStore } from "@/store/store";
+import { useShallow } from "zustand/react/shallow";
+import AddVault from "./add-vault";
 
 export function VaultComboBox() {
     const [open, setOpen] = useState(false);
-    const [currentVault, setCurrentVault] = useState("Default");
+
+    const { currentVault, setCurrentVault, setOpenAddVaultDialog } = useStore(
+        useShallow((state) => ({
+            currentVault: state.currentVault,
+            setCurrentVault: state.setCurrentVault,
+            setOpenAddVaultDialog: state.setOpenAddVaultDialog,
+        }))
+    );
+    const { data: vaults } = useVaults();
+
+    useEffect(() => {
+        if (vaults) {
+            setCurrentVault(vaults.find((vault) => vault.name === "Default"));
+        }
+    }, [vaults, setCurrentVault]);
 
     return (
         <>
@@ -28,7 +44,7 @@ export function VaultComboBox() {
                         aria-expanded={open}
                         className="justify-between w-[200px]"
                     >
-                        {currentVault}
+                        {currentVault?.name}
                         <ChevronsUpDown className="opacity-50" />
                     </Button>
                 </PopoverTrigger>
@@ -38,31 +54,48 @@ export function VaultComboBox() {
                         <CommandList>
                             <CommandEmpty>No vaults added...</CommandEmpty>
                             <CommandGroup>
-                                {vaults.map((vault, index) => (
+                                {(vaults || []).map((vault, index) => (
                                     <CommandItem
                                         key={index}
-                                        value={vault}
+                                        value={vault.name}
                                         onSelect={(vault) => {
-                                            setCurrentVault(vault);
+                                            setCurrentVault(
+                                                vaults?.find(
+                                                    (val) => val.name === vault
+                                                )
+                                            );
                                             setOpen(false);
                                         }}
                                     >
-                                        {vault}
+                                        {vault.name}
                                         <Check
                                             className={cn(
                                                 "ml-auto",
-                                                vault === currentVault
+                                                vault.id === currentVault?.id
                                                     ? "opacity-100"
                                                     : "opacity-0"
                                             )}
                                         />
                                     </CommandItem>
                                 ))}
+                                {vaults && vaults?.length < 5 ? (
+                                    <CommandItem
+                                        value={"Add Vault"}
+                                        onSelect={() => {
+                                            setOpenAddVaultDialog(true);
+                                            setOpen(false);
+                                        }}
+                                    >
+                                        <p>Add Vault</p>
+                                        <PlusIcon className="ml-auto" />
+                                    </CommandItem>
+                                ) : null}
                             </CommandGroup>
                         </CommandList>
                     </Command>
                 </PopoverContent>
             </Popover>
+            <AddVault />
         </>
     );
 }

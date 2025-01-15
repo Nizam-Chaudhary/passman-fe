@@ -1,13 +1,15 @@
+import { INDEXED_DB_KEYS_STORE, INDEXED_DB_NAME } from "./constants";
+
 export async function storeKeyInIndexedDB(
     encryptedKey: CryptoKey,
     keyId: string
 ) {
-    const dbRequest = indexedDB.open("KeyDatabase", 1);
+    const dbRequest = indexedDB.open(INDEXED_DB_NAME, 4);
 
-    dbRequest.onupgradeneeded = function () {
+    dbRequest.onupgradeneeded = () => {
         const db = dbRequest.result;
-        if (!db.objectStoreNames.contains("keys")) {
-            db.createObjectStore("keys", { keyPath: "id" });
+        if (!db.objectStoreNames.contains(INDEXED_DB_KEYS_STORE)) {
+            db.createObjectStore(INDEXED_DB_KEYS_STORE, { keyPath: "id" });
         }
     };
 
@@ -21,8 +23,11 @@ export async function storeKeyInIndexedDB(
                     encryptedKey
                 );
 
-                const transaction = db.transaction("keys", "readwrite");
-                const store = transaction.objectStore("keys");
+                const transaction = db.transaction(
+                    INDEXED_DB_KEYS_STORE,
+                    "readwrite"
+                );
+                const store = transaction.objectStore(INDEXED_DB_KEYS_STORE);
 
                 // Store the exported key
                 store.put({
@@ -47,13 +52,16 @@ export async function storeKeyInIndexedDB(
 export async function getKeysFromIndexedDB(
     keyId: string
 ): Promise<CryptoKey | null> {
-    const dbRequest = indexedDB.open("KeyDatabase", 1);
+    const dbRequest = indexedDB.open(INDEXED_DB_NAME, 4);
 
     return new Promise((resolve, reject) => {
         dbRequest.onsuccess = function () {
             const db = dbRequest.result;
-            const transaction = db.transaction("keys", "readonly");
-            const store = transaction.objectStore("keys");
+            const transaction = db.transaction(
+                INDEXED_DB_KEYS_STORE,
+                "readonly"
+            );
+            const store = transaction.objectStore(INDEXED_DB_KEYS_STORE);
             const request = store.get(keyId);
 
             request.onsuccess = async function () {

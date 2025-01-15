@@ -36,6 +36,7 @@ import { getKeysFromIndexedDB } from "@/lib/indexedDb";
 import { decrypt, encrypt } from "@/lib/encryption.helper";
 import ConfirmDialog from "./confirm-dialog";
 import { useQuery } from "@tanstack/react-query";
+import { USER_KEY } from "@/lib/constants";
 
 export function PasswordView() {
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
@@ -49,14 +50,14 @@ export function PasswordView() {
     const { data: encryptionKey } = useQuery({
         queryKey: ["encryptionKey"],
         queryFn: async () => {
-            return await getKeysFromIndexedDB("userKey");
+            return await getKeysFromIndexedDB(USER_KEY);
         },
     });
 
     const { data: password } = useQuery({
         queryKey: ["decryptPassword", { id: passwordId }],
         queryFn: async () => {
-            const encryptionKey = await getKeysFromIndexedDB("userKey");
+            const encryptionKey = await getKeysFromIndexedDB(USER_KEY);
             if (!encryptionKey || !data?.password) return null;
             return await decrypt(data?.password, encryptionKey);
         },
@@ -86,8 +87,8 @@ export function PasswordView() {
         return (
             <Card className="h-[calc(100vh-5.5rem)]">
                 <CardContent>
-                    <div className="flex flex-col justify-center items-center mt-20 gap-8">
-                        <img className="w-[50%]" src="src/assets/select.svg" />
+                    <div className="flex flex-col justify-center items-center h-[calc(100vh-10rem)] gap-8">
+                        <img className="w-[30vh]" src="src/assets/select.svg" />
                         <p className="text-3xl mt-2">
                             Select password from list
                         </p>
@@ -170,12 +171,12 @@ export function PasswordView() {
                 });
             },
             onSuccess: () => {
+                searchParams.delete("p");
+                setSearchParams(searchParams);
                 toast({
                     title: "Password deleted successfully.",
                     className: "bg-green-700",
                 });
-                searchParams.delete("p");
-                setSearchParams(searchParams);
                 setOpenDeleteDialog(false);
             },
         });

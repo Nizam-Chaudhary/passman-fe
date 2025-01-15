@@ -18,6 +18,7 @@ export const passwordPayloadSchema = passwordSchema.extend({
         iv: z.string(),
         encrypted: z.string(),
     }),
+    vaultId: z.coerce.number().min(0, "vault is required"),
 });
 
 export type PasswordPayload = z.infer<typeof passwordPayloadSchema>;

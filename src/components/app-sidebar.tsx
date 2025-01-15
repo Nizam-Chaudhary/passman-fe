@@ -17,15 +17,11 @@ import {
     SidebarHeader,
     SidebarRail,
 } from "./ui/sidebar";
+import { NavProjects } from "./nav-projects";
 
 // This is sample data.
 const data = {
-    user: {
-        name: "shadcn",
-        email: "m@example.com",
-        avatar: "/avatars/shadcn.jpg",
-    },
-    teams: [
+    app: [
         {
             name: "Passman",
             logo: GalleryVerticalEnd,
@@ -44,63 +40,48 @@ const data = {
     ],
     navMain: [
         {
-            title: "Vaults",
+            title: "Passwords",
             url: "#",
             icon: Lock,
-            isActive: false,
-            items: [],
+            isActive: true,
         },
         {
             title: "Notes",
             url: "#",
             icon: Notebook,
-            // items: [
-            // 	{
-            // 		title: 'Genesis',
-            // 		url: '#',
-            // 	},
-            // 	{
-            // 		title: 'Explorer',
-            // 		url: '#',
-            // 	},
-            // 	{
-            // 		title: 'Quantum',
-            // 		url: '#',
-            // 	},
-            // ],
         },
     ],
-    projects: [
-        {
-            name: "Design Engineering",
-            url: "#",
-            icon: Frame,
-        },
-        {
-            name: "Sales & Marketing",
-            url: "#",
-            icon: PieChart,
-        },
-        {
-            name: "Travel",
-            url: "#",
-            icon: Map,
-        },
-    ],
+    // projects: [
+    //     {
+    //         name: "Design Engineering",
+    //         url: "#",
+    //         icon: Frame,
+    //     },
+    //     {
+    //         name: "Sales & Marketing",
+    //         url: "#",
+    //         icon: PieChart,
+    //     },
+    //     {
+    //         name: "Travel",
+    //         url: "#",
+    //         icon: Map,
+    //     },
+    // ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar collapsible="icon" {...props}>
             <SidebarHeader>
-                <TeamSwitcher teams={data.teams} />
+                <TeamSwitcher teams={data.app} />
             </SidebarHeader>
             <SidebarContent>
                 <NavMain items={data.navMain} />
                 {/* <NavProjects projects={data.projects} /> */}
             </SidebarContent>
             <SidebarFooter>
-                <NavUser user={data.user} />
+                <NavUser />
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>

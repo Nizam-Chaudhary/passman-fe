@@ -3,15 +3,22 @@ import { PasswordRow } from "./password-row";
 import { Card, CardContent } from "./ui/card";
 import { ScrollArea } from "./ui/scroll-area";
 import { useSearchParams } from "react-router";
+import { useShallow } from "zustand/react/shallow";
+import { useStore } from "@/store/store";
 
 export function PasswordList() {
     const [searchParams] = useSearchParams();
+    const { currentVault } = useStore(
+        useShallow((state) => ({
+            currentVault: state.currentVault,
+        }))
+    );
     const {
         data: passwords,
         isPending,
         isError,
         isSuccess,
-    } = usePasswords(searchParams.get("q"));
+    } = usePasswords(currentVault?.id.toString(), searchParams.get("q"));
     return (
         <>
             <Card className="h-[calc(100vh-5.5rem)]">
@@ -19,7 +26,7 @@ export function PasswordList() {
                     <ScrollArea className="h-[calc(100vh-5.5rem)]">
                         {isPending ? "Pending" : null}
                         {isError ? "Error" : null}
-                        {isSuccess && passwords.data.length > 0 ? (
+                        {isSuccess && passwords?.data?.length > 0 ? (
                             passwords.data.map((password, index) => (
                                 <PasswordRow
                                     key={index}
@@ -31,7 +38,7 @@ export function PasswordList() {
                         ) : (
                             <div className="flex h-[calc(100vh-10rem)] flex-col justify-center items-center gap-8">
                                 <img
-                                    className="w-[50%]"
+                                    className="w-[40vh]"
                                     src="src/assets/no_data.svg"
                                 />
                                 <p className="text-3xl">No Passwords Found!</p>

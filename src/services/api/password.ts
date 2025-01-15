@@ -4,13 +4,17 @@ import {
     PasswordList,
     PasswordPayload,
 } from "@/lib/types/password";
+import { makeQueryString } from "@/lib/utils";
 import { isAxiosError } from "axios";
 
 const axiosInstance = instance();
 
-export async function getPasswords(search?: string | null) {
+export async function getPasswords(vaultId?: string, search?: string | null) {
     try {
-        const queryString = search ? `?search=${search}` : "";
+        const queryString = makeQueryString({
+            vaultId,
+            search,
+        });
         return (
             await axiosInstance.get<PasswordList>(
                 `/api/v1/passwords${queryString}`

@@ -1,6 +1,7 @@
 import { ApiResponse } from "@/lib/types/common";
 import { LoginResponse, LoginUserData } from "@/lib/types/login";
 import { SignUpUserFormData } from "@/lib/types/signup";
+import { GetUserResponseSchema } from "@/lib/types/user";
 import axios, { isAxiosError } from "axios";
 
 const instance = axios.create({
@@ -27,6 +28,17 @@ export async function loginInUser(payload: LoginUserData) {
             "/api/v1/users/sign-in",
             payload
         );
+    } catch (error: unknown) {
+        if (isAxiosError(error)) {
+            throw error?.response?.data;
+        }
+        throw { message: "Error logging in!" };
+    }
+}
+
+export async function getLoggedInUserDetails() {
+    try {
+        return await instance.get<GetUserResponseSchema>("/api/v1/users");
     } catch (error: unknown) {
         if (isAxiosError(error)) {
             throw error?.response?.data;

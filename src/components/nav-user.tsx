@@ -27,23 +27,21 @@ import {
 } from "@/components/ui/sidebar";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router";
+import { TOKEN_KEY, USER_DATA_KEY } from "@/lib/constants";
+import { useMemo } from "react";
 
-export function NavUser({
-    user,
-}: {
-    user: {
-        name: string;
-        email: string;
-        avatar: string;
-    };
-}) {
+export function NavUser() {
     const { isMobile } = useSidebar();
     const { toast } = useToast();
     const navigate = useNavigate();
+    const user = useMemo(
+        () => JSON.parse(localStorage.getItem(USER_DATA_KEY) || ""),
+        []
+    );
 
     function logout() {
-        localStorage.removeItem("userData");
-        localStorage.removeItem("token");
+        localStorage.removeItem(USER_DATA_KEY);
+        localStorage.removeItem(TOKEN_KEY);
         navigate("/login");
         toast({
             description: "Logged out successfully",
@@ -62,8 +60,8 @@ export function NavUser({
                         >
                             <Avatar className="h-8 w-8 rounded-lg">
                                 <AvatarImage
-                                    src="src/assets/shadcn.jpg"
-                                    alt={user.name}
+                                    src={user.avatar || "src/assets/shadcn.jpg"}
+                                    alt={user.userName}
                                 />
                                 <AvatarFallback className="rounded-lg">
                                     CN
@@ -71,7 +69,7 @@ export function NavUser({
                             </Avatar>
                             <div className="grid flex-1 text-left text-sm leading-tight">
                                 <span className="truncate font-semibold">
-                                    {user.name}
+                                    {user.userName}
                                 </span>
                                 <span className="truncate text-xs">
                                     {user.email}
@@ -90,16 +88,19 @@ export function NavUser({
                             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                 <Avatar className="h-8 w-8 rounded-lg">
                                     <AvatarImage
-                                        src={user.avatar}
-                                        alt={user.name}
+                                        src={
+                                            user.avatar ||
+                                            "src/assets/shadcn.jpg"
+                                        }
+                                        alt={user.userName}
                                     />
                                     <AvatarFallback className="rounded-lg">
-                                        CN
+                                        alt={user.userName}
                                     </AvatarFallback>
                                 </Avatar>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
                                     <span className="truncate font-semibold">
-                                        {user.name}
+                                        {user.userName}
                                     </span>
                                     <span className="truncate text-xs">
                                         {user.email}
@@ -108,7 +109,7 @@ export function NavUser({
                             </div>
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuGroup>
+                        {/* <DropdownMenuGroup>
                             <DropdownMenuItem>
                                 <Sparkles />
                                 Upgrade to Pro
@@ -129,7 +130,7 @@ export function NavUser({
                                 Notifications
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
-                        <DropdownMenuSeparator />
+                        <DropdownMenuSeparator /> */}
                         <DropdownMenuItem onClick={logout}>
                             <LogOut />
                             Log out

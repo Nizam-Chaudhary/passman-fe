@@ -10,7 +10,6 @@ export function useAddPassword() {
         onSuccess: () =>
             queryClient.invalidateQueries({
                 queryKey: ["passwords"],
-                exact: true,
             }),
     });
 }
@@ -23,7 +22,6 @@ export function useUpdatePassword() {
         onSuccess: () =>
             queryClient.invalidateQueries({
                 queryKey: ["passwords"],
-                exact: true,
             }),
     });
 }
@@ -35,7 +33,6 @@ export function useDeletePassword() {
         onSuccess: () =>
             queryClient.invalidateQueries({
                 queryKey: ["passwords"],
-                exact: true,
             }),
     });
 }

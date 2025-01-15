@@ -25,6 +25,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router";
 import { PasswordInput } from "./ui/password-input";
+import { TOKEN_KEY, USER_DATA_KEY, USER_KEY } from "@/lib/constants";
 
 export default function Login() {
     const { toast } = useToast();
@@ -50,10 +51,10 @@ export default function Login() {
             onSuccess: async (res) => {
                 const token = res.data.data.token;
                 const userData = jwtDecode(token);
-                localStorage.setItem("token", token);
-                localStorage.setItem("userData", JSON.stringify(userData));
+                localStorage.setItem(TOKEN_KEY, token);
+                localStorage.setItem(USER_DATA_KEY, JSON.stringify(userData));
                 const userKey = await deriveKey(data.password, generateSalt());
-                await storeKeyInIndexedDB(userKey, "userKey");
+                await storeKeyInIndexedDB(userKey, USER_KEY);
                 toast({
                     className: "bg-green-700",
                     title: "Logged in successfully!",
