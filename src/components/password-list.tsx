@@ -5,6 +5,7 @@ import { ScrollArea } from "./ui/scroll-area";
 import { useSearchParams } from "react-router";
 import { useShallow } from "zustand/react/shallow";
 import { useStore } from "@/store/store";
+import Loading from "./ui/loading";
 
 export function PasswordList() {
     const [searchParams] = useSearchParams();
@@ -17,16 +18,46 @@ export function PasswordList() {
         data: passwords,
         isPending,
         isError,
-        isSuccess,
     } = usePasswords(currentVault?.id.toString(), searchParams.get("q"));
+
+    if (isPending) {
+        return (
+            <Card className="h-[calc(100vh-5.5rem)]">
+                <CardContent>
+                    <div className="h-[calc(100vh-5.5rem)] flex items-center justify-center">
+                        <Loading />
+                    </div>
+                </CardContent>
+            </Card>
+        );
+    }
+
+    if (isError) {
+        return (
+            <Card className="h-[calc(100vh-5.5rem)]">
+                <CardContent>
+                    <div className="h-[calc(100vh-5.5rem)] flex items-center justify-center">
+                        <div className="flex flex-col justify-center items-center mt-20 gap-8">
+                            <img
+                                className="w-[50%]"
+                                src="src/assets/warning.svg"
+                            />
+                            <p className="text-3xl mt-2">
+                                Error fetching passwords
+                            </p>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+        );
+    }
+
     return (
         <>
             <Card className="h-[calc(100vh-5.5rem)]">
                 <CardContent className="p-0">
                     <ScrollArea className="h-[calc(100vh-5.5rem)]">
-                        {isPending ? "Pending" : null}
-                        {isError ? "Error" : null}
-                        {isSuccess && passwords?.data?.length > 0 ? (
+                        {passwords?.data?.length > 0 ? (
                             passwords.data.map((password, index) => (
                                 <PasswordRow
                                     key={index}
