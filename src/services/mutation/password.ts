@@ -1,5 +1,5 @@
 import { UpdateResourcePayload } from "@/lib/types/common";
-import { PasswordPayload } from "@/lib/types/password";
+import { PasswordPayload, UpdatePasswordPayload } from "@/lib/types/password";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addPassowrd, deletePassword, updatePassword } from "../api/password";
 
@@ -17,7 +17,7 @@ export function useAddPassword() {
 export function useUpdatePassword() {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (payload: UpdateResourcePayload<PasswordPayload>) =>
+        mutationFn: (payload: UpdateResourcePayload<UpdatePasswordPayload>) =>
             updatePassword(payload.id, payload.data),
         onSuccess: () =>
             queryClient.invalidateQueries({

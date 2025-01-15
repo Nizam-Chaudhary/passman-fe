@@ -3,6 +3,7 @@ import {
     GetPasswordById,
     PasswordList,
     PasswordPayload,
+    UpdatePasswordPayload,
 } from "@/lib/types/password";
 import { makeQueryString } from "@/lib/utils";
 import { isAxiosError } from "axios";
@@ -52,7 +53,10 @@ export async function addPassowrd(password: PasswordPayload) {
     }
 }
 
-export async function updatePassword(id: string, password: PasswordPayload) {
+export async function updatePassword(
+    id: string,
+    password: UpdatePasswordPayload
+) {
     try {
         return (await axiosInstance.put(`/api/v1/passwords/${id}`, password))
             .data;

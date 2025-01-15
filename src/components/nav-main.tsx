@@ -1,11 +1,10 @@
 "use client";
 
-import { ChevronRight, type LucideIcon } from "lucide-react";
+import { type LucideIcon } from "lucide-react";
 import { useState } from "react";
 
 import {
     SidebarGroup,
-    SidebarGroupLabel,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
@@ -48,7 +47,6 @@ export function NavMain({
                         >
                             {item.icon && <item.icon />}
                             <span>{item.title}</span>
-                            {/* <ChevronRight className="ml-auto" /> */}
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 ))}

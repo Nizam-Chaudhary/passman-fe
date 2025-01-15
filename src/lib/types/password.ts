@@ -23,6 +23,15 @@ export const passwordPayloadSchema = passwordSchema.extend({
 
 export type PasswordPayload = z.infer<typeof passwordPayloadSchema>;
 
+export const updatePasswordPayloadSchema = passwordSchema.extend({
+    password: z.object({
+        iv: z.string(),
+        encrypted: z.string(),
+    }),
+});
+
+export type UpdatePasswordPayload = z.infer<typeof updatePasswordPayloadSchema>;
+
 export type GetPassword = {
     id: number;
     site: string;

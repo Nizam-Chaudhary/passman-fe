@@ -9,6 +9,7 @@ import {
     Password,
     passwordPayloadSchema,
     passwordSchema,
+    updatePasswordPayloadSchema,
 } from "@/lib/types/password";
 import {
     Form,
@@ -138,7 +139,7 @@ export function PasswordView() {
             return;
         }
         const encryptedPassword = await encrypt(data.password, encryptionKey);
-        const updatedPassword = passwordPayloadSchema.parse({
+        const updatedPassword = updatePasswordPayloadSchema.parse({
             ...data,
             password: encryptedPassword,
         });

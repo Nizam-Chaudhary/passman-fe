@@ -1,11 +1,4 @@
-import {
-    Frame,
-    GalleryVerticalEnd,
-    Lock,
-    Map,
-    Notebook,
-    PieChart,
-} from "lucide-react";
+import { GalleryVerticalEnd, Lock } from "lucide-react";
 
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
@@ -17,27 +10,24 @@ import {
     SidebarHeader,
     SidebarRail,
 } from "./ui/sidebar";
-import { NavProjects } from "./nav-projects";
 
 // This is sample data.
 const data = {
-    app: [
-        {
-            name: "Passman",
-            logo: GalleryVerticalEnd,
-            plan: "Super",
-        },
-        // {
-        // 	name: 'Acme Corp.',
-        // 	logo: AudioWaveform,
-        // 	plan: 'Startup',
-        // },
-        // {
-        // 	name: 'Evil Corp.',
-        // 	logo: Command,
-        // 	plan: 'Free',
-        // },
-    ],
+    app: {
+        name: "Passman",
+        logo: GalleryVerticalEnd,
+        plan: "Super",
+    },
+    // {
+    // 	name: 'Acme Corp.',
+    // 	logo: AudioWaveform,
+    // 	plan: 'Startup',
+    // },
+    // {
+    // 	name: 'Evil Corp.',
+    // 	logo: Command,
+    // 	plan: 'Free',
+    // },
     navMain: [
         {
             title: "Passwords",
@@ -45,11 +35,11 @@ const data = {
             icon: Lock,
             isActive: true,
         },
-        {
-            title: "Notes",
-            url: "#",
-            icon: Notebook,
-        },
+        // {
+        //     title: "Notes",
+        //     url: "#",
+        //     icon: Notebook,
+        // },
     ],
     // projects: [
     //     {
@@ -74,7 +64,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar collapsible="icon" {...props}>
             <SidebarHeader>
-                <TeamSwitcher teams={data.app} />
+                <TeamSwitcher app={data.app} />
             </SidebarHeader>
             <SidebarContent>
                 <NavMain items={data.navMain} />

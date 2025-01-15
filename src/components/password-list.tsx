@@ -24,7 +24,7 @@ export function PasswordList() {
         return (
             <Card className="h-[calc(100vh-5.5rem)]">
                 <CardContent>
-                    <div className="h-[calc(100vh-5.5rem)] flex items-center justify-center">
+                    <div className="h-[calc(100vh-6rem)] flex items-center justify-center">
                         <Loading />
                     </div>
                 </CardContent>
@@ -36,16 +36,12 @@ export function PasswordList() {
         return (
             <Card className="h-[calc(100vh-5.5rem)]">
                 <CardContent>
-                    <div className="h-[calc(100vh-5.5rem)] flex items-center justify-center">
-                        <div className="flex flex-col justify-center items-center mt-20 gap-8">
-                            <img
-                                className="w-[50%]"
-                                src="src/assets/warning.svg"
-                            />
-                            <p className="text-3xl mt-2">
-                                Error fetching passwords
-                            </p>
-                        </div>
+                    <div className="flex h-[calc(100vh-10rem)] flex-col justify-center items-center gap-8">
+                        <img
+                            className="w-[40vh]"
+                            src="src/assets/warning.svg"
+                        />
+                        <p className="text-3xl">Error fetching passwords</p>
                     </div>
                 </CardContent>
             </Card>
