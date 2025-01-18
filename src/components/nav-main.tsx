@@ -1,35 +1,38 @@
 "use client";
 
-import { type LucideIcon } from "lucide-react";
-import { useState } from "react";
-
 import {
     SidebarGroup,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { useStore } from "@/store/store";
+import { Lock, LucideIcon } from "lucide-react";
+import { useShallow } from "zustand/react/shallow";
 
-export function NavMain({
-    items,
-}: {
-    items: {
-        title: string;
-        url: string;
-        icon?: LucideIcon;
-        isActive?: boolean;
-        items?: {
-            title: string;
-            url: string;
-        }[];
-    }[];
-}) {
-    const [activeItem, setActiveItem] = useState<string | null>(
-        items.find((item) => item.isActive)?.title || null
+const items: {
+    title: "Passwords" | "Notes";
+    icon: LucideIcon;
+}[] = [
+    {
+        title: "Passwords",
+        icon: Lock,
+    },
+    // {
+    //     title: "Notes",
+    //     icon: Notebook,
+    // },
+];
+
+export function NavMain() {
+    const { currentMainNav, setCurrentMainNav } = useStore(
+        useShallow((state) => ({
+            currentMainNav: state.currentMainNav,
+            setCurrentMainNav: state.setCurrentMainNav,
+        }))
     );
-
-    const handleClick = (title: string) => {
-        setActiveItem(title);
+    const handleClick = (title: "Passwords" | "Notes") => {
+        setCurrentMainNav(title);
     };
 
     return (
@@ -41,7 +44,7 @@ export function NavMain({
                         <SidebarMenuButton
                             tooltip={item.title}
                             className={
-                                activeItem === item.title ? "bg-accent" : ""
+                                currentMainNav === item.title ? "bg-accent" : ""
                             }
                             onClick={() => handleClick(item.title)}
                         >

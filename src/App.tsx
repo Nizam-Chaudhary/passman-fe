@@ -1,11 +1,11 @@
+import { Toaster } from "@/components/ui/toaster.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createBrowserRouter, RouterProvider } from "react-router";
-import Home from "./components/Home.tsx";
-import Login from "./components/Login.tsx";
-import SignUp from "./components/SignUp.tsx";
 import { ThemeProvider } from "./components/theme-provider.tsx";
-import { Toaster } from "@/components/ui/toaster.tsx";
+import Home from "./pages/Home.tsx";
+import Login from "./pages/Login.tsx";
+import SignUp from "./pages/SignUp.tsx";
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([

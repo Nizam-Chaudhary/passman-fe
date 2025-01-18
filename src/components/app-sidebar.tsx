@@ -1,4 +1,4 @@
-import { GalleryVerticalEnd, Lock } from "lucide-react";
+import { GalleryVerticalEnd } from "lucide-react";
 
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
@@ -28,19 +28,7 @@ const data = {
     // 	logo: Command,
     // 	plan: 'Free',
     // },
-    navMain: [
-        {
-            title: "Passwords",
-            url: "#",
-            icon: Lock,
-            isActive: true,
-        },
-        // {
-        //     title: "Notes",
-        //     url: "#",
-        //     icon: Notebook,
-        // },
-    ],
+
     // projects: [
     //     {
     //         name: "Design Engineering",
@@ -67,7 +55,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <TeamSwitcher app={data.app} />
             </SidebarHeader>
             <SidebarContent>
-                <NavMain items={data.navMain} />
+                <NavMain />
                 {/* <NavProjects projects={data.projects} /> */}
             </SidebarContent>
             <SidebarFooter>

@@ -16,60 +16,50 @@ import {
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { useToast } from "@/hooks/use-toast";
+import { TOKEN_KEY, USER_DATA_KEY, USER_KEY } from "@/lib/constants";
+import { deriveKey, generateSalt } from "@/lib/encryption.helper";
 import { storeKeyInIndexedDB } from "@/lib/indexedDb";
-import { SignUpUserFormData, signUpUserSchema } from "@/lib/types/signup";
-import {
-    deriveKey,
-    encrypt,
-    generateMasterKey,
-    generateRecoveryKey,
-    generateSalt,
-} from "@/lib/encryption.helper";
-import { useSignUpUser } from "@/services/mutation/user";
+import { loginSchema, LoginUserData } from "@/lib/types/login";
+import { useLoginUser } from "@/services/mutation/user";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { jwtDecode } from "jwt-decode";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router";
-import { PasswordInput } from "./ui/password-input";
-import { USER_KEY } from "@/lib/constants";
+import { PasswordInput } from "../components/ui/password-input";
 
-export default function SignUp() {
+export default function Login() {
     const { toast } = useToast();
     const navigate = useNavigate();
-    const mutateSignUpUser = useSignUpUser();
+    const mutateLoginUser = useLoginUser();
 
-    const signUpForm = useForm<SignUpUserFormData>({
-        resolver: zodResolver(signUpUserSchema),
+    const loginForm = useForm<LoginUserData>({
+        resolver: zodResolver(loginSchema),
         defaultValues: {
-            userName: "",
             email: "",
             password: "",
         },
     });
 
-    async function onSubmit(data: SignUpUserFormData) {
-        const userKey = await deriveKey(data.password, generateSalt());
-
-        const masterKey = await encrypt(generateMasterKey(), userKey);
-
-        const recoveryMasterKey = await encrypt(generateRecoveryKey(), userKey);
-
-        const payload = { ...data, masterKey, recoveryMasterKey };
-
-        mutateSignUpUser.mutate(payload, {
+    function onSubmit(data: LoginUserData) {
+        mutateLoginUser.mutate(data, {
             onError: (error) => {
                 toast({
                     className: "bg-red-700",
-                    title: "Error Signing up!",
-                    description: error.message,
+                    title: error?.message,
                 });
             },
-            onSuccess: async () => {
+            onSuccess: async (res) => {
+                const token = res.data.data.token;
+                const userData = jwtDecode(token);
+                localStorage.setItem(TOKEN_KEY, token);
+                localStorage.setItem(USER_DATA_KEY, JSON.stringify(userData));
+                const userKey = await deriveKey(data.password, generateSalt());
+                await storeKeyInIndexedDB(userKey, USER_KEY);
                 toast({
                     className: "bg-green-700",
-                    title: "Signed up successfully!",
+                    title: "Logged in successfully!",
                 });
-                await storeKeyInIndexedDB(userKey, USER_KEY);
-                await navigate("/login");
+                navigate("/");
             },
         });
     }
@@ -78,16 +68,16 @@ export default function SignUp() {
         <>
             <Card className="m-auto min-w-96 w-2/6 my-32">
                 <CardHeader className="text-center text-2xl">
-                    Create your account
+                    Login to your account
                 </CardHeader>
                 <CardContent>
-                    <Form {...signUpForm}>
+                    <Form {...loginForm}>
                         <form
-                            onSubmit={signUpForm.handleSubmit(onSubmit)}
+                            onSubmit={loginForm.handleSubmit(onSubmit)}
                             className="space-y-8"
                         >
                             <FormField
-                                control={signUpForm.control}
+                                control={loginForm.control}
                                 name="email"
                                 render={({ field }) => (
                                     <FormItem>
@@ -104,23 +94,7 @@ export default function SignUp() {
                                 )}
                             />
                             <FormField
-                                control={signUpForm.control}
-                                name="userName"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Username</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                placeholder="Username"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={signUpForm.control}
+                                control={loginForm.control}
                                 name="password"
                                 render={({ field }) => (
                                     <FormItem>
@@ -138,21 +112,21 @@ export default function SignUp() {
                             <Button
                                 className="text-center w-full"
                                 type="submit"
-                                disabled={mutateSignUpUser.isPending}
+                                disabled={mutateLoginUser.isPending}
                             >
-                                {mutateSignUpUser.isPending ? (
+                                {mutateLoginUser.isPending ? (
                                     <LoadingSpinner />
                                 ) : (
-                                    "Sign Up"
+                                    "Login"
                                 )}
                             </Button>
                         </form>
                     </Form>
                 </CardContent>
                 <CardFooter className="flex justify-center">
-                    Already have an account?&nbsp;
-                    <NavLink to="/login" className="text-blue-700" end>
-                        Login
+                    New to Passman?&nbsp;
+                    <NavLink to="/sign-up" className="text-blue-700" end>
+                        Sign Up
                     </NavLink>
                 </CardFooter>
             </Card>

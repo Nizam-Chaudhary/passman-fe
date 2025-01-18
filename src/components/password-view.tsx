@@ -1,16 +1,30 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { Card, CardContent, CardHeader } from "./ui/card";
-import { Button } from "./ui/button";
-import { ClipboardCopyIcon, TrashIcon } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Separator } from "./ui/separator";
+import { toast } from "@/hooks/use-toast";
+import { USER_KEY } from "@/lib/constants";
+import { decrypt, encrypt } from "@/lib/encryption.helper";
+import { getKeysFromIndexedDB } from "@/lib/indexedDb";
 import {
     Password,
-    passwordPayloadSchema,
     passwordSchema,
     updatePasswordPayloadSchema,
 } from "@/lib/types/password";
+import {
+    useDeletePassword,
+    useUpdatePassword,
+} from "@/services/mutation/password";
+import { usePasswordById } from "@/services/queries/password";
+import { useStore } from "@/store/store";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useQuery } from "@tanstack/react-query";
+import { ClipboardCopyIcon, TrashIcon } from "lucide-react";
+import { useEffect } from "react";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useSearchParams } from "react-router";
+import { useShallow } from "zustand/react/shallow";
+import ConfirmDialog from "./confirm-dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Button } from "./ui/button";
+import { Card, CardContent, CardHeader } from "./ui/card";
 import {
     Form,
     FormControl,
@@ -19,30 +33,21 @@ import {
     FormLabel,
     FormMessage,
 } from "./ui/form";
-import { ScrollArea } from "./ui/scroll-area";
-import { toast } from "@/hooks/use-toast";
-import CopyToClipboard from "react-copy-to-clipboard";
 import { Input } from "./ui/input";
-import { PasswordInput } from "./ui/password-input";
-import { Textarea } from "./ui/textarea";
-import { useSearchParams } from "react-router";
-import { usePasswordById } from "@/services/queries/password";
-import { useEffect, useState } from "react";
 import Loading from "./ui/loading";
-import {
-    useDeletePassword,
-    useUpdatePassword,
-} from "@/services/mutation/password";
-import { getKeysFromIndexedDB } from "@/lib/indexedDb";
-import { decrypt, encrypt } from "@/lib/encryption.helper";
-import ConfirmDialog from "./confirm-dialog";
-import { useQuery } from "@tanstack/react-query";
-import { USER_KEY } from "@/lib/constants";
+import { PasswordInput } from "./ui/password-input";
+import { ScrollArea } from "./ui/scroll-area";
+import { Separator } from "./ui/separator";
+import { Textarea } from "./ui/textarea";
 
 export function PasswordView() {
-    const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
 
+    const { setOpenDeletePasswordDialog } = useStore(
+        useShallow((state) => ({
+            setOpenDeletePasswordDialog: state.setOpenDeletePasswordDialog,
+        }))
+    );
     const passwordId = searchParams.get("p");
     const { data, isPending, isError } = usePasswordById(passwordId);
     const editPasswordMutation = useUpdatePassword();
@@ -178,7 +183,7 @@ export function PasswordView() {
                     title: "Password deleted successfully.",
                     className: "bg-green-700",
                 });
-                setOpenDeleteDialog(false);
+                setOpenDeletePasswordDialog(false);
             },
         });
     };
@@ -198,7 +203,9 @@ export function PasswordView() {
                                 <Button
                                     variant="destructive"
                                     className="size-10 bg-red-600 hover:bg-red-700"
-                                    onClick={() => setOpenDeleteDialog(true)}
+                                    onClick={() =>
+                                        setOpenDeletePasswordDialog(true)
+                                    }
                                 >
                                     <TrashIcon />
                                 </Button>
@@ -361,8 +368,6 @@ export function PasswordView() {
             </Card>
 
             <ConfirmDialog
-                open={openDeleteDialog}
-                setOpen={setOpenDeleteDialog}
                 title="Delete Password"
                 description="Are you sure you want to delete the password?"
                 variant="destructive"

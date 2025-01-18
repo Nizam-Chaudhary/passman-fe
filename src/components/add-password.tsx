@@ -1,4 +1,17 @@
+import { useToast } from "@/hooks/use-toast";
+import { USER_KEY } from "@/lib/constants";
+import { encrypt } from "@/lib/encryption.helper";
+import { getKeysFromIndexedDB } from "@/lib/indexedDb";
+import {
+    Password,
+    passwordPayloadSchema,
+    passwordSchema,
+} from "@/lib/types/password";
+import { useAddPassword } from "@/services/mutation/password";
+import { useStore } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useShallow } from "zustand/react/shallow";
 import { Button } from "./ui/button";
 import {
     Dialog,
@@ -9,12 +22,6 @@ import {
     DialogTitle,
 } from "./ui/dialog";
 import {
-    Password,
-    passwordPayloadSchema,
-    passwordSchema,
-} from "@/lib/types/password";
-import { SubmitHandler, useForm } from "react-hook-form";
-import {
     Form,
     FormControl,
     FormField,
@@ -22,22 +29,17 @@ import {
     FormLabel,
     FormMessage,
 } from "./ui/form";
-import { encrypt } from "@/lib/encryption.helper";
-import { getKeysFromIndexedDB } from "@/lib/indexedDb";
-import { useToast } from "@/hooks/use-toast";
-import { useAddPassword } from "@/services/mutation/password";
 import { Input } from "./ui/input";
 import { PasswordInput } from "./ui/password-input";
 import { Textarea } from "./ui/textarea";
-import { USER_KEY } from "@/lib/constants";
-import { useStore } from "@/store/store";
-import { useShallow } from "zustand/react/shallow";
 
-type Props = {
-    open: boolean;
-    setOpen: (value: boolean) => void;
-};
-export default function AddPassword({ open, setOpen }: Props) {
+export default function AddPassword() {
+    const { openAddPasswordDialog, setOpenAddPasswordDialog } = useStore(
+        useShallow((state) => ({
+            openAddPasswordDialog: state.openAddPasswordDialog,
+            setOpenAddPasswordDialog: state.setOpenAddPasswordDialog,
+        }))
+    );
     const { toast } = useToast();
 
     const { currentVault } = useStore(
@@ -86,7 +88,7 @@ export default function AddPassword({ open, setOpen }: Props) {
                     title: "Password added successfully.",
                     className: "bg-green-700",
                 });
-                setOpen(false);
+                setOpenAddPasswordDialog(false);
                 form.reset();
             },
         });
@@ -94,10 +96,10 @@ export default function AddPassword({ open, setOpen }: Props) {
 
     const onOpenChange = (value: boolean) => {
         form.clearErrors();
-        setOpen(value);
+        setOpenAddPasswordDialog(value);
     };
     return (
-        <Dialog open={open} onOpenChange={onOpenChange}>
+        <Dialog open={openAddPasswordDialog} onOpenChange={onOpenChange}>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Add Password</DialogTitle>

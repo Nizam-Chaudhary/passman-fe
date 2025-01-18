@@ -1,19 +1,25 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { PasswordList } from "@/components/password-list";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { PasswordView } from "./password-view";
-import { LockIcon, KeyRound, Search } from "lucide-react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { VaultComboBox } from "./vault-combo-box";
-import AddPassword from "./add-password";
-import { useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "react-router";
+import { useStore } from "@/store/store";
 import debounce from "lodash/debounce";
+import { KeyRound, LockIcon, Search } from "lucide-react";
+import { useEffect, useMemo } from "react";
+import { useSearchParams } from "react-router";
+import { useShallow } from "zustand/react/shallow";
+import AddPassword from "../components/add-password";
+import { PasswordView } from "../components/password-view";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { VaultComboBox } from "../components/vault-combo-box";
 
 export default function Home() {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [openAddPasswordDialog, setOpenAddPasswordDialog] = useState(false);
+    const { setOpenAddPasswordDialog } = useStore(
+        useShallow((state) => ({
+            setOpenAddPasswordDialog: state.setOpenAddPasswordDialog,
+        }))
+    );
 
     const debouncedSearch = useMemo(
         () =>
@@ -75,10 +81,7 @@ export default function Home() {
                         </div>
                     </div>
                     <main className="p-4">
-                        <AddPassword
-                            open={openAddPasswordDialog}
-                            setOpen={setOpenAddPasswordDialog}
-                        />
+                        <AddPassword />
                         <div className="flex gap-4">
                             <div className="flex-1">
                                 <PasswordList />

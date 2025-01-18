@@ -1,3 +1,5 @@
+import { useStore } from "@/store/store";
+import { useShallow } from "zustand/react/shallow";
 import { Button } from "./ui/button";
 import {
     Dialog,
@@ -9,8 +11,6 @@ import {
 } from "./ui/dialog";
 
 type Props = {
-    open: boolean;
-    setOpen: (value: boolean) => void;
     title: string;
     description: string;
     variant:
@@ -24,7 +24,13 @@ type Props = {
 };
 
 export default function ConfirmDialog(props: Props) {
-    const { open, setOpen, title, description, variant, onClick } = props;
+    const { title, description, variant, onClick } = props;
+    const { open, setOpen } = useStore(
+        useShallow((state) => ({
+            open: state.openDeletePasswordDialog,
+            setOpen: state.setOpenDeletePasswordDialog,
+        }))
+    );
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent>
