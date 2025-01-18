@@ -1,6 +1,11 @@
 import { cn } from "@/lib/utils";
+import { useVaults } from "@/services/queries/vault";
+import { useStore } from "@/store/store";
 import { Check, ChevronsUpDown, PlusIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
+import { useShallow } from "zustand/react/shallow";
+import AddVault from "./add-vault";
 import { Button } from "./ui/button";
 import {
     Command,
@@ -11,14 +16,10 @@ import {
     CommandList,
 } from "./ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { useVaults } from "@/services/queries/vault";
-import { useStore } from "@/store/store";
-import { useShallow } from "zustand/react/shallow";
-import AddVault from "./add-vault";
 
 export function VaultComboBox() {
     const [open, setOpen] = useState(false);
-
+    const [searchParams, setSearchParams] = useSearchParams();
     const { currentVault, setCurrentVault, setOpenAddVaultDialog } = useStore(
         useShallow((state) => ({
             currentVault: state.currentVault,
@@ -59,6 +60,10 @@ export function VaultComboBox() {
                                         key={index}
                                         value={vault.name}
                                         onSelect={(vault) => {
+                                            if (vault != currentVault?.name) {
+                                                searchParams.delete("p");
+                                                setSearchParams(searchParams);
+                                            }
                                             setCurrentVault(
                                                 vaults?.find(
                                                     (val) => val.name === vault

@@ -195,7 +195,7 @@ export function PasswordView() {
                     <CardHeader>
                         <div>
                             <div className="flex justify-between items-center">
-                                <Avatar className="size-8 rounded-lg">
+                                <Avatar className="size-12 rounded-lg">
                                     <AvatarImage src="src/assets/shadcn.jpg" />
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
