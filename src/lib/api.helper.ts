@@ -1,19 +1,29 @@
 import axios from "axios";
-import { TOKEN_KEY } from "./constants";
+import { NavigateFunction } from "react-router";
 
-const instance = () => {
-    const api = axios.create({
-        baseURL: import.meta.env.VITE_BE_BASE_URL,
-    });
-    api.interceptors.request.use((config) => {
-        const token = localStorage.getItem(TOKEN_KEY);
-        if (token) {
-            config.headers.Authorization = token;
-        }
+const instance = axios.create({
+    baseURL: import.meta.env.VITE_BE_BASE_URL,
+});
+
+const setRequestInterceptor = (token: string) => {
+    instance.interceptors.request.use((config) => {
+        config.headers.Authorization = token;
         return config;
     });
-
-    return api;
 };
 
-export { instance };
+const setResponseInterceptor = (navigate: NavigateFunction) => {
+    instance.interceptors.response.use(
+        (response) => {
+            return response;
+        },
+        (error) => {
+            if (error?.response?.status === 401) {
+                navigate("/login", { replace: true });
+            }
+            return Promise.reject(error);
+        }
+    );
+};
+
+export { instance, setRequestInterceptor, setResponseInterceptor };

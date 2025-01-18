@@ -1,11 +1,16 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { PasswordList } from "@/components/password-list";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import {
+    setRequestInterceptor,
+    setResponseInterceptor,
+} from "@/lib/api.helper";
+import { TOKEN_KEY } from "@/lib/constants";
 import { useStore } from "@/store/store";
 import debounce from "lodash/debounce";
 import { KeyRound, LockIcon, Search } from "lucide-react";
-import { useEffect, useMemo } from "react";
-import { useSearchParams } from "react-router";
+import { useEffect, useLayoutEffect, useMemo } from "react";
+import { useNavigate, useSearchParams } from "react-router";
 import { useShallow } from "zustand/react/shallow";
 import AddPassword from "../components/add-password";
 import { PasswordView } from "../components/password-view";
@@ -15,11 +20,21 @@ import { VaultComboBox } from "../components/vault-combo-box";
 
 export default function Home() {
     const [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
+
     const { setOpenAddPasswordDialog } = useStore(
         useShallow((state) => ({
             setOpenAddPasswordDialog: state.setOpenAddPasswordDialog,
         }))
     );
+
+    useLayoutEffect(() => {
+        const token = localStorage.getItem(TOKEN_KEY);
+        if (token) {
+            setRequestInterceptor(token);
+        }
+        setResponseInterceptor(navigate);
+    }, [navigate]);
 
     const debouncedSearch = useMemo(
         () =>

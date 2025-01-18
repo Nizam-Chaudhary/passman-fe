@@ -1,12 +1,9 @@
+import { instance } from "@/lib/api.helper";
 import { ApiResponse } from "@/lib/types/common";
 import { LoginResponse, LoginUserData } from "@/lib/types/login";
 import { SignUpUserFormData } from "@/lib/types/signup";
 import { GetUserResponseSchema } from "@/lib/types/user";
-import axios, { isAxiosError } from "axios";
-
-const instance = axios.create({
-    baseURL: import.meta.env.VITE_BE_BASE_URL,
-});
+import { isAxiosError } from "axios";
 
 export async function signUpUser(payload: SignUpUserFormData) {
     try {

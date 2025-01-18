@@ -8,8 +8,6 @@ import {
 import { makeQueryString } from "@/lib/utils";
 import { isAxiosError } from "axios";
 
-const axiosInstance = instance();
-
 export async function getPasswords(vaultId?: string, search?: string | null) {
     try {
         const queryString = makeQueryString({
@@ -17,9 +15,7 @@ export async function getPasswords(vaultId?: string, search?: string | null) {
             search,
         });
         return (
-            await axiosInstance.get<PasswordList>(
-                `/api/v1/passwords${queryString}`
-            )
+            await instance.get<PasswordList>(`/api/v1/passwords${queryString}`)
         ).data;
     } catch (error: unknown) {
         if (isAxiosError(error)) {
@@ -31,9 +27,8 @@ export async function getPasswords(vaultId?: string, search?: string | null) {
 
 export async function getPasswordById(id: string) {
     try {
-        return (
-            await axiosInstance.get<GetPasswordById>(`/api/v1/passwords/${id}`)
-        ).data.data;
+        return (await instance.get<GetPasswordById>(`/api/v1/passwords/${id}`))
+            .data.data;
     } catch (error: unknown) {
         if (isAxiosError(error)) {
             throw error?.response?.data;
@@ -44,7 +39,7 @@ export async function getPasswordById(id: string) {
 
 export async function addPassowrd(password: PasswordPayload) {
     try {
-        return (await axiosInstance.post(`/api/v1/passwords`, password)).data;
+        return (await instance.post(`/api/v1/passwords`, password)).data;
     } catch (error: unknown) {
         if (isAxiosError(error)) {
             throw error?.response?.data;
@@ -58,8 +53,7 @@ export async function updatePassword(
     password: UpdatePasswordPayload
 ) {
     try {
-        return (await axiosInstance.put(`/api/v1/passwords/${id}`, password))
-            .data;
+        return (await instance.put(`/api/v1/passwords/${id}`, password)).data;
     } catch (error: unknown) {
         if (isAxiosError(error)) {
             throw error?.response?.data;
@@ -70,7 +64,7 @@ export async function updatePassword(
 
 export async function deletePassword(id: string) {
     try {
-        return (await axiosInstance.delete(`/api/v1/passwords/${id}`)).data;
+        return (await instance.delete(`/api/v1/passwords/${id}`)).data;
     } catch (error: unknown) {
         if (isAxiosError(error)) {
             throw error?.response?.data;
