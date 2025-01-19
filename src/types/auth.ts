@@ -44,3 +44,27 @@ export const verifyAccountFormSchema = z.object({
 });
 
 export type VerifyAccountFormData = z.infer<typeof verifyAccountFormSchema>;
+
+export const createMasterPasswordFormSchema = z
+  .object({
+    masterPassword: z.string().min(10, "Must contain at least 10 characters"),
+    confirmMasterPassword: z
+      .string()
+      .min(10, "Must contain at least 10 characters"),
+  })
+  .refine((data) => data.masterPassword === data.confirmMasterPassword, {
+    message: "Passwords must match",
+    path: ["confirmMasterPassword"],
+  });
+
+export type CreateMasterPasswordFormData = z.infer<
+  typeof createMasterPasswordFormSchema
+>;
+
+export const verifyMasterPasswordFormSchema = z.object({
+  masterPassword: z.string().min(10, "Must contain at least 10 characters"),
+});
+
+export type VerifyMasterPasswordFormData = z.infer<
+  typeof verifyMasterPasswordFormSchema
+>;

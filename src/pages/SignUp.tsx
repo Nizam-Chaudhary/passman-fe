@@ -2,8 +2,10 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import {
   Form,
@@ -77,7 +79,10 @@ export default function SignUp() {
   return (
     <div className="flex justify-center items-center h-screen">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center text-2xl">Create Account</CardHeader>
+        <CardHeader>
+          <CardTitle>Sign Up</CardTitle>
+          <CardDescription>Create a new account</CardDescription>
+        </CardHeader>
         <CardContent>
           <Form {...signUpForm}>
             <form
@@ -86,12 +91,12 @@ export default function SignUp() {
             >
               <FormField
                 control={signUpForm.control}
-                name="email"
+                name="userName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>Username</FormLabel>
                     <FormControl>
-                      <Input placeholder="Email" type="email" {...field} />
+                      <Input placeholder="Enter Username" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -99,12 +104,16 @@ export default function SignUp() {
               />
               <FormField
                 control={signUpForm.control}
-                name="userName"
+                name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Username" {...field} />
+                      <Input
+                        placeholder="Enter Email"
+                        type="email"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -117,26 +126,21 @@ export default function SignUp() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <PasswordInput placeholder="Password" {...field} />
+                      <PasswordInput placeholder="Enter Password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button
-                className="text-center w-full"
-                type="submit"
-                disabled={mutateSignUpUser.isPending}
-              >
+              <Button type="submit" disabled={mutateSignUpUser.isPending}>
                 {mutateSignUpUser.isPending ? <LoadingSpinner /> : "Sign Up"}
               </Button>
             </form>
           </Form>
         </CardContent>
-        <CardFooter className="flex justify-center">
-          Already have an account?&nbsp;
-          <NavLink to="/login" className="text-blue-700" end>
-            Login
+        <CardFooter>
+          <NavLink to="/login" className="text-blue-600" replace>
+            Already have an account? Login
           </NavLink>
         </CardFooter>
       </Card>

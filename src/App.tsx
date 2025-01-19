@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import { ThemeProvider } from "./components/ThemeProvider.tsx";
 import Home from "./pages/Home.tsx";
 import Login from "./pages/Login.tsx";
+import MasterPassword from "./pages/MasterPassword.tsx";
 import SignUp from "./pages/SignUp.tsx";
 import VerifyAccount from "./pages/VerifyAccount.tsx";
 const queryClient = new QueryClient();
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/verify-account",
     element: <VerifyAccount />,
+  },
+  {
+    path: "/master-password",
+    element: <MasterPassword />,
   },
 ]);
 

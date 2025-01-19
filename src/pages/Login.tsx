@@ -2,8 +2,10 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import {
   Form,
@@ -67,7 +69,10 @@ export default function Login() {
   return (
     <div className="flex justify-center items-center h-screen">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center text-2xl">Login</CardHeader>
+        <CardHeader>
+          <CardTitle>Login</CardTitle>
+          <CardDescription>Login to your account</CardDescription>
+        </CardHeader>
         <CardContent>
           <Form {...loginForm}>
             <form
@@ -81,7 +86,11 @@ export default function Login() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Email" type="email" {...field} />
+                      <Input
+                        placeholder="Enter Email"
+                        type="email"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -94,26 +103,21 @@ export default function Login() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <PasswordInput placeholder="Password" {...field} />
+                      <PasswordInput placeholder="Enter Password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button
-                className="text-center w-full"
-                type="submit"
-                disabled={mutateLoginUser.isPending}
-              >
+              <Button type="submit" disabled={mutateLoginUser.isPending}>
                 {mutateLoginUser.isPending ? <LoadingSpinner /> : "Login"}
               </Button>
             </form>
           </Form>
         </CardContent>
-        <CardFooter className="flex justify-center">
-          New to Passman?&nbsp;
-          <NavLink to="/sign-up" className="text-blue-700" end>
-            Sign Up
+        <CardFooter>
+          <NavLink to="/sign-up" className="text-blue-600" replace>
+            Create a new account
           </NavLink>
         </CardFooter>
       </Card>
