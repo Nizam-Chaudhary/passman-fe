@@ -1,5 +1,5 @@
-import { AppSidebar } from "@/components/app-sidebar";
-import { PasswordList } from "@/components/password-list";
+import { AppSidebar } from "@/components/AppSidebar";
+import { PasswordList } from "@/components/PasswordList";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import {
   setRequestInterceptor,
@@ -12,11 +12,11 @@ import { KeyRound, LockIcon, Search } from "lucide-react";
 import { useEffect, useLayoutEffect, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import { useShallow } from "zustand/react/shallow";
-import AddPassword from "../components/add-password";
-import { PasswordView } from "../components/password-view";
+import AddPassword from "../components/AddPassword";
+import { PasswordView } from "../components/PasswordView";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
-import { VaultComboBox } from "../components/vault-combo-box";
+import { VaultComboBox } from "../components/VaultComboBox";
 
 export default function Home() {
   const [searchParams, setSearchParams] = useSearchParams();

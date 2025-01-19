@@ -17,23 +17,20 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { InputOTP, InputOTPGroup } from "@/components/ui/input-otp";
+import { VerifyAccountFormData, verifyAccountFormSchema } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
-const formSchema = z.object({
-  pin: z.string().min(6, "Pin must be 6 digits").max(6, "Pin must be 6 digits"),
-});
-
 export default function VerifyAccount() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof verifyAccountFormSchema>>({
+    resolver: zodResolver(verifyAccountFormSchema),
     defaultValues: {
-      pin: "",
+      otp: "",
     },
   });
 
-  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = (data) => {
+  const onSubmit: SubmitHandler<VerifyAccountFormData> = (data) => {
     console.log(data);
   };
 
@@ -54,7 +51,7 @@ export default function VerifyAccount() {
             >
               <FormField
                 control={form.control}
-                name="pin"
+                name="otp"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>One-Time Password</FormLabel>

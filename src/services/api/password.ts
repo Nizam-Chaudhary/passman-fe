@@ -1,11 +1,11 @@
 import { instance } from "@/lib/api.helper";
+import { makeQueryString } from "@/lib/utils";
 import {
   GetPasswordById,
   PasswordList,
   PasswordPayload,
   UpdatePasswordPayload,
-} from "@/lib/types/password";
-import { makeQueryString } from "@/lib/utils";
+} from "@/types/password";
 import { isAxiosError } from "axios";
 
 export async function getPasswords(vaultId?: string, search?: string | null) {

@@ -5,7 +5,7 @@ import { Check, ChevronsUpDown, PlusIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import { useShallow } from "zustand/react/shallow";
-import AddVault from "./add-vault";
+import AddVault from "./AddVault";
 import { Button } from "./ui/button";
 import {
   Command,

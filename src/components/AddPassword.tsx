@@ -2,13 +2,13 @@ import { useToast } from "@/hooks/use-toast";
 import { USER_KEY } from "@/lib/constants";
 import { encrypt } from "@/lib/encryption.helper";
 import { getKeysFromIndexedDB } from "@/lib/indexedDb";
+import { useAddPassword } from "@/services/mutation/password";
+import { useStore } from "@/store/store";
 import {
   Password,
   passwordPayloadSchema,
   passwordSchema,
-} from "@/lib/types/password";
-import { useAddPassword } from "@/services/mutation/password";
-import { useStore } from "@/store/store";
+} from "@/types/password";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useShallow } from "zustand/react/shallow";

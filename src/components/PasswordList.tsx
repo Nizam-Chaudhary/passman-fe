@@ -1,11 +1,11 @@
 import { usePasswords } from "@/services/queries/password";
-import { PasswordRow } from "./password-row";
-import { Card, CardContent } from "./ui/card";
-import { ScrollArea } from "./ui/scroll-area";
+import { useStore } from "@/store/store";
 import { useSearchParams } from "react-router";
 import { useShallow } from "zustand/react/shallow";
-import { useStore } from "@/store/store";
+import { PasswordRow } from "./PasswordRow";
+import { Card, CardContent } from "./ui/card";
 import Loading from "./ui/loading";
+import { ScrollArea } from "./ui/scroll-area";
 
 export function PasswordList() {
   const [searchParams] = useSearchParams();

@@ -25,8 +25,8 @@ import {
   generateSalt,
 } from "@/lib/encryption.helper";
 import { storeKeyInIndexedDB } from "@/lib/indexedDb";
-import { SignUpUserFormData, signUpUserSchema } from "@/lib/types/signup";
 import { useSignUpUser } from "@/services/mutation/user";
+import { SignUpUserFormData, signUpUserSchema } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router";

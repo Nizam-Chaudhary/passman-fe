@@ -1,4 +1,4 @@
-import { Store } from "@/lib/types/store";
+import { Store } from "@/types/store";
 import { create } from "zustand";
 import { devtools, subscribeWithSelector } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";

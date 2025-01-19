@@ -1,5 +1,5 @@
-import { UpdateResourcePayload } from "@/lib/types/common";
-import { PasswordPayload, UpdatePasswordPayload } from "@/lib/types/password";
+import { UpdateResourcePayload } from "@/types/common";
+import { PasswordPayload, UpdatePasswordPayload } from "@/types/password";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addPassowrd, deletePassword, updatePassword } from "../api/password";
 

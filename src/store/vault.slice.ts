@@ -1,5 +1,5 @@
-import { Store } from "@/lib/types/store";
-import { Vault } from "@/lib/types/vault";
+import { Store } from "@/types/store";
+import { Vault } from "@/types/vault";
 import { StateCreator } from "zustand";
 
 type VaultStates = {

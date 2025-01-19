@@ -1,4 +1,11 @@
+import { useToast } from "@/hooks/use-toast";
+import { useAddVault } from "@/services/mutation/vault";
 import { useStore } from "@/store/store";
+import { addVaultSchema } from "@/types/vault";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useShallow } from "zustand/react/shallow";
+import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
@@ -7,7 +14,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog";
-import { useShallow } from "zustand/react/shallow";
 import {
   Form,
   FormControl,
@@ -17,12 +23,6 @@ import {
   FormMessage,
 } from "./ui/form";
 import { Input } from "./ui/input";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { addVaultSchema } from "@/lib/types/vault";
-import { Button } from "./ui/button";
-import { useAddVault } from "@/services/mutation/vault";
-import { useToast } from "@/hooks/use-toast";
 
 export default function AddVault() {
   const { open, setOpen } = useStore(

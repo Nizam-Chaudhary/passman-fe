@@ -3,16 +3,16 @@ import { USER_KEY } from "@/lib/constants";
 import { decrypt, encrypt } from "@/lib/encryption.helper";
 import { getKeysFromIndexedDB } from "@/lib/indexedDb";
 import {
-  Password,
-  passwordSchema,
-  updatePasswordPayloadSchema,
-} from "@/lib/types/password";
-import {
   useDeletePassword,
   useUpdatePassword,
 } from "@/services/mutation/password";
 import { usePasswordById } from "@/services/queries/password";
 import { useStore } from "@/store/store";
+import {
+  Password,
+  passwordSchema,
+  updatePasswordPayloadSchema,
+} from "@/types/password";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
 import { ClipboardCopyIcon, TrashIcon } from "lucide-react";
@@ -21,7 +21,7 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSearchParams } from "react-router";
 import { useShallow } from "zustand/react/shallow";
-import ConfirmDialog from "./confirm-dialog";
+import ConfirmDialog from "./ConfirmDialog";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader } from "./ui/card";

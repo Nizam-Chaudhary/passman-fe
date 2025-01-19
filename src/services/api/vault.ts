@@ -1,6 +1,6 @@
 import { instance } from "@/lib/api.helper";
-import { ApiResponse } from "@/lib/types/common";
-import { GetVaultsResponseSchema } from "@/lib/types/vault";
+import { ApiResponse } from "@/types/common";
+import { GetVaultsResponseSchema } from "@/types/vault";
 import { isAxiosError } from "axios";
 
 export async function getVaults() {

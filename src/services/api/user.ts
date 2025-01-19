@@ -1,8 +1,7 @@
 import { instance } from "@/lib/api.helper";
-import { ApiResponse } from "@/lib/types/common";
-import { LoginResponse, LoginUserData } from "@/lib/types/login";
-import { SignUpUserFormData } from "@/lib/types/signup";
-import { GetUserResponseSchema } from "@/lib/types/user";
+import { LoginResponse, LoginUserData, SignUpUserFormData } from "@/types/auth";
+import { ApiResponse } from "@/types/common";
+import { GetUserResponseSchema } from "@/types/user";
 import { isAxiosError } from "axios";
 
 export async function signUpUser(payload: SignUpUserFormData) {
