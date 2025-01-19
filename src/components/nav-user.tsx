@@ -1,19 +1,11 @@
 "use client";
 
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
-} from "lucide-react";
+import { ChevronsUpDown, LogOut } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -26,16 +18,16 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router";
 import { TOKEN_KEY, USER_DATA_KEY } from "@/lib/constants";
 import { useMemo } from "react";
+import { useNavigate } from "react-router";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
   const { toast } = useToast();
   const navigate = useNavigate();
   const user = useMemo(
-    () => JSON.parse(localStorage.getItem(USER_DATA_KEY) || ""),
+    () => JSON.parse(localStorage.getItem(USER_DATA_KEY) || "{}"),
     []
   );
 

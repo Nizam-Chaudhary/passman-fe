@@ -6,6 +6,7 @@ import { ThemeProvider } from "./components/theme-provider.tsx";
 import Home from "./pages/Home.tsx";
 import Login from "./pages/Login.tsx";
 import SignUp from "./pages/SignUp.tsx";
+import VerifyAccount from "./pages/Verify-Account.tsx";
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
@@ -21,12 +22,16 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
+  {
+    path: "/verify-account",
+    element: <VerifyAccount />,
+  },
 ]);
 
 export function App() {
   return (
     <>
-      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={false} />
           <Toaster />

@@ -65,16 +65,14 @@ export default function Login() {
   }
 
   return (
-    <>
-      <Card className="m-auto min-w-96 w-2/6 my-32">
-        <CardHeader className="text-center text-2xl">
-          Login to your account
-        </CardHeader>
+    <div className="flex justify-center items-center h-screen">
+      <Card className="w-full max-w-md">
+        <CardHeader className="text-center text-2xl">Login</CardHeader>
         <CardContent>
           <Form {...loginForm}>
             <form
               onSubmit={loginForm.handleSubmit(onSubmit)}
-              className="space-y-8"
+              className="space-y-4"
             >
               <FormField
                 control={loginForm.control}
@@ -119,6 +117,6 @@ export default function Login() {
           </NavLink>
         </CardFooter>
       </Card>
-    </>
+    </div>
   );
 }

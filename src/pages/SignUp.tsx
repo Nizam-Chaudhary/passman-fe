@@ -75,16 +75,14 @@ export default function SignUp() {
   }
 
   return (
-    <>
-      <Card className="m-auto min-w-96 w-2/6 my-32">
-        <CardHeader className="text-center text-2xl">
-          Create your account
-        </CardHeader>
+    <div className="flex justify-center items-center h-screen">
+      <Card className="w-full max-w-md">
+        <CardHeader className="text-center text-2xl">Create Account</CardHeader>
         <CardContent>
           <Form {...signUpForm}>
             <form
               onSubmit={signUpForm.handleSubmit(onSubmit)}
-              className="space-y-8"
+              className="space-y-4"
             >
               <FormField
                 control={signUpForm.control}
@@ -142,6 +140,6 @@ export default function SignUp() {
           </NavLink>
         </CardFooter>
       </Card>
-    </>
+    </div>
   );
 }
