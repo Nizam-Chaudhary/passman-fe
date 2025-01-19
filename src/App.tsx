@@ -9,30 +9,30 @@ import SignUp from "./pages/SignUp.tsx";
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Home />,
-    },
-    {
-        path: "/sign-up",
-        element: <SignUp />,
-    },
-    {
-        path: "/login",
-        element: <Login />,
-    },
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/sign-up",
+    element: <SignUp />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
 ]);
 
 export function App() {
-    return (
-        <>
-            <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-                <QueryClientProvider client={queryClient}>
-                    <ReactQueryDevtools initialIsOpen={false} />
-                    <Toaster />
-                    <RouterProvider router={router} />
-                </QueryClientProvider>
-            </ThemeProvider>
-        </>
-    );
+  return (
+    <>
+      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <Toaster />
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </ThemeProvider>
+    </>
+  );
 }

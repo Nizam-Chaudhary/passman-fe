@@ -6,13 +6,13 @@ import { createPasswordSlice } from "./password.slice";
 import { createSidebarSlice } from "./sidebar.slice";
 import { createVaultSlice } from "./vault.slice";
 export const useStore = create<Store>()(
-    devtools(
-        subscribeWithSelector(
-            immer((...a) => ({
-                ...createVaultSlice(...a),
-                ...createSidebarSlice(...a),
-                ...createPasswordSlice(...a),
-            }))
-        )
+  devtools(
+    subscribeWithSelector(
+      immer((...a) => ({
+        ...createVaultSlice(...a),
+        ...createSidebarSlice(...a),
+        ...createPasswordSlice(...a),
+      }))
     )
+  )
 );

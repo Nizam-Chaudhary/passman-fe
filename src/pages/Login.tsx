@@ -1,17 +1,17 @@
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
 } from "@/components/ui/card";
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
@@ -28,108 +28,97 @@ import { NavLink, useNavigate } from "react-router";
 import { PasswordInput } from "../components/ui/password-input";
 
 export default function Login() {
-    const { toast } = useToast();
-    const navigate = useNavigate();
-    const mutateLoginUser = useLoginUser();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const mutateLoginUser = useLoginUser();
 
-    const loginForm = useForm<LoginUserData>({
-        resolver: zodResolver(loginSchema),
-        defaultValues: {
-            email: "",
-            password: "",
-        },
-    });
+  const loginForm = useForm<LoginUserData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-    function onSubmit(data: LoginUserData) {
-        mutateLoginUser.mutate(data, {
-            onError: (error) => {
-                toast({
-                    className: "bg-red-700",
-                    title: error?.message,
-                });
-            },
-            onSuccess: async (res) => {
-                const token = res.data.data.token;
-                const userData = jwtDecode(token);
-                localStorage.setItem(TOKEN_KEY, token);
-                localStorage.setItem(USER_DATA_KEY, JSON.stringify(userData));
-                const userKey = await deriveKey(data.password, generateSalt());
-                await storeKeyInIndexedDB(userKey, USER_KEY);
-                toast({
-                    className: "bg-green-700",
-                    title: "Logged in successfully!",
-                });
-                navigate("/");
-            },
+  function onSubmit(data: LoginUserData) {
+    mutateLoginUser.mutate(data, {
+      onError: (error) => {
+        toast({
+          className: "bg-red-700",
+          title: error?.message,
         });
-    }
+      },
+      onSuccess: async (res) => {
+        const token = res.data.data.token;
+        const userData = jwtDecode(token);
+        localStorage.setItem(TOKEN_KEY, token);
+        localStorage.setItem(USER_DATA_KEY, JSON.stringify(userData));
+        const userKey = await deriveKey(data.password, generateSalt());
+        await storeKeyInIndexedDB(userKey, USER_KEY);
+        toast({
+          className: "bg-green-700",
+          title: "Logged in successfully!",
+        });
+        navigate("/");
+      },
+    });
+  }
 
-    return (
-        <>
-            <Card className="m-auto min-w-96 w-2/6 my-32">
-                <CardHeader className="text-center text-2xl">
-                    Login to your account
-                </CardHeader>
-                <CardContent>
-                    <Form {...loginForm}>
-                        <form
-                            onSubmit={loginForm.handleSubmit(onSubmit)}
-                            className="space-y-8"
-                        >
-                            <FormField
-                                control={loginForm.control}
-                                name="email"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Email</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                placeholder="Email"
-                                                type="email"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={loginForm.control}
-                                name="password"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Password</FormLabel>
-                                        <FormControl>
-                                            <PasswordInput
-                                                placeholder="Password"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <Button
-                                className="text-center w-full"
-                                type="submit"
-                                disabled={mutateLoginUser.isPending}
-                            >
-                                {mutateLoginUser.isPending ? (
-                                    <LoadingSpinner />
-                                ) : (
-                                    "Login"
-                                )}
-                            </Button>
-                        </form>
-                    </Form>
-                </CardContent>
-                <CardFooter className="flex justify-center">
-                    New to Passman?&nbsp;
-                    <NavLink to="/sign-up" className="text-blue-700" end>
-                        Sign Up
-                    </NavLink>
-                </CardFooter>
-            </Card>
-        </>
-    );
+  return (
+    <>
+      <Card className="m-auto min-w-96 w-2/6 my-32">
+        <CardHeader className="text-center text-2xl">
+          Login to your account
+        </CardHeader>
+        <CardContent>
+          <Form {...loginForm}>
+            <form
+              onSubmit={loginForm.handleSubmit(onSubmit)}
+              className="space-y-8"
+            >
+              <FormField
+                control={loginForm.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Email" type="email" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={loginForm.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <PasswordInput placeholder="Password" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button
+                className="text-center w-full"
+                type="submit"
+                disabled={mutateLoginUser.isPending}
+              >
+                {mutateLoginUser.isPending ? <LoadingSpinner /> : "Login"}
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+        <CardFooter className="flex justify-center">
+          New to Passman?&nbsp;
+          <NavLink to="/sign-up" className="text-blue-700" end>
+            Sign Up
+          </NavLink>
+        </CardFooter>
+      </Card>
+    </>
+  );
 }

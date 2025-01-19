@@ -2,28 +2,28 @@ import { Store } from "@/lib/types/store";
 import { StateCreator } from "zustand";
 
 type SidebarStates = {
-    currentMainNav: "Passwords" | "Notes";
+  currentMainNav: "Passwords" | "Notes";
 };
 
 type SidebarActions = {
-    setCurrentMainNav: (nav: "Passwords" | "Notes") => void;
+  setCurrentMainNav: (nav: "Passwords" | "Notes") => void;
 };
 
 const initialState: SidebarStates = {
-    currentMainNav: "Passwords",
+  currentMainNav: "Passwords",
 };
 
 export type SidebarSlice = SidebarStates & SidebarActions;
 
 export const createSidebarSlice: StateCreator<
-    Store,
-    [["zustand/immer", never]],
-    [],
-    SidebarSlice
+  Store,
+  [["zustand/immer", never]],
+  [],
+  SidebarSlice
 > = (set) => ({
-    ...initialState,
-    setCurrentMainNav: (nav) =>
-        set((state) => {
-            state.currentMainNav = nav;
-        }),
+  ...initialState,
+  setCurrentMainNav: (nav) =>
+    set((state) => {
+      state.currentMainNav = nav;
+    }),
 });

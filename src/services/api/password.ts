@@ -1,74 +1,73 @@
 import { instance } from "@/lib/api.helper";
 import {
-    GetPasswordById,
-    PasswordList,
-    PasswordPayload,
-    UpdatePasswordPayload,
+  GetPasswordById,
+  PasswordList,
+  PasswordPayload,
+  UpdatePasswordPayload,
 } from "@/lib/types/password";
 import { makeQueryString } from "@/lib/utils";
 import { isAxiosError } from "axios";
 
 export async function getPasswords(vaultId?: string, search?: string | null) {
-    try {
-        const queryString = makeQueryString({
-            vaultId,
-            search,
-        });
-        return (
-            await instance.get<PasswordList>(`/api/v1/passwords${queryString}`)
-        ).data;
-    } catch (error: unknown) {
-        if (isAxiosError(error)) {
-            throw error?.response?.data;
-        }
-        throw { message: "Error fetching passwords!" };
+  try {
+    const queryString = makeQueryString({
+      vaultId,
+      search,
+    });
+    return (await instance.get<PasswordList>(`/api/v1/passwords${queryString}`))
+      .data;
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      throw error?.response?.data;
     }
+    throw { message: "Error fetching passwords!" };
+  }
 }
 
 export async function getPasswordById(id: string) {
-    try {
-        return (await instance.get<GetPasswordById>(`/api/v1/passwords/${id}`))
-            .data.data;
-    } catch (error: unknown) {
-        if (isAxiosError(error)) {
-            throw error?.response?.data;
-        }
-        throw { message: "Error fetching password!" };
+  try {
+    return (await instance.get<GetPasswordById>(`/api/v1/passwords/${id}`)).data
+      .data;
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      throw error?.response?.data;
     }
+    throw { message: "Error fetching password!" };
+  }
 }
 
 export async function addPassowrd(password: PasswordPayload) {
-    try {
-        return (await instance.post(`/api/v1/passwords`, password)).data;
-    } catch (error: unknown) {
-        if (isAxiosError(error)) {
-            throw error?.response?.data;
-        }
-        throw { message: "Error adding password!" };
+  try {
+    return (await instance.post(`/api/v1/passwords`, password)).data;
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      throw error?.response?.data;
     }
+    throw { message: "Error adding password!" };
+  }
 }
 
 export async function updatePassword(
-    id: string,
-    password: UpdatePasswordPayload
+  id: string,
+  password: UpdatePasswordPayload
 ) {
-    try {
-        return (await instance.put(`/api/v1/passwords/${id}`, password)).data;
-    } catch (error: unknown) {
-        if (isAxiosError(error)) {
-            throw error?.response?.data;
-        }
-        throw { message: "Error adding password!" };
+  try {
+    return (await instance.put(`/api/v1/passwords/${id}`, password)).data;
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      throw error?.response?.data;
     }
+    throw { message: "Error adding password!" };
+  }
 }
 
 export async function deletePassword(id: string) {
-    try {
-        return (await instance.delete(`/api/v1/passwords/${id}`)).data;
-    } catch (error: unknown) {
-        if (isAxiosError(error)) {
-            throw error?.response?.data;
-        }
-        throw { message: "Error adding password!" };
+  try {
+    return (await instance.delete(`/api/v1/passwords/${id}`)).data;
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      throw error?.response?.data;
     }
+    throw { message: "Error adding password!" };
+  }
 }

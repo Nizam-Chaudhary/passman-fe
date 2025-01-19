@@ -1,28 +1,28 @@
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
 } from "@/components/ui/card";
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { useToast } from "@/hooks/use-toast";
 import { USER_KEY } from "@/lib/constants";
 import {
-    deriveKey,
-    encrypt,
-    generateMasterKey,
-    generateRecoveryKey,
-    generateSalt,
+  deriveKey,
+  encrypt,
+  generateMasterKey,
+  generateRecoveryKey,
+  generateSalt,
 } from "@/lib/encryption.helper";
 import { storeKeyInIndexedDB } from "@/lib/indexedDb";
 import { SignUpUserFormData, signUpUserSchema } from "@/lib/types/signup";
@@ -33,129 +33,115 @@ import { NavLink, useNavigate } from "react-router";
 import { PasswordInput } from "../components/ui/password-input";
 
 export default function SignUp() {
-    const { toast } = useToast();
-    const navigate = useNavigate();
-    const mutateSignUpUser = useSignUpUser();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const mutateSignUpUser = useSignUpUser();
 
-    const signUpForm = useForm<SignUpUserFormData>({
-        resolver: zodResolver(signUpUserSchema),
-        defaultValues: {
-            userName: "",
-            email: "",
-            password: "",
-        },
-    });
+  const signUpForm = useForm<SignUpUserFormData>({
+    resolver: zodResolver(signUpUserSchema),
+    defaultValues: {
+      userName: "",
+      email: "",
+      password: "",
+    },
+  });
 
-    async function onSubmit(data: SignUpUserFormData) {
-        const userKey = await deriveKey(data.password, generateSalt());
+  async function onSubmit(data: SignUpUserFormData) {
+    const userKey = await deriveKey(data.password, generateSalt());
 
-        const masterKey = await encrypt(generateMasterKey(), userKey);
+    const masterKey = await encrypt(generateMasterKey(), userKey);
 
-        const recoveryMasterKey = await encrypt(generateRecoveryKey(), userKey);
+    const recoveryMasterKey = await encrypt(generateRecoveryKey(), userKey);
 
-        const payload = { ...data, masterKey, recoveryMasterKey };
+    const payload = { ...data, masterKey, recoveryMasterKey };
 
-        mutateSignUpUser.mutate(payload, {
-            onError: (error) => {
-                toast({
-                    className: "bg-red-700",
-                    title: "Error Signing up!",
-                    description: error.message,
-                });
-            },
-            onSuccess: async () => {
-                toast({
-                    className: "bg-green-700",
-                    title: "Signed up successfully!",
-                });
-                await storeKeyInIndexedDB(userKey, USER_KEY);
-                await navigate("/login");
-            },
+    mutateSignUpUser.mutate(payload, {
+      onError: (error) => {
+        toast({
+          className: "bg-red-700",
+          title: "Error Signing up!",
+          description: error.message,
         });
-    }
+      },
+      onSuccess: async () => {
+        toast({
+          className: "bg-green-700",
+          title: "Signed up successfully!",
+        });
+        await storeKeyInIndexedDB(userKey, USER_KEY);
+        await navigate("/login");
+      },
+    });
+  }
 
-    return (
-        <>
-            <Card className="m-auto min-w-96 w-2/6 my-32">
-                <CardHeader className="text-center text-2xl">
-                    Create your account
-                </CardHeader>
-                <CardContent>
-                    <Form {...signUpForm}>
-                        <form
-                            onSubmit={signUpForm.handleSubmit(onSubmit)}
-                            className="space-y-8"
-                        >
-                            <FormField
-                                control={signUpForm.control}
-                                name="email"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Email</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                placeholder="Email"
-                                                type="email"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={signUpForm.control}
-                                name="userName"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Username</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                placeholder="Username"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={signUpForm.control}
-                                name="password"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Password</FormLabel>
-                                        <FormControl>
-                                            <PasswordInput
-                                                placeholder="Password"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <Button
-                                className="text-center w-full"
-                                type="submit"
-                                disabled={mutateSignUpUser.isPending}
-                            >
-                                {mutateSignUpUser.isPending ? (
-                                    <LoadingSpinner />
-                                ) : (
-                                    "Sign Up"
-                                )}
-                            </Button>
-                        </form>
-                    </Form>
-                </CardContent>
-                <CardFooter className="flex justify-center">
-                    Already have an account?&nbsp;
-                    <NavLink to="/login" className="text-blue-700" end>
-                        Login
-                    </NavLink>
-                </CardFooter>
-            </Card>
-        </>
-    );
+  return (
+    <>
+      <Card className="m-auto min-w-96 w-2/6 my-32">
+        <CardHeader className="text-center text-2xl">
+          Create your account
+        </CardHeader>
+        <CardContent>
+          <Form {...signUpForm}>
+            <form
+              onSubmit={signUpForm.handleSubmit(onSubmit)}
+              className="space-y-8"
+            >
+              <FormField
+                control={signUpForm.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Email" type="email" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={signUpForm.control}
+                name="userName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Username" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={signUpForm.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <PasswordInput placeholder="Password" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button
+                className="text-center w-full"
+                type="submit"
+                disabled={mutateSignUpUser.isPending}
+              >
+                {mutateSignUpUser.isPending ? <LoadingSpinner /> : "Sign Up"}
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+        <CardFooter className="flex justify-center">
+          Already have an account?&nbsp;
+          <NavLink to="/login" className="text-blue-700" end>
+            Login
+          </NavLink>
+        </CardFooter>
+      </Card>
+    </>
+  );
 }
