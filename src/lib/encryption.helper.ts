@@ -32,6 +32,25 @@ export async function deriveKey(
   return derivedKey; // Return as a Uint8Array for consistency
 }
 
+// Convert string key to CryptoKey
+export async function importKey(keyString: string): Promise<CryptoKey> {
+  // Convert hex string to Uint8Array
+  const keyBytes = new Uint8Array(
+    keyString.match(/.{1,2}/g)!.map((byte) => parseInt(byte, 16))
+  );
+
+  // Import as CryptoKey
+  return await crypto.subtle.importKey(
+    "raw",
+    keyBytes,
+    {
+      name: "AES-GCM",
+    },
+    true, // extractable
+    ["encrypt", "decrypt"]
+  );
+}
+
 export async function encrypt(
   data: string,
   key: CryptoKey // key passed as a raw Uint8Array

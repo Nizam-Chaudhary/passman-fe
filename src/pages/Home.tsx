@@ -5,7 +5,6 @@ import {
   setRequestInterceptor,
   setResponseInterceptor,
 } from "@/lib/api.helper";
-import { TOKEN_KEY } from "@/lib/constants";
 import { useStore } from "@/store/store";
 import debounce from "lodash/debounce";
 import { KeyRound, LockIcon, Search } from "lucide-react";
@@ -17,6 +16,7 @@ import { PasswordView } from "../components/PasswordView";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { VaultComboBox } from "../components/VaultComboBox";
+import { getToken } from "@/lib/auth";
 
 export default function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,7 +29,7 @@ export default function Home() {
   );
 
   useLayoutEffect(() => {
-    const token = localStorage.getItem(TOKEN_KEY);
+    const token = getToken();
     if (token) {
       setRequestInterceptor(token);
     }

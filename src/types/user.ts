@@ -7,8 +7,18 @@ export type GetUserResponseSchema = {
     masterKey: {
       iv: string;
       encrypted: string;
+      salt: string;
     };
     createdAt: Date;
     updatedAt: Date;
   };
+};
+
+export type JwtUserData = {
+  id: number;
+  userName: string;
+  email: string;
+  masterKeyCreated: boolean;
+  exp: number;
+  iat: number;
 };

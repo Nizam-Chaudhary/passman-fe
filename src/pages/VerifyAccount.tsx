@@ -21,8 +21,14 @@ import { VerifyAccountFormData, verifyAccountFormSchema } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
+import { useVerifyUserEmail } from "@/services/mutation/user";
+import { useStore } from "@/store/store";
+import { useShallow } from "zustand/react/shallow";
+import { useNavigate } from "react-router";
+import { useToast } from "@/hooks/use-toast";
 
 export default function VerifyAccount() {
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof verifyAccountFormSchema>>({
     resolver: zodResolver(verifyAccountFormSchema),
     defaultValues: {
@@ -30,8 +36,37 @@ export default function VerifyAccount() {
     },
   });
 
+  const { email } = useStore(
+    useShallow((state) => ({
+      email: state.userEmail,
+    }))
+  );
+
+  const verifyUserEmailMutation = useVerifyUserEmail();
+  const navigate = useNavigate();
+
   const onSubmit: SubmitHandler<VerifyAccountFormData> = (data) => {
-    console.log(data);
+    const payload = {
+      email: email!,
+      otp: data.otp,
+    };
+    verifyUserEmailMutation.mutate(payload, {
+      onError: (error) => {
+        console.log(error);
+        toast({
+          className: "bg-red-700 text-white",
+          title: "Error verifying account!",
+          description: error.message,
+        });
+      },
+      onSuccess: () => {
+        toast({
+          className: "bg-green-700 text-white",
+          title: "Email verified successfully!",
+        });
+        navigate("/login");
+      },
+    });
   };
 
   return (

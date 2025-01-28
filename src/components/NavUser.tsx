@@ -18,9 +18,10 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useToast } from "@/hooks/use-toast";
-import { TOKEN_KEY, USER_DATA_KEY } from "@/lib/constants";
+import { USER_DATA_KEY } from "@/lib/constants";
 import { useMemo } from "react";
 import { useNavigate } from "react-router";
+import { removeToken } from "@/lib/auth";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
@@ -32,8 +33,7 @@ export function NavUser() {
   );
 
   function logout() {
-    localStorage.removeItem(USER_DATA_KEY);
-    localStorage.removeItem(TOKEN_KEY);
+    removeToken();
     navigate("/login");
     toast({
       description: "Logged out successfully",

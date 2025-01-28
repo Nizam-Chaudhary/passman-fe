@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { getLoggedInUserDetails } from "../api/user";
 
-export function useLoggedInUsedDetails() {
+export function useLoggedInUserDetails() {
   return useQuery({
-    queryKey: ["user"],
+    queryKey: ["users"],
     queryFn: getLoggedInUserDetails,
+    retry: false,
   });
 }

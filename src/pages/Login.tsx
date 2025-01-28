@@ -18,21 +18,27 @@ import {
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { useToast } from "@/hooks/use-toast";
-import { TOKEN_KEY, USER_DATA_KEY, USER_KEY } from "@/lib/constants";
-import { deriveKey, generateSalt } from "@/lib/encryption.helper";
-import { storeKeyInIndexedDB } from "@/lib/indexedDb";
 import { useLoginUser } from "@/services/mutation/user";
 import { loginSchema, LoginUserData } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { jwtDecode } from "jwt-decode";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router";
 import { PasswordInput } from "../components/ui/password-input";
+import { useStore } from "@/store/store";
+import { useShallow } from "zustand/react/shallow";
+import { setRefreshToken, setToken } from "@/lib/auth";
 
 export default function Login() {
   const { toast } = useToast();
   const navigate = useNavigate();
   const mutateLoginUser = useLoginUser();
+
+  const { setUserEmail, setIsEmailVerified } = useStore(
+    useShallow((state) => ({
+      setIsEmailVerified: state.setIsEmailVerified,
+      setUserEmail: state.setUserEmail,
+    }))
+  );
 
   const loginForm = useForm<LoginUserData>({
     resolver: zodResolver(loginSchema),
@@ -44,24 +50,37 @@ export default function Login() {
 
   function onSubmit(data: LoginUserData) {
     mutateLoginUser.mutate(data, {
-      onError: (error) => {
-        toast({
-          className: "bg-red-700",
-          title: error?.message,
-        });
+      onError: (error, variables) => {
+        console.log("error", error);
+        if (error.message == "Email not verified. Please verify first!") {
+          console.log("error is matching");
+          setIsEmailVerified(false);
+          setUserEmail(variables.email);
+          navigate("/verify-account");
+        } else {
+          toast({
+            className: "bg-red-700",
+            title: error?.message,
+          });
+        }
       },
-      onSuccess: async (res) => {
-        const token = res.data.data.token;
-        const userData = jwtDecode(token);
-        localStorage.setItem(TOKEN_KEY, token);
-        localStorage.setItem(USER_DATA_KEY, JSON.stringify(userData));
-        const userKey = await deriveKey(data.password, generateSalt());
-        await storeKeyInIndexedDB(userKey, USER_KEY);
+      onSuccess: async (data, variables) => {
+        const response = data.data;
+        setToken(response.data.token);
+        setRefreshToken(response.data.refreshToken);
+        setIsEmailVerified(response.data.isVerified);
         toast({
           className: "bg-green-700",
           title: "Logged in successfully!",
         });
-        navigate("/");
+        if (response.data.masterKey == null) {
+          navigate("/create-master-password");
+        } else if (response.data.isVerified) {
+          navigate("/master-password");
+        } else {
+          setUserEmail(variables.email);
+          navigate("/verify-account");
+        }
       },
     });
   }

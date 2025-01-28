@@ -18,28 +18,28 @@ import {
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { useToast } from "@/hooks/use-toast";
-import { USER_KEY } from "@/lib/constants";
-import {
-  deriveKey,
-  encrypt,
-  generateMasterKey,
-  generateRecoveryKey,
-  generateSalt,
-} from "@/lib/encryption.helper";
-import { storeKeyInIndexedDB } from "@/lib/indexedDb";
 import { useSignUpUser } from "@/services/mutation/user";
-import { SignUpUserFormData, signUpUserSchema } from "@/types/auth";
+import { SignUpUserData, signUpUserSchema } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router";
 import { PasswordInput } from "../components/ui/password-input";
+import { useStore } from "@/store/store";
+import { useShallow } from "zustand/react/shallow";
 
 export default function SignUp() {
   const { toast } = useToast();
   const navigate = useNavigate();
   const mutateSignUpUser = useSignUpUser();
 
-  const signUpForm = useForm<SignUpUserFormData>({
+  const { setUserEmail, setIsEmailVerified } = useStore(
+    useShallow((state) => ({
+      setUserEmail: state.setUserEmail,
+      setIsEmailVerified: state.setIsEmailVerified,
+    }))
+  );
+
+  const signUpForm = useForm<SignUpUserData>({
     resolver: zodResolver(signUpUserSchema),
     defaultValues: {
       userName: "",
@@ -48,16 +48,8 @@ export default function SignUp() {
     },
   });
 
-  async function onSubmit(data: SignUpUserFormData) {
-    const userKey = await deriveKey(data.password, generateSalt());
-
-    const masterKey = await encrypt(generateMasterKey(), userKey);
-
-    const recoveryMasterKey = await encrypt(generateRecoveryKey(), userKey);
-
-    const payload = { ...data, masterKey, recoveryMasterKey };
-
-    mutateSignUpUser.mutate(payload, {
+  const onSubmit: SubmitHandler<SignUpUserData> = async (data) => {
+    mutateSignUpUser.mutate(data, {
       onError: (error) => {
         toast({
           className: "bg-red-700",
@@ -65,16 +57,17 @@ export default function SignUp() {
           description: error.message,
         });
       },
-      onSuccess: async () => {
+      onSuccess: async (_response, value) => {
         toast({
           className: "bg-green-700",
           title: "Signed up successfully!",
         });
-        await storeKeyInIndexedDB(userKey, USER_KEY);
-        await navigate("/login");
+        setUserEmail(value.email);
+        setIsEmailVerified(false);
+        await navigate("/verify-account");
       },
     });
-  }
+  };
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -132,7 +125,11 @@ export default function SignUp() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={mutateSignUpUser.isPending}>
+              <Button
+                type="submit"
+                className="w-20"
+                disabled={mutateSignUpUser.isPending}
+              >
                 {mutateSignUpUser.isPending ? <LoadingSpinner /> : "Sign Up"}
               </Button>
             </form>
