@@ -8,6 +8,8 @@ import {
   RefreshTokenResponse,
   SignUpUserData,
   VerifyAccountPayload,
+  VerifyMasterPasswordApiResponse,
+  VerifyMasterPasswordFormData,
 } from "@/types/auth";
 import { ApiResponse } from "@/types/common";
 import { GetUserResponseSchema } from "@/types/user";
@@ -87,5 +89,24 @@ export async function createMasterKey(payload: CreateMasterKeyPayload) {
       throw error?.response?.data;
     }
     throw { message: "Error creating master password!" };
+  }
+}
+
+export async function verifyMasterPassword(
+  payload: VerifyMasterPasswordFormData
+) {
+  try {
+    const token = getToken();
+    console.log("token", token);
+    return await instance.post<VerifyMasterPasswordApiResponse>(
+      "/api/v1/users/verify-master-password",
+      payload,
+      { headers: { Authorization: token } }
+    );
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      throw error?.response?.data;
+    }
+    throw { message: "Error verifying master password!" };
   }
 }

@@ -21,14 +21,13 @@ import {
   FormMessage,
 } from "../components/ui/form";
 import { Input } from "../components/ui/input";
-import { useLoggedInUserDetails } from "@/services/queries/user";
-import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { decrypt, deriveKey, importKey } from "@/lib/encryption.helper";
 import { useShallow } from "zustand/react/shallow";
 import { useStore } from "@/store/store";
 import { useNavigate } from "react-router";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { useVerifyMasterPassword } from "@/services/mutation/user";
 
 export default function VerifyMasterPassword() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -49,41 +48,45 @@ export default function VerifyMasterPassword() {
     },
   });
 
-  const { data: response, isPending } = useLoggedInUserDetails();
-
-  if (isPending) {
-    return <LoadingSpinner />;
-  }
+  const verifyMasterPasswordMutation = useVerifyMasterPassword();
 
   const onSubmit: SubmitHandler<VerifyMasterPasswordFormData> = async (
     data,
     event
   ) => {
     event?.preventDefault();
-    const userDetails = response?.data.data;
-    if (!data) return;
-    if (!userDetails) return;
     setIsSubmitting(true);
-    const userKey = await deriveKey(
-      data.masterPassword,
-      userDetails.masterKey.salt
+    await verifyMasterPasswordMutation.mutateAsync(
+      {
+        masterPassword: data.masterPassword,
+      },
+      {
+        onSuccess: async (result) => {
+          const response = result.data;
+          const userKey = await deriveKey(
+            data.masterPassword,
+            response.data.masterKey.salt
+          );
+
+          setIsSubmitting(false);
+          const decryptedMasterKey = await decrypt(
+            response.data.masterKey,
+            userKey
+          );
+          const masterKey = await importKey(decryptedMasterKey);
+          setMasterkey(masterKey);
+          setIsMasterPasswordSet(true);
+          navigate("/", { replace: true });
+        },
+        onError: (error) => {
+          setIsSubmitting(false);
+          toast({
+            title: error.message,
+            className: "bg-red-700",
+          });
+        },
+      }
     );
-
-    try {
-      const decryptedMasterKey = await decrypt(userDetails.masterKey, userKey);
-      const masterKey = await importKey(decryptedMasterKey);
-
-      setIsMasterPasswordSet(true);
-      setMasterkey(masterKey);
-      navigate("/", { replace: true });
-    } catch {
-      toast({
-        title: "Incorrect Master Password",
-        className: "bg-red-700",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
   };
   return (
     <div className="flex justify-center items-center h-screen">

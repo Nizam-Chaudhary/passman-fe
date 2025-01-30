@@ -5,18 +5,18 @@ type AuthStates = {
   isAuthenticated: boolean | null;
   isEmailVerified: boolean | null;
   isMasterPasswordSet: boolean | null;
-  userKey?: CryptoKey;
-  masterKey?: CryptoKey;
+  userKey?: CryptoKey | null;
+  masterKey?: CryptoKey | null;
   openRecoveryKeyDialog: boolean;
   recoveryKey: string;
 };
 
 type AuthActions = {
   setIsAuthenticated: (isAuthenticated: boolean) => void;
-  setIsEmailVerified: (isVerified: boolean) => void;
-  setIsMasterPasswordSet: (isSet: boolean) => void;
-  setUserKey: (key: CryptoKey) => void;
-  setMasterkey: (key: CryptoKey) => void;
+  setIsEmailVerified: (isVerified: boolean | null) => void;
+  setIsMasterPasswordSet: (isSet: boolean | null) => void;
+  setUserKey: (key: CryptoKey | null) => void;
+  setMasterkey: (key: CryptoKey | null) => void;
   setOpenRecoveryKeyDialog: (open: boolean) => void;
   setRecoveryKey: (key: string) => void;
 };
@@ -42,11 +42,11 @@ export const createAuthSlice: StateCreator<
     set((state) => {
       state.isAuthenticated = isAuthenticated;
     }),
-  setUserKey: (key: CryptoKey) =>
+  setUserKey: (key) =>
     set((state) => {
       state.userKey = key;
     }),
-  setIsEmailVerified: (isVerified: boolean) =>
+  setIsEmailVerified: (isVerified) =>
     set((state) => {
       state.isEmailVerified = isVerified;
     }),
@@ -54,7 +54,7 @@ export const createAuthSlice: StateCreator<
     set((state) => {
       state.isMasterPasswordSet = isSet;
     }),
-  setMasterkey: (key: CryptoKey) =>
+  setMasterkey: (key) =>
     set((state) => {
       state.masterKey = key;
     }),

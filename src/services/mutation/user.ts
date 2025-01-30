@@ -10,6 +10,7 @@ import {
   LoginUserData,
   SignUpUserData,
   VerifyAccountPayload,
+  VerifyMasterPasswordFormData,
 } from "@/types/auth";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
@@ -18,6 +19,7 @@ import {
   loginInUser,
   refreshToken,
   signUpUser,
+  verifyMasterPassword,
   verifyUserEmail,
 } from "../api/user";
 
@@ -67,5 +69,12 @@ export function useRefreshToken() {
 export function useCreateMasterKey() {
   return useMutation({
     mutationFn: (data: CreateMasterKeyPayload) => createMasterKey(data),
+  });
+}
+
+export function useVerifyMasterPassword() {
+  return useMutation({
+    mutationFn: (data: VerifyMasterPasswordFormData) =>
+      verifyMasterPassword(data),
   });
 }

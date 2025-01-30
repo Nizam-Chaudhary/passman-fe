@@ -32,6 +32,7 @@ import {
   generateRecoveryKey,
   generateSalt,
 } from "@/lib/encryption.helper";
+import { useToast } from "@/hooks/use-toast";
 
 export default function CreateMasterPassword() {
   const { setOpenRecoveryKeyDialog, setRecoveryKey } = useStore(
@@ -40,6 +41,8 @@ export default function CreateMasterPassword() {
       setRecoveryKey: state.setRecoveryKey,
     }))
   );
+
+  const { toast } = useToast();
 
   const form = useForm({
     resolver: zodResolver(createMasterPasswordFormSchema),
@@ -80,6 +83,7 @@ export default function CreateMasterPassword() {
 
     await createMasterPasswordMutation.mutateAsync(
       {
+        masterPassword: data.masterPassword,
         masterKey: { ...encryptedMasterKey, salt: userKeySalt },
         recoveryKey: { ...encryptedRecoveryKey, salt: recoveryKeySalt },
       },
@@ -87,6 +91,12 @@ export default function CreateMasterPassword() {
         onSuccess: async () => {
           await refreshTokenMutation.mutateAsync();
           setOpenRecoveryKeyDialog(true);
+        },
+        onError: (error) => {
+          toast({
+            title: error.message,
+            className: "bg-red-700",
+          });
         },
       }
     );

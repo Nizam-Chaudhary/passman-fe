@@ -83,6 +83,7 @@ const masterKeySchema = ecryptedValueSchema.and(
 );
 
 export const createMasterKeyRequestBodySchema = z.object({
+  masterPassword: z.string().min(1, "Master password is required"),
   masterKey: masterKeySchema,
   recoveryKey: masterKeySchema,
 });
@@ -98,3 +99,9 @@ export const verifyMasterPasswordFormSchema = z.object({
 export type VerifyMasterPasswordFormData = z.infer<
   typeof verifyMasterPasswordFormSchema
 >;
+
+export type VerifyMasterPasswordApiResponse = ApiResponse & {
+  data: {
+    masterKey: z.infer<typeof masterKeySchema>;
+  };
+};

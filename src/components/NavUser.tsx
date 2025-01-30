@@ -18,22 +18,55 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useToast } from "@/hooks/use-toast";
-import { USER_DATA_KEY } from "@/lib/constants";
-import { useMemo } from "react";
 import { useNavigate } from "react-router";
-import { removeToken } from "@/lib/auth";
+import { removeRefreshToken, removeToken } from "@/lib/auth";
+import { useLoggedInUserDetails } from "@/services/queries/user";
+import NavUserSkeleton from "./skeletons/NavUserSkeleton";
+import { useStore } from "@/store/store";
+import { useShallow } from "zustand/react/shallow";
 
 export function NavUser() {
+  const { data: user, isPending, isError } = useLoggedInUserDetails();
+
+  const {
+    setIsAuthenticated,
+    setIsEmailVerified,
+    setIsMasterPasswordSet,
+    setUserKey,
+    setMasterkey,
+    setRecoveryKey,
+  } = useStore(
+    useShallow((state) => ({
+      setIsAuthenticated: state.setIsAuthenticated,
+      setIsEmailVerified: state.setIsEmailVerified,
+      setIsMasterPasswordSet: state.setIsMasterPasswordSet,
+      setUserKey: state.setUserKey,
+      setMasterkey: state.setMasterkey,
+      setRecoveryKey: state.setRecoveryKey,
+    }))
+  );
+
   const { isMobile } = useSidebar();
   const { toast } = useToast();
   const navigate = useNavigate();
-  const user = useMemo(
-    () => JSON.parse(localStorage.getItem(USER_DATA_KEY) || "{}"),
-    []
-  );
+
+  if (isPending) {
+    return <NavUserSkeleton />;
+  }
+
+  if (isError) {
+    return <NavUserSkeleton />;
+  }
 
   function logout() {
     removeToken();
+    removeRefreshToken();
+    setIsAuthenticated(false);
+    setIsEmailVerified(null);
+    setIsMasterPasswordSet(null);
+    setUserKey(null);
+    setMasterkey(null);
+    setRecoveryKey("");
     navigate("/login");
     toast({
       description: "Logged out successfully",
@@ -52,10 +85,12 @@ export function NavUser() {
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage
-                  src={user.avatar || "src/assets/shadcn.jpg"}
-                  alt={user.userName}
+                  src={user.userName || "src/assets/shadcn.jpg"}
+                  alt={user.userName.charAt(0).toUpperCase()}
                 />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg">
+                  {user.userName.charAt(0).toUpperCase()}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{user.userName}</span>
@@ -73,12 +108,9 @@ export function NavUser() {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage
-                    src={user.avatar || "src/assets/shadcn.jpg"}
-                    alt={user.userName}
-                  />
+                  <AvatarImage src={user.userName || "src/assets/shadcn.jpg"} />
                   <AvatarFallback className="rounded-lg">
-                    alt={user.userName}
+                    {user.userName.charAt(0).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
@@ -91,27 +123,27 @@ export function NavUser() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             {/* <DropdownMenuGroup>
-                            <DropdownMenuItem>
-                                <Sparkles />
-                                Upgrade to Pro
-                            </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuGroup>
-                            <DropdownMenuItem>
-                                <BadgeCheck />
-                                Account
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <CreditCard />
-                                Billing
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <Bell />
-                                Notifications
-                            </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                        <DropdownMenuSeparator /> */}
+              <DropdownMenuItem>
+                  <Sparkles />
+                  Upgrade to Pro
+              </DropdownMenuItem>
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
+              <DropdownMenuItem>
+                  <BadgeCheck />
+                  Account
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                  <CreditCard />
+                  Billing
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                  <Bell />
+                  Notifications
+              </DropdownMenuItem>
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator /> */}
             <DropdownMenuItem onClick={logout}>
               <LogOut />
               Log out
