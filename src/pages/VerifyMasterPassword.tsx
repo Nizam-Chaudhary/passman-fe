@@ -20,7 +20,6 @@ import {
   FormLabel,
   FormMessage,
 } from "../components/ui/form";
-import { Input } from "../components/ui/input";
 import { decrypt, deriveKey, importKey } from "@/lib/encryption.helper";
 import { useShallow } from "zustand/react/shallow";
 import { useStore } from "@/store/store";
@@ -28,6 +27,8 @@ import { useNavigate } from "react-router";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { useVerifyMasterPassword } from "@/services/mutation/user";
+import { PasswordInput } from "@/components/ui/password-input";
+import LoadingSpinner from "@/components/ui/loadingSpinner";
 
 export default function VerifyMasterPassword() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -105,14 +106,17 @@ export default function VerifyMasterPassword() {
                   <FormItem>
                     <FormLabel>Master Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter master password" {...field} />
+                      <PasswordInput
+                        placeholder="Enter Master Password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Verifying..." : "Submit"}
+              <Button type="submit" className="w-20" disabled={isSubmitting}>
+                {isSubmitting ? <LoadingSpinner /> : "Submit"}
               </Button>
             </form>
           </Form>

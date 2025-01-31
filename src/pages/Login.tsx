@@ -128,7 +128,11 @@ export default function Login() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={mutateLoginUser.isPending}>
+              <Button
+                type="submit"
+                className="w-18"
+                disabled={mutateLoginUser.isPending}
+              >
                 {mutateLoginUser.isPending ? <LoadingSpinner /> : "Login"}
               </Button>
             </form>

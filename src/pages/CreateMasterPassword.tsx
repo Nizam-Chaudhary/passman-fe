@@ -20,7 +20,6 @@ import {
   FormLabel,
   FormMessage,
 } from "../components/ui/form";
-import { Input } from "../components/ui/input";
 import RecoveryKeyDialog from "@/components/RecoverKeyDialog";
 import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
@@ -33,6 +32,8 @@ import {
   generateSalt,
 } from "@/lib/encryption.helper";
 import { useToast } from "@/hooks/use-toast";
+import { PasswordInput } from "@/components/ui/password-input";
+import LoadingSpinner from "@/components/ui/loadingSpinner";
 
 export default function CreateMasterPassword() {
   const { setOpenRecoveryKeyDialog, setRecoveryKey } = useStore(
@@ -123,7 +124,10 @@ export default function CreateMasterPassword() {
                   <FormItem>
                     <FormLabel>Master Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter master password" {...field} />
+                      <PasswordInput
+                        placeholder="Enter Master Password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -136,8 +140,8 @@ export default function CreateMasterPassword() {
                   <FormItem>
                     <FormLabel>Confirm Master Password</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Re-Enter master password"
+                      <PasswordInput
+                        placeholder="Enter Confirm Master Password"
                         {...field}
                       />
                     </FormControl>
@@ -145,7 +149,17 @@ export default function CreateMasterPassword() {
                   </FormItem>
                 )}
               />
-              <Button type="submit">Submit</Button>
+              <Button
+                type="submit"
+                className="w-20"
+                disabled={createMasterPasswordMutation.isPending}
+              >
+                {createMasterPasswordMutation.isPending ? (
+                  <LoadingSpinner />
+                ) : (
+                  "Submit"
+                )}
+              </Button>
             </form>
           </Form>
         </CardContent>
