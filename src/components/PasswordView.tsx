@@ -97,7 +97,7 @@ export function PasswordView() {
     return (
       <Card className="h-[calc(100vh-5.5rem)]">
         <CardContent>
-          <div className="h-[calc(100vh-5.5rem)] flex items-center justify-center">
+          <div className="h-[calc(100vh-10rem)] flex items-center justify-center">
             <Loading />
           </div>
         </CardContent>
