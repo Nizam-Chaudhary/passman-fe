@@ -344,6 +344,7 @@ export function PasswordView() {
         description="Are you sure you want to delete the password?"
         variant="destructive"
         onClick={onDeletePassword}
+        isPending={deletePasswordMutation.isPending}
       />
     </>
   );

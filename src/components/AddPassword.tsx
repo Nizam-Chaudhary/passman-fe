@@ -30,6 +30,7 @@ import {
 import { Input } from "./ui/input";
 import { PasswordInput } from "./ui/password-input";
 import { Textarea } from "./ui/textarea";
+import LoadingSpinner from "./ui/loadingSpinner";
 
 export default function AddPassword() {
   const { openAddPasswordDialog, setOpenAddPasswordDialog, masterKey } =
@@ -200,7 +201,13 @@ export default function AddPassword() {
               >
                 Cancel
               </Button>
-              <Button type="submit">Add</Button>
+              <Button
+                type="submit"
+                className="w-16"
+                disabled={addPasswordMutation.isPending}
+              >
+                {addPasswordMutation.isPending ? <LoadingSpinner /> : "Add"}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

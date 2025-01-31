@@ -23,6 +23,7 @@ import {
   FormMessage,
 } from "./ui/form";
 import { Input } from "./ui/input";
+import LoadingSpinner from "./ui/loadingSpinner";
 
 export default function AddVault() {
   const { open, setOpen } = useStore(
@@ -103,7 +104,13 @@ export default function AddVault() {
               >
                 Cancel
               </Button>
-              <Button type="submit">Add</Button>
+              <Button
+                type="submit"
+                className="w-16"
+                disabled={addVaultMutation.isPending}
+              >
+                {addVaultMutation.isPending ? <LoadingSpinner /> : "Add"}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

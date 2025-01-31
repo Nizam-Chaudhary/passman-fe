@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog";
+import LoadingSpinner from "./ui/loadingSpinner";
 
 type Props = {
   title: string;
@@ -21,10 +22,11 @@ type Props = {
     | "secondary"
     | "ghost";
   onClick: () => void;
+  isPending?: boolean;
 };
 
 export default function ConfirmDialog(props: Props) {
-  const { title, description, variant, onClick } = props;
+  const { title, description, variant, onClick, isPending } = props;
   const { open, setOpen } = useStore(
     useShallow((state) => ({
       open: state.openDeletePasswordDialog,
@@ -47,8 +49,14 @@ export default function ConfirmDialog(props: Props) {
           >
             Cancel
           </Button>
-          <Button type="submit" variant={variant} onClick={onClick}>
-            Yes
+          <Button
+            type="submit"
+            className="w-16"
+            variant={variant}
+            onClick={onClick}
+            disabled={isPending}
+          >
+            {isPending ? <LoadingSpinner /> : "Yes"}
           </Button>
         </DialogFooter>
       </DialogContent>
