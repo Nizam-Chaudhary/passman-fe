@@ -19,6 +19,7 @@ const PasswordInput = forwardRef<HTMLInputElement, ComponentProps<"input">>(
         <Button
           variant="ghost"
           size="sm"
+          type="button"
           onClick={(e) => {
             e.preventDefault();
             setShowPassword((prev) => !prev);

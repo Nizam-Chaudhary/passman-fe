@@ -10,6 +10,7 @@ import {
   DialogTitle,
 } from "./ui/dialog";
 import LoadingSpinner from "./ui/loadingSpinner";
+import { cn } from "@/lib/utils";
 
 type Props = {
   title: string;
@@ -51,7 +52,9 @@ export default function ConfirmDialog(props: Props) {
           </Button>
           <Button
             type="submit"
-            className="w-16"
+            className={cn(
+              variant === "destructive" ? "w-16 bg-red-700" : "w - 16"
+            )}
             variant={variant}
             onClick={onClick}
             disabled={isPending}
