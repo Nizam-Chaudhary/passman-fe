@@ -11,12 +11,13 @@ type Props = {
 };
 
 export function PasswordRow({ id, site, username, faviconUrl }: Props) {
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <div
       onClick={() => {
-        setSearchParams((params) => ({ ...params, p: id }));
+        searchParams.set("p", id);
+        setSearchParams(searchParams);
       }}
     >
       <div className="flex ml-1 items-center justify-center p-2 cursor-pointer">

@@ -97,7 +97,6 @@ export async function verifyMasterPassword(
 ) {
   try {
     const token = getToken();
-    console.log("token", token);
     return await instance.post<VerifyMasterPasswordApiResponse>(
       "/api/v1/users/verify-master-password",
       payload,

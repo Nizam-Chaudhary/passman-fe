@@ -9,7 +9,6 @@ import { useStore } from "@/store/store";
 import debounce from "lodash/debounce";
 import { KeyRound, LockIcon, Search } from "lucide-react";
 import { useEffect, useLayoutEffect, useMemo } from "react";
-import { useNavigate, useSearchParams } from "react-router";
 import { useShallow } from "zustand/react/shallow";
 import AddPassword from "../components/AddPassword";
 import { PasswordView } from "../components/PasswordView";
@@ -17,10 +16,11 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { VaultComboBox } from "../components/VaultComboBox";
 import { getToken } from "@/lib/auth";
+import { useRefreshToken } from "@/services/mutation/user";
+import { useSearchParams } from "react-router";
 
 export default function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
 
   const { setOpenAddPasswordDialog } = useStore(
     useShallow((state) => ({
@@ -28,13 +28,15 @@ export default function Home() {
     }))
   );
 
+  const refreshTokenMutation = useRefreshToken();
+
   useLayoutEffect(() => {
     const token = getToken();
     if (token) {
-      setRequestInterceptor(token);
+      setRequestInterceptor();
     }
-    setResponseInterceptor(navigate);
-  }, [navigate]);
+    setResponseInterceptor(refreshTokenMutation);
+  }, [refreshTokenMutation]);
 
   const debouncedSearch = useMemo(
     () =>

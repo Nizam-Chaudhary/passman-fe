@@ -52,7 +52,6 @@ export default function VerifyAccount() {
     };
     verifyUserEmailMutation.mutate(payload, {
       onError: (error) => {
-        console.log(error);
         toast({
           className: "bg-red-700 text-white",
           title: "Error verifying account!",

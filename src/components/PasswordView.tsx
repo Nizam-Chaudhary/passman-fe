@@ -1,7 +1,5 @@
 import { toast } from "@/hooks/use-toast";
-import { USER_KEY } from "@/lib/constants";
 import { decrypt, encrypt } from "@/lib/encryption.helper";
-import { getKeysFromIndexedDB } from "@/lib/indexedDb";
 import {
   useDeletePassword,
   useUpdatePassword,
@@ -43,9 +41,10 @@ import { Textarea } from "./ui/textarea";
 export function PasswordView() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { setOpenDeletePasswordDialog } = useStore(
+  const { setOpenDeletePasswordDialog, masterKey } = useStore(
     useShallow((state) => ({
       setOpenDeletePasswordDialog: state.setOpenDeletePasswordDialog,
+      masterKey: state.masterKey,
     }))
   );
   const passwordId = searchParams.get("p");
@@ -53,21 +52,13 @@ export function PasswordView() {
   const editPasswordMutation = useUpdatePassword();
   const deletePasswordMutation = useDeletePassword();
 
-  const { data: encryptionKey } = useQuery({
-    queryKey: ["encryptionKey"],
-    queryFn: async () => {
-      return await getKeysFromIndexedDB(USER_KEY);
-    },
-  });
-
   const { data: password } = useQuery({
     queryKey: ["decryptPassword", { id: passwordId }],
     queryFn: async () => {
-      const encryptionKey = await getKeysFromIndexedDB(USER_KEY);
-      if (!encryptionKey || !data?.password) return null;
-      return await decrypt(data?.password, encryptionKey);
+      if (!masterKey || !data?.password) return null;
+      return await decrypt(data?.password, masterKey);
     },
-    enabled: !!data?.password && encryptionKey != null,
+    enabled: !!data?.password && masterKey != null,
   });
 
   const editPasswordForm = useForm<Password>({
@@ -130,7 +121,7 @@ export function PasswordView() {
   }
 
   const onEditSubmit: SubmitHandler<Password> = async (data) => {
-    if (!encryptionKey) {
+    if (!masterKey) {
       toast({
         title: "Error encrypting password!",
         description: "User key not found",
@@ -138,7 +129,7 @@ export function PasswordView() {
       });
       return;
     }
-    const encryptedPassword = await encrypt(data.password, encryptionKey);
+    const encryptedPassword = await encrypt(data.password, masterKey);
     const updatedPassword = updatePasswordPayloadSchema.parse({
       ...data,
       password: encryptedPassword,

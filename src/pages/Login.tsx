@@ -53,7 +53,6 @@ export default function Login() {
       onError: (error, variables) => {
         console.log("error", error);
         if (error.message == "Email not verified. Please verify first!") {
-          console.log("error is matching");
           setIsEmailVerified(false);
           setUserEmail(variables.email);
           navigate("/verify-account");

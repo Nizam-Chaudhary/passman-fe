@@ -1,7 +1,5 @@
 import { useToast } from "@/hooks/use-toast";
-import { USER_KEY } from "@/lib/constants";
 import { encrypt } from "@/lib/encryption.helper";
-import { getKeysFromIndexedDB } from "@/lib/indexedDb";
 import { useAddPassword } from "@/services/mutation/password";
 import { useStore } from "@/store/store";
 import {
@@ -34,12 +32,14 @@ import { PasswordInput } from "./ui/password-input";
 import { Textarea } from "./ui/textarea";
 
 export default function AddPassword() {
-  const { openAddPasswordDialog, setOpenAddPasswordDialog } = useStore(
-    useShallow((state) => ({
-      openAddPasswordDialog: state.openAddPasswordDialog,
-      setOpenAddPasswordDialog: state.setOpenAddPasswordDialog,
-    }))
-  );
+  const { openAddPasswordDialog, setOpenAddPasswordDialog, masterKey } =
+    useStore(
+      useShallow((state) => ({
+        openAddPasswordDialog: state.openAddPasswordDialog,
+        setOpenAddPasswordDialog: state.setOpenAddPasswordDialog,
+        masterKey: state.masterKey,
+      }))
+    );
   const { toast } = useToast();
 
   const { currentVault } = useStore(
@@ -60,8 +60,7 @@ export default function AddPassword() {
   });
 
   const onSubmit: SubmitHandler<Password> = async (data) => {
-    const encryptionKey = await getKeysFromIndexedDB(USER_KEY);
-    if (!encryptionKey) {
+    if (!masterKey) {
       toast({
         className: "bg-red-700",
         title: "Error encrypting password!",
@@ -69,7 +68,7 @@ export default function AddPassword() {
       });
       return;
     }
-    const encryptedPassword = await encrypt(data.password, encryptionKey);
+    const encryptedPassword = await encrypt(data.password, masterKey);
     const payload = passwordPayloadSchema.parse({
       ...data,
       password: encryptedPassword,
