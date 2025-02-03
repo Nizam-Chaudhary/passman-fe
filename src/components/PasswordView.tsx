@@ -15,7 +15,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
 import { ClipboardCopyIcon, TrashIcon } from "lucide-react";
 import { useEffect } from "react";
-import CopyToClipboard from "react-copy-to-clipboard";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSearchParams } from "react-router";
 import { useShallow } from "zustand/react/shallow";
@@ -174,6 +173,21 @@ export function PasswordView() {
     });
   };
 
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast({
+        className: "bg-green-700",
+        description: "Copied to clipboard",
+      });
+    } catch {
+      toast({
+        className: "bg-red-700",
+        description: "Failed to copy to clipboard",
+      });
+    }
+  };
+
   return (
     <>
       <Card className="h-[calc(100vh-5.5rem)]">
@@ -243,13 +257,13 @@ export function PasswordView() {
                             spellCheck="false"
                             value={field.value || ""}
                           />
-                          <CopyToClipboard text={field.value ?? ""}>
                             <Button
                               size="sm"
                               variant="ghost"
                               className="absolute top-0 right-0 cursor-pointer h-full hover:bg-transparent"
                               onClick={(e) => {
                                 e.preventDefault();
+                                copyToClipboard(field.value ?? "");
                                 toast({
                                   className: "bg-green-700",
                                   description: "Username copied to clipboard",
@@ -258,7 +272,6 @@ export function PasswordView() {
                             >
                               <ClipboardCopyIcon />
                             </Button>
-                          </CopyToClipboard>
                         </div>
                       </FormControl>
 
@@ -285,13 +298,13 @@ export function PasswordView() {
                             className="mt-2"
                           />
 
-                          <CopyToClipboard text={field.value}>
                             <Button
                               size="sm"
                               variant="ghost"
                               className="absolute top-0 right-8 cursor-pointer h-full hover:bg-transparent"
                               onClick={(e) => {
                                 e.preventDefault();
+                                copyToClipboard(field.value ?? "");
                                 toast({
                                   className: "bg-green-700",
                                   description: "Password copied to clipboard",
@@ -300,7 +313,6 @@ export function PasswordView() {
                             >
                               <ClipboardCopyIcon />
                             </Button>
-                          </CopyToClipboard>
                         </div>
                       </FormControl>
                       <FormMessage />
