@@ -1,11 +1,13 @@
 services:
   passman:
-    image: passman:${GIT_COMMIT_HASH:-latest}
-    restart: always
+    image: ghcr.io/nizam-chaudhary/passman:${GIT_COMMIT_HASH:-latest}
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.passman.loadbalancer.server.port=80"
       - "traefik.http.routers.passman.rule=Host(`ec2-13-203-78-142.ap-south-1.compute.amazonaws.com`)"
+    deploy:
+      update_config:
+        order: start-first
     networks:
       - web
 
