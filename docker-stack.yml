@@ -4,9 +4,9 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.passman.loadbalancer.server.port=80"
-      - "traefik.http.routers.passman.rule=Host(`13.203.78.142`)"
-      - "traefik.http.routers.passman-be.entrypoints=websecure"
-      - "traefik.http.routers.passman-be.tls.certresolver=myresolver"
+      - "traefik.http.routers.passman.rule=Host(`ec2-13-203-78-142.ap-south-1.compute.amazonaws.com`)"
+      - "traefik.http.routers.passman.entrypoints=websecure"
+      - "traefik.http.routers.passman.tls.certresolver=myresolver"
     deploy:
       update_config:
         order: start-first
