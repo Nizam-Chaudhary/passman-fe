@@ -1,7 +1,6 @@
 services:
   passman:
     image: passman:${GIT_COMMIT_HASH:-latest}
-    container_name: passman
     restart: always
     labels:
       - "traefik.enable=true"
