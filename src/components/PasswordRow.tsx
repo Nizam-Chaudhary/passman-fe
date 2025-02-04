@@ -23,10 +23,7 @@ export function PasswordRow({ id, site, username, faviconUrl }: Props) {
       <div className="flex ml-1 items-center justify-center p-2 cursor-pointer">
         <div className="flex items-center justify-center w-8 cursor-pointer">
           <Avatar className="w-10 h-10 rounded-lg">
-            <AvatarImage
-              src={faviconUrl || "src/assets/shadcn.jpg"}
-              alt="Icon"
-            />
+            <AvatarImage src={faviconUrl || "/assets/shadcn.jpg"} alt="Icon" />
             <AvatarFallback className="rounded-sm">Icon</AvatarFallback>
           </Avatar>
         </div>

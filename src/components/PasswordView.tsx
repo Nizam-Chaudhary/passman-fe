@@ -84,7 +84,7 @@ export function PasswordView() {
       <Card className="h-[calc(100vh-5.5rem)]">
         <CardContent>
           <div className="flex flex-col justify-center items-center h-[calc(100vh-10rem)] gap-8">
-            <img className="w-[30vh]" src="src/assets/select.svg" />
+            <img className="w-[30vh]" src="/assets/select.svg" />
             <p className="text-3xl mt-2">Select password from list</p>
           </div>
         </CardContent>
@@ -110,7 +110,7 @@ export function PasswordView() {
         <CardContent>
           <div className="h-[calc(100vh-5.5rem)] flex items-center justify-center">
             <div className="flex flex-col justify-center items-center mt-20 gap-8">
-              <img className="w-[50%]" src="src/assets/warning.svg" />
+              <img className="w-[50%]" src="/assets/warning.svg" />
               <p className="text-3xl mt-2">Password not found</p>
             </div>
           </div>
@@ -196,7 +196,7 @@ export function PasswordView() {
             <div>
               <div className="flex justify-between items-center">
                 <Avatar className="size-12 rounded-lg">
-                  <AvatarImage src="src/assets/shadcn.jpg" />
+                  <AvatarImage src="/assets/shadcn.jpg" />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
 
@@ -257,21 +257,21 @@ export function PasswordView() {
                             spellCheck="false"
                             value={field.value || ""}
                           />
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              className="absolute top-0 right-0 cursor-pointer h-full hover:bg-transparent"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                copyToClipboard(field.value ?? "");
-                                toast({
-                                  className: "bg-green-700",
-                                  description: "Username copied to clipboard",
-                                });
-                              }}
-                            >
-                              <ClipboardCopyIcon />
-                            </Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="absolute top-0 right-0 cursor-pointer h-full hover:bg-transparent"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              copyToClipboard(field.value ?? "");
+                              toast({
+                                className: "bg-green-700",
+                                description: "Username copied to clipboard",
+                              });
+                            }}
+                          >
+                            <ClipboardCopyIcon />
+                          </Button>
                         </div>
                       </FormControl>
 
@@ -298,21 +298,21 @@ export function PasswordView() {
                             className="mt-2"
                           />
 
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              className="absolute top-0 right-8 cursor-pointer h-full hover:bg-transparent"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                copyToClipboard(field.value ?? "");
-                                toast({
-                                  className: "bg-green-700",
-                                  description: "Password copied to clipboard",
-                                });
-                              }}
-                            >
-                              <ClipboardCopyIcon />
-                            </Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="absolute top-0 right-8 cursor-pointer h-full hover:bg-transparent"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              copyToClipboard(field.value ?? "");
+                              toast({
+                                className: "bg-green-700",
+                                description: "Password copied to clipboard",
+                              });
+                            }}
+                          >
+                            <ClipboardCopyIcon />
+                          </Button>
                         </div>
                       </FormControl>
                       <FormMessage />

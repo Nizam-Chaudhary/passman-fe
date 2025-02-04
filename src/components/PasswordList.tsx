@@ -37,7 +37,7 @@ export function PasswordList() {
       <Card className="h-[calc(100vh-5.5rem)]">
         <CardContent>
           <div className="flex h-[calc(100vh-10rem)] flex-col justify-center items-center gap-8">
-            <img className="w-[40vh]" src="src/assets/warning.svg" />
+            <img className="w-[40vh]" src="/assets/warning.svg" />
             <p className="text-3xl">Error fetching passwords</p>
           </div>
         </CardContent>
@@ -61,7 +61,7 @@ export function PasswordList() {
               ))
             ) : (
               <div className="flex h-[calc(100vh-10rem)] flex-col justify-center items-center gap-8">
-                <img className="w-[40vh]" src="src/assets/no_data.svg" />
+                <img className="w-[40vh]" src="/assets/no_data.svg" />
                 <p className="text-3xl">No Passwords Found!</p>
               </div>
             )}
