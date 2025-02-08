@@ -16,7 +16,7 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { VaultComboBox } from "../components/VaultComboBox";
 import { getToken } from "@/lib/auth";
-import { useRefreshToken } from "@/services/mutation/user";
+import { useRefreshToken } from "@/services/mutation/auth";
 import { useSearchParams } from "react-router";
 
 export default function Home() {

@@ -21,7 +21,7 @@ import { VerifyAccountFormData, verifyAccountFormSchema } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-import { useVerifyUserEmail } from "@/services/mutation/user";
+import { useVerifyUserEmail } from "@/services/mutation/auth";
 import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
 import { useNavigate } from "react-router";

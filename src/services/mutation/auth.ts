@@ -1,30 +1,30 @@
 import {
-    getRefreshToken,
-    isTokenExpired,
-    removeRefreshToken,
-    removeToken,
-    setRefreshToken,
-    setToken,
+  getRefreshToken,
+  isTokenExpired,
+  removeRefreshToken,
+  removeToken,
+  setRefreshToken,
+  setToken,
 } from "@/lib/auth";
 import { useStore } from "@/store/store";
 import {
-    CreateMasterKeyPayload,
-    LoginUserData,
-    SignUpUserData,
-    VerifyAccountPayload,
-    VerifyMasterPasswordFormData,
+  CreateMasterKeyPayload,
+  LoginUserData,
+  SignUpUserData,
+  VerifyAccountPayload,
+  VerifyMasterPasswordFormData,
 } from "@/types/auth";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { useShallow } from "zustand/react/shallow";
 import {
-    createMasterKey,
-    loginInUser,
-    refreshToken,
-    signUpUser,
-    verifyMasterPassword,
-    verifyUserEmail,
-} from "../api/user";
+  createMasterKey,
+  loginInUser,
+  refreshToken,
+  signUpUser,
+  verifyMasterPassword,
+  verifyUserEmail,
+} from "../api/auth";
 
 export function useSignUpUser() {
   return useMutation({

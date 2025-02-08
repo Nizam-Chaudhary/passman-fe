@@ -18,7 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { useToast } from "@/hooks/use-toast";
-import { useLoginUser } from "@/services/mutation/user";
+import { useLoginUser } from "@/services/mutation/auth";
 import { loginSchema, LoginUserData } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

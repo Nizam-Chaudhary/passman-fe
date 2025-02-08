@@ -18,7 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { useToast } from "@/hooks/use-toast";
-import { useSignUpUser } from "@/services/mutation/user";
+import { useSignUpUser } from "@/services/mutation/auth";
 import { SignUpUserData, signUpUserSchema } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";

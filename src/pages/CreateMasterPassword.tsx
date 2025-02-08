@@ -23,7 +23,7 @@ import {
 import RecoveryKeyDialog from "@/components/RecoverKeyDialog";
 import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
-import { useCreateMasterKey, useRefreshToken } from "@/services/mutation/user";
+import { useCreateMasterKey, useRefreshToken } from "@/services/mutation/auth";
 import {
   deriveKey,
   encrypt,
