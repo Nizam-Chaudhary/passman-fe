@@ -26,7 +26,7 @@ import { useStore } from "@/store/store";
 import { useNavigate } from "react-router";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
-import { useVerifyMasterPassword } from "@/services/mutation/user";
+import { useVerifyMasterPassword } from "@/services/mutation/auth";
 import { PasswordInput } from "@/components/ui/password-input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 
