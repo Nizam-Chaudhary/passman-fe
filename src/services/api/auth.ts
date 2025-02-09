@@ -6,6 +6,7 @@ import {
   LoginUserData,
   RefreshTokenPayload,
   RefreshTokenResponse,
+  ResetPasswordPayload,
   SignUpUserData,
   VerifyAccountPayload,
   VerifyMasterPasswordApiResponse,
@@ -92,5 +93,33 @@ export async function verifyMasterPassword(
       throw error?.response?.data;
     }
     throw { message: "Error verifying master password!" };
+  }
+}
+
+export async function sendResetPasswordEmail(payload: { email: string }) {
+  try {
+    return await instance.post<ApiResponse>(
+      "/api/v1/auth/reset-password-mail",
+      payload
+    );
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      throw error?.response?.data;
+    }
+    throw { message: "Error sending email!" };
+  }
+}
+
+export async function resetPassword(payload: ResetPasswordPayload) {
+  try {
+    return await instance.patch<ApiResponse>(
+      "/api/v1/auth/reset-password",
+      payload
+    );
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      throw error?.response?.data;
+    }
+    throw { message: "Error updating password!" };
   }
 }

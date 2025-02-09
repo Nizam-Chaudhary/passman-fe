@@ -1,16 +1,18 @@
 import { z } from "zod";
 import { ApiResponse, ecryptedValueSchema } from "./common";
 
+const passwordSchema = z
+  .string()
+  .min(8, "Must contain at least 8 characters")
+  .regex(/[A-Z]/, "Must contain at least one capital letter")
+  .regex(/[a-z]/, "Must contain at least one lowercase letter")
+  .regex(/[0-9]/, "Must contain at least one digit")
+  .regex(/[^A-Za-z0-9]/, "Must contain at least one special character");
+
 export const signUpUserSchema = z.object({
   userName: z.string().min(3, "Please Enter user name"),
   email: z.string().email("Please enter valid email"),
-  password: z
-    .string()
-    .min(8, "Must contain at least 8 characters")
-    .regex(/[A-Z]/, "Must contain at least one capital letter")
-    .regex(/[a-z]/, "Must contain at least one lowercase letter")
-    .regex(/[0-9]/, "Must contain at least one digit")
-    .regex(/[^A-Za-z0-9]/, "Must contain at least one special character"),
+  password: passwordSchema,
 });
 
 export type SignUpUserData = z.infer<typeof signUpUserSchema>;
@@ -104,4 +106,25 @@ export type VerifyMasterPasswordApiResponse = ApiResponse & {
   data: {
     masterKey: z.infer<typeof masterKeySchema>;
   };
+};
+
+export const sendResetPassswordEmailFormSchema = z.object({
+  email: z.string().email("Enter valid email"),
+});
+
+export const resetPasswordFormSchema = z
+  .object({
+    password: passwordSchema,
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords must match",
+    path: ["confirmPassword"],
+  });
+
+export type ResetPasswordForm = z.infer<typeof resetPasswordFormSchema>;
+
+export type ResetPasswordPayload = {
+  token: string;
+  password: string;
 };

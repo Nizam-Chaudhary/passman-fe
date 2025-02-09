@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getPasswordById, getPasswords } from "../api/password";
 
 export function usePasswords(vaultId?: string, search?: string | null) {
@@ -6,6 +6,7 @@ export function usePasswords(vaultId?: string, search?: string | null) {
     queryKey: ["passwords", { vaultId, search }],
     queryFn: () => getPasswords(vaultId, search),
     enabled: !!vaultId,
+    placeholderData: keepPreviousData,
   });
 }
 

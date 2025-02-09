@@ -27,6 +27,7 @@ import { PasswordInput } from "../components/ui/password-input";
 import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
 import { setRefreshToken, setToken } from "@/lib/auth";
+import { ROUTES } from "@/lib/constants";
 
 export default function Login() {
   const { toast } = useToast();
@@ -55,7 +56,7 @@ export default function Login() {
         if (error.message == "Email not verified. Please verify first!") {
           setIsEmailVerified(false);
           setUserEmail(variables.email);
-          navigate("/verify-account");
+          navigate(ROUTES.VERIFY_ACCOUNT);
         } else {
           toast({
             className: "bg-red-700",
@@ -73,12 +74,12 @@ export default function Login() {
           title: "Logged in successfully!",
         });
         if (response.data.masterKey == null) {
-          navigate("/create-master-password");
+          navigate(ROUTES.MASTER_PASSWORD.CREATE);
         } else if (response.data.isVerified) {
-          navigate("/master-password");
+          navigate(ROUTES.MASTER_PASSWORD.VERIFY);
         } else {
           setUserEmail(variables.email);
-          navigate("/verify-account");
+          navigate(ROUTES.VERIFY_ACCOUNT);
         }
       },
     });
@@ -127,18 +128,26 @@ export default function Login() {
                   </FormItem>
                 )}
               />
-              <Button
-                type="submit"
-                className="w-18"
-                disabled={mutateLoginUser.isPending}
-              >
-                {mutateLoginUser.isPending ? <LoadingSpinner /> : "Login"}
-              </Button>
+              <div className="flex justify-between items-center">
+                <Button
+                  type="submit"
+                  className="w-18"
+                  disabled={mutateLoginUser.isPending}
+                >
+                  {mutateLoginUser.isPending ? <LoadingSpinner /> : "Login"}
+                </Button>
+                <NavLink
+                  to={ROUTES.RESET_PASSWORD.EMAIL}
+                  className="text-blue-600"
+                >
+                  Forgot password
+                </NavLink>
+              </div>
             </form>
           </Form>
         </CardContent>
         <CardFooter>
-          <NavLink to="/sign-up" className="text-blue-600" replace>
+          <NavLink to={ROUTES.SIGN_UP} className="text-blue-600">
             Create a new account
           </NavLink>
         </CardFooter>

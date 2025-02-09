@@ -15,6 +15,9 @@ import useAuth from "./hooks/use-auth";
 import LoadingSpinner from "./components/ui/loadingSpinner";
 import VerifyMasterPassword from "./pages/VerifyMasterPassword";
 import CreateMasterPassword from "./pages/CreateMasterPassword";
+import { ROUTES } from "./lib/constants";
+import ResetPasswordSendMail from "./pages/ResetPasswordSendMail";
+import ResetPassword from "./pages/ResetPassword";
 
 export default function AppRoutes() {
   return (
@@ -22,7 +25,7 @@ export default function AppRoutes() {
       <Routes>
         {/* Protected routes */}
         <Route
-          path="/"
+          path={ROUTES.HOME}
           element={
             <ProtectedRoute>
               <Home />
@@ -31,12 +34,20 @@ export default function AppRoutes() {
         />
 
         {/* Public Routes */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/sign-up" element={<SignUp />} />
+        <Route path={ROUTES.LOGIN} element={<Login />} />
+        <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
+        <Route
+          path={ROUTES.RESET_PASSWORD.EMAIL}
+          element={<ResetPasswordSendMail />}
+        />
+        <Route
+          path={ROUTES.RESET_PASSWORD.UPDATE}
+          element={<ResetPassword />}
+        />
 
         {/* Auth Required Routes */}
         <Route
-          path="/verify-account"
+          path={ROUTES.VERIFY_ACCOUNT}
           element={
             <VerifyEmailRoute>
               <VerifyAccount />
@@ -44,7 +55,7 @@ export default function AppRoutes() {
           }
         />
         <Route
-          path="/master-password"
+          path={ROUTES.MASTER_PASSWORD.VERIFY}
           element={
             <VerifyMasterPasswordRoute>
               <VerifyMasterPassword />
@@ -53,7 +64,7 @@ export default function AppRoutes() {
         />
 
         <Route
-          path="/create-master-password"
+          path={ROUTES.MASTER_PASSWORD.CREATE}
           element={
             <CreateMasterPasswordRoute>
               <CreateMasterPassword />
@@ -82,15 +93,23 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
   // Check authentication
   if (isAuthenticated == false) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to={ROUTES.LOGIN} state={{ from: location }} replace />;
   }
 
   if (!isMasterPasswordSet) {
-    return <Navigate to="master-password" state={{ from: location }} replace />;
+    return (
+      <Navigate
+        to={ROUTES.MASTER_PASSWORD.CREATE}
+        state={{ from: location }}
+        replace
+      />
+    );
   }
 
   if (isEmailVerified == false) {
-    return <Navigate to="verify-account" state={{ from: location }} replace />;
+    return (
+      <Navigate to={ROUTES.VERIFY_ACCOUNT} state={{ from: location }} replace />
+    );
   }
   return <>{children}</>;
 };
@@ -120,11 +139,11 @@ const VerifyEmailRoute = ({ children }: { children: React.ReactNode }) => {
     }))
   );
   if (isEmailVerified == null) {
-    return <Navigate to="/master-password" replace />;
+    return <Navigate to={ROUTES.MASTER_PASSWORD.VERIFY} replace />;
   }
 
   if (isEmailVerified) {
-    return <Navigate to="/master-password" replace />;
+    return <Navigate to={ROUTES.MASTER_PASSWORD.VERIFY} replace />;
   }
 
   return <>{children}</>;
@@ -144,13 +163,13 @@ const VerifyMasterPasswordRoute = ({
   }
 
   if (isAuthenticated == false) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to={ROUTES.LOGIN} state={{ from: location }} replace />;
   }
 
   if (userData?.masterKeyCreated == false) {
     return (
       <Navigate
-        to="/create-master-password"
+        to={ROUTES.MASTER_PASSWORD.CREATE}
         state={{ from: location }}
         replace
       />
@@ -174,12 +193,16 @@ const CreateMasterPasswordRoute = ({
   }
 
   if (isAuthenticated == false) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to={ROUTES.LOGIN} state={{ from: location }} replace />;
   }
 
   if (userData?.masterKeyCreated == true) {
     return (
-      <Navigate to="/master-password" state={{ from: location }} replace />
+      <Navigate
+        to={ROUTES.MASTER_PASSWORD.CREATE}
+        state={{ from: location }}
+        replace
+      />
     );
   }
 

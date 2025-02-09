@@ -13,6 +13,7 @@ import { useState } from "react";
 import { Input } from "./ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router";
+import { ROUTES } from "@/lib/constants";
 
 const RecoveryKeyDialog = () => {
   const [buttonType, setButtonType] = useState<"copy" | "okay">("copy");
@@ -57,7 +58,7 @@ const RecoveryKeyDialog = () => {
               onClick={() => {
                 onOpenChange(false);
                 setButtonType("copy");
-                navigate("/master-password");
+                navigate(ROUTES.MASTER_PASSWORD.VERIFY);
               }}
             >
               Okay

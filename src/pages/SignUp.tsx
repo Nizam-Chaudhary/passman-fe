@@ -26,6 +26,7 @@ import { NavLink, useNavigate } from "react-router";
 import { PasswordInput } from "../components/ui/password-input";
 import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
+import { ROUTES } from "@/lib/constants";
 
 export default function SignUp() {
   const { toast } = useToast();
@@ -64,7 +65,7 @@ export default function SignUp() {
         });
         setUserEmail(value.email);
         setIsEmailVerified(false);
-        await navigate("/verify-account");
+        await navigate(ROUTES.VERIFY_ACCOUNT);
       },
     });
   };
@@ -136,7 +137,7 @@ export default function SignUp() {
           </Form>
         </CardContent>
         <CardFooter>
-          <NavLink to="/login" className="text-blue-600" replace>
+          <NavLink to={ROUTES.LOGIN} className="text-blue-600" replace>
             Already have an account? Login
           </NavLink>
         </CardFooter>

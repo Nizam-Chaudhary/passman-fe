@@ -26,6 +26,7 @@ import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
 import { useNavigate } from "react-router";
 import { useToast } from "@/hooks/use-toast";
+import { ROUTES } from "@/lib/constants";
 
 export default function VerifyAccount() {
   const { toast } = useToast();
@@ -63,7 +64,7 @@ export default function VerifyAccount() {
           className: "bg-green-700 text-white",
           title: "Email verified successfully!",
         });
-        navigate("/login");
+        navigate(ROUTES.LOGIN);
       },
     });
   };

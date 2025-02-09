@@ -24,6 +24,7 @@ import { useLoggedInUserDetails } from "@/services/queries/user";
 import NavUserSkeleton from "./skeletons/NavUserSkeleton";
 import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
+import { ROUTES } from "@/lib/constants";
 
 export function NavUser() {
   const { data: user, isPending, isError } = useLoggedInUserDetails();
@@ -67,7 +68,7 @@ export function NavUser() {
     setUserKey(null);
     setMasterkey(null);
     setRecoveryKey("");
-    navigate("/login");
+    navigate(ROUTES.LOGIN);
     toast({
       description: "Logged out successfully",
       className: "bg-green-700",

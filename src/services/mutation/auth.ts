@@ -6,10 +6,12 @@ import {
   setRefreshToken,
   setToken,
 } from "@/lib/auth";
+import { ROUTES } from "@/lib/constants";
 import { useStore } from "@/store/store";
 import {
   CreateMasterKeyPayload,
   LoginUserData,
+  ResetPasswordPayload,
   SignUpUserData,
   VerifyAccountPayload,
   VerifyMasterPasswordFormData,
@@ -21,6 +23,8 @@ import {
   createMasterKey,
   loginInUser,
   refreshToken,
+  resetPassword,
+  sendResetPasswordEmail,
   signUpUser,
   verifyMasterPassword,
   verifyUserEmail,
@@ -88,7 +92,7 @@ export function useRefreshToken() {
       setUserKey(null);
       setMasterkey(null);
       setRecoveryKey("");
-      navigate("/login", { replace: true });
+      navigate(ROUTES.LOGIN, { replace: true });
     },
   });
 }
@@ -99,7 +103,7 @@ export function useCreateMasterKey() {
     mutationFn: (data: CreateMasterKeyPayload) => createMasterKey(data),
     onError: (error) => {
       if (error.message === "access token expired") {
-        navigate("/login", { replace: true });
+        navigate(ROUTES.LOGIN, { replace: true });
       }
     },
   });
@@ -112,8 +116,20 @@ export function useVerifyMasterPassword() {
       verifyMasterPassword(data),
     onError: (error) => {
       if (error.message === "access token expired") {
-        navigate("/login", { replace: true });
+        navigate(ROUTES.LOGIN, { replace: true });
       }
     },
+  });
+}
+
+export function useSendResetPasswordEmail() {
+  return useMutation({
+    mutationFn: (data: { email: string }) => sendResetPasswordEmail(data),
+  });
+}
+
+export function useResetPassword() {
+  return useMutation({
+    mutationFn: (data: ResetPasswordPayload) => resetPassword(data),
   });
 }

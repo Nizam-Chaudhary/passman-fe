@@ -29,6 +29,7 @@ import { useState } from "react";
 import { useVerifyMasterPassword } from "@/services/mutation/auth";
 import { PasswordInput } from "@/components/ui/password-input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
+import { ROUTES } from "@/lib/constants";
 
 export default function VerifyMasterPassword() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -77,7 +78,7 @@ export default function VerifyMasterPassword() {
           const masterKey = await importKey(decryptedMasterKey);
           setMasterkey(masterKey);
           setIsMasterPasswordSet(true);
-          navigate("/", { replace: true });
+          navigate(ROUTES.HOME, { replace: true });
         },
         onError: (error) => {
           setIsSubmitting(false);
