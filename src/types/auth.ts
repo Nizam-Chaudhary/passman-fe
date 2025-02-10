@@ -78,11 +78,16 @@ export type CreateMasterPasswordFormData = z.infer<
   typeof createMasterPasswordFormSchema
 >;
 
+export const updateMasterPasswordFormSchema = createMasterPasswordFormSchema;
+export type UpdateMasterPasswordFormData = CreateMasterPasswordFormData;
+
 const masterKeySchema = ecryptedValueSchema.and(
   z.object({
     salt: z.string().min(1, "Satl must be at least 1 character"),
   })
 );
+
+export type MasterKey = z.infer<typeof masterKeySchema>;
 
 export const createMasterKeyRequestBodySchema = z.object({
   masterPassword: z.string().min(1, "Master password is required"),
@@ -127,4 +132,44 @@ export type ResetPasswordForm = z.infer<typeof resetPasswordFormSchema>;
 export type ResetPasswordPayload = {
   token: string;
   password: string;
+};
+
+export type UpdateMasterPasswordPayload = {
+  masterPassword: string;
+  masterKey: MasterKey;
+  recoveryKey: MasterKey;
+};
+
+export const verifyRecoverKeyFormSchema = z.object({
+  recoveryKey: z.string().min(1, "Recover key is required"),
+});
+
+export type VerifyRecoverKeyFormData = z.infer<
+  typeof verifyRecoverKeyFormSchema
+>;
+
+export const verifyRecoveryMasterPasswordFormSchema = z.object({
+  masterPassword: z.string().min(1, "Master password is required"),
+});
+
+export type VerifyRecoveryMasterPasswordFormData = z.infer<
+  typeof verifyRecoveryMasterPasswordFormSchema
+>;
+
+export type UserDetails = {
+  id: number;
+  userName: string;
+  email: string;
+  masterKey: {
+    iv: string;
+    encrypted: string;
+    salt: string;
+  };
+  recoveryKey: {
+    iv: string;
+    encrypted: string;
+    salt: string;
+  };
+  createdAt: Date;
+  updatedAt: Date;
 };

@@ -9,6 +9,7 @@ type AuthStates = {
   masterKey?: CryptoKey | null;
   openRecoveryKeyDialog: boolean;
   recoveryKey: string;
+  masterKeyForUpdate: string | null;
 };
 
 type AuthActions = {
@@ -19,6 +20,7 @@ type AuthActions = {
   setMasterkey: (key: CryptoKey | null) => void;
   setOpenRecoveryKeyDialog: (open: boolean) => void;
   setRecoveryKey: (key: string) => void;
+  setMasterKeyForUpdate: (key: string | null) => void;
 };
 
 const initialState: AuthStates = {
@@ -27,6 +29,7 @@ const initialState: AuthStates = {
   isMasterPasswordSet: false,
   openRecoveryKeyDialog: false,
   recoveryKey: "",
+  masterKeyForUpdate: null,
 };
 
 export type AuthSlice = AuthStates & AuthActions;
@@ -65,5 +68,9 @@ export const createAuthSlice: StateCreator<
   setRecoveryKey: (key) =>
     set((state) => {
       state.recoveryKey = key;
+    }),
+  setMasterKeyForUpdate: (key) =>
+    set((state) => {
+      state.masterKeyForUpdate = key;
     }),
 });

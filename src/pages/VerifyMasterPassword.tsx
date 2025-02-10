@@ -9,6 +9,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "../components/ui/card";
@@ -23,13 +24,14 @@ import {
 import { decrypt, deriveKey, importKey } from "@/lib/encryption.helper";
 import { useShallow } from "zustand/react/shallow";
 import { useStore } from "@/store/store";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { useVerifyMasterPassword } from "@/services/mutation/auth";
 import { PasswordInput } from "@/components/ui/password-input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { ROUTES } from "@/lib/constants";
+import { replaceRouteParams } from "@/lib/utils";
 
 export default function VerifyMasterPassword() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -122,6 +124,16 @@ export default function VerifyMasterPassword() {
             </form>
           </Form>
         </CardContent>
+        <CardFooter>
+          <NavLink
+            className="text-blue-600"
+            to={replaceRouteParams(ROUTES.MASTER_PASSWORD.RESET, {
+              type: "recover",
+            })}
+          >
+            Forgot master password
+          </NavLink>
+        </CardFooter>
       </Card>
     </div>
   );

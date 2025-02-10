@@ -13,6 +13,7 @@ import {
   LoginUserData,
   ResetPasswordPayload,
   SignUpUserData,
+  UpdateMasterPasswordPayload,
   VerifyAccountPayload,
   VerifyMasterPasswordFormData,
 } from "@/types/auth";
@@ -23,9 +24,11 @@ import {
   createMasterKey,
   loginInUser,
   refreshToken,
+  resendOTP,
   resetPassword,
   sendResetPasswordEmail,
   signUpUser,
+  updateMasterPasswod,
   verifyMasterPassword,
   verifyUserEmail,
 } from "../api/auth";
@@ -131,5 +134,18 @@ export function useSendResetPasswordEmail() {
 export function useResetPassword() {
   return useMutation({
     mutationFn: (data: ResetPasswordPayload) => resetPassword(data),
+  });
+}
+
+export function useResendOTP() {
+  return useMutation({
+    mutationFn: (data: { email: string }) => resendOTP(data),
+  });
+}
+
+export function useUpdateMasterPassword() {
+  return useMutation({
+    mutationFn: (data: UpdateMasterPasswordPayload) =>
+      updateMasterPasswod(data),
   });
 }

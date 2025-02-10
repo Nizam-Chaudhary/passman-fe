@@ -18,6 +18,7 @@ import CreateMasterPassword from "./pages/CreateMasterPassword";
 import { ROUTES } from "./lib/constants";
 import ResetPasswordSendMail from "./pages/ResetPasswordSendMail";
 import ResetPassword from "./pages/ResetPassword";
+import ResetMasterPassword from "./pages/ResetMasterPassword";
 
 export default function AppRoutes() {
   return (
@@ -57,9 +58,18 @@ export default function AppRoutes() {
         <Route
           path={ROUTES.MASTER_PASSWORD.VERIFY}
           element={
-            <VerifyMasterPasswordRoute>
+            <ResetOrVerifyMasterPasswordRoute>
               <VerifyMasterPassword />
-            </VerifyMasterPasswordRoute>
+            </ResetOrVerifyMasterPasswordRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.MASTER_PASSWORD.RESET}
+          element={
+            <ResetOrVerifyMasterPasswordRoute>
+              <ResetMasterPassword />
+            </ResetOrVerifyMasterPasswordRoute>
           }
         />
 
@@ -150,7 +160,7 @@ const VerifyEmailRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 // Master password Route Wrapper Component
-const VerifyMasterPasswordRoute = ({
+const ResetOrVerifyMasterPasswordRoute = ({
   children,
 }: {
   children: React.ReactNode;
@@ -199,7 +209,7 @@ const CreateMasterPasswordRoute = ({
   if (userData?.masterKeyCreated == true) {
     return (
       <Navigate
-        to={ROUTES.MASTER_PASSWORD.CREATE}
+        to={ROUTES.MASTER_PASSWORD.VERIFY}
         state={{ from: location }}
         replace
       />

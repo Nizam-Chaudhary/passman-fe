@@ -11,7 +11,7 @@ export const ROUTES = {
   MASTER_PASSWORD: {
     CREATE: "/master-password/create",
     VERIFY: "/master-password/verify",
-    RESET: "/master-password/reset",
+    RESET: "/:type/master-password",
   },
   RESET_PASSWORD: {
     EMAIL: "/reset-password/email",
