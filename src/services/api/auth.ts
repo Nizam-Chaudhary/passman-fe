@@ -10,6 +10,8 @@ import {
   SignUpUserData,
   UpdateMasterPasswordPayload,
   VerifyAccountPayload,
+  VerifyMasterPasswordApiResponse,
+  VerifyMasterPasswordFormData,
 } from "@/types/auth";
 import { ApiResponse } from "@/types/common";
 import { isAxiosError } from "axios";
@@ -78,11 +80,11 @@ export async function createMasterKey(payload: CreateMasterKeyPayload) {
 }
 
 export async function verifyMasterPassword(
-  payload: UpdateMasterPasswordPayload
+  payload: VerifyMasterPasswordFormData
 ) {
   try {
     const token = getToken();
-    return await instance.post<ApiResponse>(
+    return await instance.post<VerifyMasterPasswordApiResponse>(
       "/api/v1/auth/verify-master-password",
       payload,
       { headers: { Authorization: token } }
