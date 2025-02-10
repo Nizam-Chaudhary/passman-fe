@@ -14,3 +14,21 @@ export function makeQueryString(
     .join("&");
   return results ? `?${results}` : "";
 }
+
+/**
+ * Replaces URL route parameters with their corresponding values
+ * @param url - The URL string containing route parameters in the format `:paramName`
+ * @param params - An object mapping parameter names to their values
+ * @returns The URL with all route parameters replaced with their values
+ */
+export function replaceRouteParams(
+  url: string,
+  params: Record<string, string>
+): string {
+  let updatedUrl = url;
+  for (const [name, value] of Object.entries(params)) {
+    updatedUrl = updatedUrl.replace(`:${name}`, value);
+  }
+
+  return updatedUrl;
+}

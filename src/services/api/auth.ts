@@ -8,9 +8,8 @@ import {
   RefreshTokenResponse,
   ResetPasswordPayload,
   SignUpUserData,
+  UpdateMasterPasswordPayload,
   VerifyAccountPayload,
-  VerifyMasterPasswordApiResponse,
-  VerifyMasterPasswordFormData,
 } from "@/types/auth";
 import { ApiResponse } from "@/types/common";
 import { isAxiosError } from "axios";
@@ -79,11 +78,11 @@ export async function createMasterKey(payload: CreateMasterKeyPayload) {
 }
 
 export async function verifyMasterPassword(
-  payload: VerifyMasterPasswordFormData
+  payload: UpdateMasterPasswordPayload
 ) {
   try {
     const token = getToken();
-    return await instance.post<VerifyMasterPasswordApiResponse>(
+    return await instance.post<ApiResponse>(
       "/api/v1/auth/verify-master-password",
       payload,
       { headers: { Authorization: token } }
@@ -93,6 +92,17 @@ export async function verifyMasterPassword(
       throw error?.response?.data;
     }
     throw { message: "Error verifying master password!" };
+  }
+}
+
+export async function resendOTP(payload: { email: string }) {
+  try {
+    return await instance.post<ApiResponse>("/api/v1/auth/resend-otp", payload);
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      throw error?.response?.data;
+    }
+    throw { message: "Error sending otp!" };
   }
 }
 
@@ -121,5 +131,23 @@ export async function resetPassword(payload: ResetPasswordPayload) {
       throw error?.response?.data;
     }
     throw { message: "Error updating password!" };
+  }
+}
+
+export async function updateMasterPasswod(
+  payload: UpdateMasterPasswordPayload
+) {
+  const token = getToken();
+  try {
+    return await instance.patch<ApiResponse>(
+      "/api/v1/auth/master-password",
+      payload,
+      { headers: { Authorization: token } }
+    );
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      throw error?.response?.data;
+    }
+    throw { message: "Error updating master password!" };
   }
 }

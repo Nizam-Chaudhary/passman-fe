@@ -9,6 +9,11 @@ export type GetUserResponseSchema = {
       encrypted: string;
       salt: string;
     };
+    recoveryKey: {
+      iv: string;
+      encrypted: string;
+      salt: string;
+    };
     createdAt: Date;
     updatedAt: Date;
   };

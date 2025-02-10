@@ -21,7 +21,7 @@ import { VerifyAccountFormData, verifyAccountFormSchema } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-import { useVerifyUserEmail } from "@/services/mutation/auth";
+import { useResendOTP, useVerifyUserEmail } from "@/services/mutation/auth";
 import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
 import { useNavigate } from "react-router";
@@ -42,6 +42,8 @@ export default function VerifyAccount() {
       email: state.userEmail,
     }))
   );
+
+  const resendOTPMutation = useResendOTP();
 
   const verifyUserEmailMutation = useVerifyUserEmail();
   const navigate = useNavigate();
@@ -109,8 +111,32 @@ export default function VerifyAccount() {
                   </FormItem>
                 )}
               />
-
               <Button type="submit">Submit</Button>
+
+              <input
+                className="block"
+                type={"button"}
+                value="Resend OTP"
+                onClick={() => {
+                  resendOTPMutation.mutate(
+                    { email: email! },
+                    {
+                      onSuccess: () => {
+                        toast({
+                          className: "bg-green-700 text-white",
+                          title: "OTP sent successfully!",
+                        });
+                      },
+                      onError: (error) => {
+                        toast({
+                          className: "bg-red-700 text-white",
+                          title: error.message,
+                        });
+                      },
+                    }
+                  );
+                }}
+              />
             </form>
           </Form>
         </CardContent>
