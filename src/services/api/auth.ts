@@ -30,11 +30,11 @@ export async function signUpUser(payload: SignUpUserData) {
 export async function loginInUser(payload: LoginUserData) {
   try {
     return await instance.post<LoginResponse>("/api/v1/auth/sign-in", payload);
-  } catch (error: unknown) {
+  } catch (error: any) {
     if (isAxiosError(error)) {
       throw error?.response?.data;
     }
-    throw { message: "Error logging in!" };
+    throw error?.response?.data || { message: "Error logging in!" };
   }
 }
 
