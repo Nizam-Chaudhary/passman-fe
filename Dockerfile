@@ -1,11 +1,17 @@
-FROM node:22-alpine AS build
+# Base stage
+FROM node:22-alpine AS builder
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
 WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+COPY pnpm-lock.yaml package.json /app/
+RUN pnpm fetch
+RUN pnpm install -r --offline
 COPY . .
-RUN yarn build
+RUN pnpm run build
 
+# Main stage
 FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 CMD ["nginx", "-g", "daemon off;"]
