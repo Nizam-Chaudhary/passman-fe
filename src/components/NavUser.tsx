@@ -1,11 +1,12 @@
 "use client";
 
-import { ChevronsUpDown, LogOut } from "lucide-react";
+import { ChevronsUpDown, LogOut, Settings2Icon } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -59,7 +60,11 @@ export function NavUser() {
     return <NavUserSkeleton />;
   }
 
-  function logout() {
+  const openSettings = () => {
+    navigate(ROUTES.SETTINGS);
+  };
+
+  const logout = () => {
     removeToken();
     removeRefreshToken();
     setIsAuthenticated(false);
@@ -73,7 +78,7 @@ export function NavUser() {
       description: "Logged out successfully",
       className: "bg-green-700",
     });
-  }
+  };
 
   return (
     <SidebarMenu>
@@ -86,7 +91,7 @@ export function NavUser() {
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage
-                  src={user.userName || "/assets/shadcn.jpg"}
+                  src={user.file?.url || user.userName}
                   alt={user.userName.charAt(0).toUpperCase()}
                 />
                 <AvatarFallback className="rounded-lg">
@@ -123,28 +128,13 @@ export function NavUser() {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {/* <DropdownMenuGroup>
-              <DropdownMenuItem>
-                  <Sparkles />
-                  Upgrade to Pro
+            <DropdownMenuGroup>
+              <DropdownMenuItem onClick={openSettings}>
+                <Settings2Icon />
+                Settings
               </DropdownMenuItem>
-          </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-              <DropdownMenuItem>
-                  <BadgeCheck />
-                  Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                  <CreditCard />
-                  Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                  <Bell />
-                  Notifications
-              </DropdownMenuItem>
-          </DropdownMenuGroup>
-          <DropdownMenuSeparator /> */}
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
             <DropdownMenuItem onClick={logout}>
               <LogOut />
               Log out

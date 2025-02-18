@@ -17,4 +17,5 @@ export const ROUTES = {
     EMAIL: "/reset-password/email",
     UPDATE: "/reset-password/update",
   },
+  SETTINGS: "/settings",
 };

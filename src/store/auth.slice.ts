@@ -10,6 +10,7 @@ type AuthStates = {
   openRecoveryKeyDialog: boolean;
   recoveryKey: string;
   masterKeyForUpdate: string | null;
+  otpTimer: number;
 };
 
 type AuthActions = {
@@ -21,6 +22,8 @@ type AuthActions = {
   setOpenRecoveryKeyDialog: (open: boolean) => void;
   setRecoveryKey: (key: string) => void;
   setMasterKeyForUpdate: (key: string | null) => void;
+  decreateOtpTime: () => void;
+  setOtpTimer: (timer: number) => void;
 };
 
 const initialState: AuthStates = {
@@ -30,6 +33,7 @@ const initialState: AuthStates = {
   openRecoveryKeyDialog: false,
   recoveryKey: "",
   masterKeyForUpdate: null,
+  otpTimer: 0,
 };
 
 export type AuthSlice = AuthStates & AuthActions;
@@ -72,5 +76,15 @@ export const createAuthSlice: StateCreator<
   setMasterKeyForUpdate: (key) =>
     set((state) => {
       state.masterKeyForUpdate = key;
+    }),
+  decreateOtpTime: () =>
+    set((state) => {
+      if (state.otpTimer > 0) {
+        state.otpTimer--;
+      }
+    }),
+  setOtpTimer: (timer) =>
+    set((state) => {
+      state.otpTimer = timer;
     }),
 });

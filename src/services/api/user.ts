@@ -1,6 +1,7 @@
 import { instance } from "@/lib/api.helper";
 import { getToken } from "@/lib/auth";
-import { GetUserResponseSchema } from "@/types/user";
+import { ApiResponse } from "@/types/common";
+import { GetUserResponseSchema, UpdateUserBody } from "@/types/user";
 import { isAxiosError } from "axios";
 
 export async function getLoggedInUserDetails() {
@@ -13,6 +14,17 @@ export async function getLoggedInUserDetails() {
     if (isAxiosError(error)) {
       throw error?.response?.data;
     }
-    throw { message: "Error logging in!" };
+    throw { message: "Error fetching user details" };
+  }
+}
+
+export async function updateUser(data: UpdateUserBody) {
+  try {
+    return await instance.patch<ApiResponse>("/api/v1/users", data);
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      throw error?.response?.data;
+    }
+    throw { message: "Unable to update profile" };
   }
 }

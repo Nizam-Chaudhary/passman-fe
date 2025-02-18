@@ -1,3 +1,4 @@
+import { useToast } from "@/hooks/use-toast";
 import {
   getRefreshToken,
   isTokenExpired,
@@ -105,7 +106,7 @@ export function useCreateMasterKey() {
   return useMutation({
     mutationFn: (data: CreateMasterKeyPayload) => createMasterKey(data),
     onError: (error) => {
-      if (error.message === "access token expired") {
+      if (error.message === "Access token expired") {
         navigate(ROUTES.LOGIN, { replace: true });
       }
     },
@@ -118,7 +119,7 @@ export function useVerifyMasterPassword() {
     mutationFn: (data: VerifyMasterPasswordFormData) =>
       verifyMasterPassword(data),
     onError: (error) => {
-      if (error.message === "access token expired") {
+      if (error.message === "Access token expired") {
         navigate(ROUTES.LOGIN, { replace: true });
       }
     },
@@ -138,8 +139,28 @@ export function useResetPassword() {
 }
 
 export function useResendOTP() {
+  const { toast } = useToast();
+  const { setTimer } = useStore(
+    useShallow((store) => ({
+      setTimer: store.setOtpTimer,
+    }))
+  );
   return useMutation({
     mutationFn: (data: { email: string }) => resendOTP(data),
+    onError: () => {
+      toast({
+        title: "Error sending otp",
+        className: "bg-red-600",
+      });
+      setTimer(120);
+    },
+    onSuccess: () => {
+      toast({
+        title: "OTP sent successfully",
+        className: "bg-green-600",
+      });
+      setTimer(120);
+    },
   });
 }
 

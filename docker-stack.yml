@@ -10,6 +10,11 @@ services:
     deploy:
       update_config:
         order: start-first
+        delay: 5s
+        # parallelism: 2
+        failure_action: rollback
+        monitor: 20s
+        max_failure_ratio: 0.2
     networks:
       - web
 
