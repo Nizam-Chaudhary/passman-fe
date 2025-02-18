@@ -8,7 +8,10 @@
   "files": {
     "ignoreUnknown": false,
     "ignore": [],
-    "include": ["src/**/*.ts", "src/**/*.js"]
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.js"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -50,7 +53,13 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "style": {
+        "noUnusedTemplateLiteral": "off"
+      },
+      "complexity": {
+        "noForEach": "warn"
+      }
     },
     "ignore": [
       "dist",
@@ -89,7 +98,9 @@
   },
   "overrides": [
     {
-      "include": ["**/*.{ts,tsx}"],
+      "include": [
+        "**/*.{ts,tsx}"
+      ],
       "linter": {
         "rules": {
           "complexity": {
@@ -152,13 +163,17 @@
       }
     },
     {
-      "include": ["**/*.{ts,tsx}"],
+      "include": [
+        "**/*.{ts,tsx}"
+      ],
       "javascript": {
         "globals": []
       }
     },
     {
-      "include": ["**/*.{ts,tsx}"],
+      "include": [
+        "**/*.{ts,tsx}"
+      ],
       "linter": {
         "rules": {
           "correctness": {
@@ -175,7 +190,8 @@
           "style": {
             "noArguments": "error",
             "noVar": "error",
-            "useConst": "error"
+            "useConst": "error",
+            "noUnusedTemplateLiteral": "off"
           },
           "suspicious": {
             "noClassAssign": "off",
@@ -192,7 +208,9 @@
       }
     },
     {
-      "include": ["**/*.{ts,tsx}"],
+      "include": [
+        "**/*.{ts,tsx}"
+      ],
       "linter": {
         "rules": {
           "complexity": {
@@ -217,13 +235,17 @@
       }
     },
     {
-      "include": ["**/*.{ts,tsx}"],
+      "include": [
+        "**/*.{ts,tsx}"
+      ],
       "linter": {
         "rules": {}
       }
     },
     {
-      "include": ["**/*.{ts,tsx}"],
+      "include": [
+        "**/*.{ts,tsx}"
+      ],
       "javascript": {
         "globals": [
           "onscrollend",
@@ -365,7 +387,9 @@
       }
     },
     {
-      "include": ["**/*.{ts,tsx}"],
+      "include": [
+        "**/*.{ts,tsx}"
+      ],
       "linter": {
         "rules": {
           "complexity": {
@@ -429,13 +453,17 @@
       }
     },
     {
-      "include": ["**/*.{ts,tsx}"],
+      "include": [
+        "**/*.{ts,tsx}"
+      ],
       "javascript": {
         "globals": []
       }
     },
     {
-      "include": ["**/*.{ts,tsx}"],
+      "include": [
+        "**/*.{ts,tsx}"
+      ],
       "linter": {
         "rules": {
           "correctness": {
@@ -469,7 +497,9 @@
       }
     },
     {
-      "include": ["**/*.{ts,tsx}"],
+      "include": [
+        "**/*.{ts,tsx}"
+      ],
       "linter": {
         "rules": {
           "complexity": {
@@ -495,13 +525,17 @@
       }
     },
     {
-      "include": ["**/*.{ts,tsx}"],
+      "include": [
+        "**/*.{ts,tsx}"
+      ],
       "linter": {
         "rules": {}
       }
     },
     {
-      "include": ["**/*.{ts,tsx}"],
+      "include": [
+        "**/*.{ts,tsx}"
+      ],
       "javascript": {
         "globals": [
           "onscrollend",
