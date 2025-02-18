@@ -1,6 +1,6 @@
 import { instance } from "@/lib/api.helper";
 import { getToken } from "@/lib/auth";
-import {
+import type {
   CreateMasterKeyPayload,
   LoginResponse,
   LoginUserData,
@@ -13,7 +13,7 @@ import {
   VerifyMasterPasswordApiResponse,
   VerifyMasterPasswordFormData,
 } from "@/types/auth";
-import { ApiResponse } from "@/types/common";
+import type { ApiResponse } from "@/types/common";
 import { isAxiosError } from "axios";
 
 export async function signUpUser(payload: SignUpUserData) {
@@ -30,11 +30,13 @@ export async function signUpUser(payload: SignUpUserData) {
 export async function loginInUser(payload: LoginUserData) {
   try {
     return await instance.post<LoginResponse>("/api/v1/auth/sign-in", payload);
-  } catch (error: any) {
+  } catch (error: unknown) {
     if (isAxiosError(error)) {
       throw error?.response?.data;
     }
-    throw error?.response?.data || { message: "Error logging in!" };
+    throw {
+      message: "Error logging in!",
+    };
   }
 }
 

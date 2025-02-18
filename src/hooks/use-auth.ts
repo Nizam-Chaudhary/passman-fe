@@ -17,6 +17,7 @@ const useAuth = () => {
     );
 
   const refreshTokenMutationRef = useRef(useRefreshToken());
+  // biome-ignore lint/correctness/useExhaustiveDependencies: to be run when component is mounted
   useEffect(() => {
     let isMounted = true;
 
@@ -47,7 +48,6 @@ const useAuth = () => {
     return () => {
       isMounted = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { isAuthenticated, userData, isLoading };

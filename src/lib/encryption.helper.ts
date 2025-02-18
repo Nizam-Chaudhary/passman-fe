@@ -36,7 +36,10 @@ export async function deriveKey(
 export async function importKey(keyString: string): Promise<CryptoKey> {
   // Convert hex string to Uint8Array
   const keyBytes = new Uint8Array(
-    keyString.match(/.{1,2}/g)!.map((byte) => parseInt(byte, 16))
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
+    keyString
+      .match(/.{1,2}/g)!
+      .map((byte) => Number.parseInt(byte, 16))
   );
 
   // Import as CryptoKey
@@ -90,12 +93,18 @@ export async function decrypt(
 ): Promise<string> {
   // Convert the IV from hex string to Uint8Array
   const iv = new Uint8Array(
-    encryptedData.iv.match(/.{1,2}/g)!.map((byte) => parseInt(byte, 16))
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
+    encryptedData.iv
+      .match(/.{1,2}/g)!
+      .map((byte) => Number.parseInt(byte, 16))
   );
 
   // Convert the encrypted data from hex string to Uint8Array
   const encryptedBuffer = new Uint8Array(
-    encryptedData.encrypted.match(/.{1,2}/g)!.map((byte) => parseInt(byte, 16))
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
+    encryptedData.encrypted
+      .match(/.{1,2}/g)!
+      .map((byte) => Number.parseInt(byte, 16))
   );
 
   // Decrypt the data using AES-GCM
@@ -129,7 +138,7 @@ export function generateRecoveryKey(): string {
     .join("");
 }
 
-export function generateSalt(length: number = 16): string {
+export function generateSalt(length = 16): string {
   const salt = new Uint8Array(length);
   crypto.getRandomValues(salt); // Generate random salt using Web Crypto API
   return Array.from(salt)

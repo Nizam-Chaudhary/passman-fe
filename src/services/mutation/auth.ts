@@ -9,7 +9,7 @@ import {
 } from "@/lib/auth";
 import { ROUTES } from "@/lib/constants";
 import { useStore } from "@/store/store";
-import {
+import type {
   CreateMasterKeyPayload,
   LoginUserData,
   ResetPasswordPayload,

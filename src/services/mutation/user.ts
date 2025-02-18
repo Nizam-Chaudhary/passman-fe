@@ -1,5 +1,5 @@
 import { useToast } from "@/hooks/use-toast";
-import { UpdateUserBody } from "@/types/user";
+import type { UpdateUserBody } from "@/types/user";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateUser } from "../api/user";
 

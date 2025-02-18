@@ -1,5 +1,5 @@
 import { instance } from "@/lib/api.helper";
-import { FileUploadResponse } from "@/types/file";
+import type { FileUploadResponse } from "@/types/file";
 import { isAxiosError } from "axios";
 
 export async function uploadFile(file: FormData) {

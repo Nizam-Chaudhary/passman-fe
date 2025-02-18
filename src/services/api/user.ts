@@ -1,7 +1,7 @@
 import { instance } from "@/lib/api.helper";
 import { getToken } from "@/lib/auth";
-import { ApiResponse } from "@/types/common";
-import { GetUserResponseSchema, UpdateUserBody } from "@/types/user";
+import type { ApiResponse } from "@/types/common";
+import type { GetUserResponseSchema, UpdateUserBody } from "@/types/user";
 import { isAxiosError } from "axios";
 
 export async function getLoggedInUserDetails() {

@@ -1,6 +1,10 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": false },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": false
+  },
   "files": {
     "ignoreUnknown": false,
     "ignore": [],
@@ -40,10 +44,14 @@
       "**/README.md"
     ]
   },
-  "organizeImports": { "enabled": true },
+  "organizeImports": {
+    "enabled": true
+  },
   "linter": {
     "enabled": true,
-    "rules": { "recommended": false },
+    "rules": {
+      "recommended": true
+    },
     "ignore": [
       "dist",
       "**/logs",
@@ -73,7 +81,12 @@
       "bracketSpacing": true
     }
   },
-  "json": { "formatter": { "indentStyle": "space", "trailingCommas": "none" } },
+  "json": {
+    "formatter": {
+      "indentStyle": "space",
+      "trailingCommas": "none"
+    }
+  },
   "overrides": [
     {
       "include": ["**/*.{ts,tsx}"],
@@ -138,7 +151,12 @@
         }
       }
     },
-    { "include": ["**/*.{ts,tsx}"], "javascript": { "globals": [] } },
+    {
+      "include": ["**/*.{ts,tsx}"],
+      "javascript": {
+        "globals": []
+      }
+    },
     {
       "include": ["**/*.{ts,tsx}"],
       "linter": {
@@ -177,12 +195,17 @@
       "include": ["**/*.{ts,tsx}"],
       "linter": {
         "rules": {
-          "complexity": { "noUselessTypeConstraint": "error" },
+          "complexity": {
+            "noUselessTypeConstraint": "error"
+          },
           "correctness": {
             "noUnusedVariables": "error",
             "useArrayLiterals": "off"
           },
-          "style": { "noNamespace": "error", "useAsConstAssertion": "error" },
+          "style": {
+            "noNamespace": "error",
+            "useAsConstAssertion": "error"
+          },
           "suspicious": {
             "noExplicitAny": "error",
             "noExtraNonNullAssertion": "error",
@@ -193,7 +216,12 @@
         }
       }
     },
-    { "include": ["**/*.{ts,tsx}"], "linter": { "rules": {} } },
+    {
+      "include": ["**/*.{ts,tsx}"],
+      "linter": {
+        "rules": {}
+      }
+    },
     {
       "include": ["**/*.{ts,tsx}"],
       "javascript": {
@@ -330,7 +358,9 @@
             "useExhaustiveDependencies": "warn",
             "useHookAtTopLevel": "error"
           },
-          "suspicious": { "noExplicitAny": "off" }
+          "suspicious": {
+            "noExplicitAny": "off"
+          }
         }
       }
     },
@@ -398,7 +428,12 @@
         }
       }
     },
-    { "include": ["**/*.{ts,tsx}"], "javascript": { "globals": [] } },
+    {
+      "include": ["**/*.{ts,tsx}"],
+      "javascript": {
+        "globals": []
+      }
+    },
     {
       "include": ["**/*.{ts,tsx}"],
       "linter": {
@@ -445,7 +480,10 @@
             "noUnusedVariables": "error",
             "useArrayLiterals": "off"
           },
-          "style": { "noNamespace": "error", "useAsConstAssertion": "error" },
+          "style": {
+            "noNamespace": "error",
+            "useAsConstAssertion": "error"
+          },
           "suspicious": {
             "noExplicitAny": "error",
             "noExtraNonNullAssertion": "error",
@@ -456,7 +494,12 @@
         }
       }
     },
-    { "include": ["**/*.{ts,tsx}"], "linter": { "rules": {} } },
+    {
+      "include": ["**/*.{ts,tsx}"],
+      "linter": {
+        "rules": {}
+      }
+    },
     {
       "include": ["**/*.{ts,tsx}"],
       "javascript": {
@@ -593,7 +636,9 @@
             "useExhaustiveDependencies": "warn",
             "useHookAtTopLevel": "error"
           },
-          "suspicious": { "noExplicitAny": "off" }
+          "suspicious": {
+            "noExplicitAny": "off"
+          }
         }
       }
     }

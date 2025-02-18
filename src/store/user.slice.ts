@@ -1,6 +1,6 @@
-import { Store } from "@/types/store";
-import { JwtUserData } from "@/types/user";
-import { StateCreator } from "zustand";
+import type { Store } from "@/types/store";
+import type { JwtUserData } from "@/types/user";
+import type { StateCreator } from "zustand";
 
 type UserStates = {
   userData: JwtUserData | null;

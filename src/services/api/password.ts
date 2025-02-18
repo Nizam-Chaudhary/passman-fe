@@ -1,6 +1,6 @@
 import { instance } from "@/lib/api.helper";
 import { makeQueryString } from "@/lib/utils";
-import {
+import type {
   GetPasswordById,
   PasswordList,
   PasswordPayload,
@@ -36,9 +36,9 @@ export async function getPasswordById(id: string) {
   }
 }
 
-export async function addPassowrd(password: PasswordPayload) {
+export async function addPassword(password: PasswordPayload) {
   try {
-    return (await instance.post(`/api/v1/passwords`, password)).data;
+    return (await instance.post("/api/v1/passwords", password)).data;
   } catch (error: unknown) {
     if (isAxiosError(error)) {
       throw error?.response?.data;

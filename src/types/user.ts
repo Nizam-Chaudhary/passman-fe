@@ -1,4 +1,4 @@
-import { FileDetails } from "./file";
+import type { FileDetails } from "./file";
 
 export type GetUserResponseSchema = {
   status: "success" | "fail" | "error";

@@ -1,6 +1,6 @@
-import { RefreshTokenResponse } from "@/types/auth";
-import { UseMutationResult } from "@tanstack/react-query";
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import type { RefreshTokenResponse } from "@/types/auth";
+import type { UseMutationResult } from "@tanstack/react-query";
+import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios";
 import { getToken } from "./auth";
 
 const instance = axios.create({
@@ -21,7 +21,7 @@ const addRequestToQueue = (request: RequestType) => {
 };
 
 const processQueue = (token: string) => {
-  requestQueue.forEach(({ config, resolve, reject }) => {
+  for (const { config, resolve, reject } of requestQueue) {
     if (config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -29,7 +29,7 @@ const processQueue = (token: string) => {
     instance(config)
       .then((response) => resolve(response))
       .catch((error) => reject(error));
-  });
+  }
 
   requestQueue = [];
 };
@@ -73,7 +73,10 @@ const setResponseInterceptor = (
           isRefreshing = true;
           try {
             await refreshTokenMutation.mutateAsync();
-            const newToken = getToken()!;
+            const newToken = getToken();
+            if (!newToken) {
+              throw new Error("Failed to refresh token");
+            }
 
             // processQueue(newToken);
             // Process the queue with new token
