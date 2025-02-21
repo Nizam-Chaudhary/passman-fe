@@ -1,6 +1,5 @@
 import { useToast } from "@/hooks/use-toast";
 import { encrypt } from "@/lib/encryption.helper";
-import { useAddPassword } from "@/services/mutation/password";
 import { useStore } from "@/store/store";
 import {
   Password,
@@ -31,6 +30,7 @@ import { Input } from "./ui/input";
 import { PasswordInput } from "./ui/password-input";
 import { Textarea } from "./ui/textarea";
 import LoadingSpinner from "./ui/loadingSpinner";
+import { usePostApiV1Passwords } from "@/api-client/api";
 
 export default function AddPassword() {
   const { openAddPasswordDialog, setOpenAddPasswordDialog, masterKey } =
@@ -49,7 +49,7 @@ export default function AddPassword() {
     }))
   );
 
-  const addPasswordMutation = useAddPassword();
+  const addPasswordMutation = usePostApiV1Passwords();
   const form = useForm<Password>({
     resolver: zodResolver(passwordSchema),
     defaultValues: {
@@ -76,7 +76,7 @@ export default function AddPassword() {
       vaultId: currentVault?.id,
     });
 
-    addPasswordMutation.mutate(payload, {
+    addPasswordMutation.mutate({ data: payload }, {
       onError: (error) => {
         toast({
           className: "bg-red-500",

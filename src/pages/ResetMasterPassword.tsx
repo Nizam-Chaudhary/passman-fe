@@ -31,16 +31,14 @@ import { Button } from "@/components/ui/button";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { PasswordInput } from "@/components/ui/password-input";
 import {
-  useRefreshToken,
-  useUpdateMasterPassword,
-} from "@/services/mutation/auth";
-import {
   deriveKey,
   encrypt,
   generateRecoveryKey,
   generateSalt,
 } from "@/lib/encryption.helper";
 import { useToast } from "@/hooks/use-toast";
+import { useRefreshToken } from "@/hooks/refresh-token";
+import { usePatchApiV1AuthMasterPassword } from "@/api-client/api";
 
 const ResetMasterPassword = () => {
   const { type } = useParams();
@@ -69,7 +67,7 @@ const ResetMasterPassword = () => {
     },
   });
 
-  const updateMasterPasswordMutation = useUpdateMasterPassword();
+  const updateMasterPasswordMutation = usePatchApiV1AuthMasterPassword();
   const refreshTokenMutation = useRefreshToken();
 
   useEffect(() => {
@@ -120,13 +118,15 @@ const ResetMasterPassword = () => {
 
     await updateMasterPasswordMutation.mutateAsync(
       {
-        masterPassword: data.masterPassword,
-        masterKey: { ...encryptedMasterKey, salt: userKeySalt },
-        recoveryKey: { ...encryptedRecoveryKey, salt: recoveryKeySalt },
+        data: {
+          masterPassword: data.masterPassword,
+          masterKey: { ...encryptedMasterKey, salt: userKeySalt },
+          recoveryKey: { ...encryptedRecoveryKey, salt: recoveryKeySalt },
+        }
       },
       {
         onSuccess: async () => {
-          await refreshTokenMutation.mutateAsync();
+          await refreshTokenMutation.mutate();
           setMasterKeyForUpdate(null);
           setOpenRecoveryKeyDialog(true);
         },

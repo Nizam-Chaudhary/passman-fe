@@ -22,7 +22,6 @@ import { VerifyAccountFormData, verifyAccountFormSchema } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-import { useResendOTP, useVerifyUserEmail } from "@/services/mutation/auth";
 import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
 import { useNavigate } from "react-router";
@@ -30,6 +29,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ROUTES } from "@/lib/constants";
 import Timer from "@/components/Timer";
 import { useEffect } from "react";
+import { usePatchApiV1AuthVerify, usePostApiV1AuthResendOtp } from "@/api-client/api";
 
 export default function VerifyAccount() {
   const { timer, decreaseTimer, setTimer } = useStore(
@@ -62,15 +62,15 @@ export default function VerifyAccount() {
     }))
   );
 
-  const resendOTPMutation = useResendOTP();
+  const resendOTPMutation = usePostApiV1AuthResendOtp();
   useEffect(() => {
     if (email && timer <= 0) {
-      resendOTPMutation.mutate({ email });
+      resendOTPMutation.mutate({ data: { email } });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email]);
 
-  const verifyUserEmailMutation = useVerifyUserEmail();
+  const verifyUserEmailMutation = usePatchApiV1AuthVerify();
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<VerifyAccountFormData> = (data) => {
@@ -78,18 +78,17 @@ export default function VerifyAccount() {
       email: email!,
       otp: data.otp,
     };
-    verifyUserEmailMutation.mutate(payload, {
+    verifyUserEmailMutation.mutate({ data: payload }, {
       onError: (error) => {
         toast({
           className: "bg-red-700 text-white",
-          title: "Error verifying account!",
-          description: error.message,
+          title: error.message,
         });
       },
       onSuccess: () => {
         toast({
           className: "bg-green-700 text-white",
-          title: "Email verified successfully!",
+          title: "Email verified successfully",
         });
         navigate(ROUTES.LOGIN);
       },
@@ -148,7 +147,7 @@ export default function VerifyAccount() {
               onClick={(e) => {
                 e.preventDefault();
                 if (email) {
-                  resendOTPMutation.mutate({ email });
+                  resendOTPMutation.mutate({ data: { email } });
                 }
                 setTimer(120);
               }}

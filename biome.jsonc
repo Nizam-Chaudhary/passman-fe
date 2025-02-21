@@ -63,6 +63,7 @@
     },
     "ignore": [
       "dist",
+      "src/api-client/**",
       "**/logs",
       "**/*.log",
       "**/npm-debug.log*",

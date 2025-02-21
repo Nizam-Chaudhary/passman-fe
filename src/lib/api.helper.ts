@@ -1,6 +1,4 @@
-import type { RefreshTokenResponse } from "@/types/auth";
-import type { UseMutationResult } from "@tanstack/react-query";
-import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios";
+import axios, { type AxiosRequestConfig } from "axios";
 import { getToken } from "./auth";
 
 const instance = axios.create({
@@ -48,12 +46,7 @@ const setRequestInterceptor = () => {
 };
 
 const setResponseInterceptor = (
-  refreshTokenMutation: UseMutationResult<
-    AxiosResponse<RefreshTokenResponse, unknown>,
-    Error,
-    void,
-    unknown
-  >
+  refreshTokenMutation: { mutate: () => Promise<unknown> }
 ) => {
   instance.interceptors.response.use(
     (response) => {
@@ -72,7 +65,7 @@ const setResponseInterceptor = (
         if (!isRefreshing) {
           isRefreshing = true;
           try {
-            await refreshTokenMutation.mutateAsync();
+            await refreshTokenMutation.mutate();
             const newToken = getToken();
             if (!newToken) {
               throw new Error("Failed to refresh token");

@@ -11,7 +11,7 @@
     "lint:format": "biome check --write .",
     "format": "biome format --write .",
     "preview": "vite preview",
-    "orval": "rm -rf src/services/api-client/; orval"
+    "orval": "rm -rf src/api-client/; orval"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

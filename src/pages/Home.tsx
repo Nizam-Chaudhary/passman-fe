@@ -16,8 +16,8 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { VaultComboBox } from "../components/VaultComboBox";
 import { getToken } from "@/lib/auth";
-import { useRefreshToken } from "@/services/mutation/auth";
 import { useSearchParams } from "react-router";
+import { useRefreshToken } from "@/hooks/refresh-token";
 
 export default function Home() {
   const [searchParams, setSearchParams] = useSearchParams();

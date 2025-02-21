@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { useVaults } from "@/services/queries/vault";
 import { useStore } from "@/store/store";
 import { Check, ChevronsUpDown, PlusIcon } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -16,6 +15,7 @@ import {
   CommandList,
 } from "./ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { useGetApiV1Vaults } from "@/api-client/api";
 
 export function VaultComboBox() {
   const [open, setOpen] = useState(false);
@@ -27,13 +27,13 @@ export function VaultComboBox() {
       setOpenAddVaultDialog: state.setOpenAddVaultDialog,
     }))
   );
-  const { data: vaults } = useVaults();
+  const { data: response } = useGetApiV1Vaults();
 
   useEffect(() => {
-    if (vaults) {
-      setCurrentVault(vaults.find((vault) => vault.name === "Default"));
+    if (response?.data) {
+      setCurrentVault(response.data.find((vault) => vault.name === "Default"));
     }
-  }, [vaults, setCurrentVault]);
+  }, [response, setCurrentVault]);
 
   return (
     <>
@@ -55,7 +55,7 @@ export function VaultComboBox() {
             <CommandList>
               <CommandEmpty>No vaults added...</CommandEmpty>
               <CommandGroup>
-                {(vaults || []).map((vault, index) => (
+                {(response?.data || []).map((vault, index) => (
                   <CommandItem
                     key={index}
                     value={vault.name}
@@ -65,7 +65,7 @@ export function VaultComboBox() {
                         setSearchParams(searchParams);
                       }
                       setCurrentVault(
-                        vaults?.find((val) => val.name === vault)
+                        response?.data.find((val) => val.name === vault)
                       );
                       setOpen(false);
                     }}
@@ -81,7 +81,7 @@ export function VaultComboBox() {
                     />
                   </CommandItem>
                 ))}
-                {vaults && vaults?.length < 5 ? (
+                {response?.data && response?.data?.length < 5 ? (
                   <CommandItem
                     value={"Add Vault"}
                     onSelect={() => {

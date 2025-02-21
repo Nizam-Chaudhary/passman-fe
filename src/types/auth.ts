@@ -170,6 +170,6 @@ export type UserDetails = {
     encrypted: string;
     salt: string;
   };
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 };

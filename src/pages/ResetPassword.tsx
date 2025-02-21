@@ -1,3 +1,4 @@
+import { usePatchApiV1AuthResetPassword } from "@/api-client/api";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,7 +19,6 @@ import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { PasswordInput } from "@/components/ui/password-input";
 import { useToast } from "@/hooks/use-toast";
 import { ROUTES } from "@/lib/constants";
-import { useResetPassword } from "@/services/mutation/auth";
 import { ResetPasswordForm, resetPasswordFormSchema } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -36,7 +36,7 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const resetPasswordMutation = useResetPassword();
+  const resetPasswordMutation = usePatchApiV1AuthResetPassword();
 
   const onSubmit: SubmitHandler<ResetPasswordForm> = async (data) => {
     const token = searchParams.get("token");
@@ -52,8 +52,10 @@ const ResetPassword = () => {
 
     resetPasswordMutation.mutate(
       {
-        token: token,
-        password: data.password,
+        data: {
+          token: token,
+          password: data.password
+        },
       },
       {
         onSuccess: () => {

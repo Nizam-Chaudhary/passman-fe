@@ -1,5 +1,4 @@
 import { useToast } from "@/hooks/use-toast";
-import { useAddVault } from "@/services/mutation/vault";
 import { useStore } from "@/store/store";
 import { addVaultSchema } from "@/types/vault";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,6 +23,7 @@ import {
 } from "./ui/form";
 import { Input } from "./ui/input";
 import LoadingSpinner from "./ui/loadingSpinner";
+import { usePostApiV1Vaults } from "@/api-client/api";
 
 export default function AddVault() {
   const { open, setOpen } = useStore(
@@ -42,10 +42,10 @@ export default function AddVault() {
     },
   });
 
-  const addVaultMutation = useAddVault();
+  const addVaultMutation = usePostApiV1Vaults();
 
   const onSubmit: SubmitHandler<{ name: string }> = (data) => {
-    addVaultMutation.mutate(data, {
+    addVaultMutation.mutate({ data }, {
       onError: (error) => {
         toast({
           title: error.message,

@@ -27,11 +27,11 @@ import { useStore } from "@/store/store";
 import { NavLink, useNavigate } from "react-router";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
-import { useVerifyMasterPassword } from "@/services/mutation/auth";
 import { PasswordInput } from "@/components/ui/password-input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { ROUTES } from "@/lib/constants";
 import { replaceRouteParams } from "@/lib/utils";
+import { usePostApiV1AuthVerifyMasterPassword } from "@/api-client/api";
 
 export default function VerifyMasterPassword() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -52,7 +52,7 @@ export default function VerifyMasterPassword() {
     },
   });
 
-  const verifyMasterPasswordMutation = useVerifyMasterPassword();
+  const verifyMasterPasswordMutation = usePostApiV1AuthVerifyMasterPassword();
 
   const onSubmit: SubmitHandler<VerifyMasterPasswordFormData> = async (
     data,
@@ -62,11 +62,10 @@ export default function VerifyMasterPassword() {
     setIsSubmitting(true);
     await verifyMasterPasswordMutation.mutateAsync(
       {
-        masterPassword: data.masterPassword,
+        data: { masterPassword: data.masterPassword },
       },
       {
-        onSuccess: async (result) => {
-          const response = result.data;
+        onSuccess: async (response) => {
           const userKey = await deriveKey(
             data.masterPassword,
             response.data.masterKey.salt
