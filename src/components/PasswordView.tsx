@@ -32,6 +32,7 @@ import { ScrollArea } from "./ui/scroll-area";
 import { Separator } from "./ui/separator";
 import { Textarea } from "./ui/textarea";
 import { useDeleteApiV1PasswordsId, useGetApiV1PasswordsId, usePutApiV1PasswordsId } from "@/api-client/api";
+import LoadingSpinner from "./ui/loadingSpinner";
 
 export function PasswordView() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -192,8 +193,8 @@ export function PasswordView() {
             <div>
               <div className="flex justify-between items-center">
                 <Avatar className="size-12 rounded-lg">
-                  <AvatarImage src="/assets/shadcn.jpg" />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarImage loading="lazy" src="/assets/shadcn.jpg" />
+                  <AvatarFallback><LoadingSpinner /></AvatarFallback>
                 </Avatar>
 
                 <Button

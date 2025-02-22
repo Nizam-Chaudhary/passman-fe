@@ -32,6 +32,7 @@ import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { ROUTES } from "@/lib/constants";
 import { replaceRouteParams } from "@/lib/utils";
 import { usePostApiV1AuthVerifyMasterPassword } from "@/api-client/api";
+import { useRefreshToken } from "@/hooks/refresh-token";
 
 export default function VerifyMasterPassword() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -53,6 +54,7 @@ export default function VerifyMasterPassword() {
   });
 
   const verifyMasterPasswordMutation = usePostApiV1AuthVerifyMasterPassword();
+  const refreshTokenMutation = useRefreshToken()
 
   const onSubmit: SubmitHandler<VerifyMasterPasswordFormData> = async (
     data,
@@ -87,6 +89,9 @@ export default function VerifyMasterPassword() {
             title: error.message,
             className: "bg-red-700",
           });
+          if (error.message === 'Access token expired') {
+            refreshTokenMutation.mutate();
+          }
         },
       }
     );

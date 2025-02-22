@@ -117,7 +117,7 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
  * @summary Sign up user
  */
 export const getPostApiV1AuthSignUpUrl = () => {
-  return `http://localhost:3000/api/v1/auth/sign-up`;
+  return `/api/v1/auth/sign-up`;
 };
 
 export const postApiV1AuthSignUp = async (
@@ -208,7 +208,7 @@ export const usePostApiV1AuthSignUp = <
  * @summary Sign in user
  */
 export const getPostApiV1AuthSignInUrl = () => {
-  return `http://localhost:3000/api/v1/auth/sign-in`;
+  return `/api/v1/auth/sign-in`;
 };
 
 export const postApiV1AuthSignIn = async (
@@ -299,7 +299,7 @@ export const usePostApiV1AuthSignIn = <
  * @summary Refresh access token
  */
 export const getPostApiV1AuthRefreshTokenUrl = () => {
-  return `http://localhost:3000/api/v1/auth/refresh-token`;
+  return `/api/v1/auth/refresh-token`;
 };
 
 export const postApiV1AuthRefreshToken = async (
@@ -394,7 +394,7 @@ export const usePostApiV1AuthRefreshToken = <
  * @summary Verify user email
  */
 export const getPatchApiV1AuthVerifyUrl = () => {
-  return `http://localhost:3000/api/v1/auth/verify`;
+  return `/api/v1/auth/verify`;
 };
 
 export const patchApiV1AuthVerify = async (
@@ -485,7 +485,7 @@ export const usePatchApiV1AuthVerify = <
  * @summary Create master key for user
  */
 export const getPatchApiV1AuthCreateMasterKeyUrl = () => {
-  return `http://localhost:3000/api/v1/auth/create-master-key`;
+  return `/api/v1/auth/create-master-key`;
 };
 
 export const patchApiV1AuthCreateMasterKey = async (
@@ -581,7 +581,7 @@ export const usePatchApiV1AuthCreateMasterKey = <
  * @summary Verify Master password for user
  */
 export const getPostApiV1AuthVerifyMasterPasswordUrl = () => {
-  return `http://localhost:3000/api/v1/auth/verify-master-password`;
+  return `/api/v1/auth/verify-master-password`;
 };
 
 export const postApiV1AuthVerifyMasterPassword = async (
@@ -681,7 +681,7 @@ export const usePostApiV1AuthVerifyMasterPassword = <
  * @summary Resend otp to user's email
  */
 export const getPostApiV1AuthResendOtpUrl = () => {
-  return `http://localhost:3000/api/v1/auth/resend-otp`;
+  return `/api/v1/auth/resend-otp`;
 };
 
 export const postApiV1AuthResendOtp = async (
@@ -775,7 +775,7 @@ export const usePostApiV1AuthResendOtp = <
  * @summary send reset password email
  */
 export const getPostApiV1AuthResetPasswordMailUrl = () => {
-  return `http://localhost:3000/api/v1/auth/reset-password-mail`;
+  return `/api/v1/auth/reset-password-mail`;
 };
 
 export const postApiV1AuthResetPasswordMail = async (
@@ -875,7 +875,7 @@ export const usePostApiV1AuthResetPasswordMail = <
  * @summary reset login password
  */
 export const getPatchApiV1AuthResetPasswordUrl = () => {
-  return `http://localhost:3000/api/v1/auth/reset-password`;
+  return `/api/v1/auth/reset-password`;
 };
 
 export const patchApiV1AuthResetPassword = async (
@@ -971,7 +971,7 @@ export const usePatchApiV1AuthResetPassword = <
  * @summary Update master password
  */
 export const getPatchApiV1AuthMasterPasswordUrl = () => {
-  return `http://localhost:3000/api/v1/auth/master-password`;
+  return `/api/v1/auth/master-password`;
 };
 
 export const patchApiV1AuthMasterPassword = async (
@@ -1067,15 +1067,20 @@ export const usePatchApiV1AuthMasterPassword = <
  * @summary Upload file
  */
 export const getPostApiV1FilesUploadUrl = () => {
-  return `http://localhost:3000/api/v1/files/upload`;
+  return `/api/v1/files/upload`;
 };
 
 export const postApiV1FilesUpload = async (
+  postApiV1FilesUploadBody: unknown,
   options?: RequestInit
 ): Promise<PostApiV1FilesUpload200> => {
+  const formData = new FormData();
+  formData.append("data", postApiV1FilesUploadBody);
+
   return customFetch<PostApiV1FilesUpload200>(getPostApiV1FilesUploadUrl(), {
     ...options,
     method: "POST",
+    body: formData,
   });
 };
 
@@ -1086,14 +1091,14 @@ export const getPostApiV1FilesUploadMutationOptions = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof postApiV1FilesUpload>>,
     TError,
-    void,
+    { data: unknown },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
   Awaited<ReturnType<typeof postApiV1FilesUpload>>,
   TError,
-  void,
+  { data: unknown },
   TContext
 > => {
   const mutationKey = ["postApiV1FilesUpload"];
@@ -1107,9 +1112,11 @@ export const getPostApiV1FilesUploadMutationOptions = <
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<typeof postApiV1FilesUpload>>,
-    void
-  > = () => {
-    return postApiV1FilesUpload(requestOptions);
+    { data: unknown }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return postApiV1FilesUpload(data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
@@ -1118,7 +1125,7 @@ export const getPostApiV1FilesUploadMutationOptions = <
 export type PostApiV1FilesUploadMutationResult = NonNullable<
   Awaited<ReturnType<typeof postApiV1FilesUpload>>
 >;
-
+export type PostApiV1FilesUploadMutationBody = unknown;
 export type PostApiV1FilesUploadMutationError =
   | PostApiV1FilesUpload4xx
   | PostApiV1FilesUpload5xx;
@@ -1133,14 +1140,14 @@ export const usePostApiV1FilesUpload = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof postApiV1FilesUpload>>,
     TError,
-    void,
+    { data: unknown },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
   Awaited<ReturnType<typeof postApiV1FilesUpload>>,
   TError,
-  void,
+  { data: unknown },
   TContext
 > => {
   const mutationOptions = getPostApiV1FilesUploadMutationOptions(options);
@@ -1153,7 +1160,7 @@ export const usePostApiV1FilesUpload = <
  * @summary Check server health
  */
 export const getGetHealthUrl = () => {
-  return `http://localhost:3000/health/`;
+  return `/health/`;
 };
 
 export const getHealth = async (
@@ -1166,7 +1173,7 @@ export const getHealth = async (
 };
 
 export const getGetHealthQueryKey = () => {
-  return [`http://localhost:3000/health/`] as const;
+  return [`/health/`] as const;
 };
 
 export const getGetHealthQueryOptions = <
@@ -1186,14 +1193,11 @@ export const getGetHealthQueryOptions = <
     signal,
   }) => getHealth({ signal, ...requestOptions });
 
-  return {
-    queryKey,
-    queryFn,
-    staleTime: 10000,
-    ...queryOptions,
-  } as UseQueryOptions<Awaited<ReturnType<typeof getHealth>>, TError, TData> & {
-    queryKey: DataTag<QueryKey, TData, TError>;
-  };
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getHealth>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 };
 
 export type GetHealthQueryResult = NonNullable<
@@ -1281,7 +1285,7 @@ export function useGetHealth<
  * @summary Add a new password
  */
 export const getPostApiV1PasswordsUrl = () => {
-  return `http://localhost:3000/api/v1/passwords/`;
+  return `/api/v1/passwords/`;
 };
 
 export const postApiV1Passwords = async (
@@ -1381,8 +1385,8 @@ export const getGetApiV1PasswordsUrl = (params?: GetApiV1PasswordsParams) => {
   });
 
   return normalizedParams.size
-    ? `http://localhost:3000/api/v1/passwords/?${normalizedParams.toString()}`
-    : `http://localhost:3000/api/v1/passwords/`;
+    ? `/api/v1/passwords/?${normalizedParams.toString()}`
+    : `/api/v1/passwords/`;
 };
 
 export const getApiV1Passwords = async (
@@ -1398,10 +1402,7 @@ export const getApiV1Passwords = async (
 export const getGetApiV1PasswordsQueryKey = (
   params?: GetApiV1PasswordsParams
 ) => {
-  return [
-    `http://localhost:3000/api/v1/passwords/`,
-    ...(params ? [params] : []),
-  ] as const;
+  return [`/api/v1/passwords/`, ...(params ? [params] : [])] as const;
 };
 
 export const getGetApiV1PasswordsQueryOptions = <
@@ -1429,12 +1430,7 @@ export const getGetApiV1PasswordsQueryOptions = <
     Awaited<ReturnType<typeof getApiV1Passwords>>
   > = ({ signal }) => getApiV1Passwords(params, { signal, ...requestOptions });
 
-  return {
-    queryKey,
-    queryFn,
-    staleTime: 10000,
-    ...queryOptions,
-  } as UseQueryOptions<
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getApiV1Passwords>>,
     TError,
     TData
@@ -1556,7 +1552,7 @@ export function useGetApiV1Passwords<
  * @summary Get password by ID
  */
 export const getGetApiV1PasswordsIdUrl = (id: number) => {
-  return `http://localhost:3000/api/v1/passwords/${id}`;
+  return `/api/v1/passwords/${id}`;
 };
 
 export const getApiV1PasswordsId = async (
@@ -1570,7 +1566,7 @@ export const getApiV1PasswordsId = async (
 };
 
 export const getGetApiV1PasswordsIdQueryKey = (id: number) => {
-  return [`http://localhost:3000/api/v1/passwords/${id}`] as const;
+  return [`/api/v1/passwords/${id}`] as const;
 };
 
 export const getGetApiV1PasswordsIdQueryOptions = <
@@ -1601,7 +1597,6 @@ export const getGetApiV1PasswordsIdQueryOptions = <
     queryKey,
     queryFn,
     enabled: !!id,
-    staleTime: 10000,
     ...queryOptions,
   } as UseQueryOptions<
     Awaited<ReturnType<typeof getApiV1PasswordsId>>,
@@ -1725,7 +1720,7 @@ export function useGetApiV1PasswordsId<
  * @summary Update password by ID
  */
 export const getPutApiV1PasswordsIdUrl = (id: number) => {
-  return `http://localhost:3000/api/v1/passwords/${id}`;
+  return `/api/v1/passwords/${id}`;
 };
 
 export const putApiV1PasswordsId = async (
@@ -1817,7 +1812,7 @@ export const usePutApiV1PasswordsId = <
  * @summary Delete password by ID
  */
 export const getDeleteApiV1PasswordsIdUrl = (id: number) => {
-  return `http://localhost:3000/api/v1/passwords/${id}`;
+  return `/api/v1/passwords/${id}`;
 };
 
 export const deleteApiV1PasswordsId = async (
@@ -1909,7 +1904,7 @@ export const useDeleteApiV1PasswordsId = <
  * @summary Import multiple passwords
  */
 export const getPostApiV1PasswordsImportUrl = () => {
-  return `http://localhost:3000/api/v1/passwords/import`;
+  return `/api/v1/passwords/import`;
 };
 
 export const postApiV1PasswordsImport = async (
@@ -2004,7 +1999,7 @@ export const usePostApiV1PasswordsImport = <
  * @summary Update user details
  */
 export const getPatchApiV1UsersUrl = () => {
-  return `http://localhost:3000/api/v1/users/`;
+  return `/api/v1/users/`;
 };
 
 export const patchApiV1Users = async (
@@ -2095,7 +2090,7 @@ export const usePatchApiV1Users = <
  * @summary Get logged in user detail
  */
 export const getGetApiV1UsersUrl = () => {
-  return `http://localhost:3000/api/v1/users/`;
+  return `/api/v1/users/`;
 };
 
 export const getApiV1Users = async (
@@ -2108,7 +2103,7 @@ export const getApiV1Users = async (
 };
 
 export const getGetApiV1UsersQueryKey = () => {
-  return [`http://localhost:3000/api/v1/users/`] as const;
+  return [`/api/v1/users/`] as const;
 };
 
 export const getGetApiV1UsersQueryOptions = <
@@ -2128,12 +2123,7 @@ export const getGetApiV1UsersQueryOptions = <
     signal,
   }) => getApiV1Users({ signal, ...requestOptions });
 
-  return {
-    queryKey,
-    queryFn,
-    staleTime: 10000,
-    ...queryOptions,
-  } as UseQueryOptions<
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getApiV1Users>>,
     TError,
     TData
@@ -2225,7 +2215,7 @@ export function useGetApiV1Users<
  * @summary Get vaults
  */
 export const getGetApiV1VaultsUrl = () => {
-  return `http://localhost:3000/api/v1/vaults/`;
+  return `/api/v1/vaults/`;
 };
 
 export const getApiV1Vaults = async (
@@ -2238,7 +2228,7 @@ export const getApiV1Vaults = async (
 };
 
 export const getGetApiV1VaultsQueryKey = () => {
-  return [`http://localhost:3000/api/v1/vaults/`] as const;
+  return [`/api/v1/vaults/`] as const;
 };
 
 export const getGetApiV1VaultsQueryOptions = <
@@ -2258,12 +2248,7 @@ export const getGetApiV1VaultsQueryOptions = <
     signal,
   }) => getApiV1Vaults({ signal, ...requestOptions });
 
-  return {
-    queryKey,
-    queryFn,
-    staleTime: 10000,
-    ...queryOptions,
-  } as UseQueryOptions<
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getApiV1Vaults>>,
     TError,
     TData
@@ -2355,7 +2340,7 @@ export function useGetApiV1Vaults<
  * @summary Add vault
  */
 export const getPostApiV1VaultsUrl = () => {
-  return `http://localhost:3000/api/v1/vaults/`;
+  return `/api/v1/vaults/`;
 };
 
 export const postApiV1Vaults = async (
@@ -2446,7 +2431,7 @@ export const usePostApiV1Vaults = <
  * @summary Update vault
  */
 export const getPutApiV1VaultsIdUrl = (id: number) => {
-  return `http://localhost:3000/api/v1/vaults/${id}`;
+  return `/api/v1/vaults/${id}`;
 };
 
 export const putApiV1VaultsId = async (
@@ -2538,7 +2523,7 @@ export const usePutApiV1VaultsId = <
  * @summary Add vault
  */
 export const getDeleteApiV1VaultsIdUrl = (id: number) => {
-  return `http://localhost:3000/api/v1/vaults/${id}`;
+  return `/api/v1/vaults/${id}`;
 };
 
 export const deleteApiV1VaultsId = async (

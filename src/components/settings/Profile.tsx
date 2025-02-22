@@ -1,5 +1,3 @@
-import { useUpdateUser } from "@/services/mutation/user";
-import { useLoggedInUserDetails } from "@/services/queries/user";
 import { FileUploadResponse } from "@/types/file";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -18,9 +16,15 @@ import {
 import { Input } from "../ui/input";
 import Loading from "../ui/loading";
 import LoadingSpinner from "../ui/loadingSpinner";
+import { getGetApiV1UsersQueryKey, useGetApiV1Users, usePatchApiV1Users } from "@/api-client/api";
+import { useQueryClient } from "@tanstack/react-query";
+import { useToast } from "@/hooks/use-toast";
 
 const Profile = () => {
-  const { data: userDetails, isPending, isError } = useLoggedInUserDetails();
+  const queryClient = useQueryClient()
+  const { data: response, isPending, isError } = useGetApiV1Users();
+  const userDetails = response?.data
+
   const userNameForm = useForm<{ userName: string }>({
     resolver: zodResolver(
       z.object({
@@ -34,8 +38,9 @@ const Profile = () => {
       userName: userDetails?.userName ?? "",
     },
   });
+  const { toast } = useToast();
 
-  const updateUserMutation = useUpdateUser();
+  const updateUserMutation = usePatchApiV1Users();
 
   if (isPending) {
     return (
@@ -55,11 +60,33 @@ const Profile = () => {
   }
 
   const onSubmit: SubmitHandler<{ userName: string }> = (data) => {
-    updateUserMutation.mutate(data);
+    updateUserMutation.mutate({ data }, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: getGetApiV1UsersQueryKey(), exact: true })
+        toast({
+          title: "Username updated successfully.",
+          className: "bg-green-700 text-white",
+        });
+      }
+    });
   };
 
-  const onFileUploadSuccess = (file: FileUploadResponse) => {
-    updateUserMutation.mutate({ fileId: file.data.id });
+  const onFileUploadSuccess = (response: FileUploadResponse) => {
+    updateUserMutation.mutate({ data: { fileId: response.data.id } }, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: getGetApiV1UsersQueryKey(), exact: true })
+        toast({
+          title: "Profile picture updated successfully.",
+          className: "bg-green-700 text-white",
+        });
+      },
+      onError: () => {
+        toast({
+          title: "Unable to update profile picture.",
+          className: "bg-red-600 text-white"
+        })
+      }
+    });
   };
 
   return (
@@ -67,8 +94,8 @@ const Profile = () => {
       <div className="flex items-center">
         <label htmlFor="file-upload" className="cursor-pointer">
           <Avatar className="size-40 rounded-full hover:opacity-80 transition-opacity">
-            <AvatarImage src={userDetails.file?.url} />
-            <AvatarFallback>{userDetails.userName}</AvatarFallback>
+            <AvatarImage loading="lazy" src={userDetails?.file?.url} />
+            <AvatarFallback><LoadingSpinner /></AvatarFallback>
           </Avatar>
           <FileUpload onSuccess={onFileUploadSuccess} />
         </label>
@@ -77,7 +104,7 @@ const Profile = () => {
         <div className="max-w-sm mb-2">
           <p className="mb-1">Email</p>
           <div className="border-[1px] px-3 py-[6px] rounded-md">
-            email@example.com
+            {userDetails?.email}
           </div>
         </div>
         <Form {...userNameForm}>

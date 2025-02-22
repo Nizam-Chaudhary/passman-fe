@@ -15,17 +15,10 @@ const getBody = <T>(c: Response | Request): Promise<T> => {
 };
 
 const getUrl = (contextUrl: string): string => {
-  console.log('contextUrl', contextUrl);
-  const url = new URL(contextUrl);
-  console.log('url', url);
-  const pathname = url.pathname;
-  const search = url.search;
   const baseUrl = import.meta.env.VITE_BE_BASE_URL ?? 'http://localhost:3000';
+  const url = new URL(`${baseUrl}${contextUrl}`);
 
-
-  const requestUrl = new URL(`${baseUrl}${pathname}${search}`);
-
-  return requestUrl.toString();
+  return url.toString();
 };
 
 const getHeaders = (headers?: HeadersInit): HeadersInit => {

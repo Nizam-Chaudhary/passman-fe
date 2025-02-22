@@ -1,37 +1,44 @@
-import { useUploadFileMutation } from "@/services/mutation/file";
+import { usePostApiV1FilesUpload } from "@/api-client/api";
 import { Input } from "./ui/input";
 import { FileUploadResponse } from "@/types/file";
+import { useToast } from "@/hooks/use-toast";
 
 interface Props {
   onSuccess: (
     data: FileUploadResponse,
-    variables?: FormData,
+    variables?: { data: unknown },
     context?: unknown
   ) => void;
 }
 
 const FileUpload = ({ onSuccess }: Props): React.ReactElement => {
-  const uploadFileMutation = useUploadFileMutation();
+  const uploadFileMutation = usePostApiV1FilesUpload();
+  const { toast } = useToast()
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
+    toast({
+      title: "Uploading file...",
+      className: "bg-green-600 text-white"
+    })
 
-    uploadFileMutation.mutate(formData, {
+    uploadFileMutation.mutate({ data: file }, {
       onSuccess: onSuccess,
     });
   };
 
   return (
-    <Input
-      id="file-upload"
-      type="file"
-      onChange={onChange}
-      className="border p-2 hidden"
-    />
+    <>
+      <Input
+        id="file-upload"
+        type="file"
+        onChange={onChange}
+        className="border p-2 hidden"
+        disabled={uploadFileMutation.isPending}
+      />
+    </>
   );
 };
 

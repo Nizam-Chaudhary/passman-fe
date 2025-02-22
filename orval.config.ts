@@ -10,7 +10,7 @@ export default defineConfig({
       target: 'src/api-client/api.ts',
       client: 'react-query',
       httpClient: 'fetch',
-      baseUrl: 'http://localhost:3000',
+      // baseUrl: 'http://localhost:3000',
       mock: false,
       docs: false,
       biome: true,
@@ -26,9 +26,6 @@ export default defineConfig({
         query: {
           useQuery: true,
           useMutation: true,
-          options: {
-            staleTime: 10000,
-          },
         },
       },
     },

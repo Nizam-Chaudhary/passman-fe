@@ -18,7 +18,6 @@ import {
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { useToast } from "@/hooks/use-toast";
-// import { useSignUpUser } from "@/services/mutation/auth";
 import { SignUpUserData, signUpUserSchema } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -32,7 +31,6 @@ import { usePostApiV1AuthSignUp } from "@/api-client/api";
 export default function SignUp() {
   const { toast } = useToast();
   const navigate = useNavigate();
-  // const mutateSignUpUser = useSignUpUser();
   const mutateSignUpUser = usePostApiV1AuthSignUp();
 
   const { setUserEmail, setIsEmailVerified } = useStore(
@@ -67,7 +65,7 @@ export default function SignUp() {
         console.log('response', response)
         setUserEmail(variables.data.email);
         setIsEmailVerified(false);
-        // await navigate(ROUTES.VERIFY_ACCOUNT);
+        await navigate(ROUTES.VERIFY_ACCOUNT);
       },
     });
   };
