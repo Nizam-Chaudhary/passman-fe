@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ApiResponse, ecryptedValueSchema } from "./common";
+import { type ApiResponse, ecryptedValueSchema } from "./common";
 
 const passwordSchema = z
   .string()
@@ -170,6 +170,6 @@ export type UserDetails = {
     encrypted: string;
     salt: string;
   };
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 };

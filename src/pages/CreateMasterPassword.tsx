@@ -23,7 +23,6 @@ import {
 import RecoveryKeyDialog from "@/components/RecoverKeyDialog";
 import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
-import { useCreateMasterKey, useRefreshToken } from "@/services/mutation/auth";
 import {
   deriveKey,
   encrypt,
@@ -34,6 +33,8 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { PasswordInput } from "@/components/ui/password-input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
+import { useRefreshToken } from "@/hooks/refresh-token";
+import { usePatchApiV1AuthCreateMasterKey } from "@/api-client/api";
 
 export default function CreateMasterPassword() {
   const { setOpenRecoveryKeyDialog, setRecoveryKey } = useStore(
@@ -53,7 +54,7 @@ export default function CreateMasterPassword() {
     },
   });
 
-  const createMasterPasswordMutation = useCreateMasterKey();
+  const createMasterPasswordMutation = usePatchApiV1AuthCreateMasterKey();
   const refreshTokenMutation = useRefreshToken();
 
   const onSubmit: SubmitHandler<CreateMasterPasswordFormData> = async (
@@ -84,13 +85,15 @@ export default function CreateMasterPassword() {
 
     await createMasterPasswordMutation.mutateAsync(
       {
-        masterPassword: data.masterPassword,
-        masterKey: { ...encryptedMasterKey, salt: userKeySalt },
-        recoveryKey: { ...encryptedRecoveryKey, salt: recoveryKeySalt },
+        data: {
+          masterPassword: data.masterPassword,
+          masterKey: { ...encryptedMasterKey, salt: userKeySalt },
+          recoveryKey: { ...encryptedRecoveryKey, salt: recoveryKeySalt },
+        }
       },
       {
         onSuccess: async () => {
-          await refreshTokenMutation.mutateAsync();
+          await refreshTokenMutation.mutate();
           setOpenRecoveryKeyDialog(true);
         },
         onError: (error) => {

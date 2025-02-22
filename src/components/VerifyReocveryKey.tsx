@@ -17,11 +17,11 @@ import {
 } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { useLoggedInUserDetails } from "@/services/queries/user";
 import { decrypt, deriveKey } from "@/lib/encryption.helper";
 import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
 import { useToast } from "@/hooks/use-toast";
+import { useGetApiV1Users } from "@/api-client/api";
 
 const VerifyRecoverKey = () => {
   const { toast } = useToast();
@@ -38,7 +38,8 @@ const VerifyRecoverKey = () => {
     }))
   );
 
-  const { data: userDetails, isPending, isError } = useLoggedInUserDetails();
+  const { data: response, isPending, isError } = useGetApiV1Users();
+  const userDetails = response?.data
 
   const verifyMasterPasswordMutation = useMutation({
     mutationFn: async (data: UserDetails & { userRecoveryKey: string }) => {

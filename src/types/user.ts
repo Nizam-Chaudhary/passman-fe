@@ -1,3 +1,5 @@
+import type { FileDetails } from "./file";
+
 export type GetUserResponseSchema = {
   status: "success" | "fail" | "error";
   data: {
@@ -16,6 +18,7 @@ export type GetUserResponseSchema = {
     };
     createdAt: Date;
     updatedAt: Date;
+    file?: FileDetails;
   };
 };
 
@@ -26,4 +29,9 @@ export type JwtUserData = {
   masterKeyCreated: boolean;
   exp: number;
   iat: number;
+};
+
+export type UpdateUserBody = {
+  userName?: string;
+  fileId?: number;
 };

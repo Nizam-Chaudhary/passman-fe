@@ -18,7 +18,6 @@ import {
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { useToast } from "@/hooks/use-toast";
-import { useLoginUser } from "@/services/mutation/auth";
 import { loginSchema, LoginUserData } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -28,11 +27,12 @@ import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
 import { setRefreshToken, setToken } from "@/lib/auth";
 import { ROUTES } from "@/lib/constants";
+import { usePostApiV1AuthSignIn } from "@/api-client/api";
 
 export default function Login() {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const mutateLoginUser = useLoginUser();
+  const mutateLoginUser = usePostApiV1AuthSignIn();
 
   const { setUserEmail, setIsEmailVerified } = useStore(
     useShallow((state) => ({
@@ -50,12 +50,11 @@ export default function Login() {
   });
 
   function onSubmit(data: LoginUserData) {
-    mutateLoginUser.mutate(data, {
+    mutateLoginUser.mutate({ data }, {
       onError: (error, variables) => {
-        console.log("error", error);
         if (error.message == "Email not verified. Please verify first!") {
           setIsEmailVerified(false);
-          setUserEmail(variables.email);
+          setUserEmail(variables.data.email);
           navigate(ROUTES.VERIFY_ACCOUNT);
         } else {
           toast({
@@ -64,21 +63,20 @@ export default function Login() {
           });
         }
       },
-      onSuccess: async (data, variables) => {
-        const response = data.data;
+      onSuccess: async (response, variables) => {
         setToken(response.data.token);
         setRefreshToken(response.data.refreshToken);
         setIsEmailVerified(response.data.isVerified);
         toast({
           className: "bg-green-700",
-          title: "Logged in successfully!",
+          title: "Logged in successfully",
         });
         if (response.data.masterKey == null) {
           navigate(ROUTES.MASTER_PASSWORD.CREATE);
         } else if (response.data.isVerified) {
           navigate(ROUTES.MASTER_PASSWORD.VERIFY);
         } else {
-          setUserEmail(variables.email);
+          setUserEmail(variables.data.email);
           navigate(ROUTES.VERIFY_ACCOUNT);
         }
       },

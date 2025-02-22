@@ -1,5 +1,5 @@
-import { Store } from "@/types/store";
-import { StateCreator } from "zustand";
+import type { Store } from "@/types/store";
+import type { StateCreator } from "zustand";
 
 type PasswordStates = {
   openDeletePasswordDialog: boolean;

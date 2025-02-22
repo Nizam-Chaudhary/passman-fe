@@ -1,11 +1,12 @@
 "use client";
 
-import { ChevronsUpDown, LogOut } from "lucide-react";
+import { ChevronsUpDown, LogOut, Settings2Icon } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -20,14 +21,16 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router";
 import { removeRefreshToken, removeToken } from "@/lib/auth";
-import { useLoggedInUserDetails } from "@/services/queries/user";
 import NavUserSkeleton from "./skeletons/NavUserSkeleton";
 import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
 import { ROUTES } from "@/lib/constants";
+import { useGetApiV1Users } from "@/api-client/api";
+import LoadingSpinner from "./ui/loadingSpinner";
 
 export function NavUser() {
-  const { data: user, isPending, isError } = useLoggedInUserDetails();
+  const { data: response, isPending, isError } = useGetApiV1Users();
+  const user = response?.data
 
   const {
     setIsAuthenticated,
@@ -59,7 +62,11 @@ export function NavUser() {
     return <NavUserSkeleton />;
   }
 
-  function logout() {
+  const openSettings = () => {
+    navigate(ROUTES.SETTINGS);
+  };
+
+  const logout = () => {
     removeToken();
     removeRefreshToken();
     setIsAuthenticated(false);
@@ -73,7 +80,7 @@ export function NavUser() {
       description: "Logged out successfully",
       className: "bg-green-700",
     });
-  }
+  };
 
   return (
     <SidebarMenu>
@@ -86,16 +93,14 @@ export function NavUser() {
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage
-                  src={user.userName || "/assets/shadcn.jpg"}
-                  alt={user.userName.charAt(0).toUpperCase()}
+                  src={user?.file?.url || user?.userName}
+                  alt={user?.userName?.charAt(0).toUpperCase()}
                 />
-                <AvatarFallback className="rounded-lg">
-                  {user.userName.charAt(0).toUpperCase()}
-                </AvatarFallback>
+                <AvatarFallback><LoadingSpinner /></AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user.userName}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate font-semibold">{user?.userName}</span>
+                <span className="truncate text-xs">{user?.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -109,42 +114,25 @@ export function NavUser() {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.userName || "/assets/shadcn.jpg"} />
-                  <AvatarFallback className="rounded-lg">
-                    {user.userName.charAt(0).toUpperCase()}
-                  </AvatarFallback>
+                  <AvatarImage loading="lazy" src={user?.file.url} />
+                  <AvatarFallback><LoadingSpinner /></AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">
-                    {user.userName}
+                    {user?.userName}
                   </span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate text-xs">{user?.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {/* <DropdownMenuGroup>
-              <DropdownMenuItem>
-                  <Sparkles />
-                  Upgrade to Pro
+            <DropdownMenuGroup>
+              <DropdownMenuItem onClick={openSettings}>
+                <Settings2Icon />
+                Settings
               </DropdownMenuItem>
-          </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-              <DropdownMenuItem>
-                  <BadgeCheck />
-                  Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                  <CreditCard />
-                  Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                  <Bell />
-                  Notifications
-              </DropdownMenuItem>
-          </DropdownMenuGroup>
-          <DropdownMenuSeparator /> */}
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
             <DropdownMenuItem onClick={logout}>
               <LogOut />
               Log out

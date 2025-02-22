@@ -1,8 +1,8 @@
 import { checkAuthStatus, getRefreshToken } from "@/lib/auth";
-import { useRefreshToken } from "@/services/mutation/auth";
 import { useStore } from "@/store/store";
 import { useEffect, useRef, useState } from "react";
 import { useShallow } from "zustand/react/shallow";
+import { useRefreshToken } from "./refresh-token";
 
 const useAuth = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,6 +17,7 @@ const useAuth = () => {
     );
 
   const refreshTokenMutationRef = useRef(useRefreshToken());
+  // biome-ignore lint/correctness/useExhaustiveDependencies: to be run when component is mounted
   useEffect(() => {
     let isMounted = true;
 
@@ -25,7 +26,7 @@ const useAuth = () => {
         let authStatus = checkAuthStatus();
         if (!authStatus.isAuthenticated && getRefreshToken()) {
           if (!isMounted) return;
-          await refreshTokenMutationRef.current.mutateAsync();
+          await refreshTokenMutationRef.current.mutate();
           authStatus = checkAuthStatus();
         }
 
@@ -47,7 +48,6 @@ const useAuth = () => {
     return () => {
       isMounted = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { isAuthenticated, userData, isLoading };

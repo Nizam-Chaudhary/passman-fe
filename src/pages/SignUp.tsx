@@ -18,7 +18,6 @@ import {
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { useToast } from "@/hooks/use-toast";
-import { useSignUpUser } from "@/services/mutation/auth";
 import { SignUpUserData, signUpUserSchema } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -27,11 +26,12 @@ import { PasswordInput } from "../components/ui/password-input";
 import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
 import { ROUTES } from "@/lib/constants";
+import { usePostApiV1AuthSignUp } from "@/api-client/api";
 
 export default function SignUp() {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const mutateSignUpUser = useSignUpUser();
+  const mutateSignUpUser = usePostApiV1AuthSignUp();
 
   const { setUserEmail, setIsEmailVerified } = useStore(
     useShallow((state) => ({
@@ -50,20 +50,20 @@ export default function SignUp() {
   });
 
   const onSubmit: SubmitHandler<SignUpUserData> = async (data) => {
-    mutateSignUpUser.mutate(data, {
+    mutateSignUpUser.mutate({ data }, {
       onError: (error) => {
         toast({
           className: "bg-red-700",
-          title: "Error Signing up!",
-          description: error.message,
+          title: error.message,
         });
       },
-      onSuccess: async (_response, value) => {
+      onSuccess: async (response, variables) => {
         toast({
           className: "bg-green-700",
           title: "Signed up successfully!",
         });
-        setUserEmail(value.email);
+        console.log('response', response)
+        setUserEmail(variables.data.email);
         setIsEmailVerified(false);
         await navigate(ROUTES.VERIFY_ACCOUNT);
       },

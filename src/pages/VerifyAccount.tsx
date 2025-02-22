@@ -5,6 +5,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -21,14 +22,32 @@ import { VerifyAccountFormData, verifyAccountFormSchema } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-import { useResendOTP, useVerifyUserEmail } from "@/services/mutation/auth";
 import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
 import { useNavigate } from "react-router";
 import { useToast } from "@/hooks/use-toast";
 import { ROUTES } from "@/lib/constants";
+import Timer from "@/components/Timer";
+import { useEffect } from "react";
+import { usePatchApiV1AuthVerify, usePostApiV1AuthResendOtp } from "@/api-client/api";
 
 export default function VerifyAccount() {
+  const { timer, decreaseTimer, setTimer } = useStore(
+    useShallow((store) => ({
+      timer: store.otpTimer,
+      decreaseTimer: store.decreateOtpTime,
+      setTimer: store.setOtpTimer,
+    }))
+  );
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      decreaseTimer();
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [decreaseTimer]);
+
   const { toast } = useToast();
   const form = useForm<z.infer<typeof verifyAccountFormSchema>>({
     resolver: zodResolver(verifyAccountFormSchema),
@@ -43,9 +62,15 @@ export default function VerifyAccount() {
     }))
   );
 
-  const resendOTPMutation = useResendOTP();
+  const resendOTPMutation = usePostApiV1AuthResendOtp();
+  useEffect(() => {
+    if (email && timer <= 0) {
+      resendOTPMutation.mutate({ data: { email } });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email]);
 
-  const verifyUserEmailMutation = useVerifyUserEmail();
+  const verifyUserEmailMutation = usePatchApiV1AuthVerify();
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<VerifyAccountFormData> = (data) => {
@@ -53,18 +78,17 @@ export default function VerifyAccount() {
       email: email!,
       otp: data.otp,
     };
-    verifyUserEmailMutation.mutate(payload, {
+    verifyUserEmailMutation.mutate({ data: payload }, {
       onError: (error) => {
         toast({
           className: "bg-red-700 text-white",
-          title: "Error verifying account!",
-          description: error.message,
+          title: error.message,
         });
       },
       onSuccess: () => {
         toast({
           className: "bg-green-700 text-white",
-          title: "Email verified successfully!",
+          title: "Email verified successfully",
         });
         navigate(ROUTES.LOGIN);
       },
@@ -112,34 +136,26 @@ export default function VerifyAccount() {
                 )}
               />
               <Button type="submit">Submit</Button>
-
-              <input
-                className="block"
-                type={"button"}
-                value="Resend OTP"
-                onClick={() => {
-                  resendOTPMutation.mutate(
-                    { email: email! },
-                    {
-                      onSuccess: () => {
-                        toast({
-                          className: "bg-green-700 text-white",
-                          title: "OTP sent successfully!",
-                        });
-                      },
-                      onError: (error) => {
-                        toast({
-                          className: "bg-red-700 text-white",
-                          title: error.message,
-                        });
-                      },
-                    }
-                  );
-                }}
-              />
             </form>
           </Form>
         </CardContent>
+        <CardFooter>
+          {timer > 0 ? (
+            <Timer text="Resend OTP again in " time={timer} />
+          ) : (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                if (email) {
+                  resendOTPMutation.mutate({ data: { email } });
+                }
+                setTimer(120);
+              }}
+            >
+              Resend OTP
+            </button>
+          )}
+        </CardFooter>
       </Card>
     </div>
   );

@@ -1,6 +1,6 @@
-import { Store } from "@/types/store";
-import { Vault } from "@/types/vault";
-import { StateCreator } from "zustand";
+import type { Store } from "@/types/store";
+import type { Vault } from "@/types/vault";
+import type { StateCreator } from "zustand";
 
 type VaultStates = {
   currentVault?: Vault;

@@ -1,10 +1,5 @@
 import { toast } from "@/hooks/use-toast";
 import { decrypt, encrypt } from "@/lib/encryption.helper";
-import {
-  useDeletePassword,
-  useUpdatePassword,
-} from "@/services/mutation/password";
-import { usePasswordById } from "@/services/queries/password";
 import { useStore } from "@/store/store";
 import {
   Password,
@@ -36,6 +31,8 @@ import { PasswordInput } from "./ui/password-input";
 import { ScrollArea } from "./ui/scroll-area";
 import { Separator } from "./ui/separator";
 import { Textarea } from "./ui/textarea";
+import { useDeleteApiV1PasswordsId, useGetApiV1PasswordsId, usePutApiV1PasswordsId } from "@/api-client/api";
+import LoadingSpinner from "./ui/loadingSpinner";
 
 export function PasswordView() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -47,17 +44,17 @@ export function PasswordView() {
     }))
   );
   const passwordId = searchParams.get("p");
-  const { data, isPending, isError } = usePasswordById(passwordId);
-  const editPasswordMutation = useUpdatePassword();
-  const deletePasswordMutation = useDeletePassword();
+  const { data: response, isPending, isError } = useGetApiV1PasswordsId(Number(passwordId), { query: { enabled: !!passwordId } });
+  const editPasswordMutation = usePutApiV1PasswordsId();
+  const deletePasswordMutation = useDeleteApiV1PasswordsId();
 
   const { data: password } = useQuery({
     queryKey: ["decryptPassword", { id: passwordId }],
     queryFn: async () => {
-      if (!masterKey || !data?.password) return null;
-      return await decrypt(data?.password, masterKey);
+      if (!masterKey || !response?.data.password) return null;
+      return await decrypt(response?.data.password, masterKey);
     },
-    enabled: !!data?.password && masterKey != null,
+    enabled: !!response?.data.password && masterKey != null,
   });
 
   const editPasswordForm = useForm<Password>({
@@ -72,12 +69,12 @@ export function PasswordView() {
 
   useEffect(() => {
     editPasswordForm.reset({
-      site: data?.site || "",
-      username: data?.username || "",
+      site: response?.data.site || "",
+      username: response?.data.username || "",
       password: password || "",
-      note: data?.note || "",
+      note: response?.data.note || "",
     });
-  }, [password, data, editPasswordForm]);
+  }, [password, response, editPasswordForm]);
 
   if (!passwordId) {
     return (
@@ -135,7 +132,7 @@ export function PasswordView() {
     });
 
     editPasswordMutation.mutate(
-      { id: passwordId, data: updatedPassword },
+      { data: updatedPassword, id: Number(passwordId) },
       {
         onError: (error) => {
           toast({
@@ -154,7 +151,7 @@ export function PasswordView() {
   };
 
   const onDeletePassword = () => {
-    deletePasswordMutation.mutate(passwordId, {
+    deletePasswordMutation.mutate({ id: Number(passwordId) }, {
       onError: (error) => {
         toast({
           className: "bg-red-700",
@@ -196,8 +193,8 @@ export function PasswordView() {
             <div>
               <div className="flex justify-between items-center">
                 <Avatar className="size-12 rounded-lg">
-                  <AvatarImage src="/assets/shadcn.jpg" />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarImage loading="lazy" src="/assets/shadcn.jpg" />
+                  <AvatarFallback><LoadingSpinner /></AvatarFallback>
                 </Avatar>
 
                 <Button

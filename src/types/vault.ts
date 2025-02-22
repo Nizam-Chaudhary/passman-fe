@@ -3,8 +3,8 @@ import { z } from "zod";
 export type Vault = {
   id: number;
   name: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   userId: number;
 };
 

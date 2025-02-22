@@ -1,4 +1,4 @@
-import { JwtUserData } from "@/types/user";
+import type { JwtUserData } from "@/types/user";
 import { jwtDecode } from "jwt-decode";
 import { AUTH_TOKEN, REFRESH_TOKEN } from "./constants";
 

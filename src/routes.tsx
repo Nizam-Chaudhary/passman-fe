@@ -19,6 +19,7 @@ import { ROUTES } from "./lib/constants";
 import ResetPasswordSendMail from "./pages/ResetPasswordSendMail";
 import ResetPassword from "./pages/ResetPassword";
 import ResetMasterPassword from "./pages/ResetMasterPassword";
+import Settings from "./pages/Settings";
 
 export default function AppRoutes() {
   return (
@@ -30,6 +31,15 @@ export default function AppRoutes() {
           element={
             <ProtectedRoute>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.SETTINGS}
+          element={
+            <ProtectedRoute>
+              <Settings />
             </ProtectedRoute>
           }
         />
