@@ -25,7 +25,7 @@ function FileUpload({ onSuccess }: Props): React.ReactElement {
     });
 
     uploadFileMutation.mutate(
-      { data: file },
+      { data: { file: file as any } },
       {
         onSuccess,
       }
