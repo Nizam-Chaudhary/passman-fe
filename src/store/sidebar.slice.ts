@@ -1,13 +1,13 @@
 import type { Store } from "@/types/store";
 import type { StateCreator } from "zustand";
 
-type SidebarStates = {
+interface SidebarStates {
   currentMainNav: "Passwords" | "Notes";
-};
+}
 
-type SidebarActions = {
+interface SidebarActions {
   setCurrentMainNav: (nav: "Passwords" | "Notes") => void;
-};
+}
 
 const initialState: SidebarStates = {
   currentMainNav: "Passwords",

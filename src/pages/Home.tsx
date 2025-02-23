@@ -1,23 +1,17 @@
 import { AppSidebar } from "@/components/AppSidebar";
 import { PasswordList } from "@/components/PasswordList";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import {
-  setRequestInterceptor,
-  setResponseInterceptor,
-} from "@/lib/api.helper";
 import { useStore } from "@/store/store";
 import debounce from "lodash/debounce";
 import { KeyRound, LockIcon, Search } from "lucide-react";
-import { useEffect, useLayoutEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { useSearchParams } from "react-router";
 import { useShallow } from "zustand/react/shallow";
 import AddPassword from "../components/AddPassword";
 import { PasswordView } from "../components/PasswordView";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { VaultComboBox } from "../components/VaultComboBox";
-import { getToken } from "@/lib/auth";
-import { useSearchParams } from "react-router";
-import { useRefreshToken } from "@/hooks/refresh-token";
 
 export default function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,15 +22,15 @@ export default function Home() {
     }))
   );
 
-  const refreshTokenMutation = useRefreshToken();
+  // const refreshTokenMutation = useRefreshToken();
 
-  useLayoutEffect(() => {
-    const token = getToken();
-    if (token) {
-      setRequestInterceptor();
-    }
-    setResponseInterceptor(refreshTokenMutation);
-  }, [refreshTokenMutation]);
+  // useLayoutEffect(() => {
+  //   const token = getToken();
+  //   if (token) {
+  //     setRequestInterceptor();
+  //   }
+  //   setResponseInterceptor(refreshTokenMutation);
+  // }, [refreshTokenMutation]);
 
   const debouncedSearch = useMemo(
     () =>

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useShallow } from "zustand/react/shallow";
 import { useRefreshToken } from "./refresh-token";
 
-const useAuth = () => {
+function useAuth() {
   const [isLoading, setIsLoading] = useState(true);
   const { isAuthenticated, userData, setUserData, setIsAuthenticated } =
     useStore(
@@ -51,6 +51,6 @@ const useAuth = () => {
   }, []);
 
   return { isAuthenticated, userData, isLoading };
-};
+}
 
 export default useAuth;

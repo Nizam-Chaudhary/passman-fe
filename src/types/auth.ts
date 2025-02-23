@@ -1,13 +1,14 @@
+import type { ApiResponse } from "./common";
 import { z } from "zod";
-import { type ApiResponse, ecryptedValueSchema } from "./common";
+import { ecryptedValueSchema } from "./common";
 
 const passwordSchema = z
   .string()
   .min(8, "Must contain at least 8 characters")
   .regex(/[A-Z]/, "Must contain at least one capital letter")
   .regex(/[a-z]/, "Must contain at least one lowercase letter")
-  .regex(/[0-9]/, "Must contain at least one digit")
-  .regex(/[^A-Za-z0-9]/, "Must contain at least one special character");
+  .regex(/\d/, "Must contain at least one digit")
+  .regex(/[^A-Z0-9]/i, "Must contain at least one special character");
 
 export const signUpUserSchema = z.object({
   userName: z.string().min(3, "Please Enter user name"),
@@ -34,9 +35,9 @@ export type LoginResponse = ApiResponse & {
   };
 };
 
-export type RefreshTokenPayload = {
+export interface RefreshTokenPayload {
   refreshToken: string;
-};
+}
 
 export type RefreshTokenResponse = ApiResponse & {
   data: {
@@ -53,10 +54,10 @@ export const verifyAccountFormSchema = z.object({
 
 export type VerifyAccountFormData = z.infer<typeof verifyAccountFormSchema>;
 
-export type VerifyAccountPayload = {
+export interface VerifyAccountPayload {
   email: string;
   otp: string;
-};
+}
 
 export const createMasterPasswordFormSchema = z
   .object({
@@ -65,8 +66,8 @@ export const createMasterPasswordFormSchema = z
       .min(10, "Must contain at least 10 characters")
       .regex(/[A-Z]/, "Must contain at least one capital letter")
       .regex(/[a-z]/, "Must contain at least one lowercase letter")
-      .regex(/[0-9]/, "Must contain at least one digit")
-      .regex(/[^A-Za-z0-9]/, "Must contain at least one special character"),
+      .regex(/\d/, "Must contain at least one digit")
+      .regex(/[^A-Z0-9]/i, "Must contain at least one special character"),
     confirmMasterPassword: z.string(),
   })
   .refine((data) => data.masterPassword === data.confirmMasterPassword, {
@@ -129,16 +130,16 @@ export const resetPasswordFormSchema = z
 
 export type ResetPasswordForm = z.infer<typeof resetPasswordFormSchema>;
 
-export type ResetPasswordPayload = {
+export interface ResetPasswordPayload {
   token: string;
   password: string;
-};
+}
 
-export type UpdateMasterPasswordPayload = {
+export interface UpdateMasterPasswordPayload {
   masterPassword: string;
   masterKey: MasterKey;
   recoveryKey: MasterKey;
-};
+}
 
 export const verifyRecoverKeyFormSchema = z.object({
   recoveryKey: z.string().min(1, "Recover key is required"),
@@ -156,7 +157,7 @@ export type VerifyRecoveryMasterPasswordFormData = z.infer<
   typeof verifyRecoveryMasterPasswordFormSchema
 >;
 
-export type UserDetails = {
+export interface UserDetails {
   id: number;
   userName: string;
   email: string;
@@ -172,4 +173,4 @@ export type UserDetails = {
   };
   createdAt: string;
   updatedAt: string;
-};
+}

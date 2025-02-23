@@ -1,6 +1,14 @@
-import { FileUploadResponse } from "@/types/file";
+import type { FileUploadResponse } from "@/types/file";
+import type { SubmitHandler } from "react-hook-form";
+import {
+  getGetApiV1UsersQueryKey,
+  useGetApiV1Users,
+  usePatchApiV1Users,
+} from "@/api-client/api";
+import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import FileUpload from "../FileUpload";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -16,14 +24,11 @@ import {
 import { Input } from "../ui/input";
 import Loading from "../ui/loading";
 import LoadingSpinner from "../ui/loadingSpinner";
-import { getGetApiV1UsersQueryKey, useGetApiV1Users, usePatchApiV1Users } from "@/api-client/api";
-import { useQueryClient } from "@tanstack/react-query";
-import { useToast } from "@/hooks/use-toast";
 
-const Profile = () => {
-  const queryClient = useQueryClient()
+function Profile() {
+  const queryClient = useQueryClient();
   const { data: response, isPending, isError } = useGetApiV1Users();
-  const userDetails = response?.data
+  const userDetails = response?.data;
 
   const userNameForm = useForm<{ userName: string }>({
     resolver: zodResolver(
@@ -60,33 +65,45 @@ const Profile = () => {
   }
 
   const onSubmit: SubmitHandler<{ userName: string }> = (data) => {
-    updateUserMutation.mutate({ data }, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: getGetApiV1UsersQueryKey(), exact: true })
-        toast({
-          title: "Username updated successfully.",
-          className: "bg-green-700 text-white",
-        });
+    updateUserMutation.mutate(
+      { data },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: getGetApiV1UsersQueryKey(),
+            exact: true,
+          });
+          toast({
+            title: "Username updated successfully.",
+            className: "bg-green-700 text-white",
+          });
+        },
       }
-    });
+    );
   };
 
   const onFileUploadSuccess = (response: FileUploadResponse) => {
-    updateUserMutation.mutate({ data: { fileId: response.data.id } }, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: getGetApiV1UsersQueryKey(), exact: true })
-        toast({
-          title: "Profile picture updated successfully.",
-          className: "bg-green-700 text-white",
-        });
-      },
-      onError: () => {
-        toast({
-          title: "Unable to update profile picture.",
-          className: "bg-red-600 text-white"
-        })
+    updateUserMutation.mutate(
+      { data: { fileId: response.data.id } },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: getGetApiV1UsersQueryKey(),
+            exact: true,
+          });
+          toast({
+            title: "Profile picture updated successfully.",
+            className: "bg-green-700 text-white",
+          });
+        },
+        onError: () => {
+          toast({
+            title: "Unable to update profile picture.",
+            className: "bg-red-600 text-white",
+          });
+        },
       }
-    });
+    );
   };
 
   return (
@@ -95,7 +112,9 @@ const Profile = () => {
         <label htmlFor="file-upload" className="cursor-pointer">
           <Avatar className="size-40 rounded-full hover:opacity-80 transition-opacity">
             <AvatarImage loading="lazy" src={userDetails?.file?.url} />
-            <AvatarFallback><LoadingSpinner /></AvatarFallback>
+            <AvatarFallback>
+              <LoadingSpinner />
+            </AvatarFallback>
           </Avatar>
           <FileUpload onSuccess={onFileUploadSuccess} />
         </label>
@@ -141,6 +160,6 @@ const Profile = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Profile;

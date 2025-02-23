@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "./components/ThemeProvider.tsx";
 import AppRoutes from "./routes.tsx";
+
 const queryClient = new QueryClient();
 
 export function App() {

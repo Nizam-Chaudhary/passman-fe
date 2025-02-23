@@ -2,15 +2,15 @@ import type { Store } from "@/types/store";
 import type { Vault } from "@/types/vault";
 import type { StateCreator } from "zustand";
 
-type VaultStates = {
+interface VaultStates {
   currentVault?: Vault;
   openAddVaultDialog: boolean;
-};
+}
 
-type VaultActions = {
+interface VaultActions {
   setCurrentVault: (vault?: Vault) => void;
   setOpenAddVaultDialog: (open: boolean) => void;
-};
+}
 
 const initialState: VaultStates = {
   currentVault: undefined,

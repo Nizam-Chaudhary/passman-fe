@@ -37,9 +37,7 @@ export async function importKey(keyString: string): Promise<CryptoKey> {
   // Convert hex string to Uint8Array
   const keyBytes = new Uint8Array(
     // biome-ignore lint/style/noNonNullAssertion: <explanation>
-    keyString
-      .match(/.{1,2}/g)!
-      .map((byte) => Number.parseInt(byte, 16))
+    keyString.match(/.{1,2}/g)!.map((byte) => Number.parseInt(byte, 16))
   );
 
   // Import as CryptoKey
@@ -69,7 +67,7 @@ export async function encrypt(
   const encryptedBuffer = await crypto.subtle.encrypt(
     {
       name: "AES-GCM",
-      iv: iv,
+      iv,
     },
     key, // The imported CryptoKey
     dataBuffer // The data to encrypt
@@ -94,9 +92,7 @@ export async function decrypt(
   // Convert the IV from hex string to Uint8Array
   const iv = new Uint8Array(
     // biome-ignore lint/style/noNonNullAssertion: <explanation>
-    encryptedData.iv
-      .match(/.{1,2}/g)!
-      .map((byte) => Number.parseInt(byte, 16))
+    encryptedData.iv.match(/.{1,2}/g)!.map((byte) => Number.parseInt(byte, 16))
   );
 
   // Convert the encrypted data from hex string to Uint8Array
@@ -111,7 +107,7 @@ export async function decrypt(
   const decryptedBuffer = await crypto.subtle.decrypt(
     {
       name: "AES-GCM",
-      iv: iv,
+      iv,
     },
     key, // The imported CryptoKey
     encryptedBuffer // The encrypted data to decrypt

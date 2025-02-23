@@ -1,20 +1,20 @@
-// passman-fe/src/pages/Settings.tsx
-import { useState } from "react";
+import Export from "@/components/settings/Export";
+import Import from "@/components/settings/Import";
+import Profile from "@/components/settings/Profile";
+import Security from "@/components/settings/Security";
+import Vault from "@/components/settings/Vault";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 import {
-  UserIcon,
-  FolderIcon,
-  ShieldIcon,
   FileDownIcon,
   FileUpIcon,
+  FolderIcon,
+  ShieldIcon,
+  UserIcon,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import Profile from "@/components/settings/Profile";
-import Import from "@/components/settings/Import";
-import Export from "@/components/settings/Export";
-import Vault from "@/components/settings/Vault";
-import Security from "@/components/settings/Security";
+// passman-fe/src/pages/Settings.tsx
+import { useState } from "react";
 
 const settingsNavItems = [
   {
@@ -49,7 +49,7 @@ const settingsNavItems = [
   },
 ];
 
-const Settings = () => {
+function Settings() {
   const [selectedItem, setSelectedItem] = useState(settingsNavItems[0]);
 
   return (
@@ -94,6 +94,6 @@ const Settings = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Settings;

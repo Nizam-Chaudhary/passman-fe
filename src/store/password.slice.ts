@@ -1,15 +1,15 @@
 import type { Store } from "@/types/store";
 import type { StateCreator } from "zustand";
 
-type PasswordStates = {
+interface PasswordStates {
   openDeletePasswordDialog: boolean;
   openAddPasswordDialog: boolean;
-};
+}
 
-type PasswordActions = {
+interface PasswordActions {
   setOpenDeletePasswordDialog: (open: boolean) => void;
   setOpenAddPasswordDialog: (open: boolean) => void;
-};
+}
 
 const initialState: PasswordStates = {
   openDeletePasswordDialog: false,

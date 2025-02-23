@@ -1,4 +1,9 @@
+import { useToast } from "@/hooks/use-toast";
+import { ROUTES } from "@/lib/constants";
 import { useStore } from "@/store/store";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import { useShallow } from "zustand/react/shallow";
 import { Button } from "./ui/button";
 import {
   Dialog,
@@ -8,14 +13,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog";
-import { useShallow } from "zustand/react/shallow";
-import { useState } from "react";
 import { Input } from "./ui/input";
-import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router";
-import { ROUTES } from "@/lib/constants";
 
-const RecoveryKeyDialog = () => {
+function RecoveryKeyDialog() {
   const [buttonType, setButtonType] = useState<"copy" | "okay">("copy");
   const { open, onOpenChange, recoveryKey } = useStore(
     useShallow((state) => ({
@@ -68,6 +68,6 @@ const RecoveryKeyDialog = () => {
       </DialogContent>
     </Dialog>
   );
-};
+}
 
 export default RecoveryKeyDialog;

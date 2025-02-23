@@ -1,9 +1,23 @@
+import type { CreateMasterPasswordFormData } from "@/types/auth";
+import type { SubmitHandler } from "react-hook-form";
+import { usePatchApiV1AuthCreateMasterKey } from "@/api-client/api";
+import RecoveryKeyDialog from "@/components/RecoverKeyDialog";
+import LoadingSpinner from "@/components/ui/loadingSpinner";
+import { PasswordInput } from "@/components/ui/password-input";
+import { useRefreshToken } from "@/hooks/refresh-token";
+import { useToast } from "@/hooks/use-toast";
 import {
-  CreateMasterPasswordFormData,
-  createMasterPasswordFormSchema,
-} from "@/types/auth";
+  deriveKey,
+  encrypt,
+  generateMasterKey,
+  generateRecoveryKey,
+  generateSalt,
+} from "@/lib/encryption.helper";
+import { useStore } from "@/store/store";
+import { createMasterPasswordFormSchema } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { useShallow } from "zustand/react/shallow";
 import { Button } from "../components/ui/button";
 import {
   Card,
@@ -20,21 +34,6 @@ import {
   FormLabel,
   FormMessage,
 } from "../components/ui/form";
-import RecoveryKeyDialog from "@/components/RecoverKeyDialog";
-import { useStore } from "@/store/store";
-import { useShallow } from "zustand/react/shallow";
-import {
-  deriveKey,
-  encrypt,
-  generateMasterKey,
-  generateRecoveryKey,
-  generateSalt,
-} from "@/lib/encryption.helper";
-import { useToast } from "@/hooks/use-toast";
-import { PasswordInput } from "@/components/ui/password-input";
-import LoadingSpinner from "@/components/ui/loadingSpinner";
-import { useRefreshToken } from "@/hooks/refresh-token";
-import { usePatchApiV1AuthCreateMasterKey } from "@/api-client/api";
 
 export default function CreateMasterPassword() {
   const { setOpenRecoveryKeyDialog, setRecoveryKey } = useStore(
@@ -89,7 +88,7 @@ export default function CreateMasterPassword() {
           masterPassword: data.masterPassword,
           masterKey: { ...encryptedMasterKey, salt: userKeySalt },
           recoveryKey: { ...encryptedRecoveryKey, salt: recoveryKeySalt },
-        }
+        },
       },
       {
         onSuccess: async () => {

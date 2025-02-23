@@ -1,6 +1,6 @@
 import { Skeleton } from "../ui/skeleton";
 
-const NavUserSkeleton = () => {
+function NavUserSkeleton() {
   return (
     <div className="flex items-center space-x-3 p-2 w-full">
       <Skeleton className="h-8 w-8 rounded-lg" /> {/* Avatar skeleton */}
@@ -12,6 +12,6 @@ const NavUserSkeleton = () => {
       {/* ChevronsUpDown icon skeleton */}
     </div>
   );
-};
+}
 
 export default NavUserSkeleton;

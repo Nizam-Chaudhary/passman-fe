@@ -1,13 +1,12 @@
+import type { Password } from "@/types/password";
+import type { SubmitHandler } from "react-hook-form";
+import { usePostApiV1Passwords } from "@/api-client/api";
 import { useToast } from "@/hooks/use-toast";
 import { encrypt } from "@/lib/encryption.helper";
 import { useStore } from "@/store/store";
-import {
-  Password,
-  passwordPayloadSchema,
-  passwordSchema,
-} from "@/types/password";
+import { passwordPayloadSchema, passwordSchema } from "@/types/password";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useShallow } from "zustand/react/shallow";
 import { Button } from "./ui/button";
 import {
@@ -27,10 +26,9 @@ import {
   FormMessage,
 } from "./ui/form";
 import { Input } from "./ui/input";
+import LoadingSpinner from "./ui/loadingSpinner";
 import { PasswordInput } from "./ui/password-input";
 import { Textarea } from "./ui/textarea";
-import LoadingSpinner from "./ui/loadingSpinner";
-import { usePostApiV1Passwords } from "@/api-client/api";
 
 export default function AddPassword() {
   const { openAddPasswordDialog, setOpenAddPasswordDialog, masterKey } =
@@ -76,22 +74,25 @@ export default function AddPassword() {
       vaultId: currentVault?.id,
     });
 
-    addPasswordMutation.mutate({ data: payload }, {
-      onError: (error) => {
-        toast({
-          className: "bg-red-500",
-          description: error.message,
-        });
-      },
-      onSuccess: () => {
-        toast({
-          title: "Password added successfully.",
-          className: "bg-green-700",
-        });
-        setOpenAddPasswordDialog(false);
-        form.reset();
-      },
-    });
+    addPasswordMutation.mutate(
+      { data: payload },
+      {
+        onError: (error) => {
+          toast({
+            className: "bg-red-500",
+            description: error.message,
+          });
+        },
+        onSuccess: () => {
+          toast({
+            title: "Password added successfully.",
+            className: "bg-green-700",
+          });
+          setOpenAddPasswordDialog(false);
+          form.reset();
+        },
+      }
+    );
   };
 
   const onOpenChange = (value: boolean) => {

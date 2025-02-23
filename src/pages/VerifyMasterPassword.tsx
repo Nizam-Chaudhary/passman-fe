@@ -1,9 +1,20 @@
-import {
-  VerifyMasterPasswordFormData,
-  verifyMasterPasswordFormSchema,
-} from "@/types/auth";
+import type { VerifyMasterPasswordFormData } from "@/types/auth";
+import type { SubmitHandler } from "react-hook-form";
+import { usePostApiV1AuthVerifyMasterPassword } from "@/api-client/api";
+import LoadingSpinner from "@/components/ui/loadingSpinner";
+import { PasswordInput } from "@/components/ui/password-input";
+import { useRefreshToken } from "@/hooks/refresh-token";
+import { useToast } from "@/hooks/use-toast";
+import { ROUTES } from "@/lib/constants";
+import { decrypt, deriveKey, importKey } from "@/lib/encryption.helper";
+import { replaceRouteParams } from "@/lib/utils";
+import { useStore } from "@/store/store";
+import { verifyMasterPasswordFormSchema } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { NavLink, useNavigate } from "react-router";
+import { useShallow } from "zustand/react/shallow";
 import { Button } from "../components/ui/button";
 import {
   Card,
@@ -21,18 +32,6 @@ import {
   FormLabel,
   FormMessage,
 } from "../components/ui/form";
-import { decrypt, deriveKey, importKey } from "@/lib/encryption.helper";
-import { useShallow } from "zustand/react/shallow";
-import { useStore } from "@/store/store";
-import { NavLink, useNavigate } from "react-router";
-import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
-import { PasswordInput } from "@/components/ui/password-input";
-import LoadingSpinner from "@/components/ui/loadingSpinner";
-import { ROUTES } from "@/lib/constants";
-import { replaceRouteParams } from "@/lib/utils";
-import { usePostApiV1AuthVerifyMasterPassword } from "@/api-client/api";
-import { useRefreshToken } from "@/hooks/refresh-token";
 
 export default function VerifyMasterPassword() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -54,7 +53,7 @@ export default function VerifyMasterPassword() {
   });
 
   const verifyMasterPasswordMutation = usePostApiV1AuthVerifyMasterPassword();
-  const refreshTokenMutation = useRefreshToken()
+  const refreshTokenMutation = useRefreshToken();
 
   const onSubmit: SubmitHandler<VerifyMasterPasswordFormData> = async (
     data,
@@ -89,7 +88,7 @@ export default function VerifyMasterPassword() {
             title: error.message,
             className: "bg-red-700",
           });
-          if (error.message === 'Access token expired') {
+          if (error.message === "Access token expired") {
             refreshTokenMutation.mutate();
           }
         },

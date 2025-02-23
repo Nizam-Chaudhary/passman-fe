@@ -1,14 +1,14 @@
 import { z } from "zod";
 
-export type ApiResponse = {
+export interface ApiResponse {
   status: "success" | "fail" | "error";
   message: string;
-};
+}
 
-export type UpdateResourcePayload<T> = {
+export interface UpdateResourcePayload<T> {
   id: string;
   data: T;
-};
+}
 
 export const ecryptedValueSchema = z.object({
   iv: z.string().min(1, "iv is required"),

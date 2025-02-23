@@ -1,11 +1,18 @@
 import { usePostApiV1AuthRefreshToken } from "@/api-client/api";
-import { getRefreshToken, isTokenExpired, removeRefreshToken, removeToken, setRefreshToken, setToken } from "@/lib/auth";
+import {
+  getRefreshToken,
+  isTokenExpired,
+  removeRefreshToken,
+  removeToken,
+  setRefreshToken,
+  setToken,
+} from "@/lib/auth";
 import { ROUTES } from "@/lib/constants";
 import { useStore } from "@/store/store";
 import { useNavigate } from "react-router";
 import { useShallow } from "zustand/react/shallow";
 
-export const useRefreshToken = () => {
+export function useRefreshToken() {
   const {
     setIsAuthenticated,
     setIsEmailVerified,
@@ -26,7 +33,7 @@ export const useRefreshToken = () => {
   );
 
   const navigate = useNavigate();
-  const refreshTokenMutation = usePostApiV1AuthRefreshToken()
+  const refreshTokenMutation = usePostApiV1AuthRefreshToken();
 
   const mutate = async () => {
     const onRefreshTokenError = () => {
@@ -39,7 +46,7 @@ export const useRefreshToken = () => {
       setMasterkey(null);
       setRecoveryKey("");
       navigate(ROUTES.LOGIN, { replace: true });
-    }
+    };
 
     const token = getRefreshToken();
     if (token == null || isTokenExpired(token)) {
@@ -47,14 +54,17 @@ export const useRefreshToken = () => {
       return;
     }
 
-    return await refreshTokenMutation.mutateAsync({ data: { refreshToken: token } }, {
-      onSuccess: (response) => {
-        setToken(response.data.token);
-        setRefreshToken(response.data.refreshToken);
-      },
-      onError: onRefreshTokenError,
-    });
-  }
+    return await refreshTokenMutation.mutateAsync(
+      { data: { refreshToken: token } },
+      {
+        onSuccess: (response) => {
+          setToken(response.data.token);
+          setRefreshToken(response.data.refreshToken);
+        },
+        onError: onRefreshTokenError,
+      }
+    );
+  };
 
-  return { mutate }
+  return { mutate };
 }

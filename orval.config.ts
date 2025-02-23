@@ -1,15 +1,15 @@
-import { defineConfig } from 'orval';
+import { defineConfig } from "orval";
 
 export default defineConfig({
   passman: {
     input: {
-      target: 'http://localhost:3000/openapi.json',
+      target: "http://localhost:3000/openapi.json",
     },
     output: {
-      mode: 'split',
-      target: 'src/api-client/api.ts',
-      client: 'react-query',
-      httpClient: 'fetch',
+      mode: "split",
+      target: "src/api-client/api.ts",
+      client: "react-query",
+      httpClient: "fetch",
       // baseUrl: 'http://localhost:3000',
       mock: false,
       docs: false,
@@ -17,8 +17,8 @@ export default defineConfig({
       urlEncodeParameters: true,
       override: {
         mutator: {
-          path: './src/lib/custom.fetch.ts',
-          name: 'customFetch',
+          path: "./src/lib/custom.fetch.ts",
+          name: "customFetch",
         },
         fetch: {
           includeHttpResponseReturnType: false,
@@ -30,7 +30,7 @@ export default defineConfig({
       },
     },
     hooks: {
-      afterAllFilesWrite: 'biome format --write',
+      afterAllFilesWrite: "biome format --write",
     },
   },
   // passman: {
