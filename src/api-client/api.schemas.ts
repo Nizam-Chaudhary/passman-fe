@@ -4232,6 +4232,7 @@ export type GetApiV1Users200DataAllOf = {
 
 /**
  * Schema for file selection
+ * @nullable
  */
 export type GetApiV1Users200DataAllOfFourFile = {
   /**
@@ -4245,10 +4246,13 @@ export type GetApiV1Users200DataAllOfFourFile = {
   fileKey: string;
   createdAt: string;
   updatedAt: string;
-};
+} | null;
 
 export type GetApiV1Users200DataAllOfFour = {
-  /** Schema for file selection */
+  /**
+   * Schema for file selection
+   * @nullable
+   */
   file: GetApiV1Users200DataAllOfFourFile;
 };
 
