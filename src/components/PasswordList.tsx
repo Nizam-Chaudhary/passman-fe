@@ -19,7 +19,10 @@ export function PasswordList() {
     isPending,
     isError,
   } = useGetApiV1Passwords(
-    { vaultId: currentVault?.id, search: searchParams.get("q") ?? undefined },
+    {
+      vaultId: currentVault?.id as any,
+      search: searchParams.get("q") ?? undefined,
+    },
     { query: { enabled: !!currentVault?.id } }
   );
 
