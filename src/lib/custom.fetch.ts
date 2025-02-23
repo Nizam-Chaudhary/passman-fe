@@ -16,7 +16,9 @@ function getBody<T>(c: Response | Request): Promise<T> {
 
 function getUrl(contextUrl: string): string {
   const baseUrl = import.meta.env.VITE_BE_BASE_URL ?? "http://localhost:3000";
+  console.log("baseUrl", baseUrl);
   const url = new URL(`${baseUrl}${contextUrl}`);
+  console.log("Url", url.toString());
 
   return url.toString();
 }
