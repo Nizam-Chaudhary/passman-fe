@@ -1,3 +1,4 @@
+import { useGetApiV1Passwords } from "@/api-client/api";
 import { useStore } from "@/store/store";
 import { useSearchParams } from "react-router";
 import { useShallow } from "zustand/react/shallow";
@@ -5,7 +6,6 @@ import { PasswordRow } from "./PasswordRow";
 import { Card, CardContent } from "./ui/card";
 import Loading from "./ui/loading";
 import { ScrollArea } from "./ui/scroll-area";
-import { useGetApiV1Passwords } from "@/api-client/api";
 
 export function PasswordList() {
   const [searchParams] = useSearchParams();
@@ -18,7 +18,10 @@ export function PasswordList() {
     data: passwords,
     isPending,
     isError,
-  } = useGetApiV1Passwords({ vaultId: currentVault?.id, search: searchParams.get("q") ?? undefined }, { query: { enabled: !!currentVault?.id } });
+  } = useGetApiV1Passwords(
+    { vaultId: currentVault?.id, search: searchParams.get("q") ?? undefined },
+    { query: { enabled: !!currentVault?.id } }
+  );
 
   if (isPending) {
     return (

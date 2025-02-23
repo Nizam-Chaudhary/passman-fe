@@ -32,7 +32,7 @@ export const updatePasswordPayloadSchema = passwordSchema.extend({
 
 export type UpdatePasswordPayload = z.infer<typeof updatePasswordPayloadSchema>;
 
-export type GetPassword = {
+export interface GetPassword {
   id: number;
   site: string;
   username: string;
@@ -44,14 +44,14 @@ export type GetPassword = {
   note: string;
   createdAt: string;
   updatedAt: string;
-};
+}
 
-export type GetPasswordById = {
+export interface GetPasswordById {
   status: "success";
   data: GetPassword;
-};
+}
 
-export type PasswordList = {
+export interface PasswordList {
   status: "success";
   data: GetPassword[];
-};
+}

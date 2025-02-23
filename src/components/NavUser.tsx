@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronsUpDown, LogOut, Settings2Icon } from "lucide-react";
+import { useGetApiV1Users } from "@/api-client/api";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -19,18 +19,18 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router";
 import { removeRefreshToken, removeToken } from "@/lib/auth";
-import NavUserSkeleton from "./skeletons/NavUserSkeleton";
-import { useStore } from "@/store/store";
-import { useShallow } from "zustand/react/shallow";
 import { ROUTES } from "@/lib/constants";
-import { useGetApiV1Users } from "@/api-client/api";
+import { useStore } from "@/store/store";
+import { ChevronsUpDown, LogOut, Settings2Icon } from "lucide-react";
+import { useNavigate } from "react-router";
+import { useShallow } from "zustand/react/shallow";
+import NavUserSkeleton from "./skeletons/NavUserSkeleton";
 import LoadingSpinner from "./ui/loadingSpinner";
 
 export function NavUser() {
   const { data: response, isPending, isError } = useGetApiV1Users();
-  const user = response?.data
+  const user = response?.data;
 
   const {
     setIsAuthenticated,
@@ -96,7 +96,9 @@ export function NavUser() {
                   src={user?.file?.url || user?.userName}
                   alt={user?.userName?.charAt(0).toUpperCase()}
                 />
-                <AvatarFallback><LoadingSpinner /></AvatarFallback>
+                <AvatarFallback>
+                  <LoadingSpinner />
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{user?.userName}</span>
@@ -115,7 +117,9 @@ export function NavUser() {
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage loading="lazy" src={user?.file.url} />
-                  <AvatarFallback><LoadingSpinner /></AvatarFallback>
+                  <AvatarFallback>
+                    <LoadingSpinner />
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">

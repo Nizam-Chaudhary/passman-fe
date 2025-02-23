@@ -1,6 +1,6 @@
 import type { FileDetails } from "./file";
 
-export type GetUserResponseSchema = {
+export interface GetUserResponseSchema {
   status: "success" | "fail" | "error";
   data: {
     id: number;
@@ -20,18 +20,18 @@ export type GetUserResponseSchema = {
     updatedAt: Date;
     file?: FileDetails;
   };
-};
+}
 
-export type JwtUserData = {
+export interface JwtUserData {
   id: number;
   userName: string;
   email: string;
   masterKeyCreated: boolean;
   exp: number;
   iat: number;
-};
+}
 
-export type UpdateUserBody = {
+export interface UpdateUserBody {
   userName?: string;
   fileId?: number;
-};
+}

@@ -1,3 +1,6 @@
+import type { SignUpUserData } from "@/types/auth";
+import type { SubmitHandler } from "react-hook-form";
+import { usePostApiV1AuthSignUp } from "@/api-client/api";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,15 +21,14 @@ import {
 import { Input } from "@/components/ui/input";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { useToast } from "@/hooks/use-toast";
-import { SignUpUserData, signUpUserSchema } from "@/types/auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { NavLink, useNavigate } from "react-router";
-import { PasswordInput } from "../components/ui/password-input";
-import { useStore } from "@/store/store";
-import { useShallow } from "zustand/react/shallow";
 import { ROUTES } from "@/lib/constants";
-import { usePostApiV1AuthSignUp } from "@/api-client/api";
+import { useStore } from "@/store/store";
+import { signUpUserSchema } from "@/types/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { NavLink, useNavigate } from "react-router";
+import { useShallow } from "zustand/react/shallow";
+import { PasswordInput } from "../components/ui/password-input";
 
 export default function SignUp() {
   const { toast } = useToast();
@@ -50,24 +52,27 @@ export default function SignUp() {
   });
 
   const onSubmit: SubmitHandler<SignUpUserData> = async (data) => {
-    mutateSignUpUser.mutate({ data }, {
-      onError: (error) => {
-        toast({
-          className: "bg-red-700",
-          title: error.message,
-        });
-      },
-      onSuccess: async (response, variables) => {
-        toast({
-          className: "bg-green-700",
-          title: "Signed up successfully!",
-        });
-        console.log('response', response)
-        setUserEmail(variables.data.email);
-        setIsEmailVerified(false);
-        await navigate(ROUTES.VERIFY_ACCOUNT);
-      },
-    });
+    mutateSignUpUser.mutate(
+      { data },
+      {
+        onError: (error) => {
+          toast({
+            className: "bg-red-700",
+            title: error.message,
+          });
+        },
+        onSuccess: async (response, variables) => {
+          toast({
+            className: "bg-green-700",
+            title: "Signed up successfully!",
+          });
+          console.log("response", response);
+          setUserEmail(variables.data.email);
+          setIsEmailVerified(false);
+          await navigate(ROUTES.VERIFY_ACCOUNT);
+        },
+      }
+    );
   };
 
   return (

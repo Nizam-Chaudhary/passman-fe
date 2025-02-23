@@ -1,3 +1,5 @@
+import type { ResetPasswordForm } from "@/types/auth";
+import type { SubmitHandler } from "react-hook-form";
 import { usePatchApiV1AuthResetPassword } from "@/api-client/api";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,12 +21,12 @@ import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { PasswordInput } from "@/components/ui/password-input";
 import { useToast } from "@/hooks/use-toast";
 import { ROUTES } from "@/lib/constants";
-import { ResetPasswordForm, resetPasswordFormSchema } from "@/types/auth";
+import { resetPasswordFormSchema } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router";
 
-const ResetPassword = () => {
+function ResetPassword() {
   const form = useForm({
     resolver: zodResolver(resetPasswordFormSchema),
     defaultValues: {
@@ -53,8 +55,8 @@ const ResetPassword = () => {
     resetPasswordMutation.mutate(
       {
         data: {
-          token: token,
-          password: data.password
+          token,
+          password: data.password,
         },
       },
       {
@@ -129,6 +131,6 @@ const ResetPassword = () => {
       </Card>
     </div>
   );
-};
+}
 
 export default ResetPassword;

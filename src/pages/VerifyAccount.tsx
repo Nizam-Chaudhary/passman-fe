@@ -1,5 +1,12 @@
-import { InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp";
+import type { VerifyAccountFormData } from "@/types/auth";
 
+import type { SubmitHandler } from "react-hook-form";
+import type { z } from "zod";
+import {
+  usePatchApiV1AuthVerify,
+  usePostApiV1AuthResendOtp,
+} from "@/api-client/api";
+import Timer from "@/components/Timer";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,19 +24,21 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { InputOTP, InputOTPGroup } from "@/components/ui/input-otp";
-import { VerifyAccountFormData, verifyAccountFormSchema } from "@/types/auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
-import { useStore } from "@/store/store";
-import { useShallow } from "zustand/react/shallow";
-import { useNavigate } from "react-router";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 import { useToast } from "@/hooks/use-toast";
 import { ROUTES } from "@/lib/constants";
-import Timer from "@/components/Timer";
+import { useStore } from "@/store/store";
+import { verifyAccountFormSchema } from "@/types/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { usePatchApiV1AuthVerify, usePostApiV1AuthResendOtp } from "@/api-client/api";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
+import { useShallow } from "zustand/react/shallow";
 
 export default function VerifyAccount() {
   const { timer, decreaseTimer, setTimer } = useStore(
@@ -78,21 +87,24 @@ export default function VerifyAccount() {
       email: email!,
       otp: data.otp,
     };
-    verifyUserEmailMutation.mutate({ data: payload }, {
-      onError: (error) => {
-        toast({
-          className: "bg-red-700 text-white",
-          title: error.message,
-        });
-      },
-      onSuccess: () => {
-        toast({
-          className: "bg-green-700 text-white",
-          title: "Email verified successfully",
-        });
-        navigate(ROUTES.LOGIN);
-      },
-    });
+    verifyUserEmailMutation.mutate(
+      { data: payload },
+      {
+        onError: (error) => {
+          toast({
+            className: "bg-red-700 text-white",
+            title: error.message,
+          });
+        },
+        onSuccess: () => {
+          toast({
+            className: "bg-green-700 text-white",
+            title: "Email verified successfully",
+          });
+          navigate(ROUTES.LOGIN);
+        },
+      }
+    );
   };
 
   return (

@@ -1,4 +1,8 @@
+import type { UpdateMasterPasswordFormData } from "@/types/auth";
+import type { SubmitHandler } from "react-hook-form";
+import { usePatchApiV1AuthMasterPassword } from "@/api-client/api";
 import RecoveryKeyDialog from "@/components/RecoverKeyDialog";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -6,13 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import VerifyRecoverKey from "@/components/VerifyReocveryKey";
-import VerifyRecoveryMasterPassword from "@/components/VerifyRecoveryMasterPassword";
-import { ROUTES } from "@/lib/constants";
-import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
-import { useStore } from "@/store/store";
-import { useShallow } from "zustand/react/shallow";
 import {
   Form,
   FormControl,
@@ -21,26 +18,28 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  UpdateMasterPasswordFormData,
-  updateMasterPasswordFormSchema,
-} from "@/types/auth";
-import { Button } from "@/components/ui/button";
 import LoadingSpinner from "@/components/ui/loadingSpinner";
 import { PasswordInput } from "@/components/ui/password-input";
+import VerifyRecoveryMasterPassword from "@/components/VerifyRecoveryMasterPassword";
+import VerifyRecoverKey from "@/components/VerifyReocveryKey";
+import { useRefreshToken } from "@/hooks/refresh-token";
+import { useToast } from "@/hooks/use-toast";
+import { ROUTES } from "@/lib/constants";
 import {
   deriveKey,
   encrypt,
   generateRecoveryKey,
   generateSalt,
 } from "@/lib/encryption.helper";
-import { useToast } from "@/hooks/use-toast";
-import { useRefreshToken } from "@/hooks/refresh-token";
-import { usePatchApiV1AuthMasterPassword } from "@/api-client/api";
+import { useStore } from "@/store/store";
+import { updateMasterPasswordFormSchema } from "@/types/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router";
+import { useShallow } from "zustand/react/shallow";
 
-const ResetMasterPassword = () => {
+function ResetMasterPassword() {
   const { type } = useParams();
   const { toast } = useToast();
   const {
@@ -122,7 +121,7 @@ const ResetMasterPassword = () => {
           masterPassword: data.masterPassword,
           masterKey: { ...encryptedMasterKey, salt: userKeySalt },
           recoveryKey: { ...encryptedRecoveryKey, salt: recoveryKeySalt },
-        }
+        },
       },
       {
         onSuccess: async () => {
@@ -215,6 +214,6 @@ const ResetMasterPassword = () => {
       <RecoveryKeyDialog />
     </div>
   );
-};
+}
 
 export default ResetMasterPassword;

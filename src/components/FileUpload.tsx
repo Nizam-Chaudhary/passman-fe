@@ -1,7 +1,7 @@
+import type { FileUploadResponse } from "@/types/file";
 import { usePostApiV1FilesUpload } from "@/api-client/api";
-import { Input } from "./ui/input";
-import { FileUploadResponse } from "@/types/file";
 import { useToast } from "@/hooks/use-toast";
+import { Input } from "./ui/input";
 
 interface Props {
   onSuccess: (
@@ -11,9 +11,9 @@ interface Props {
   ) => void;
 }
 
-const FileUpload = ({ onSuccess }: Props): React.ReactElement => {
+function FileUpload({ onSuccess }: Props): React.ReactElement {
   const uploadFileMutation = usePostApiV1FilesUpload();
-  const { toast } = useToast()
+  const { toast } = useToast();
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
@@ -21,12 +21,15 @@ const FileUpload = ({ onSuccess }: Props): React.ReactElement => {
 
     toast({
       title: "Uploading file...",
-      className: "bg-green-600 text-white"
-    })
-
-    uploadFileMutation.mutate({ data: file }, {
-      onSuccess: onSuccess,
+      className: "bg-green-600 text-white",
     });
+
+    uploadFileMutation.mutate(
+      { data: file },
+      {
+        onSuccess,
+      }
+    );
   };
 
   return (
@@ -40,6 +43,6 @@ const FileUpload = ({ onSuccess }: Props): React.ReactElement => {
       />
     </>
   );
-};
+}
 
 export default FileUpload;

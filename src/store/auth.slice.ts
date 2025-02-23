@@ -1,7 +1,7 @@
 import type { Store } from "@/types/store";
 import type { StateCreator } from "zustand";
 
-type AuthStates = {
+interface AuthStates {
   isAuthenticated: boolean | null;
   isEmailVerified: boolean | null;
   isMasterPasswordSet: boolean | null;
@@ -11,9 +11,9 @@ type AuthStates = {
   recoveryKey: string;
   masterKeyForUpdate: string | null;
   otpTimer: number;
-};
+}
 
-type AuthActions = {
+interface AuthActions {
   setIsAuthenticated: (isAuthenticated: boolean) => void;
   setIsEmailVerified: (isVerified: boolean | null) => void;
   setIsMasterPasswordSet: (isSet: boolean | null) => void;
@@ -24,7 +24,7 @@ type AuthActions = {
   setMasterKeyForUpdate: (key: string | null) => void;
   decreateOtpTime: () => void;
   setOtpTimer: (timer: number) => void;
-};
+}
 
 const initialState: AuthStates = {
   isAuthenticated: null,

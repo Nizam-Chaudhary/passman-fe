@@ -1,8 +1,9 @@
+import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
-import { Input } from "./input";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { forwardRef, useState } from "react";
 import { Button } from "./button";
-import { ComponentProps, forwardRef, useState } from "react";
+import { Input } from "./input";
 
 const PasswordInput = forwardRef<HTMLInputElement, ComponentProps<"input">>(
   ({ className, ...props }, ref) => {
@@ -37,14 +38,16 @@ const PasswordInput = forwardRef<HTMLInputElement, ComponentProps<"input">>(
         </Button>
 
         {/* hides browsers password toggles */}
-        <style>{`
+        <style>
+          {`
 					.hide-password-toggle::-ms-reveal,
 					.hide-password-toggle::-ms-clear {
 						visibility: hidden;
 						pointer-events: none;
 						display: none;
 					}
-				`}</style>
+				`}
+        </style>
       </div>
     );
   }

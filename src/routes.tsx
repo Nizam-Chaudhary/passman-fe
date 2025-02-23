@@ -5,21 +5,21 @@ import {
   Routes,
   useLocation,
 } from "react-router";
-import Home from "./pages/Home";
-import SignUp from "./pages/SignUp";
-import Login from "./pages/Login";
-import VerifyAccount from "./pages/VerifyAccount";
-import { useStore } from "./store/store";
 import { useShallow } from "zustand/react/shallow";
-import useAuth from "./hooks/use-auth";
 import LoadingSpinner from "./components/ui/loadingSpinner";
-import VerifyMasterPassword from "./pages/VerifyMasterPassword";
-import CreateMasterPassword from "./pages/CreateMasterPassword";
+import useAuth from "./hooks/use-auth";
 import { ROUTES } from "./lib/constants";
-import ResetPasswordSendMail from "./pages/ResetPasswordSendMail";
-import ResetPassword from "./pages/ResetPassword";
+import CreateMasterPassword from "./pages/CreateMasterPassword";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 import ResetMasterPassword from "./pages/ResetMasterPassword";
+import ResetPassword from "./pages/ResetPassword";
+import ResetPasswordSendMail from "./pages/ResetPasswordSendMail";
 import Settings from "./pages/Settings";
+import SignUp from "./pages/SignUp";
+import VerifyAccount from "./pages/VerifyAccount";
+import VerifyMasterPassword from "./pages/VerifyMasterPassword";
+import { useStore } from "./store/store";
 
 export default function AppRoutes() {
   return (
@@ -97,7 +97,7 @@ export default function AppRoutes() {
 }
 
 // Protected Route Wrapper Component
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();
   const { isEmailVerified, isMasterPasswordSet } = useStore(
     useShallow((state) => ({
@@ -132,7 +132,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     );
   }
   return <>{children}</>;
-};
+}
 
 // // Public Route Wrapper Component
 // const PublicRoute = ({ children }: { children: React.ReactNode }) => {
@@ -152,7 +152,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 // };
 
 // Verify Account Route Wrapper Component
-const VerifyEmailRoute = ({ children }: { children: React.ReactNode }) => {
+function VerifyEmailRoute({ children }: { children: React.ReactNode }) {
   const { isEmailVerified } = useStore(
     useShallow((state) => ({
       isEmailVerified: state.isEmailVerified,
@@ -167,14 +167,14 @@ const VerifyEmailRoute = ({ children }: { children: React.ReactNode }) => {
   }
 
   return <>{children}</>;
-};
+}
 
 // Master password Route Wrapper Component
-const ResetOrVerifyMasterPasswordRoute = ({
+function ResetOrVerifyMasterPasswordRoute({
   children,
 }: {
   children: React.ReactNode;
-}) => {
+}) {
   const { isAuthenticated, userData, isLoading } = useAuth();
   const location = useLocation();
 
@@ -197,14 +197,14 @@ const ResetOrVerifyMasterPasswordRoute = ({
   }
 
   return <>{children}</>;
-};
+}
 
 // Master password Route Wrapper Component
-const CreateMasterPasswordRoute = ({
+function CreateMasterPasswordRoute({
   children,
 }: {
   children: React.ReactNode;
-}) => {
+}) {
   const { isAuthenticated, userData, isLoading } = useAuth();
   const location = useLocation();
 
@@ -227,4 +227,4 @@ const CreateMasterPasswordRoute = ({
   }
 
   return <>{children}</>;
-};
+}

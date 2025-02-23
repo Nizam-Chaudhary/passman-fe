@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { useStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
 import { Button } from "./ui/button";
@@ -10,9 +11,8 @@ import {
   DialogTitle,
 } from "./ui/dialog";
 import LoadingSpinner from "./ui/loadingSpinner";
-import { cn } from "@/lib/utils";
 
-type Props = {
+interface Props {
   title: string;
   description: string;
   variant:
@@ -24,7 +24,7 @@ type Props = {
     | "ghost";
   onClick: () => void;
   isPending?: boolean;
-};
+}
 
 export default function ConfirmDialog(props: Props) {
   const { title, description, variant, onClick, isPending } = props;

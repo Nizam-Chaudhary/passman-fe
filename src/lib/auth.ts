@@ -2,39 +2,39 @@ import type { JwtUserData } from "@/types/user";
 import { jwtDecode } from "jwt-decode";
 import { AUTH_TOKEN, REFRESH_TOKEN } from "./constants";
 
-export const getToken = (): string | null => {
+export function getToken(): string | null {
   return localStorage.getItem(AUTH_TOKEN);
-};
+}
 
-export const setToken = (token: string): void => {
+export function setToken(token: string): void {
   localStorage.setItem(AUTH_TOKEN, token);
-};
+}
 
-export const removeToken = (): void => {
+export function removeToken(): void {
   localStorage.removeItem(AUTH_TOKEN);
-};
+}
 
-export const getRefreshToken = (): string | null => {
+export function getRefreshToken(): string | null {
   return localStorage.getItem(REFRESH_TOKEN);
-};
+}
 
-export const setRefreshToken = (token: string): void => {
+export function setRefreshToken(token: string): void {
   localStorage.setItem(REFRESH_TOKEN, token);
-};
+}
 
-export const removeRefreshToken = (): void => {
+export function removeRefreshToken(): void {
   localStorage.removeItem(REFRESH_TOKEN);
-};
+}
 
-export const decodeToken = (token: string): JwtUserData | null => {
+export function decodeToken(token: string): JwtUserData | null {
   try {
     return jwtDecode<JwtUserData>(token);
   } catch {
     return null;
   }
-};
+}
 
-export const isTokenExpired = (token: string): boolean => {
+export function isTokenExpired(token: string): boolean {
   try {
     const decodedToken = decodeToken(token);
     if (!decodedToken) return true;
@@ -44,9 +44,9 @@ export const isTokenExpired = (token: string): boolean => {
   } catch {
     return true;
   }
-};
+}
 
-export const checkAuthStatus = () => {
+export function checkAuthStatus() {
   const token = getToken();
 
   if (!token) {
@@ -60,4 +60,4 @@ export const checkAuthStatus = () => {
   }
 
   return { isAuthenticated: true, userData: decodedToken };
-};
+}

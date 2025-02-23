@@ -1,8 +1,10 @@
+import type { SubmitHandler } from "react-hook-form";
+import { usePostApiV1Vaults } from "@/api-client/api";
 import { useToast } from "@/hooks/use-toast";
 import { useStore } from "@/store/store";
 import { addVaultSchema } from "@/types/vault";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useShallow } from "zustand/react/shallow";
 import { Button } from "./ui/button";
 import {
@@ -23,7 +25,6 @@ import {
 } from "./ui/form";
 import { Input } from "./ui/input";
 import LoadingSpinner from "./ui/loadingSpinner";
-import { usePostApiV1Vaults } from "@/api-client/api";
 
 export default function AddVault() {
   const { open, setOpen } = useStore(
@@ -45,22 +46,25 @@ export default function AddVault() {
   const addVaultMutation = usePostApiV1Vaults();
 
   const onSubmit: SubmitHandler<{ name: string }> = (data) => {
-    addVaultMutation.mutate({ data }, {
-      onError: (error) => {
-        toast({
-          title: error.message,
-          className: "bg-red-700",
-        });
-      },
-      onSuccess: () => {
-        toast({
-          title: "Vault added successfully.",
-          className: "bg-green-700",
-        });
-        setOpen(false);
-        form.reset();
-      },
-    });
+    addVaultMutation.mutate(
+      { data },
+      {
+        onError: (error) => {
+          toast({
+            title: error.message,
+            className: "bg-red-700",
+          });
+        },
+        onSuccess: () => {
+          toast({
+            title: "Vault added successfully.",
+            className: "bg-green-700",
+          });
+          setOpen(false);
+          form.reset();
+        },
+      }
+    );
   };
   return (
     <Dialog open={open} onOpenChange={setOpen}>

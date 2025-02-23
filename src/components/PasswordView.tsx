@@ -1,16 +1,19 @@
+import type { Password } from "@/types/password";
+import type { SubmitHandler } from "react-hook-form";
+import {
+  useDeleteApiV1PasswordsId,
+  useGetApiV1PasswordsId,
+  usePutApiV1PasswordsId,
+} from "@/api-client/api";
 import { toast } from "@/hooks/use-toast";
 import { decrypt, encrypt } from "@/lib/encryption.helper";
 import { useStore } from "@/store/store";
-import {
-  Password,
-  passwordSchema,
-  updatePasswordPayloadSchema,
-} from "@/types/password";
+import { passwordSchema, updatePasswordPayloadSchema } from "@/types/password";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
 import { ClipboardCopyIcon, TrashIcon } from "lucide-react";
 import { useEffect } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router";
 import { useShallow } from "zustand/react/shallow";
 import ConfirmDialog from "./ConfirmDialog";
@@ -27,12 +30,11 @@ import {
 } from "./ui/form";
 import { Input } from "./ui/input";
 import Loading from "./ui/loading";
+import LoadingSpinner from "./ui/loadingSpinner";
 import { PasswordInput } from "./ui/password-input";
 import { ScrollArea } from "./ui/scroll-area";
 import { Separator } from "./ui/separator";
 import { Textarea } from "./ui/textarea";
-import { useDeleteApiV1PasswordsId, useGetApiV1PasswordsId, usePutApiV1PasswordsId } from "@/api-client/api";
-import LoadingSpinner from "./ui/loadingSpinner";
 
 export function PasswordView() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -44,7 +46,13 @@ export function PasswordView() {
     }))
   );
   const passwordId = searchParams.get("p");
-  const { data: response, isPending, isError } = useGetApiV1PasswordsId(Number(passwordId), { query: { enabled: !!passwordId } });
+  const {
+    data: response,
+    isPending,
+    isError,
+  } = useGetApiV1PasswordsId(Number(passwordId), {
+    query: { enabled: !!passwordId },
+  });
   const editPasswordMutation = usePutApiV1PasswordsId();
   const deletePasswordMutation = useDeleteApiV1PasswordsId();
 
@@ -151,23 +159,26 @@ export function PasswordView() {
   };
 
   const onDeletePassword = () => {
-    deletePasswordMutation.mutate({ id: Number(passwordId) }, {
-      onError: (error) => {
-        toast({
-          className: "bg-red-700",
-          description: error.message,
-        });
-      },
-      onSuccess: () => {
-        searchParams.delete("p");
-        setSearchParams(searchParams);
-        toast({
-          title: "Password deleted successfully.",
-          className: "bg-green-700",
-        });
-        setOpenDeletePasswordDialog(false);
-      },
-    });
+    deletePasswordMutation.mutate(
+      { id: Number(passwordId) },
+      {
+        onError: (error) => {
+          toast({
+            className: "bg-red-700",
+            description: error.message,
+          });
+        },
+        onSuccess: () => {
+          searchParams.delete("p");
+          setSearchParams(searchParams);
+          toast({
+            title: "Password deleted successfully.",
+            className: "bg-green-700",
+          });
+          setOpenDeletePasswordDialog(false);
+        },
+      }
+    );
   };
 
   const copyToClipboard = async (text: string) => {
@@ -194,7 +205,9 @@ export function PasswordView() {
               <div className="flex justify-between items-center">
                 <Avatar className="size-12 rounded-lg">
                   <AvatarImage loading="lazy" src="/assets/shadcn.jpg" />
-                  <AvatarFallback><LoadingSpinner /></AvatarFallback>
+                  <AvatarFallback>
+                    <LoadingSpinner />
+                  </AvatarFallback>
                 </Avatar>
 
                 <Button

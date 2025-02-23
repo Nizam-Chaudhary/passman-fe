@@ -1,3 +1,4 @@
+import type { SubmitHandler } from "react-hook-form";
 import { usePostApiV1AuthResetPasswordMail } from "@/api-client/api";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,10 +22,10 @@ import { useToast } from "@/hooks/use-toast";
 import { ROUTES } from "@/lib/constants";
 import { sendResetPassswordEmailFormSchema } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
-const ResetPasswordSendMail = () => {
+function ResetPasswordSendMail() {
   const form = useForm({
     resolver: zodResolver(sendResetPassswordEmailFormSchema),
     defaultValues: {
@@ -37,22 +38,25 @@ const ResetPasswordSendMail = () => {
   const sendResetPasswordEmailMutation = usePostApiV1AuthResetPasswordMail();
 
   const onSubmit: SubmitHandler<{ email: string }> = async (data) => {
-    sendResetPasswordEmailMutation.mutate({ data }, {
-      onSuccess: () => {
-        toast({
-          title: "Reset link sent to registered email.",
-          className: "bg-green-700",
-        });
+    sendResetPasswordEmailMutation.mutate(
+      { data },
+      {
+        onSuccess: () => {
+          toast({
+            title: "Reset link sent to registered email.",
+            className: "bg-green-700",
+          });
 
-        navigate(ROUTES.LOGIN, { replace: true });
-      },
-      onError: (error) => {
-        toast({
-          title: error.message,
-          className: "bg-red-700",
-        });
-      },
-    });
+          navigate(ROUTES.LOGIN, { replace: true });
+        },
+        onError: (error) => {
+          toast({
+            title: error.message,
+            className: "bg-red-700",
+          });
+        },
+      }
+    );
   };
   return (
     <div className="flex justify-center items-center h-screen">
@@ -94,6 +98,6 @@ const ResetPasswordSendMail = () => {
       </Card>
     </div>
   );
-};
+}
 
 export default ResetPasswordSendMail;

@@ -1,4 +1,17 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import type {
+  UserDetails,
+  VerifyRecoveryMasterPasswordFormData,
+} from "@/types/auth";
+import type { SubmitHandler } from "react-hook-form";
+import { useGetApiV1Users } from "@/api-client/api";
+import { useToast } from "@/hooks/use-toast";
+import { decrypt, deriveKey } from "@/lib/encryption.helper";
+import { useStore } from "@/store/store";
+import { verifyRecoveryMasterPasswordFormSchema } from "@/types/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { useShallow } from "zustand/react/shallow";
 import { Button } from "./ui/button";
 import {
   Form,
@@ -10,20 +23,8 @@ import {
 } from "./ui/form";
 import LoadingSpinner from "./ui/loadingSpinner";
 import { PasswordInput } from "./ui/password-input";
-import {
-  UserDetails,
-  VerifyRecoveryMasterPasswordFormData,
-  verifyRecoveryMasterPasswordFormSchema,
-} from "@/types/auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { useStore } from "@/store/store";
-import { useShallow } from "zustand/react/shallow";
-import { useToast } from "@/hooks/use-toast";
-import { deriveKey, decrypt } from "@/lib/encryption.helper";
-import { useGetApiV1Users } from "@/api-client/api";
 
-const VerifyRecoveryMasterPassword = () => {
+function VerifyRecoveryMasterPassword() {
   const { toast } = useToast();
   const form = useForm({
     resolver: zodResolver(verifyRecoveryMasterPasswordFormSchema),
@@ -39,7 +40,7 @@ const VerifyRecoveryMasterPassword = () => {
   );
 
   const { data: response, isPending, isError } = useGetApiV1Users();
-  const userDetails = response?.data
+  const userDetails = response?.data;
 
   const verifyMasterPasswordMutation = useMutation({
     mutationFn: async (
@@ -123,6 +124,6 @@ const VerifyRecoveryMasterPassword = () => {
       </form>
     </Form>
   );
-};
+}
 
 export default VerifyRecoveryMasterPassword;

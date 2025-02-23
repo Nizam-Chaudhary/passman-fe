@@ -8,7 +8,7 @@
 /**
  * Schema for user signup data
  */
-export type PostApiV1AuthSignUpBody = {
+export interface PostApiV1AuthSignUpBody {
   /**
    * Username for the account
    * @minLength 2
@@ -25,7 +25,7 @@ export type PostApiV1AuthSignUpBody = {
    * @minLength 8
    */
   password: string;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -43,11 +43,11 @@ export const PostApiV1AuthSignUp200AllOfStatus = {
 /**
  * Generic response schema with status and message
  */
-export type PostApiV1AuthSignUp200AllOf = {
+export interface PostApiV1AuthSignUp200AllOf {
   /** Response status indicating success, failure or error */
   status: PostApiV1AuthSignUp200AllOfStatus;
   message: string;
-};
+}
 
 /**
  * Schema for master key with iv, encrypted key and salt
@@ -65,7 +65,7 @@ export type PostApiV1AuthSignUp200AllOfThreeDataMasterKey = {
 /**
  * User model with selected fields for responses
  */
-export type PostApiV1AuthSignUp200AllOfThreeData = {
+export interface PostApiV1AuthSignUp200AllOfThreeData {
   /**
    * @minimum -2147483648
    * @maximum 2147483647
@@ -82,12 +82,12 @@ export type PostApiV1AuthSignUp200AllOfThreeData = {
   masterKey: PostApiV1AuthSignUp200AllOfThreeDataMasterKey;
   createdAt: string;
   updatedAt: string;
-};
+}
 
-export type PostApiV1AuthSignUp200AllOfThree = {
+export interface PostApiV1AuthSignUp200AllOfThree {
   /** User model with selected fields for responses */
   data: PostApiV1AuthSignUp200AllOfThreeData;
-};
+}
 
 /**
  * Response schema for successful signup
@@ -119,13 +119,13 @@ export const PostApiV1AuthSignUp4xxAnyOfStatus = {
  */
 export type PostApiV1AuthSignUp4xxAnyOfIssues = unknown | null;
 
-export type PostApiV1AuthSignUp4xxAnyOf = {
+export interface PostApiV1AuthSignUp4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthSignUp4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1AuthSignUp4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -140,13 +140,13 @@ export const PostApiV1AuthSignUp4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthSignUp4xxAnyOfFour = {
+export interface PostApiV1AuthSignUp4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthSignUp4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -161,11 +161,11 @@ export const PostApiV1AuthSignUp4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthSignUp4xxAnyOfSix = {
+export interface PostApiV1AuthSignUp4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthSignUp4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -193,13 +193,13 @@ export const PostApiV1AuthSignUp5xxAnyOfStatus = {
  */
 export type PostApiV1AuthSignUp5xxAnyOfIssues = unknown | null;
 
-export type PostApiV1AuthSignUp5xxAnyOf = {
+export interface PostApiV1AuthSignUp5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthSignUp5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1AuthSignUp5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -214,13 +214,13 @@ export const PostApiV1AuthSignUp5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthSignUp5xxAnyOfFour = {
+export interface PostApiV1AuthSignUp5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthSignUp5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -235,11 +235,11 @@ export const PostApiV1AuthSignUp5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthSignUp5xxAnyOfSix = {
+export interface PostApiV1AuthSignUp5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthSignUp5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -252,7 +252,7 @@ export type PostApiV1AuthSignUp5xx =
 /**
  * Schema for user signin data
  */
-export type PostApiV1AuthSignInBody = {
+export interface PostApiV1AuthSignInBody {
   /**
    * Email address for the account
    * @maxLength 255
@@ -263,7 +263,7 @@ export type PostApiV1AuthSignInBody = {
    * @minLength 8
    */
   password: string;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -281,11 +281,11 @@ export const PostApiV1AuthSignIn200AllOfStatus = {
 /**
  * Generic response schema with status and message
  */
-export type PostApiV1AuthSignIn200AllOf = {
+export interface PostApiV1AuthSignIn200AllOf {
   /** Response status indicating success, failure or error */
   status: PostApiV1AuthSignIn200AllOfStatus;
   message: string;
-};
+}
 
 /**
  * Encrypted master key
@@ -300,7 +300,7 @@ export type PostApiV1AuthSignIn200AllOfThreeDataMasterKey = {
   salt: string;
 } | null;
 
-export type PostApiV1AuthSignIn200AllOfThreeData = {
+export interface PostApiV1AuthSignIn200AllOfThreeData {
   /**
    * JWT access token
    * @minLength 1
@@ -330,11 +330,11 @@ export type PostApiV1AuthSignIn200AllOfThreeData = {
   masterKey: PostApiV1AuthSignIn200AllOfThreeDataMasterKey;
   /** Email verification status */
   isVerified: boolean;
-};
+}
 
-export type PostApiV1AuthSignIn200AllOfThree = {
+export interface PostApiV1AuthSignIn200AllOfThree {
   data: PostApiV1AuthSignIn200AllOfThreeData;
-};
+}
 
 /**
  * Response schema for successful signin
@@ -366,13 +366,13 @@ export const PostApiV1AuthSignIn4xxAnyOfStatus = {
  */
 export type PostApiV1AuthSignIn4xxAnyOfIssues = unknown | null;
 
-export type PostApiV1AuthSignIn4xxAnyOf = {
+export interface PostApiV1AuthSignIn4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthSignIn4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1AuthSignIn4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -387,13 +387,13 @@ export const PostApiV1AuthSignIn4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthSignIn4xxAnyOfFour = {
+export interface PostApiV1AuthSignIn4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthSignIn4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -408,11 +408,11 @@ export const PostApiV1AuthSignIn4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthSignIn4xxAnyOfSix = {
+export interface PostApiV1AuthSignIn4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthSignIn4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -440,13 +440,13 @@ export const PostApiV1AuthSignIn5xxAnyOfStatus = {
  */
 export type PostApiV1AuthSignIn5xxAnyOfIssues = unknown | null;
 
-export type PostApiV1AuthSignIn5xxAnyOf = {
+export interface PostApiV1AuthSignIn5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthSignIn5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1AuthSignIn5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -461,13 +461,13 @@ export const PostApiV1AuthSignIn5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthSignIn5xxAnyOfFour = {
+export interface PostApiV1AuthSignIn5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthSignIn5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -482,11 +482,11 @@ export const PostApiV1AuthSignIn5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthSignIn5xxAnyOfSix = {
+export interface PostApiV1AuthSignIn5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthSignIn5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -499,10 +499,10 @@ export type PostApiV1AuthSignIn5xx =
 /**
  * Schema for refresh token request
  */
-export type PostApiV1AuthRefreshTokenBody = {
+export interface PostApiV1AuthRefreshTokenBody {
   /** JWT refresh token */
   refreshToken: string;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -520,13 +520,13 @@ export const PostApiV1AuthRefreshToken200AllOfStatus = {
 /**
  * Generic response schema with status and message
  */
-export type PostApiV1AuthRefreshToken200AllOf = {
+export interface PostApiV1AuthRefreshToken200AllOf {
   /** Response status indicating success, failure or error */
   status: PostApiV1AuthRefreshToken200AllOfStatus;
   message: string;
-};
+}
 
-export type PostApiV1AuthRefreshToken200AllOfThreeData = {
+export interface PostApiV1AuthRefreshToken200AllOfThreeData {
   /**
    * New JWT access token
    * @minLength 1
@@ -537,11 +537,11 @@ export type PostApiV1AuthRefreshToken200AllOfThreeData = {
    * @minLength 1
    */
   refreshToken: string;
-};
+}
 
-export type PostApiV1AuthRefreshToken200AllOfThree = {
+export interface PostApiV1AuthRefreshToken200AllOfThree {
   data: PostApiV1AuthRefreshToken200AllOfThreeData;
-};
+}
 
 /**
  * Response schema for token refresh
@@ -574,13 +574,13 @@ export const PostApiV1AuthRefreshToken4xxAnyOfStatus = {
  */
 export type PostApiV1AuthRefreshToken4xxAnyOfIssues = unknown | null;
 
-export type PostApiV1AuthRefreshToken4xxAnyOf = {
+export interface PostApiV1AuthRefreshToken4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthRefreshToken4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1AuthRefreshToken4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -595,13 +595,13 @@ export const PostApiV1AuthRefreshToken4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthRefreshToken4xxAnyOfFour = {
+export interface PostApiV1AuthRefreshToken4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthRefreshToken4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -616,11 +616,11 @@ export const PostApiV1AuthRefreshToken4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthRefreshToken4xxAnyOfSix = {
+export interface PostApiV1AuthRefreshToken4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthRefreshToken4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -648,13 +648,13 @@ export const PostApiV1AuthRefreshToken5xxAnyOfStatus = {
  */
 export type PostApiV1AuthRefreshToken5xxAnyOfIssues = unknown | null;
 
-export type PostApiV1AuthRefreshToken5xxAnyOf = {
+export interface PostApiV1AuthRefreshToken5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthRefreshToken5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1AuthRefreshToken5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -669,13 +669,13 @@ export const PostApiV1AuthRefreshToken5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthRefreshToken5xxAnyOfFour = {
+export interface PostApiV1AuthRefreshToken5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthRefreshToken5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -690,11 +690,11 @@ export const PostApiV1AuthRefreshToken5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthRefreshToken5xxAnyOfSix = {
+export interface PostApiV1AuthRefreshToken5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthRefreshToken5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -707,7 +707,7 @@ export type PostApiV1AuthRefreshToken5xx =
 /**
  * Schema for email verification
  */
-export type PatchApiV1AuthVerifyBody = {
+export interface PatchApiV1AuthVerifyBody {
   /**
    * User email to verify
    * @minLength 1
@@ -719,7 +719,7 @@ export type PatchApiV1AuthVerifyBody = {
    * @maxLength 6
    */
   otp: string;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -737,11 +737,11 @@ export const PatchApiV1AuthVerify200Status = {
 /**
  * Generic response schema with status and message
  */
-export type PatchApiV1AuthVerify200 = {
+export interface PatchApiV1AuthVerify200 {
   /** Response status indicating success, failure or error */
   status: PatchApiV1AuthVerify200Status;
   message: string;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -761,13 +761,13 @@ export const PatchApiV1AuthVerify4xxAnyOfStatus = {
  */
 export type PatchApiV1AuthVerify4xxAnyOfIssues = unknown | null;
 
-export type PatchApiV1AuthVerify4xxAnyOf = {
+export interface PatchApiV1AuthVerify4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthVerify4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PatchApiV1AuthVerify4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -782,13 +782,13 @@ export const PatchApiV1AuthVerify4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1AuthVerify4xxAnyOfFour = {
+export interface PatchApiV1AuthVerify4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthVerify4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -803,11 +803,11 @@ export const PatchApiV1AuthVerify4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1AuthVerify4xxAnyOfSix = {
+export interface PatchApiV1AuthVerify4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthVerify4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -835,13 +835,13 @@ export const PatchApiV1AuthVerify5xxAnyOfStatus = {
  */
 export type PatchApiV1AuthVerify5xxAnyOfIssues = unknown | null;
 
-export type PatchApiV1AuthVerify5xxAnyOf = {
+export interface PatchApiV1AuthVerify5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthVerify5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PatchApiV1AuthVerify5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -856,13 +856,13 @@ export const PatchApiV1AuthVerify5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1AuthVerify5xxAnyOfFour = {
+export interface PatchApiV1AuthVerify5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthVerify5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -877,11 +877,11 @@ export const PatchApiV1AuthVerify5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1AuthVerify5xxAnyOfSix = {
+export interface PatchApiV1AuthVerify5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthVerify5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -894,31 +894,31 @@ export type PatchApiV1AuthVerify5xx =
 /**
  * Encrypted master key
  */
-export type PatchApiV1AuthCreateMasterKeyBodyMasterKey = {
+export interface PatchApiV1AuthCreateMasterKeyBodyMasterKey {
   /** @minLength 1 */
   iv: string;
   /** @minLength 1 */
   encrypted: string;
   /** @minLength 1 */
   salt: string;
-};
+}
 
 /**
  * Encrypted recovery key
  */
-export type PatchApiV1AuthCreateMasterKeyBodyRecoveryKey = {
+export interface PatchApiV1AuthCreateMasterKeyBodyRecoveryKey {
   /** @minLength 1 */
   iv: string;
   /** @minLength 1 */
   encrypted: string;
   /** @minLength 1 */
   salt: string;
-};
+}
 
 /**
  * Schema for creating master key
  */
-export type PatchApiV1AuthCreateMasterKeyBody = {
+export interface PatchApiV1AuthCreateMasterKeyBody {
   /**
    * Master password for the account
    * @minLength 10
@@ -928,7 +928,7 @@ export type PatchApiV1AuthCreateMasterKeyBody = {
   masterKey: PatchApiV1AuthCreateMasterKeyBodyMasterKey;
   /** Encrypted recovery key */
   recoveryKey: PatchApiV1AuthCreateMasterKeyBodyRecoveryKey;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -946,11 +946,11 @@ export const PatchApiV1AuthCreateMasterKey200Status = {
 /**
  * Generic response schema with status and message
  */
-export type PatchApiV1AuthCreateMasterKey200 = {
+export interface PatchApiV1AuthCreateMasterKey200 {
   /** Response status indicating success, failure or error */
   status: PatchApiV1AuthCreateMasterKey200Status;
   message: string;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -970,13 +970,13 @@ export const PatchApiV1AuthCreateMasterKey4xxAnyOfStatus = {
  */
 export type PatchApiV1AuthCreateMasterKey4xxAnyOfIssues = unknown | null;
 
-export type PatchApiV1AuthCreateMasterKey4xxAnyOf = {
+export interface PatchApiV1AuthCreateMasterKey4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthCreateMasterKey4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PatchApiV1AuthCreateMasterKey4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -991,13 +991,13 @@ export const PatchApiV1AuthCreateMasterKey4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1AuthCreateMasterKey4xxAnyOfFour = {
+export interface PatchApiV1AuthCreateMasterKey4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthCreateMasterKey4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1012,11 +1012,11 @@ export const PatchApiV1AuthCreateMasterKey4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1AuthCreateMasterKey4xxAnyOfSix = {
+export interface PatchApiV1AuthCreateMasterKey4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthCreateMasterKey4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -1044,13 +1044,13 @@ export const PatchApiV1AuthCreateMasterKey5xxAnyOfStatus = {
  */
 export type PatchApiV1AuthCreateMasterKey5xxAnyOfIssues = unknown | null;
 
-export type PatchApiV1AuthCreateMasterKey5xxAnyOf = {
+export interface PatchApiV1AuthCreateMasterKey5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthCreateMasterKey5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PatchApiV1AuthCreateMasterKey5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1065,13 +1065,13 @@ export const PatchApiV1AuthCreateMasterKey5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1AuthCreateMasterKey5xxAnyOfFour = {
+export interface PatchApiV1AuthCreateMasterKey5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthCreateMasterKey5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1086,11 +1086,11 @@ export const PatchApiV1AuthCreateMasterKey5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1AuthCreateMasterKey5xxAnyOfSix = {
+export interface PatchApiV1AuthCreateMasterKey5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthCreateMasterKey5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -1103,13 +1103,13 @@ export type PatchApiV1AuthCreateMasterKey5xx =
 /**
  * Schema for master password verification
  */
-export type PostApiV1AuthVerifyMasterPasswordBody = {
+export interface PostApiV1AuthVerifyMasterPasswordBody {
   /**
    * Master password to verify
    * @minLength 1
    */
   masterPassword: string;
-};
+}
 
 export type PostApiV1AuthVerifyMasterPassword200Status =
   (typeof PostApiV1AuthVerifyMasterPassword200Status)[keyof typeof PostApiV1AuthVerifyMasterPassword200Status];
@@ -1122,27 +1122,27 @@ export const PostApiV1AuthVerifyMasterPassword200Status = {
 /**
  * Encrypted master key
  */
-export type PostApiV1AuthVerifyMasterPassword200DataMasterKey = {
+export interface PostApiV1AuthVerifyMasterPassword200DataMasterKey {
   /** @minLength 1 */
   iv: string;
   /** @minLength 1 */
   encrypted: string;
   /** @minLength 1 */
   salt: string;
-};
+}
 
-export type PostApiV1AuthVerifyMasterPassword200Data = {
+export interface PostApiV1AuthVerifyMasterPassword200Data {
   /** Encrypted master key */
   masterKey: PostApiV1AuthVerifyMasterPassword200DataMasterKey;
-};
+}
 
 /**
  * Response schema for master password verification
  */
-export type PostApiV1AuthVerifyMasterPassword200 = {
+export interface PostApiV1AuthVerifyMasterPassword200 {
   status: PostApiV1AuthVerifyMasterPassword200Status;
   data: PostApiV1AuthVerifyMasterPassword200Data;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1162,13 +1162,13 @@ export const PostApiV1AuthVerifyMasterPassword4xxAnyOfStatus = {
  */
 export type PostApiV1AuthVerifyMasterPassword4xxAnyOfIssues = unknown | null;
 
-export type PostApiV1AuthVerifyMasterPassword4xxAnyOf = {
+export interface PostApiV1AuthVerifyMasterPassword4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthVerifyMasterPassword4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1AuthVerifyMasterPassword4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1183,13 +1183,13 @@ export const PostApiV1AuthVerifyMasterPassword4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthVerifyMasterPassword4xxAnyOfFour = {
+export interface PostApiV1AuthVerifyMasterPassword4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthVerifyMasterPassword4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1204,11 +1204,11 @@ export const PostApiV1AuthVerifyMasterPassword4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthVerifyMasterPassword4xxAnyOfSix = {
+export interface PostApiV1AuthVerifyMasterPassword4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthVerifyMasterPassword4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -1236,13 +1236,13 @@ export const PostApiV1AuthVerifyMasterPassword5xxAnyOfStatus = {
  */
 export type PostApiV1AuthVerifyMasterPassword5xxAnyOfIssues = unknown | null;
 
-export type PostApiV1AuthVerifyMasterPassword5xxAnyOf = {
+export interface PostApiV1AuthVerifyMasterPassword5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthVerifyMasterPassword5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1AuthVerifyMasterPassword5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1257,13 +1257,13 @@ export const PostApiV1AuthVerifyMasterPassword5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthVerifyMasterPassword5xxAnyOfFour = {
+export interface PostApiV1AuthVerifyMasterPassword5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthVerifyMasterPassword5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1278,11 +1278,11 @@ export const PostApiV1AuthVerifyMasterPassword5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthVerifyMasterPassword5xxAnyOfSix = {
+export interface PostApiV1AuthVerifyMasterPassword5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthVerifyMasterPassword5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -1295,10 +1295,10 @@ export type PostApiV1AuthVerifyMasterPassword5xx =
 /**
  * Schema for OTP resend request
  */
-export type PostApiV1AuthResendOtpBody = {
+export interface PostApiV1AuthResendOtpBody {
   /** Email to send OTP to */
   email: string;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1316,11 +1316,11 @@ export const PostApiV1AuthResendOtp200Status = {
 /**
  * Generic response schema with status and message
  */
-export type PostApiV1AuthResendOtp200 = {
+export interface PostApiV1AuthResendOtp200 {
   /** Response status indicating success, failure or error */
   status: PostApiV1AuthResendOtp200Status;
   message: string;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1340,13 +1340,13 @@ export const PostApiV1AuthResendOtp4xxAnyOfStatus = {
  */
 export type PostApiV1AuthResendOtp4xxAnyOfIssues = unknown | null;
 
-export type PostApiV1AuthResendOtp4xxAnyOf = {
+export interface PostApiV1AuthResendOtp4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthResendOtp4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1AuthResendOtp4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1361,13 +1361,13 @@ export const PostApiV1AuthResendOtp4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthResendOtp4xxAnyOfFour = {
+export interface PostApiV1AuthResendOtp4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthResendOtp4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1382,11 +1382,11 @@ export const PostApiV1AuthResendOtp4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthResendOtp4xxAnyOfSix = {
+export interface PostApiV1AuthResendOtp4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthResendOtp4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -1414,13 +1414,13 @@ export const PostApiV1AuthResendOtp5xxAnyOfStatus = {
  */
 export type PostApiV1AuthResendOtp5xxAnyOfIssues = unknown | null;
 
-export type PostApiV1AuthResendOtp5xxAnyOf = {
+export interface PostApiV1AuthResendOtp5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthResendOtp5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1AuthResendOtp5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1435,13 +1435,13 @@ export const PostApiV1AuthResendOtp5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthResendOtp5xxAnyOfFour = {
+export interface PostApiV1AuthResendOtp5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthResendOtp5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1456,11 +1456,11 @@ export const PostApiV1AuthResendOtp5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthResendOtp5xxAnyOfSix = {
+export interface PostApiV1AuthResendOtp5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthResendOtp5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -1473,10 +1473,10 @@ export type PostApiV1AuthResendOtp5xx =
 /**
  * Schema for OTP resend request
  */
-export type PostApiV1AuthResetPasswordMailBody = {
+export interface PostApiV1AuthResetPasswordMailBody {
   /** Email to send OTP to */
   email: string;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1494,11 +1494,11 @@ export const PostApiV1AuthResetPasswordMail200Status = {
 /**
  * Generic response schema with status and message
  */
-export type PostApiV1AuthResetPasswordMail200 = {
+export interface PostApiV1AuthResetPasswordMail200 {
   /** Response status indicating success, failure or error */
   status: PostApiV1AuthResetPasswordMail200Status;
   message: string;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1518,13 +1518,13 @@ export const PostApiV1AuthResetPasswordMail4xxAnyOfStatus = {
  */
 export type PostApiV1AuthResetPasswordMail4xxAnyOfIssues = unknown | null;
 
-export type PostApiV1AuthResetPasswordMail4xxAnyOf = {
+export interface PostApiV1AuthResetPasswordMail4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthResetPasswordMail4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1AuthResetPasswordMail4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1539,13 +1539,13 @@ export const PostApiV1AuthResetPasswordMail4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthResetPasswordMail4xxAnyOfFour = {
+export interface PostApiV1AuthResetPasswordMail4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthResetPasswordMail4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1560,11 +1560,11 @@ export const PostApiV1AuthResetPasswordMail4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthResetPasswordMail4xxAnyOfSix = {
+export interface PostApiV1AuthResetPasswordMail4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthResetPasswordMail4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -1592,13 +1592,13 @@ export const PostApiV1AuthResetPasswordMail5xxAnyOfStatus = {
  */
 export type PostApiV1AuthResetPasswordMail5xxAnyOfIssues = unknown | null;
 
-export type PostApiV1AuthResetPasswordMail5xxAnyOf = {
+export interface PostApiV1AuthResetPasswordMail5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthResetPasswordMail5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1AuthResetPasswordMail5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1613,13 +1613,13 @@ export const PostApiV1AuthResetPasswordMail5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthResetPasswordMail5xxAnyOfFour = {
+export interface PostApiV1AuthResetPasswordMail5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthResetPasswordMail5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1634,11 +1634,11 @@ export const PostApiV1AuthResetPasswordMail5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1AuthResetPasswordMail5xxAnyOfSix = {
+export interface PostApiV1AuthResetPasswordMail5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1AuthResetPasswordMail5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -1651,7 +1651,7 @@ export type PostApiV1AuthResetPasswordMail5xx =
 /**
  * Schema for password reset
  */
-export type PatchApiV1AuthResetPasswordBody = {
+export interface PatchApiV1AuthResetPasswordBody {
   /**
    * JWT reset token
    * @pattern ^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]*$
@@ -1662,7 +1662,7 @@ export type PatchApiV1AuthResetPasswordBody = {
    * @minLength 8
    */
   password: string;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1680,11 +1680,11 @@ export const PatchApiV1AuthResetPassword200Status = {
 /**
  * Generic response schema with status and message
  */
-export type PatchApiV1AuthResetPassword200 = {
+export interface PatchApiV1AuthResetPassword200 {
   /** Response status indicating success, failure or error */
   status: PatchApiV1AuthResetPassword200Status;
   message: string;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1704,13 +1704,13 @@ export const PatchApiV1AuthResetPassword4xxAnyOfStatus = {
  */
 export type PatchApiV1AuthResetPassword4xxAnyOfIssues = unknown | null;
 
-export type PatchApiV1AuthResetPassword4xxAnyOf = {
+export interface PatchApiV1AuthResetPassword4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthResetPassword4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PatchApiV1AuthResetPassword4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1725,13 +1725,13 @@ export const PatchApiV1AuthResetPassword4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1AuthResetPassword4xxAnyOfFour = {
+export interface PatchApiV1AuthResetPassword4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthResetPassword4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1746,11 +1746,11 @@ export const PatchApiV1AuthResetPassword4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1AuthResetPassword4xxAnyOfSix = {
+export interface PatchApiV1AuthResetPassword4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthResetPassword4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -1778,13 +1778,13 @@ export const PatchApiV1AuthResetPassword5xxAnyOfStatus = {
  */
 export type PatchApiV1AuthResetPassword5xxAnyOfIssues = unknown | null;
 
-export type PatchApiV1AuthResetPassword5xxAnyOf = {
+export interface PatchApiV1AuthResetPassword5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthResetPassword5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PatchApiV1AuthResetPassword5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1799,13 +1799,13 @@ export const PatchApiV1AuthResetPassword5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1AuthResetPassword5xxAnyOfFour = {
+export interface PatchApiV1AuthResetPassword5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthResetPassword5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1820,11 +1820,11 @@ export const PatchApiV1AuthResetPassword5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1AuthResetPassword5xxAnyOfSix = {
+export interface PatchApiV1AuthResetPassword5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthResetPassword5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -1837,31 +1837,31 @@ export type PatchApiV1AuthResetPassword5xx =
 /**
  * New encrypted master key
  */
-export type PatchApiV1AuthMasterPasswordBodyMasterKey = {
+export interface PatchApiV1AuthMasterPasswordBodyMasterKey {
   /** @minLength 1 */
   iv: string;
   /** @minLength 1 */
   encrypted: string;
   /** @minLength 1 */
   salt: string;
-};
+}
 
 /**
  * New encrypted recovery key
  */
-export type PatchApiV1AuthMasterPasswordBodyRecoveryKey = {
+export interface PatchApiV1AuthMasterPasswordBodyRecoveryKey {
   /** @minLength 1 */
   iv: string;
   /** @minLength 1 */
   encrypted: string;
   /** @minLength 1 */
   salt: string;
-};
+}
 
 /**
  * Schema for updating master password
  */
-export type PatchApiV1AuthMasterPasswordBody = {
+export interface PatchApiV1AuthMasterPasswordBody {
   /**
    * Master password for the account
    * @minLength 10
@@ -1871,7 +1871,7 @@ export type PatchApiV1AuthMasterPasswordBody = {
   masterKey: PatchApiV1AuthMasterPasswordBodyMasterKey;
   /** New encrypted recovery key */
   recoveryKey: PatchApiV1AuthMasterPasswordBodyRecoveryKey;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1889,11 +1889,11 @@ export const PatchApiV1AuthMasterPassword200Status = {
 /**
  * Generic response schema with status and message
  */
-export type PatchApiV1AuthMasterPassword200 = {
+export interface PatchApiV1AuthMasterPassword200 {
   /** Response status indicating success, failure or error */
   status: PatchApiV1AuthMasterPassword200Status;
   message: string;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1913,13 +1913,13 @@ export const PatchApiV1AuthMasterPassword4xxAnyOfStatus = {
  */
 export type PatchApiV1AuthMasterPassword4xxAnyOfIssues = unknown | null;
 
-export type PatchApiV1AuthMasterPassword4xxAnyOf = {
+export interface PatchApiV1AuthMasterPassword4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthMasterPassword4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PatchApiV1AuthMasterPassword4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1934,13 +1934,13 @@ export const PatchApiV1AuthMasterPassword4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1AuthMasterPassword4xxAnyOfFour = {
+export interface PatchApiV1AuthMasterPassword4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthMasterPassword4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -1955,11 +1955,11 @@ export const PatchApiV1AuthMasterPassword4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1AuthMasterPassword4xxAnyOfSix = {
+export interface PatchApiV1AuthMasterPassword4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthMasterPassword4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -1987,13 +1987,13 @@ export const PatchApiV1AuthMasterPassword5xxAnyOfStatus = {
  */
 export type PatchApiV1AuthMasterPassword5xxAnyOfIssues = unknown | null;
 
-export type PatchApiV1AuthMasterPassword5xxAnyOf = {
+export interface PatchApiV1AuthMasterPassword5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthMasterPassword5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PatchApiV1AuthMasterPassword5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2008,13 +2008,13 @@ export const PatchApiV1AuthMasterPassword5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1AuthMasterPassword5xxAnyOfFour = {
+export interface PatchApiV1AuthMasterPassword5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthMasterPassword5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2029,11 +2029,11 @@ export const PatchApiV1AuthMasterPassword5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1AuthMasterPassword5xxAnyOfSix = {
+export interface PatchApiV1AuthMasterPassword5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1AuthMasterPassword5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -2059,16 +2059,16 @@ export const PostApiV1FilesUpload200AllOfStatus = {
 /**
  * Generic response schema with status and message
  */
-export type PostApiV1FilesUpload200AllOf = {
+export interface PostApiV1FilesUpload200AllOf {
   /** Response status indicating success, failure or error */
   status: PostApiV1FilesUpload200AllOfStatus;
   message: string;
-};
+}
 
 /**
  * Schema for file selection
  */
-export type PostApiV1FilesUpload200AllOfThreeData = {
+export interface PostApiV1FilesUpload200AllOfThreeData {
   /**
    * @minimum -2147483648
    * @maximum 2147483647
@@ -2080,12 +2080,12 @@ export type PostApiV1FilesUpload200AllOfThreeData = {
   fileKey: string;
   createdAt: string;
   updatedAt: string;
-};
+}
 
-export type PostApiV1FilesUpload200AllOfThree = {
+export interface PostApiV1FilesUpload200AllOfThree {
   /** Schema for file selection */
   data: PostApiV1FilesUpload200AllOfThreeData;
-};
+}
 
 /**
  * Schema for file upload response
@@ -2117,13 +2117,13 @@ export const PostApiV1FilesUpload4xxAnyOfStatus = {
  */
 export type PostApiV1FilesUpload4xxAnyOfIssues = unknown | null;
 
-export type PostApiV1FilesUpload4xxAnyOf = {
+export interface PostApiV1FilesUpload4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1FilesUpload4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1FilesUpload4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2138,13 +2138,13 @@ export const PostApiV1FilesUpload4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1FilesUpload4xxAnyOfFour = {
+export interface PostApiV1FilesUpload4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1FilesUpload4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2159,11 +2159,11 @@ export const PostApiV1FilesUpload4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1FilesUpload4xxAnyOfSix = {
+export interface PostApiV1FilesUpload4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1FilesUpload4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -2191,13 +2191,13 @@ export const PostApiV1FilesUpload5xxAnyOfStatus = {
  */
 export type PostApiV1FilesUpload5xxAnyOfIssues = unknown | null;
 
-export type PostApiV1FilesUpload5xxAnyOf = {
+export interface PostApiV1FilesUpload5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1FilesUpload5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1FilesUpload5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2212,13 +2212,13 @@ export const PostApiV1FilesUpload5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1FilesUpload5xxAnyOfFour = {
+export interface PostApiV1FilesUpload5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1FilesUpload5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2233,11 +2233,11 @@ export const PostApiV1FilesUpload5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1FilesUpload5xxAnyOfSix = {
+export interface PostApiV1FilesUpload5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1FilesUpload5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -2255,14 +2255,14 @@ export const GetHealth200Status = {
   "Hello,_World!": "Hello, World!",
 } as const;
 
-export type GetHealth200 = {
+export interface GetHealth200 {
   status: GetHealth200Status;
-};
+}
 
 /**
  * Schema for encrypted password data
  */
-export type PostApiV1PasswordsBodyPassword = {
+export interface PostApiV1PasswordsBodyPassword {
   /**
    * Initialization vector for encryption
    * @minLength 1
@@ -2273,12 +2273,12 @@ export type PostApiV1PasswordsBodyPassword = {
    * @minLength 1
    */
   encrypted: string;
-};
+}
 
 /**
  * Schema for adding a new password
  */
-export type PostApiV1PasswordsBody = {
+export interface PostApiV1PasswordsBody {
   /**
    * ID of the vault this password belongs to
    * @minimum 0
@@ -2311,7 +2311,7 @@ export type PostApiV1PasswordsBody = {
    * @nullable
    */
   note?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2329,16 +2329,16 @@ export const PostApiV1Passwords200AllOfStatus = {
 /**
  * Generic response schema with status and message
  */
-export type PostApiV1Passwords200AllOf = {
+export interface PostApiV1Passwords200AllOf {
   /** Response status indicating success, failure or error */
   status: PostApiV1Passwords200AllOfStatus;
   message: string;
-};
+}
 
 /**
  * Password for the account
  */
-export type PostApiV1Passwords200AllOfThreeDataPassword = {
+export interface PostApiV1Passwords200AllOfThreeDataPassword {
   /**
    * Initialization vector for encryption
    * @minLength 1
@@ -2349,12 +2349,12 @@ export type PostApiV1Passwords200AllOfThreeDataPassword = {
    * @minLength 1
    */
   encrypted: string;
-};
+}
 
 /**
  * Schema for selecting password records
  */
-export type PostApiV1Passwords200AllOfThreeData = {
+export interface PostApiV1Passwords200AllOfThreeData {
   /**
    * Unique identifier for the password record
    * @minimum -2147483648
@@ -2400,12 +2400,12 @@ export type PostApiV1Passwords200AllOfThreeData = {
   createdAt: string;
   /** Timestamp when the record was last updated */
   updatedAt: string;
-};
+}
 
-export type PostApiV1Passwords200AllOfThree = {
+export interface PostApiV1Passwords200AllOfThree {
   /** Schema for selecting password records */
   data: PostApiV1Passwords200AllOfThreeData;
-};
+}
 
 /**
  * Schema for add/update/delete password response
@@ -2437,13 +2437,13 @@ export const PostApiV1Passwords4xxAnyOfStatus = {
  */
 export type PostApiV1Passwords4xxAnyOfIssues = unknown | null;
 
-export type PostApiV1Passwords4xxAnyOf = {
+export interface PostApiV1Passwords4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1Passwords4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1Passwords4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2458,13 +2458,13 @@ export const PostApiV1Passwords4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1Passwords4xxAnyOfFour = {
+export interface PostApiV1Passwords4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1Passwords4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2479,11 +2479,11 @@ export const PostApiV1Passwords4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1Passwords4xxAnyOfSix = {
+export interface PostApiV1Passwords4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1Passwords4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -2511,13 +2511,13 @@ export const PostApiV1Passwords5xxAnyOfStatus = {
  */
 export type PostApiV1Passwords5xxAnyOfIssues = unknown | null;
 
-export type PostApiV1Passwords5xxAnyOf = {
+export interface PostApiV1Passwords5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1Passwords5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1Passwords5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2532,13 +2532,13 @@ export const PostApiV1Passwords5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1Passwords5xxAnyOfFour = {
+export interface PostApiV1Passwords5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1Passwords5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2553,11 +2553,11 @@ export const PostApiV1Passwords5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1Passwords5xxAnyOfSix = {
+export interface PostApiV1Passwords5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1Passwords5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -2567,7 +2567,7 @@ export type PostApiV1Passwords5xx =
   | PostApiV1Passwords5xxAnyOfFour
   | PostApiV1Passwords5xxAnyOfSix;
 
-export type GetApiV1PasswordsParams = {
+export interface GetApiV1PasswordsParams {
   /**
    * ID of the vault to fetch passwords from
    */
@@ -2576,7 +2576,7 @@ export type GetApiV1PasswordsParams = {
    * Search string to filter passwords
    */
   search?: string;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2594,7 +2594,7 @@ export const GetApiV1Passwords200Status = {
 /**
  * Password for the account
  */
-export type GetApiV1Passwords200DataItemPassword = {
+export interface GetApiV1Passwords200DataItemPassword {
   /**
    * Initialization vector for encryption
    * @minLength 1
@@ -2605,12 +2605,12 @@ export type GetApiV1Passwords200DataItemPassword = {
    * @minLength 1
    */
   encrypted: string;
-};
+}
 
 /**
  * Schema for selecting password records
  */
-export type GetApiV1Passwords200DataItem = {
+export interface GetApiV1Passwords200DataItem {
   /**
    * Unique identifier for the password record
    * @minimum -2147483648
@@ -2656,16 +2656,16 @@ export type GetApiV1Passwords200DataItem = {
   createdAt: string;
   /** Timestamp when the record was last updated */
   updatedAt: string;
-};
+}
 
 /**
  * Schema for get passwords response
  */
-export type GetApiV1Passwords200 = {
+export interface GetApiV1Passwords200 {
   /** Response status indicating success, failure or error */
   status: GetApiV1Passwords200Status;
   data: GetApiV1Passwords200DataItem[];
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2685,13 +2685,13 @@ export const GetApiV1Passwords4xxAnyOfStatus = {
  */
 export type GetApiV1Passwords4xxAnyOfIssues = unknown | null;
 
-export type GetApiV1Passwords4xxAnyOf = {
+export interface GetApiV1Passwords4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Passwords4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: GetApiV1Passwords4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2706,13 +2706,13 @@ export const GetApiV1Passwords4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type GetApiV1Passwords4xxAnyOfFour = {
+export interface GetApiV1Passwords4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Passwords4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2727,11 +2727,11 @@ export const GetApiV1Passwords4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type GetApiV1Passwords4xxAnyOfSix = {
+export interface GetApiV1Passwords4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Passwords4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -2759,13 +2759,13 @@ export const GetApiV1Passwords5xxAnyOfStatus = {
  */
 export type GetApiV1Passwords5xxAnyOfIssues = unknown | null;
 
-export type GetApiV1Passwords5xxAnyOf = {
+export interface GetApiV1Passwords5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Passwords5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: GetApiV1Passwords5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2780,13 +2780,13 @@ export const GetApiV1Passwords5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type GetApiV1Passwords5xxAnyOfFour = {
+export interface GetApiV1Passwords5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Passwords5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2801,11 +2801,11 @@ export const GetApiV1Passwords5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type GetApiV1Passwords5xxAnyOfSix = {
+export interface GetApiV1Passwords5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Passwords5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -2831,7 +2831,7 @@ export const GetApiV1PasswordsId200Status = {
 /**
  * Password for the account
  */
-export type GetApiV1PasswordsId200DataPassword = {
+export interface GetApiV1PasswordsId200DataPassword {
   /**
    * Initialization vector for encryption
    * @minLength 1
@@ -2842,12 +2842,12 @@ export type GetApiV1PasswordsId200DataPassword = {
    * @minLength 1
    */
   encrypted: string;
-};
+}
 
 /**
  * Schema for selecting password records
  */
-export type GetApiV1PasswordsId200Data = {
+export interface GetApiV1PasswordsId200Data {
   /**
    * Unique identifier for the password record
    * @minimum -2147483648
@@ -2893,17 +2893,17 @@ export type GetApiV1PasswordsId200Data = {
   createdAt: string;
   /** Timestamp when the record was last updated */
   updatedAt: string;
-};
+}
 
 /**
  * Schema for single password response
  */
-export type GetApiV1PasswordsId200 = {
+export interface GetApiV1PasswordsId200 {
   /** Response status indicating success, failure or error */
   status: GetApiV1PasswordsId200Status;
   /** Schema for selecting password records */
   data: GetApiV1PasswordsId200Data;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2923,13 +2923,13 @@ export const GetApiV1PasswordsId4xxAnyOfStatus = {
  */
 export type GetApiV1PasswordsId4xxAnyOfIssues = unknown | null;
 
-export type GetApiV1PasswordsId4xxAnyOf = {
+export interface GetApiV1PasswordsId4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: GetApiV1PasswordsId4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: GetApiV1PasswordsId4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2944,13 +2944,13 @@ export const GetApiV1PasswordsId4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type GetApiV1PasswordsId4xxAnyOfFour = {
+export interface GetApiV1PasswordsId4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: GetApiV1PasswordsId4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -2965,11 +2965,11 @@ export const GetApiV1PasswordsId4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type GetApiV1PasswordsId4xxAnyOfSix = {
+export interface GetApiV1PasswordsId4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: GetApiV1PasswordsId4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -2997,13 +2997,13 @@ export const GetApiV1PasswordsId5xxAnyOfStatus = {
  */
 export type GetApiV1PasswordsId5xxAnyOfIssues = unknown | null;
 
-export type GetApiV1PasswordsId5xxAnyOf = {
+export interface GetApiV1PasswordsId5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: GetApiV1PasswordsId5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: GetApiV1PasswordsId5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -3018,13 +3018,13 @@ export const GetApiV1PasswordsId5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type GetApiV1PasswordsId5xxAnyOfFour = {
+export interface GetApiV1PasswordsId5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: GetApiV1PasswordsId5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -3039,11 +3039,11 @@ export const GetApiV1PasswordsId5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type GetApiV1PasswordsId5xxAnyOfSix = {
+export interface GetApiV1PasswordsId5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: GetApiV1PasswordsId5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -3056,7 +3056,7 @@ export type GetApiV1PasswordsId5xx =
 /**
  * Password for the account
  */
-export type PutApiV1PasswordsIdBodyPassword = {
+export interface PutApiV1PasswordsIdBodyPassword {
   /**
    * Initialization vector for encryption
    * @minLength 1
@@ -3067,12 +3067,12 @@ export type PutApiV1PasswordsIdBodyPassword = {
    * @minLength 1
    */
   encrypted: string;
-};
+}
 
 /**
  * Schema for updating an existing password
  */
-export type PutApiV1PasswordsIdBody = {
+export interface PutApiV1PasswordsIdBody {
   /**
    * Username for the account
    * @minLength 1
@@ -3099,7 +3099,7 @@ export type PutApiV1PasswordsIdBody = {
    * @nullable
    */
   note?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -3117,16 +3117,16 @@ export const PutApiV1PasswordsId200AllOfStatus = {
 /**
  * Generic response schema with status and message
  */
-export type PutApiV1PasswordsId200AllOf = {
+export interface PutApiV1PasswordsId200AllOf {
   /** Response status indicating success, failure or error */
   status: PutApiV1PasswordsId200AllOfStatus;
   message: string;
-};
+}
 
 /**
  * Password for the account
  */
-export type PutApiV1PasswordsId200AllOfThreeDataPassword = {
+export interface PutApiV1PasswordsId200AllOfThreeDataPassword {
   /**
    * Initialization vector for encryption
    * @minLength 1
@@ -3137,12 +3137,12 @@ export type PutApiV1PasswordsId200AllOfThreeDataPassword = {
    * @minLength 1
    */
   encrypted: string;
-};
+}
 
 /**
  * Schema for selecting password records
  */
-export type PutApiV1PasswordsId200AllOfThreeData = {
+export interface PutApiV1PasswordsId200AllOfThreeData {
   /**
    * Unique identifier for the password record
    * @minimum -2147483648
@@ -3188,12 +3188,12 @@ export type PutApiV1PasswordsId200AllOfThreeData = {
   createdAt: string;
   /** Timestamp when the record was last updated */
   updatedAt: string;
-};
+}
 
-export type PutApiV1PasswordsId200AllOfThree = {
+export interface PutApiV1PasswordsId200AllOfThree {
   /** Schema for selecting password records */
   data: PutApiV1PasswordsId200AllOfThreeData;
-};
+}
 
 /**
  * Schema for add/update/delete password response
@@ -3225,13 +3225,13 @@ export const PutApiV1PasswordsId4xxAnyOfStatus = {
  */
 export type PutApiV1PasswordsId4xxAnyOfIssues = unknown | null;
 
-export type PutApiV1PasswordsId4xxAnyOf = {
+export interface PutApiV1PasswordsId4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PutApiV1PasswordsId4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PutApiV1PasswordsId4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -3246,13 +3246,13 @@ export const PutApiV1PasswordsId4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PutApiV1PasswordsId4xxAnyOfFour = {
+export interface PutApiV1PasswordsId4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PutApiV1PasswordsId4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -3267,11 +3267,11 @@ export const PutApiV1PasswordsId4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PutApiV1PasswordsId4xxAnyOfSix = {
+export interface PutApiV1PasswordsId4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PutApiV1PasswordsId4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -3299,13 +3299,13 @@ export const PutApiV1PasswordsId5xxAnyOfStatus = {
  */
 export type PutApiV1PasswordsId5xxAnyOfIssues = unknown | null;
 
-export type PutApiV1PasswordsId5xxAnyOf = {
+export interface PutApiV1PasswordsId5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PutApiV1PasswordsId5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PutApiV1PasswordsId5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -3320,13 +3320,13 @@ export const PutApiV1PasswordsId5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PutApiV1PasswordsId5xxAnyOfFour = {
+export interface PutApiV1PasswordsId5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PutApiV1PasswordsId5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -3341,11 +3341,11 @@ export const PutApiV1PasswordsId5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PutApiV1PasswordsId5xxAnyOfSix = {
+export interface PutApiV1PasswordsId5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PutApiV1PasswordsId5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -3371,16 +3371,16 @@ export const DeleteApiV1PasswordsId200AllOfStatus = {
 /**
  * Generic response schema with status and message
  */
-export type DeleteApiV1PasswordsId200AllOf = {
+export interface DeleteApiV1PasswordsId200AllOf {
   /** Response status indicating success, failure or error */
   status: DeleteApiV1PasswordsId200AllOfStatus;
   message: string;
-};
+}
 
 /**
  * Password for the account
  */
-export type DeleteApiV1PasswordsId200AllOfThreeDataPassword = {
+export interface DeleteApiV1PasswordsId200AllOfThreeDataPassword {
   /**
    * Initialization vector for encryption
    * @minLength 1
@@ -3391,12 +3391,12 @@ export type DeleteApiV1PasswordsId200AllOfThreeDataPassword = {
    * @minLength 1
    */
   encrypted: string;
-};
+}
 
 /**
  * Schema for selecting password records
  */
-export type DeleteApiV1PasswordsId200AllOfThreeData = {
+export interface DeleteApiV1PasswordsId200AllOfThreeData {
   /**
    * Unique identifier for the password record
    * @minimum -2147483648
@@ -3442,12 +3442,12 @@ export type DeleteApiV1PasswordsId200AllOfThreeData = {
   createdAt: string;
   /** Timestamp when the record was last updated */
   updatedAt: string;
-};
+}
 
-export type DeleteApiV1PasswordsId200AllOfThree = {
+export interface DeleteApiV1PasswordsId200AllOfThree {
   /** Schema for selecting password records */
   data: DeleteApiV1PasswordsId200AllOfThreeData;
-};
+}
 
 /**
  * Schema for add/update/delete password response
@@ -3479,13 +3479,13 @@ export const DeleteApiV1PasswordsId4xxAnyOfStatus = {
  */
 export type DeleteApiV1PasswordsId4xxAnyOfIssues = unknown | null;
 
-export type DeleteApiV1PasswordsId4xxAnyOf = {
+export interface DeleteApiV1PasswordsId4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: DeleteApiV1PasswordsId4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: DeleteApiV1PasswordsId4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -3500,13 +3500,13 @@ export const DeleteApiV1PasswordsId4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type DeleteApiV1PasswordsId4xxAnyOfFour = {
+export interface DeleteApiV1PasswordsId4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: DeleteApiV1PasswordsId4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -3521,11 +3521,11 @@ export const DeleteApiV1PasswordsId4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type DeleteApiV1PasswordsId4xxAnyOfSix = {
+export interface DeleteApiV1PasswordsId4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: DeleteApiV1PasswordsId4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -3553,13 +3553,13 @@ export const DeleteApiV1PasswordsId5xxAnyOfStatus = {
  */
 export type DeleteApiV1PasswordsId5xxAnyOfIssues = unknown | null;
 
-export type DeleteApiV1PasswordsId5xxAnyOf = {
+export interface DeleteApiV1PasswordsId5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: DeleteApiV1PasswordsId5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: DeleteApiV1PasswordsId5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -3574,13 +3574,13 @@ export const DeleteApiV1PasswordsId5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type DeleteApiV1PasswordsId5xxAnyOfFour = {
+export interface DeleteApiV1PasswordsId5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: DeleteApiV1PasswordsId5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -3595,11 +3595,11 @@ export const DeleteApiV1PasswordsId5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type DeleteApiV1PasswordsId5xxAnyOfSix = {
+export interface DeleteApiV1PasswordsId5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: DeleteApiV1PasswordsId5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -3612,7 +3612,7 @@ export type DeleteApiV1PasswordsId5xx =
 /**
  * Schema for encrypted password data
  */
-export type PostApiV1PasswordsImportBodyItemPassword = {
+export interface PostApiV1PasswordsImportBodyItemPassword {
   /**
    * Initialization vector for encryption
    * @minLength 1
@@ -3623,12 +3623,12 @@ export type PostApiV1PasswordsImportBodyItemPassword = {
    * @minLength 1
    */
   encrypted: string;
-};
+}
 
 /**
  * Schema for adding a new password
  */
-export type PostApiV1PasswordsImportBodyItem = {
+export interface PostApiV1PasswordsImportBodyItem {
   /**
    * ID of the vault this password belongs to
    * @minimum 0
@@ -3661,7 +3661,7 @@ export type PostApiV1PasswordsImportBodyItem = {
    * @nullable
    */
   note?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -3679,16 +3679,16 @@ export const PostApiV1PasswordsImport200AllOfStatus = {
 /**
  * Generic response schema with status and message
  */
-export type PostApiV1PasswordsImport200AllOf = {
+export interface PostApiV1PasswordsImport200AllOf {
   /** Response status indicating success, failure or error */
   status: PostApiV1PasswordsImport200AllOfStatus;
   message: string;
-};
+}
 
 /**
  * Password for the account
  */
-export type PostApiV1PasswordsImport200AllOfThreeDataPassword = {
+export interface PostApiV1PasswordsImport200AllOfThreeDataPassword {
   /**
    * Initialization vector for encryption
    * @minLength 1
@@ -3699,12 +3699,12 @@ export type PostApiV1PasswordsImport200AllOfThreeDataPassword = {
    * @minLength 1
    */
   encrypted: string;
-};
+}
 
 /**
  * Schema for selecting password records
  */
-export type PostApiV1PasswordsImport200AllOfThreeData = {
+export interface PostApiV1PasswordsImport200AllOfThreeData {
   /**
    * Unique identifier for the password record
    * @minimum -2147483648
@@ -3750,12 +3750,12 @@ export type PostApiV1PasswordsImport200AllOfThreeData = {
   createdAt: string;
   /** Timestamp when the record was last updated */
   updatedAt: string;
-};
+}
 
-export type PostApiV1PasswordsImport200AllOfThree = {
+export interface PostApiV1PasswordsImport200AllOfThree {
   /** Schema for selecting password records */
   data: PostApiV1PasswordsImport200AllOfThreeData;
-};
+}
 
 /**
  * Schema for import password response
@@ -3787,13 +3787,13 @@ export const PostApiV1PasswordsImport4xxAnyOfStatus = {
  */
 export type PostApiV1PasswordsImport4xxAnyOfIssues = unknown | null;
 
-export type PostApiV1PasswordsImport4xxAnyOf = {
+export interface PostApiV1PasswordsImport4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1PasswordsImport4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1PasswordsImport4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -3808,13 +3808,13 @@ export const PostApiV1PasswordsImport4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1PasswordsImport4xxAnyOfFour = {
+export interface PostApiV1PasswordsImport4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1PasswordsImport4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -3829,11 +3829,11 @@ export const PostApiV1PasswordsImport4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1PasswordsImport4xxAnyOfSix = {
+export interface PostApiV1PasswordsImport4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1PasswordsImport4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -3861,13 +3861,13 @@ export const PostApiV1PasswordsImport5xxAnyOfStatus = {
  */
 export type PostApiV1PasswordsImport5xxAnyOfIssues = unknown | null;
 
-export type PostApiV1PasswordsImport5xxAnyOf = {
+export interface PostApiV1PasswordsImport5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1PasswordsImport5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1PasswordsImport5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -3882,13 +3882,13 @@ export const PostApiV1PasswordsImport5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1PasswordsImport5xxAnyOfFour = {
+export interface PostApiV1PasswordsImport5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1PasswordsImport5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -3903,11 +3903,11 @@ export const PostApiV1PasswordsImport5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1PasswordsImport5xxAnyOfSix = {
+export interface PostApiV1PasswordsImport5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1PasswordsImport5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -3920,7 +3920,7 @@ export type PostApiV1PasswordsImport5xx =
 /**
  * Schema for updating user information
  */
-export type PatchApiV1UsersBody = {
+export interface PatchApiV1UsersBody {
   /**
    * Username for the account
    * @minLength 2
@@ -3934,7 +3934,7 @@ export type PatchApiV1UsersBody = {
    * @nullable
    */
   fileId?: number | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -3952,40 +3952,40 @@ export const PatchApiV1Users200AllOfStatus = {
 /**
  * Generic response schema with status and message
  */
-export type PatchApiV1Users200AllOf = {
+export interface PatchApiV1Users200AllOf {
   /** Response status indicating success, failure or error */
   status: PatchApiV1Users200AllOfStatus;
   message: string;
-};
+}
 
 /**
  * Schema for master key with iv, encrypted key and salt
  */
-export type PatchApiV1Users200AllOfThreeDataMasterKey = {
+export interface PatchApiV1Users200AllOfThreeDataMasterKey {
   /** @minLength 1 */
   iv: string;
   /** @minLength 1 */
   encrypted: string;
   /** @minLength 1 */
   salt: string;
-};
+}
 
 /**
  * Schema for master key with iv, encrypted key and salt
  */
-export type PatchApiV1Users200AllOfThreeDataRecoveryKey = {
+export interface PatchApiV1Users200AllOfThreeDataRecoveryKey {
   /** @minLength 1 */
   iv: string;
   /** @minLength 1 */
   encrypted: string;
   /** @minLength 1 */
   salt: string;
-};
+}
 
 /**
  * User model with selected fields for responses
  */
-export type PatchApiV1Users200AllOfThreeData = {
+export interface PatchApiV1Users200AllOfThreeData {
   /**
    * @minimum -2147483648
    * @maximum 2147483647
@@ -4001,12 +4001,12 @@ export type PatchApiV1Users200AllOfThreeData = {
   recoveryKey: PatchApiV1Users200AllOfThreeDataRecoveryKey;
   createdAt: string;
   updatedAt: string;
-};
+}
 
-export type PatchApiV1Users200AllOfThree = {
+export interface PatchApiV1Users200AllOfThree {
   /** User model with selected fields for responses */
   data: PatchApiV1Users200AllOfThreeData;
-};
+}
 
 /**
  * Schema for user update response
@@ -4038,13 +4038,13 @@ export const PatchApiV1Users4xxAnyOfStatus = {
  */
 export type PatchApiV1Users4xxAnyOfIssues = unknown | null;
 
-export type PatchApiV1Users4xxAnyOf = {
+export interface PatchApiV1Users4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1Users4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PatchApiV1Users4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4059,13 +4059,13 @@ export const PatchApiV1Users4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1Users4xxAnyOfFour = {
+export interface PatchApiV1Users4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1Users4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4080,11 +4080,11 @@ export const PatchApiV1Users4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1Users4xxAnyOfSix = {
+export interface PatchApiV1Users4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1Users4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -4112,13 +4112,13 @@ export const PatchApiV1Users5xxAnyOfStatus = {
  */
 export type PatchApiV1Users5xxAnyOfIssues = unknown | null;
 
-export type PatchApiV1Users5xxAnyOf = {
+export interface PatchApiV1Users5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1Users5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PatchApiV1Users5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4133,13 +4133,13 @@ export const PatchApiV1Users5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1Users5xxAnyOfFour = {
+export interface PatchApiV1Users5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1Users5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4154,11 +4154,11 @@ export const PatchApiV1Users5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PatchApiV1Users5xxAnyOfSix = {
+export interface PatchApiV1Users5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PatchApiV1Users5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -4184,31 +4184,31 @@ export const GetApiV1Users200Status = {
 /**
  * Schema for master key with iv, encrypted key and salt
  */
-export type GetApiV1Users200DataAllOfMasterKey = {
+export interface GetApiV1Users200DataAllOfMasterKey {
   /** @minLength 1 */
   iv: string;
   /** @minLength 1 */
   encrypted: string;
   /** @minLength 1 */
   salt: string;
-};
+}
 
 /**
  * Schema for master key with iv, encrypted key and salt
  */
-export type GetApiV1Users200DataAllOfRecoveryKey = {
+export interface GetApiV1Users200DataAllOfRecoveryKey {
   /** @minLength 1 */
   iv: string;
   /** @minLength 1 */
   encrypted: string;
   /** @minLength 1 */
   salt: string;
-};
+}
 
 /**
  * User model with selected fields for responses
  */
-export type GetApiV1Users200DataAllOf = {
+export interface GetApiV1Users200DataAllOf {
   /**
    * @minimum -2147483648
    * @maximum 2147483647
@@ -4224,12 +4224,12 @@ export type GetApiV1Users200DataAllOf = {
   recoveryKey: GetApiV1Users200DataAllOfRecoveryKey;
   createdAt: string;
   updatedAt: string;
-};
+}
 
 /**
  * Schema for file selection
  */
-export type GetApiV1Users200DataAllOfFourFile = {
+export interface GetApiV1Users200DataAllOfFourFile {
   /**
    * @minimum -2147483648
    * @maximum 2147483647
@@ -4241,12 +4241,12 @@ export type GetApiV1Users200DataAllOfFourFile = {
   fileKey: string;
   createdAt: string;
   updatedAt: string;
-};
+}
 
-export type GetApiV1Users200DataAllOfFour = {
+export interface GetApiV1Users200DataAllOfFour {
   /** Schema for file selection */
   file: GetApiV1Users200DataAllOfFourFile;
-};
+}
 
 /**
  * User model with selected fields for responses
@@ -4270,12 +4270,12 @@ export type GetApiV1Users200Data = GetApiV1Users200DataAllOf &
 /**
  * Schema for getting user data response
  */
-export type GetApiV1Users200 = {
+export interface GetApiV1Users200 {
   /** Response status indicating success, failure or error */
   status: GetApiV1Users200Status;
   /** User model with selected fields for responses */
   data: GetApiV1Users200Data;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4295,13 +4295,13 @@ export const GetApiV1Users4xxAnyOfStatus = {
  */
 export type GetApiV1Users4xxAnyOfIssues = unknown | null;
 
-export type GetApiV1Users4xxAnyOf = {
+export interface GetApiV1Users4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Users4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: GetApiV1Users4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4316,13 +4316,13 @@ export const GetApiV1Users4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type GetApiV1Users4xxAnyOfFour = {
+export interface GetApiV1Users4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Users4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4337,11 +4337,11 @@ export const GetApiV1Users4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type GetApiV1Users4xxAnyOfSix = {
+export interface GetApiV1Users4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Users4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -4369,13 +4369,13 @@ export const GetApiV1Users5xxAnyOfStatus = {
  */
 export type GetApiV1Users5xxAnyOfIssues = unknown | null;
 
-export type GetApiV1Users5xxAnyOf = {
+export interface GetApiV1Users5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Users5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: GetApiV1Users5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4390,13 +4390,13 @@ export const GetApiV1Users5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type GetApiV1Users5xxAnyOfFour = {
+export interface GetApiV1Users5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Users5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4411,11 +4411,11 @@ export const GetApiV1Users5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type GetApiV1Users5xxAnyOfSix = {
+export interface GetApiV1Users5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Users5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -4441,7 +4441,7 @@ export const GetApiV1Vaults200Status = {
 /**
  * Schema for selecting vault data
  */
-export type GetApiV1Vaults200DataItem = {
+export interface GetApiV1Vaults200DataItem {
   /**
    * @minimum -2147483648
    * @maximum 2147483647
@@ -4455,16 +4455,16 @@ export type GetApiV1Vaults200DataItem = {
   userId: number;
   createdAt: string;
   updatedAt: string;
-};
+}
 
 /**
  * Response schema for getting all vaults
  */
-export type GetApiV1Vaults200 = {
+export interface GetApiV1Vaults200 {
   /** Response status indicating success, failure or error */
   status: GetApiV1Vaults200Status;
   data: GetApiV1Vaults200DataItem[];
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4484,13 +4484,13 @@ export const GetApiV1Vaults4xxAnyOfStatus = {
  */
 export type GetApiV1Vaults4xxAnyOfIssues = unknown | null;
 
-export type GetApiV1Vaults4xxAnyOf = {
+export interface GetApiV1Vaults4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Vaults4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: GetApiV1Vaults4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4505,13 +4505,13 @@ export const GetApiV1Vaults4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type GetApiV1Vaults4xxAnyOfFour = {
+export interface GetApiV1Vaults4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Vaults4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4526,11 +4526,11 @@ export const GetApiV1Vaults4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type GetApiV1Vaults4xxAnyOfSix = {
+export interface GetApiV1Vaults4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Vaults4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -4558,13 +4558,13 @@ export const GetApiV1Vaults5xxAnyOfStatus = {
  */
 export type GetApiV1Vaults5xxAnyOfIssues = unknown | null;
 
-export type GetApiV1Vaults5xxAnyOf = {
+export interface GetApiV1Vaults5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Vaults5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: GetApiV1Vaults5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4579,13 +4579,13 @@ export const GetApiV1Vaults5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type GetApiV1Vaults5xxAnyOfFour = {
+export interface GetApiV1Vaults5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Vaults5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4600,11 +4600,11 @@ export const GetApiV1Vaults5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type GetApiV1Vaults5xxAnyOfSix = {
+export interface GetApiV1Vaults5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: GetApiV1Vaults5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -4617,10 +4617,10 @@ export type GetApiV1Vaults5xx =
 /**
  * Request body schema for adding or updating a vault
  */
-export type PostApiV1VaultsBody = {
+export interface PostApiV1VaultsBody {
   /** @minLength 1 */
   name: string;
-};
+}
 
 export type PostApiV1Vaults200Status =
   (typeof PostApiV1Vaults200Status)[keyof typeof PostApiV1Vaults200Status];
@@ -4641,7 +4641,7 @@ export const PostApiV1Vaults200Message = {
 /**
  * Schema for selecting vault data
  */
-export type PostApiV1Vaults200Data = {
+export interface PostApiV1Vaults200Data {
   /**
    * @minimum -2147483648
    * @maximum 2147483647
@@ -4655,17 +4655,17 @@ export type PostApiV1Vaults200Data = {
   userId: number;
   createdAt: string;
   updatedAt: string;
-};
+}
 
 /**
  * Response schema for adding a new vault
  */
-export type PostApiV1Vaults200 = {
+export interface PostApiV1Vaults200 {
   status: PostApiV1Vaults200Status;
   message: PostApiV1Vaults200Message;
   /** Schema for selecting vault data */
   data: PostApiV1Vaults200Data;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4685,13 +4685,13 @@ export const PostApiV1Vaults4xxAnyOfStatus = {
  */
 export type PostApiV1Vaults4xxAnyOfIssues = unknown | null;
 
-export type PostApiV1Vaults4xxAnyOf = {
+export interface PostApiV1Vaults4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1Vaults4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1Vaults4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4706,13 +4706,13 @@ export const PostApiV1Vaults4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1Vaults4xxAnyOfFour = {
+export interface PostApiV1Vaults4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1Vaults4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4727,11 +4727,11 @@ export const PostApiV1Vaults4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1Vaults4xxAnyOfSix = {
+export interface PostApiV1Vaults4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1Vaults4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -4759,13 +4759,13 @@ export const PostApiV1Vaults5xxAnyOfStatus = {
  */
 export type PostApiV1Vaults5xxAnyOfIssues = unknown | null;
 
-export type PostApiV1Vaults5xxAnyOf = {
+export interface PostApiV1Vaults5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PostApiV1Vaults5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PostApiV1Vaults5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4780,13 +4780,13 @@ export const PostApiV1Vaults5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1Vaults5xxAnyOfFour = {
+export interface PostApiV1Vaults5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PostApiV1Vaults5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4801,11 +4801,11 @@ export const PostApiV1Vaults5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PostApiV1Vaults5xxAnyOfSix = {
+export interface PostApiV1Vaults5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PostApiV1Vaults5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -4818,10 +4818,10 @@ export type PostApiV1Vaults5xx =
 /**
  * Request body schema for adding or updating a vault
  */
-export type PutApiV1VaultsIdBody = {
+export interface PutApiV1VaultsIdBody {
   /** @minLength 1 */
   name: string;
-};
+}
 
 export type PutApiV1VaultsId200Status =
   (typeof PutApiV1VaultsId200Status)[keyof typeof PutApiV1VaultsId200Status];
@@ -4842,7 +4842,7 @@ export const PutApiV1VaultsId200Message = {
 /**
  * Schema for selecting vault data
  */
-export type PutApiV1VaultsId200Data = {
+export interface PutApiV1VaultsId200Data {
   /**
    * @minimum -2147483648
    * @maximum 2147483647
@@ -4856,17 +4856,17 @@ export type PutApiV1VaultsId200Data = {
   userId: number;
   createdAt: string;
   updatedAt: string;
-};
+}
 
 /**
  * Response schema for updating an existing vault
  */
-export type PutApiV1VaultsId200 = {
+export interface PutApiV1VaultsId200 {
   status: PutApiV1VaultsId200Status;
   message: PutApiV1VaultsId200Message;
   /** Schema for selecting vault data */
   data: PutApiV1VaultsId200Data;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4886,13 +4886,13 @@ export const PutApiV1VaultsId4xxAnyOfStatus = {
  */
 export type PutApiV1VaultsId4xxAnyOfIssues = unknown | null;
 
-export type PutApiV1VaultsId4xxAnyOf = {
+export interface PutApiV1VaultsId4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PutApiV1VaultsId4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PutApiV1VaultsId4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4907,13 +4907,13 @@ export const PutApiV1VaultsId4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PutApiV1VaultsId4xxAnyOfFour = {
+export interface PutApiV1VaultsId4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PutApiV1VaultsId4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4928,11 +4928,11 @@ export const PutApiV1VaultsId4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PutApiV1VaultsId4xxAnyOfSix = {
+export interface PutApiV1VaultsId4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PutApiV1VaultsId4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -4960,13 +4960,13 @@ export const PutApiV1VaultsId5xxAnyOfStatus = {
  */
 export type PutApiV1VaultsId5xxAnyOfIssues = unknown | null;
 
-export type PutApiV1VaultsId5xxAnyOf = {
+export interface PutApiV1VaultsId5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: PutApiV1VaultsId5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: PutApiV1VaultsId5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -4981,13 +4981,13 @@ export const PutApiV1VaultsId5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type PutApiV1VaultsId5xxAnyOfFour = {
+export interface PutApiV1VaultsId5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: PutApiV1VaultsId5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -5002,11 +5002,11 @@ export const PutApiV1VaultsId5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type PutApiV1VaultsId5xxAnyOfSix = {
+export interface PutApiV1VaultsId5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: PutApiV1VaultsId5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -5035,7 +5035,7 @@ export const DeleteApiV1VaultsId200Message = {
 /**
  * Schema for selecting vault data
  */
-export type DeleteApiV1VaultsId200Data = {
+export interface DeleteApiV1VaultsId200Data {
   /**
    * @minimum -2147483648
    * @maximum 2147483647
@@ -5049,17 +5049,17 @@ export type DeleteApiV1VaultsId200Data = {
   userId: number;
   createdAt: string;
   updatedAt: string;
-};
+}
 
 /**
  * Response schema for deleting a vault
  */
-export type DeleteApiV1VaultsId200 = {
+export interface DeleteApiV1VaultsId200 {
   status: DeleteApiV1VaultsId200Status;
   message: DeleteApiV1VaultsId200Message;
   /** Schema for selecting vault data */
   data: DeleteApiV1VaultsId200Data;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -5079,13 +5079,13 @@ export const DeleteApiV1VaultsId4xxAnyOfStatus = {
  */
 export type DeleteApiV1VaultsId4xxAnyOfIssues = unknown | null;
 
-export type DeleteApiV1VaultsId4xxAnyOf = {
+export interface DeleteApiV1VaultsId4xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: DeleteApiV1VaultsId4xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: DeleteApiV1VaultsId4xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -5100,13 +5100,13 @@ export const DeleteApiV1VaultsId4xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type DeleteApiV1VaultsId4xxAnyOfFour = {
+export interface DeleteApiV1VaultsId4xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: DeleteApiV1VaultsId4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -5121,11 +5121,11 @@ export const DeleteApiV1VaultsId4xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type DeleteApiV1VaultsId4xxAnyOfSix = {
+export interface DeleteApiV1VaultsId4xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: DeleteApiV1VaultsId4xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace
@@ -5153,13 +5153,13 @@ export const DeleteApiV1VaultsId5xxAnyOfStatus = {
  */
 export type DeleteApiV1VaultsId5xxAnyOfIssues = unknown | null;
 
-export type DeleteApiV1VaultsId5xxAnyOf = {
+export interface DeleteApiV1VaultsId5xxAnyOf {
   /** Response status indicating success, failure or error */
   status?: DeleteApiV1VaultsId5xxAnyOfStatus;
   message?: string;
   /** @nullable */
   issues?: DeleteApiV1VaultsId5xxAnyOfIssues;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -5174,13 +5174,13 @@ export const DeleteApiV1VaultsId5xxAnyOfFourStatus = {
   error: "error",
 } as const;
 
-export type DeleteApiV1VaultsId5xxAnyOfFour = {
+export interface DeleteApiV1VaultsId5xxAnyOfFour {
   /** Response status indicating success, failure or error */
   status?: DeleteApiV1VaultsId5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
-};
+}
 
 /**
  * Response status indicating success, failure or error
@@ -5195,11 +5195,11 @@ export const DeleteApiV1VaultsId5xxAnyOfSixStatus = {
   error: "error",
 } as const;
 
-export type DeleteApiV1VaultsId5xxAnyOfSix = {
+export interface DeleteApiV1VaultsId5xxAnyOfSix {
   /** Response status indicating success, failure or error */
   status?: DeleteApiV1VaultsId5xxAnyOfSixStatus;
   message?: string;
-};
+}
 
 /**
  * Error response schema with optional issues or stack trace

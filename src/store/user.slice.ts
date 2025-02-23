@@ -2,15 +2,15 @@ import type { Store } from "@/types/store";
 import type { JwtUserData } from "@/types/user";
 import type { StateCreator } from "zustand";
 
-type UserStates = {
+interface UserStates {
   userData: JwtUserData | null;
   userEmail: string | null;
-};
+}
 
-type UserActions = {
+interface UserActions {
   setUserData: (data: JwtUserData | null) => void;
   setUserEmail: (email: string) => void;
-};
+}
 
 const initialState: UserStates = {
   userData: null,

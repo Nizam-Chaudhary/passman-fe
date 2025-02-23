@@ -1,15 +1,15 @@
 import { useSearchParams } from "react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Label } from "./ui/label";
-import { Separator } from "./ui/separator";
 import LoadingSpinner from "./ui/loadingSpinner";
+import { Separator } from "./ui/separator";
 
-type Props = {
+interface Props {
   id: string;
   site: string;
   username: string;
   faviconUrl?: string;
-};
+}
 
 export function PasswordRow({ id, site, username, faviconUrl }: Props) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -24,8 +24,14 @@ export function PasswordRow({ id, site, username, faviconUrl }: Props) {
       <div className="flex ml-1 items-center justify-center p-2 cursor-pointer">
         <div className="flex items-center justify-center w-8 cursor-pointer">
           <Avatar className="w-10 h-10 rounded-lg">
-            <AvatarImage loading="lazy" src={faviconUrl || "/assets/shadcn.jpg"} alt="Icon" />
-            <AvatarFallback><LoadingSpinner /></AvatarFallback>
+            <AvatarImage
+              loading="lazy"
+              src={faviconUrl || "/assets/shadcn.jpg"}
+              alt="Icon"
+            />
+            <AvatarFallback>
+              <LoadingSpinner />
+            </AvatarFallback>
           </Avatar>
         </div>
         <div className="flex flex-1 ml-4 justify-center flex-col cursor-pointer">

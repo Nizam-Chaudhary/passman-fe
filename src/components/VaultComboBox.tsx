@@ -1,3 +1,4 @@
+import { useGetApiV1Vaults } from "@/api-client/api";
 import { cn } from "@/lib/utils";
 import { useStore } from "@/store/store";
 import { Check, ChevronsUpDown, PlusIcon } from "lucide-react";
@@ -15,7 +16,6 @@ import {
   CommandList,
 } from "./ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { useGetApiV1Vaults } from "@/api-client/api";
 
 export function VaultComboBox() {
   const [open, setOpen] = useState(false);
@@ -83,7 +83,7 @@ export function VaultComboBox() {
                 ))}
                 {response?.data && response?.data?.length < 5 ? (
                   <CommandItem
-                    value={"Add Vault"}
+                    value="Add Vault"
                     onSelect={() => {
                       setOpenAddVaultDialog(true);
                       setOpen(false);
