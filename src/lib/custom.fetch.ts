@@ -16,7 +16,6 @@ function getBody<T>(c: Response | Request): Promise<T> {
 
 function getUrl(contextUrl: string): string {
   const baseUrl = import.meta.env.VITE_BE_BASE_URL ?? "http://localhost:3000";
-  console.log("baseUrl", baseUrl);
   const url = new URL(`${baseUrl}${contextUrl}`);
   console.log("Url", url.toString());
 
@@ -45,15 +44,19 @@ export async function customFetch<T>(
 
   console.log("requestUrl 1", requestUrl);
   const request = new Request(requestUrl, requestInit);
+  console.log("request", request);
+  console.log("requestUrl 2", requestUrl);
   const response = await fetch(request);
+  console.log("requestUrl 3", requestUrl);
   const data = await getBody<T>(response);
+  console.log("requestUrl 4", requestUrl);
 
   if (!response.ok) {
     console.error("Error Response: ", data);
     throw data;
   }
 
-  console.log("requestUrl 2", requestUrl);
+  console.log("requestUrl 5", requestUrl);
   return data as T;
   // return { status: response.status, data, headers: response.headers } as T;
 }
