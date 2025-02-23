@@ -43,6 +43,7 @@ export async function customFetch<T>(
     headers: requestHeaders,
   };
 
+  console.log("requestUrl 1", requestUrl);
   const request = new Request(requestUrl, requestInit);
   const response = await fetch(request);
   const data = await getBody<T>(response);
@@ -52,6 +53,7 @@ export async function customFetch<T>(
     throw data;
   }
 
+  console.log("requestUrl 2", requestUrl);
   return data as T;
   // return { status: response.status, data, headers: response.headers } as T;
 }
