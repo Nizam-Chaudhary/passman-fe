@@ -1,6 +1,7 @@
 import type { Password } from "@/types/password";
 import type { SubmitHandler } from "react-hook-form";
 import {
+  getGetApiV1PasswordsQueryKey,
   useDeleteApiV1PasswordsId,
   useGetApiV1PasswordsId,
   usePutApiV1PasswordsId,
@@ -10,7 +11,7 @@ import { decrypt, encrypt } from "@/lib/encryption.helper";
 import { useStore } from "@/store/store";
 import { passwordSchema, updatePasswordPayloadSchema } from "@/types/password";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ClipboardCopyIcon, TrashIcon } from "lucide-react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -37,12 +38,14 @@ import { Separator } from "./ui/separator";
 import { Textarea } from "./ui/textarea";
 
 export function PasswordView() {
+  const queryClient = useQueryClient();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { setOpenDeletePasswordDialog, masterKey } = useStore(
+  const { setOpenDeletePasswordDialog, masterKey, currentVault } = useStore(
     useShallow((state) => ({
       setOpenDeletePasswordDialog: state.setOpenDeletePasswordDialog,
       masterKey: state.masterKey,
+      currentVault: state.currentVault,
     }))
   );
   const passwordId = searchParams.get("p");
@@ -149,6 +152,11 @@ export function PasswordView() {
           });
         },
         onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: getGetApiV1PasswordsQueryKey({
+              vaultId: currentVault!.id,
+            }),
+          });
           toast({
             title: "Password updated successfully.",
             className: "bg-green-700",
@@ -171,6 +179,15 @@ export function PasswordView() {
         onSuccess: () => {
           searchParams.delete("p");
           setSearchParams(searchParams);
+          console.log(
+            "queryKey",
+            getGetApiV1PasswordsQueryKey({ vaultId: currentVault!.id })
+          );
+          queryClient.invalidateQueries({
+            queryKey: getGetApiV1PasswordsQueryKey({
+              vaultId: currentVault!.id,
+            }),
+          });
           toast({
             title: "Password deleted successfully.",
             className: "bg-green-700",

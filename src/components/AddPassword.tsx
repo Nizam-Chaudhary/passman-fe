@@ -1,6 +1,9 @@
 import type { Password } from "@/types/password";
 import type { SubmitHandler } from "react-hook-form";
-import { usePostApiV1Passwords } from "@/api-client/api";
+import {
+  getGetApiV1PasswordsQueryKey,
+  usePostApiV1Passwords,
+} from "@/api-client/api";
 import { useToast } from "@/hooks/use-toast";
 import { encrypt } from "@/lib/encryption.helper";
 import { useStore } from "@/store/store";
@@ -29,23 +32,24 @@ import { Input } from "./ui/input";
 import LoadingSpinner from "./ui/loadingSpinner";
 import { PasswordInput } from "./ui/password-input";
 import { Textarea } from "./ui/textarea";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function AddPassword() {
-  const { openAddPasswordDialog, setOpenAddPasswordDialog, masterKey } =
-    useStore(
-      useShallow((state) => ({
-        openAddPasswordDialog: state.openAddPasswordDialog,
-        setOpenAddPasswordDialog: state.setOpenAddPasswordDialog,
-        masterKey: state.masterKey,
-      }))
-    );
-  const { toast } = useToast();
-
-  const { currentVault } = useStore(
+  const queryClient = useQueryClient();
+  const {
+    openAddPasswordDialog,
+    setOpenAddPasswordDialog,
+    masterKey,
+    currentVault,
+  } = useStore(
     useShallow((state) => ({
+      openAddPasswordDialog: state.openAddPasswordDialog,
+      setOpenAddPasswordDialog: state.setOpenAddPasswordDialog,
+      masterKey: state.masterKey,
       currentVault: state.currentVault,
     }))
   );
+  const { toast } = useToast();
 
   const addPasswordMutation = usePostApiV1Passwords();
   const form = useForm<Password>({
@@ -84,6 +88,11 @@ export default function AddPassword() {
           });
         },
         onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: getGetApiV1PasswordsQueryKey({
+              vaultId: currentVault!.id,
+            }),
+          });
           toast({
             title: "Password added successfully.",
             className: "bg-green-700",

@@ -1,5 +1,8 @@
 import type { SubmitHandler } from "react-hook-form";
-import { usePostApiV1Vaults } from "@/api-client/api";
+import {
+  getGetApiV1VaultsQueryKey,
+  usePostApiV1Vaults,
+} from "@/api-client/api";
 import { useToast } from "@/hooks/use-toast";
 import { useStore } from "@/store/store";
 import { addVaultSchema } from "@/types/vault";
@@ -25,8 +28,10 @@ import {
 } from "./ui/form";
 import { Input } from "./ui/input";
 import LoadingSpinner from "./ui/loadingSpinner";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function AddVault() {
+  const queryClient = useQueryClient();
   const { open, setOpen } = useStore(
     useShallow((state) => ({
       open: state.openAddVaultDialog,
@@ -56,6 +61,9 @@ export default function AddVault() {
           });
         },
         onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: getGetApiV1VaultsQueryKey(),
+          });
           toast({
             title: "Vault added successfully.",
             className: "bg-green-700",
