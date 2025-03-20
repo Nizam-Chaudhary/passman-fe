@@ -48,6 +48,7 @@ function useAuth() {
     return () => {
       isMounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { isAuthenticated, userData, isLoading };
