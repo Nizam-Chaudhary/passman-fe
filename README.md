@@ -3,7 +3,7 @@
 ## Features TODO:
 
 ### Passman Web:
-- [ ]  Implement auto refresh token after token is expired
+- [x]  Implement auto refresh token after token is expired
 - [ ] Implement multi select for passwords
 	- [ ] Delete multiple passwords at once
 	- [ ] Move multiple passwords at once to another vault
