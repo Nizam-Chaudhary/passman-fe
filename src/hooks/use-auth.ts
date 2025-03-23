@@ -17,7 +17,6 @@ function useAuth() {
     );
 
   const refreshTokenMutationRef = useRef(useRefreshToken());
-  // biome-ignore lint/correctness/useExhaustiveDependencies: to be run when component is mounted
   useEffect(() => {
     let isMounted = true;
 
