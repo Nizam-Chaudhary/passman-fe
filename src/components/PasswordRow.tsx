@@ -1,7 +1,6 @@
 import { useSearchParams } from "react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Label } from "./ui/label";
-import LoadingSpinner from "./ui/loadingSpinner";
 import { Separator } from "./ui/separator";
 import { getInitials } from "@/lib/utils";
 
