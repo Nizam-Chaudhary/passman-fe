@@ -7,10 +7,10 @@
 - [ ] Implement multi select for passwords
 	- [ ] Delete multiple passwords at once
 	- [ ] Move multiple passwords at once to another vault
-- [ ] Update image loading to load user's Initial from user name if no profile picture uploaded
-- [ ] Show password initial character as thumbnail if no favicon found
+- [x] Update image loading to load user's Initial from user name if no profile picture uploaded
+- [x] Show password initial character as thumbnail if no favicon found
 - [ ] Show text on hover of upload image to update the profile picture
-- [ ] Show Username initials as text when no profile picture upload
+- [x] Show Username initials as text when no profile picture upload
 - [ ] Add back button on settings
 - [ ] Update Import Page to allow user to import passwords from different providers
 	- [ ] allow user to select provider
