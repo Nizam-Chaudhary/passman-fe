@@ -3,10 +3,12 @@ import Import from "@/components/settings/Import";
 import Profile from "@/components/settings/Profile";
 import Security from "@/components/settings/Security";
 import Vault from "@/components/settings/Vault";
+import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import {
+  ArrowLeftIcon,
   FileDownIcon,
   FileUpIcon,
   FolderIcon,
@@ -15,6 +17,7 @@ import {
 } from "lucide-react";
 // passman-fe/src/pages/Settings.tsx
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 const settingsNavItems = [
   {
@@ -50,10 +53,21 @@ const settingsNavItems = [
 ];
 
 function Settings() {
+  const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState(settingsNavItems[0]);
 
   return (
-    <div className="container mx-auto py-6 pl-2 mt-10">
+    <div className="container mx-auto py-6 pl-2 mt-1">
+      <div className="mb-6 ms-1">
+        <Button
+          variant="link"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <ArrowLeftIcon />
+        </Button>
+      </div>
       <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-8 lg:space-y-0">
         {/* Sidebar Navigation */}
         <aside className="lg:w-1/5">
