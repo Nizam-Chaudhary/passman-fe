@@ -11,7 +11,7 @@
 - [x] Show password initial character as thumbnail if no favicon found
 - [ ] Show text on hover of upload image to update the profile picture
 - [x] Show Username initials as text when no profile picture upload
-- [ ] Add back button on settings
+- [x] Add back button on settings
 - [ ] Update Import Page to allow user to import passwords from different providers
 	- [ ] allow user to select provider
 	- [ ] select file then parse it and then store the passwords after encrypting them
@@ -30,7 +30,7 @@
 	- [ ] allow user to not ask master password every time and save it locally (unsafe &
 	- [ ] not urgent)
  - [ ] `UI Responsive for mobile and other screen sizes
-
+ - update settings to use the sidebar same as home page with the settings options and back button.
 ### Passman Extension:
 - [ ] user login
 - [ ] redirect to website for signup and registration process
