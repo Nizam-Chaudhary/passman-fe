@@ -33,3 +33,11 @@ export function replaceRouteParams(
 
   return updatedUrl;
 }
+
+export function getInitials(value: string) {
+  console.log("value", value);
+  const words = value.split(" ");
+  const initials =
+    words[0].charAt(0).toUpperCase() + (words[1] ?? "").charAt(0).toUpperCase();
+  return initials;
+}

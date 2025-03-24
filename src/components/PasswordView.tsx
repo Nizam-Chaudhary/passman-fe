@@ -36,6 +36,7 @@ import { PasswordInput } from "./ui/password-input";
 import { ScrollArea } from "./ui/scroll-area";
 import { Separator } from "./ui/separator";
 import { Textarea } from "./ui/textarea";
+import { getInitials } from "@/lib/utils";
 
 export function PasswordView() {
   const queryClient = useQueryClient();
@@ -221,9 +222,12 @@ export function PasswordView() {
             <div>
               <div className="flex justify-between items-center">
                 <Avatar className="size-12 rounded-lg">
-                  <AvatarImage loading="lazy" src="/assets/shadcn.jpg" />
+                  <AvatarImage
+                    loading="lazy"
+                    src={response.data.faviconUrl ?? ""}
+                  />
                   <AvatarFallback>
-                    <LoadingSpinner />
+                    {getInitials(response.data.site)}
                   </AvatarFallback>
                 </Avatar>
 

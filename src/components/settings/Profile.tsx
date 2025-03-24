@@ -24,6 +24,7 @@ import {
 import { Input } from "../ui/input";
 import Loading from "../ui/loading";
 import LoadingSpinner from "../ui/loadingSpinner";
+import { getInitials } from "@/lib/utils";
 
 function Profile() {
   const queryClient = useQueryClient();
@@ -113,7 +114,7 @@ function Profile() {
           <Avatar className="size-40 rounded-full hover:opacity-80 transition-opacity">
             <AvatarImage loading="lazy" src={userDetails?.file?.url} />
             <AvatarFallback>
-              <LoadingSpinner />
+              {userDetails?.userName ? getInitials(userDetails.userName) : ""}
             </AvatarFallback>
           </Avatar>
           <FileUpload onSuccess={onFileUploadSuccess} />

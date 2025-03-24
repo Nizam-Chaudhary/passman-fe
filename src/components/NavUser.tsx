@@ -26,7 +26,7 @@ import { ChevronsUpDown, LogOut, Settings2Icon } from "lucide-react";
 import { useNavigate } from "react-router";
 import { useShallow } from "zustand/react/shallow";
 import NavUserSkeleton from "./skeletons/NavUserSkeleton";
-import LoadingSpinner from "./ui/loadingSpinner";
+import { getInitials } from "@/lib/utils";
 
 export function NavUser() {
   const { data: response, isPending, isError } = useGetApiV1Users();
@@ -97,7 +97,7 @@ export function NavUser() {
                   alt={user?.userName?.charAt(0).toUpperCase()}
                 />
                 <AvatarFallback>
-                  <LoadingSpinner />
+                  {user?.userName ? getInitials(user.userName) : ""}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
@@ -118,7 +118,7 @@ export function NavUser() {
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage loading="lazy" src={user?.file?.url} />
                   <AvatarFallback>
-                    <LoadingSpinner />
+                    {user?.userName ? getInitials(user.userName) : ""}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
