@@ -23,6 +23,10 @@ import type {
   DeleteApiV1PasswordsId200,
   DeleteApiV1PasswordsId4xx,
   DeleteApiV1PasswordsId5xx,
+  DeleteApiV1PasswordsMany200,
+  DeleteApiV1PasswordsMany4xx,
+  DeleteApiV1PasswordsMany5xx,
+  DeleteApiV1PasswordsManyBody,
   DeleteApiV1VaultsId200,
   DeleteApiV1VaultsId4xx,
   DeleteApiV1VaultsId5xx,
@@ -96,6 +100,10 @@ import type {
   PostApiV1PasswordsImport4xx,
   PostApiV1PasswordsImport5xx,
   PostApiV1PasswordsImportBodyItem,
+  PostApiV1PasswordsMoveVaults200,
+  PostApiV1PasswordsMoveVaults4xx,
+  PostApiV1PasswordsMoveVaults5xx,
+  PostApiV1PasswordsMoveVaultsBody,
   PostApiV1Vaults200,
   PostApiV1Vaults4xx,
   PostApiV1Vaults5xx,
@@ -1549,6 +1557,101 @@ export function useGetApiV1Passwords<
 }
 
 /**
+ * import passwords
+ * @summary Import multiple passwords
+ */
+export const getPostApiV1PasswordsImportUrl = () => {
+  return `/api/v1/passwords/import`;
+};
+
+export const postApiV1PasswordsImport = async (
+  postApiV1PasswordsImportBodyItem: PostApiV1PasswordsImportBodyItem[],
+  options?: RequestInit
+): Promise<PostApiV1PasswordsImport200> => {
+  return customFetch<PostApiV1PasswordsImport200>(
+    getPostApiV1PasswordsImportUrl(),
+    {
+      ...options,
+      method: "POST",
+      headers: { "Content-Type": "application/json", ...options?.headers },
+      body: JSON.stringify(postApiV1PasswordsImportBodyItem),
+    }
+  );
+};
+
+export const getPostApiV1PasswordsImportMutationOptions = <
+  TError = PostApiV1PasswordsImport4xx | PostApiV1PasswordsImport5xx,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
+    TError,
+    { data: PostApiV1PasswordsImportBodyItem[] },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
+  TError,
+  { data: PostApiV1PasswordsImportBodyItem[] },
+  TContext
+> => {
+  const mutationKey = ["postApiV1PasswordsImport"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
+    { data: PostApiV1PasswordsImportBodyItem[] }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return postApiV1PasswordsImport(data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type PostApiV1PasswordsImportMutationResult = NonNullable<
+  Awaited<ReturnType<typeof postApiV1PasswordsImport>>
+>;
+export type PostApiV1PasswordsImportMutationBody =
+  PostApiV1PasswordsImportBodyItem[];
+export type PostApiV1PasswordsImportMutationError =
+  | PostApiV1PasswordsImport4xx
+  | PostApiV1PasswordsImport5xx;
+
+/**
+ * @summary Import multiple passwords
+ */
+export const usePostApiV1PasswordsImport = <
+  TError = PostApiV1PasswordsImport4xx | PostApiV1PasswordsImport5xx,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
+    TError,
+    { data: PostApiV1PasswordsImportBodyItem[] },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
+  TError,
+  { data: PostApiV1PasswordsImportBodyItem[] },
+  TContext
+> => {
+  const mutationOptions = getPostApiV1PasswordsImportMutationOptions(options);
+
+  return useMutation(mutationOptions);
+};
+
+/**
  * fetch password
  * @summary Get password by ID
  */
@@ -1901,46 +2004,46 @@ export const useDeleteApiV1PasswordsId = <
 };
 
 /**
- * import passwords
- * @summary Import multiple passwords
+ * delete passwords
+ * @summary Delete multiple passwords
  */
-export const getPostApiV1PasswordsImportUrl = () => {
-  return `/api/v1/passwords/import`;
+export const getDeleteApiV1PasswordsManyUrl = () => {
+  return `/api/v1/passwords/many`;
 };
 
-export const postApiV1PasswordsImport = async (
-  postApiV1PasswordsImportBodyItem: PostApiV1PasswordsImportBodyItem[],
+export const deleteApiV1PasswordsMany = async (
+  deleteApiV1PasswordsManyBody: DeleteApiV1PasswordsManyBody,
   options?: RequestInit
-): Promise<PostApiV1PasswordsImport200> => {
-  return customFetch<PostApiV1PasswordsImport200>(
-    getPostApiV1PasswordsImportUrl(),
+): Promise<DeleteApiV1PasswordsMany200> => {
+  return customFetch<DeleteApiV1PasswordsMany200>(
+    getDeleteApiV1PasswordsManyUrl(),
     {
       ...options,
-      method: "POST",
+      method: "DELETE",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(postApiV1PasswordsImportBodyItem),
+      body: JSON.stringify(deleteApiV1PasswordsManyBody),
     }
   );
 };
 
-export const getPostApiV1PasswordsImportMutationOptions = <
-  TError = PostApiV1PasswordsImport4xx | PostApiV1PasswordsImport5xx,
+export const getDeleteApiV1PasswordsManyMutationOptions = <
+  TError = DeleteApiV1PasswordsMany4xx | DeleteApiV1PasswordsMany5xx,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
+    Awaited<ReturnType<typeof deleteApiV1PasswordsMany>>,
     TError,
-    { data: PostApiV1PasswordsImportBodyItem[] },
+    { data: DeleteApiV1PasswordsManyBody },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
+  Awaited<ReturnType<typeof deleteApiV1PasswordsMany>>,
   TError,
-  { data: PostApiV1PasswordsImportBodyItem[] },
+  { data: DeleteApiV1PasswordsManyBody },
   TContext
 > => {
-  const mutationKey = ["postApiV1PasswordsImport"];
+  const mutationKey = ["deleteApiV1PasswordsMany"];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       "mutationKey" in options.mutation &&
@@ -1950,47 +2053,142 @@ export const getPostApiV1PasswordsImportMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
-    { data: PostApiV1PasswordsImportBodyItem[] }
+    Awaited<ReturnType<typeof deleteApiV1PasswordsMany>>,
+    { data: DeleteApiV1PasswordsManyBody }
   > = (props) => {
     const { data } = props ?? {};
 
-    return postApiV1PasswordsImport(data, requestOptions);
+    return deleteApiV1PasswordsMany(data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type PostApiV1PasswordsImportMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postApiV1PasswordsImport>>
+export type DeleteApiV1PasswordsManyMutationResult = NonNullable<
+  Awaited<ReturnType<typeof deleteApiV1PasswordsMany>>
 >;
-export type PostApiV1PasswordsImportMutationBody =
-  PostApiV1PasswordsImportBodyItem[];
-export type PostApiV1PasswordsImportMutationError =
-  | PostApiV1PasswordsImport4xx
-  | PostApiV1PasswordsImport5xx;
+export type DeleteApiV1PasswordsManyMutationBody = DeleteApiV1PasswordsManyBody;
+export type DeleteApiV1PasswordsManyMutationError =
+  | DeleteApiV1PasswordsMany4xx
+  | DeleteApiV1PasswordsMany5xx;
 
 /**
- * @summary Import multiple passwords
+ * @summary Delete multiple passwords
  */
-export const usePostApiV1PasswordsImport = <
-  TError = PostApiV1PasswordsImport4xx | PostApiV1PasswordsImport5xx,
+export const useDeleteApiV1PasswordsMany = <
+  TError = DeleteApiV1PasswordsMany4xx | DeleteApiV1PasswordsMany5xx,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
+    Awaited<ReturnType<typeof deleteApiV1PasswordsMany>>,
     TError,
-    { data: PostApiV1PasswordsImportBodyItem[] },
+    { data: DeleteApiV1PasswordsManyBody },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
-  Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
+  Awaited<ReturnType<typeof deleteApiV1PasswordsMany>>,
   TError,
-  { data: PostApiV1PasswordsImportBodyItem[] },
+  { data: DeleteApiV1PasswordsManyBody },
   TContext
 > => {
-  const mutationOptions = getPostApiV1PasswordsImportMutationOptions(options);
+  const mutationOptions = getDeleteApiV1PasswordsManyMutationOptions(options);
+
+  return useMutation(mutationOptions);
+};
+
+/**
+ * move passwords to vault
+ * @summary Move multiple passwords to a different vault
+ */
+export const getPostApiV1PasswordsMoveVaultsUrl = () => {
+  return `/api/v1/passwords/move-vaults`;
+};
+
+export const postApiV1PasswordsMoveVaults = async (
+  postApiV1PasswordsMoveVaultsBody: PostApiV1PasswordsMoveVaultsBody,
+  options?: RequestInit
+): Promise<PostApiV1PasswordsMoveVaults200> => {
+  return customFetch<PostApiV1PasswordsMoveVaults200>(
+    getPostApiV1PasswordsMoveVaultsUrl(),
+    {
+      ...options,
+      method: "POST",
+      headers: { "Content-Type": "application/json", ...options?.headers },
+      body: JSON.stringify(postApiV1PasswordsMoveVaultsBody),
+    }
+  );
+};
+
+export const getPostApiV1PasswordsMoveVaultsMutationOptions = <
+  TError = PostApiV1PasswordsMoveVaults4xx | PostApiV1PasswordsMoveVaults5xx,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postApiV1PasswordsMoveVaults>>,
+    TError,
+    { data: PostApiV1PasswordsMoveVaultsBody },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof postApiV1PasswordsMoveVaults>>,
+  TError,
+  { data: PostApiV1PasswordsMoveVaultsBody },
+  TContext
+> => {
+  const mutationKey = ["postApiV1PasswordsMoveVaults"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof postApiV1PasswordsMoveVaults>>,
+    { data: PostApiV1PasswordsMoveVaultsBody }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return postApiV1PasswordsMoveVaults(data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type PostApiV1PasswordsMoveVaultsMutationResult = NonNullable<
+  Awaited<ReturnType<typeof postApiV1PasswordsMoveVaults>>
+>;
+export type PostApiV1PasswordsMoveVaultsMutationBody =
+  PostApiV1PasswordsMoveVaultsBody;
+export type PostApiV1PasswordsMoveVaultsMutationError =
+  | PostApiV1PasswordsMoveVaults4xx
+  | PostApiV1PasswordsMoveVaults5xx;
+
+/**
+ * @summary Move multiple passwords to a different vault
+ */
+export const usePostApiV1PasswordsMoveVaults = <
+  TError = PostApiV1PasswordsMoveVaults4xx | PostApiV1PasswordsMoveVaults5xx,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postApiV1PasswordsMoveVaults>>,
+    TError,
+    { data: PostApiV1PasswordsMoveVaultsBody },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof postApiV1PasswordsMoveVaults>>,
+  TError,
+  { data: PostApiV1PasswordsMoveVaultsBody },
+  TContext
+> => {
+  const mutationOptions =
+    getPostApiV1PasswordsMoveVaultsMutationOptions(options);
 
   return useMutation(mutationOptions);
 };

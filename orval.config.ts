@@ -3,7 +3,7 @@ import { defineConfig } from "orval";
 export default defineConfig({
   passman: {
     input: {
-      target: "http://localhost:3000/openapi.json",
+      target: "src/api-client/api.openapi.json",
     },
     output: {
       mode: "split",

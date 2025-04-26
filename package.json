@@ -11,7 +11,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
     "preview": "vite preview",
-    "gen-api-client": "rm -rf src/api-client/; orval"
+    "gen-api-client": "orval"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

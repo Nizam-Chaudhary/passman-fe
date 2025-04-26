@@ -2290,6 +2290,13 @@ export type PostApiV1PasswordsBody = {
    */
   vaultId: number;
   /**
+   * Name of the application or website
+   * @minLength 1
+   * @maxLength 255
+   * @nullable
+   */
+  name?: string | null;
+  /**
    * Username for the account
    * @minLength 1
    * @maxLength 255
@@ -2298,11 +2305,11 @@ export type PostApiV1PasswordsBody = {
   /** Schema for encrypted password data */
   password: PostApiV1PasswordsBodyPassword;
   /**
-   * Name of the application or website
+   * Unique url of the application or website
    * @minLength 1
    * @maxLength 255
    */
-  site: string;
+  url: string;
   /**
    * URL of the service favicon
    * @maxLength 255
@@ -2379,8 +2386,14 @@ export type PostApiV1Passwords200AllOfThreeData = {
   /**
    * Name of the application or website
    * @maxLength 255
+   * @nullable
    */
-  site: string;
+  name: string | null;
+  /**
+   * URL of the application or website
+   * @maxLength 255
+   */
+  url: string;
   /**
    * Username for the account
    * @maxLength 255
@@ -2635,8 +2648,14 @@ export type GetApiV1Passwords200DataItem = {
   /**
    * Name of the application or website
    * @maxLength 255
+   * @nullable
    */
-  site: string;
+  name: string | null;
+  /**
+   * URL of the application or website
+   * @maxLength 255
+   */
+  url: string;
   /**
    * Username for the account
    * @maxLength 255
@@ -2820,6 +2839,327 @@ export type GetApiV1Passwords5xx =
   | GetApiV1Passwords5xxAnyOfSix;
 
 /**
+ * Schema for encrypted password data
+ */
+export type PostApiV1PasswordsImportBodyItemPassword = {
+  /**
+   * Initialization vector for encryption
+   * @minLength 1
+   */
+  iv: string;
+  /**
+   * Encrypted password string
+   * @minLength 1
+   */
+  encrypted: string;
+};
+
+/**
+ * Schema for adding a new password
+ */
+export type PostApiV1PasswordsImportBodyItem = {
+  /**
+   * ID of the vault this password belongs to
+   * @minimum 0
+   * @maximum 2147483647
+   */
+  vaultId: number;
+  /**
+   * Name of the application or website
+   * @minLength 1
+   * @maxLength 255
+   * @nullable
+   */
+  name?: string | null;
+  /**
+   * Username for the account
+   * @minLength 1
+   * @maxLength 255
+   */
+  username: string;
+  /** Schema for encrypted password data */
+  password: PostApiV1PasswordsImportBodyItemPassword;
+  /**
+   * Unique url of the application or website
+   * @minLength 1
+   * @maxLength 255
+   */
+  url: string;
+  /**
+   * URL of the service favicon
+   * @maxLength 255
+   * @nullable
+   */
+  faviconUrl?: string | null;
+  /**
+   * Additional notes about the account
+   * @maxLength 500
+   * @nullable
+   */
+  note?: string | null;
+};
+
+/**
+ * Response status indicating success, failure or error
+ */
+export type PostApiV1PasswordsImport200AllOfStatus =
+  (typeof PostApiV1PasswordsImport200AllOfStatus)[keyof typeof PostApiV1PasswordsImport200AllOfStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PostApiV1PasswordsImport200AllOfStatus = {
+  success: "success",
+  fail: "fail",
+  error: "error",
+} as const;
+
+/**
+ * Generic response schema with status and message
+ */
+export type PostApiV1PasswordsImport200AllOf = {
+  /** Response status indicating success, failure or error */
+  status: PostApiV1PasswordsImport200AllOfStatus;
+  message: string;
+};
+
+/**
+ * Password for the account
+ */
+export type PostApiV1PasswordsImport200AllOfThreeDataPassword = {
+  /**
+   * Initialization vector for encryption
+   * @minLength 1
+   */
+  iv: string;
+  /**
+   * Encrypted password string
+   * @minLength 1
+   */
+  encrypted: string;
+};
+
+/**
+ * Schema for selecting password records
+ */
+export type PostApiV1PasswordsImport200AllOfThreeData = {
+  /**
+   * Unique identifier for the password record
+   * @minimum -2147483648
+   * @maximum 2147483647
+   */
+  id: number;
+  /**
+   * User id
+   * @minimum -2147483648
+   * @maximum 2147483647
+   */
+  userId: number;
+  /**
+   * @minimum -2147483648
+   * @maximum 2147483647
+   */
+  vaultId: number;
+  /**
+   * Name of the application or website
+   * @maxLength 255
+   * @nullable
+   */
+  name: string | null;
+  /**
+   * URL of the application or website
+   * @maxLength 255
+   */
+  url: string;
+  /**
+   * Username for the account
+   * @maxLength 255
+   */
+  username: string;
+  /** Password for the account */
+  password: PostApiV1PasswordsImport200AllOfThreeDataPassword;
+  /**
+   * URL of the service favicon
+   * @maxLength 255
+   * @nullable
+   */
+  faviconUrl: string | null;
+  /**
+   * Additional notes about the account
+   * @maxLength 500
+   * @nullable
+   */
+  note: string | null;
+  /** Timestamp when the record was created */
+  createdAt: string;
+  /** Timestamp when the record was last updated */
+  updatedAt: string;
+};
+
+export type PostApiV1PasswordsImport200AllOfThree = {
+  /** Schema for selecting password records */
+  data: PostApiV1PasswordsImport200AllOfThreeData;
+};
+
+/**
+ * Schema for import password response
+ */
+export type PostApiV1PasswordsImport200 = PostApiV1PasswordsImport200AllOf &
+  PostApiV1PasswordsImport200AllOfThree &
+  Required<
+    Pick<
+      PostApiV1PasswordsImport200AllOf & PostApiV1PasswordsImport200AllOfThree,
+      "status" | "message" | "data"
+    >
+  >;
+
+/**
+ * Response status indicating success, failure or error
+ */
+export type PostApiV1PasswordsImport4xxAnyOfStatus =
+  (typeof PostApiV1PasswordsImport4xxAnyOfStatus)[keyof typeof PostApiV1PasswordsImport4xxAnyOfStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PostApiV1PasswordsImport4xxAnyOfStatus = {
+  success: "success",
+  fail: "fail",
+  error: "error",
+} as const;
+
+/**
+ * @nullable
+ */
+export type PostApiV1PasswordsImport4xxAnyOfIssues = unknown | null;
+
+export type PostApiV1PasswordsImport4xxAnyOf = {
+  /** Response status indicating success, failure or error */
+  status?: PostApiV1PasswordsImport4xxAnyOfStatus;
+  message?: string;
+  /** @nullable */
+  issues?: PostApiV1PasswordsImport4xxAnyOfIssues;
+};
+
+/**
+ * Response status indicating success, failure or error
+ */
+export type PostApiV1PasswordsImport4xxAnyOfFourStatus =
+  (typeof PostApiV1PasswordsImport4xxAnyOfFourStatus)[keyof typeof PostApiV1PasswordsImport4xxAnyOfFourStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PostApiV1PasswordsImport4xxAnyOfFourStatus = {
+  success: "success",
+  fail: "fail",
+  error: "error",
+} as const;
+
+export type PostApiV1PasswordsImport4xxAnyOfFour = {
+  /** Response status indicating success, failure or error */
+  status?: PostApiV1PasswordsImport4xxAnyOfFourStatus;
+  message?: string;
+  /** @nullable */
+  stack?: string | null;
+};
+
+/**
+ * Response status indicating success, failure or error
+ */
+export type PostApiV1PasswordsImport4xxAnyOfSixStatus =
+  (typeof PostApiV1PasswordsImport4xxAnyOfSixStatus)[keyof typeof PostApiV1PasswordsImport4xxAnyOfSixStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PostApiV1PasswordsImport4xxAnyOfSixStatus = {
+  success: "success",
+  fail: "fail",
+  error: "error",
+} as const;
+
+export type PostApiV1PasswordsImport4xxAnyOfSix = {
+  /** Response status indicating success, failure or error */
+  status?: PostApiV1PasswordsImport4xxAnyOfSixStatus;
+  message?: string;
+};
+
+/**
+ * Error response schema with optional issues or stack trace
+ */
+export type PostApiV1PasswordsImport4xx =
+  | PostApiV1PasswordsImport4xxAnyOf
+  | PostApiV1PasswordsImport4xxAnyOfFour
+  | PostApiV1PasswordsImport4xxAnyOfSix;
+
+/**
+ * Response status indicating success, failure or error
+ */
+export type PostApiV1PasswordsImport5xxAnyOfStatus =
+  (typeof PostApiV1PasswordsImport5xxAnyOfStatus)[keyof typeof PostApiV1PasswordsImport5xxAnyOfStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PostApiV1PasswordsImport5xxAnyOfStatus = {
+  success: "success",
+  fail: "fail",
+  error: "error",
+} as const;
+
+/**
+ * @nullable
+ */
+export type PostApiV1PasswordsImport5xxAnyOfIssues = unknown | null;
+
+export type PostApiV1PasswordsImport5xxAnyOf = {
+  /** Response status indicating success, failure or error */
+  status?: PostApiV1PasswordsImport5xxAnyOfStatus;
+  message?: string;
+  /** @nullable */
+  issues?: PostApiV1PasswordsImport5xxAnyOfIssues;
+};
+
+/**
+ * Response status indicating success, failure or error
+ */
+export type PostApiV1PasswordsImport5xxAnyOfFourStatus =
+  (typeof PostApiV1PasswordsImport5xxAnyOfFourStatus)[keyof typeof PostApiV1PasswordsImport5xxAnyOfFourStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PostApiV1PasswordsImport5xxAnyOfFourStatus = {
+  success: "success",
+  fail: "fail",
+  error: "error",
+} as const;
+
+export type PostApiV1PasswordsImport5xxAnyOfFour = {
+  /** Response status indicating success, failure or error */
+  status?: PostApiV1PasswordsImport5xxAnyOfFourStatus;
+  message?: string;
+  /** @nullable */
+  stack?: string | null;
+};
+
+/**
+ * Response status indicating success, failure or error
+ */
+export type PostApiV1PasswordsImport5xxAnyOfSixStatus =
+  (typeof PostApiV1PasswordsImport5xxAnyOfSixStatus)[keyof typeof PostApiV1PasswordsImport5xxAnyOfSixStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PostApiV1PasswordsImport5xxAnyOfSixStatus = {
+  success: "success",
+  fail: "fail",
+  error: "error",
+} as const;
+
+export type PostApiV1PasswordsImport5xxAnyOfSix = {
+  /** Response status indicating success, failure or error */
+  status?: PostApiV1PasswordsImport5xxAnyOfSixStatus;
+  message?: string;
+};
+
+/**
+ * Error response schema with optional issues or stack trace
+ */
+export type PostApiV1PasswordsImport5xx =
+  | PostApiV1PasswordsImport5xxAnyOf
+  | PostApiV1PasswordsImport5xxAnyOfFour
+  | PostApiV1PasswordsImport5xxAnyOfSix;
+
+/**
  * Response status indicating success, failure or error
  */
 export type GetApiV1PasswordsId200Status =
@@ -2872,8 +3212,14 @@ export type GetApiV1PasswordsId200Data = {
   /**
    * Name of the application or website
    * @maxLength 255
+   * @nullable
    */
-  site: string;
+  name: string | null;
+  /**
+   * URL of the application or website
+   * @maxLength 255
+   */
+  url: string;
   /**
    * Username for the account
    * @maxLength 255
@@ -3078,6 +3424,13 @@ export type PutApiV1PasswordsIdBodyPassword = {
  */
 export type PutApiV1PasswordsIdBody = {
   /**
+   * Name for the account
+   * @minLength 1
+   * @maxLength 255
+   * @nullable
+   */
+  name?: string | null;
+  /**
    * Username for the account
    * @minLength 1
    * @maxLength 255
@@ -3086,11 +3439,11 @@ export type PutApiV1PasswordsIdBody = {
   /** Password for the account */
   password: PutApiV1PasswordsIdBodyPassword;
   /**
-   * Name of the application or website
+   * URL of the application or website
    * @minLength 1
    * @maxLength 255
    */
-  site: string;
+  url: string;
   /**
    * URL of the service favicon
    * @maxLength 255
@@ -3167,8 +3520,14 @@ export type PutApiV1PasswordsId200AllOfThreeData = {
   /**
    * Name of the application or website
    * @maxLength 255
+   * @nullable
    */
-  site: string;
+  name: string | null;
+  /**
+   * URL of the application or website
+   * @maxLength 255
+   */
+  url: string;
   /**
    * Username for the account
    * @maxLength 255
@@ -3421,8 +3780,14 @@ export type DeleteApiV1PasswordsId200AllOfThreeData = {
   /**
    * Name of the application or website
    * @maxLength 255
+   * @nullable
    */
-  site: string;
+  name: string | null;
+  /**
+   * URL of the application or website
+   * @maxLength 255
+   */
+  url: string;
   /**
    * Username for the account
    * @maxLength 255
@@ -3613,68 +3978,19 @@ export type DeleteApiV1PasswordsId5xx =
   | DeleteApiV1PasswordsId5xxAnyOfFour
   | DeleteApiV1PasswordsId5xxAnyOfSix;
 
-/**
- * Schema for encrypted password data
- */
-export type PostApiV1PasswordsImportBodyItemPassword = {
-  /**
-   * Initialization vector for encryption
-   * @minLength 1
-   */
-  iv: string;
-  /**
-   * Encrypted password string
-   * @minLength 1
-   */
-  encrypted: string;
-};
-
-/**
- * Schema for adding a new password
- */
-export type PostApiV1PasswordsImportBodyItem = {
-  /**
-   * ID of the vault this password belongs to
-   * @minimum 0
-   * @maximum 2147483647
-   */
-  vaultId: number;
-  /**
-   * Username for the account
-   * @minLength 1
-   * @maxLength 255
-   */
-  username: string;
-  /** Schema for encrypted password data */
-  password: PostApiV1PasswordsImportBodyItemPassword;
-  /**
-   * Name of the application or website
-   * @minLength 1
-   * @maxLength 255
-   */
-  site: string;
-  /**
-   * URL of the service favicon
-   * @maxLength 255
-   * @nullable
-   */
-  faviconUrl?: string | null;
-  /**
-   * Additional notes about the account
-   * @maxLength 500
-   * @nullable
-   */
-  note?: string | null;
+export type DeleteApiV1PasswordsManyBody = {
+  /** @minItems 1 */
+  ids: number[];
 };
 
 /**
  * Response status indicating success, failure or error
  */
-export type PostApiV1PasswordsImport200AllOfStatus =
-  (typeof PostApiV1PasswordsImport200AllOfStatus)[keyof typeof PostApiV1PasswordsImport200AllOfStatus];
+export type DeleteApiV1PasswordsMany200Status =
+  (typeof DeleteApiV1PasswordsMany200Status)[keyof typeof DeleteApiV1PasswordsMany200Status];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PostApiV1PasswordsImport200AllOfStatus = {
+export const DeleteApiV1PasswordsMany200Status = {
   success: "success",
   fail: "fail",
   error: "error",
@@ -3683,104 +3999,197 @@ export const PostApiV1PasswordsImport200AllOfStatus = {
 /**
  * Generic response schema with status and message
  */
-export type PostApiV1PasswordsImport200AllOf = {
+export type DeleteApiV1PasswordsMany200 = {
   /** Response status indicating success, failure or error */
-  status: PostApiV1PasswordsImport200AllOfStatus;
+  status: DeleteApiV1PasswordsMany200Status;
   message: string;
 };
 
 /**
- * Password for the account
+ * Response status indicating success, failure or error
  */
-export type PostApiV1PasswordsImport200AllOfThreeDataPassword = {
-  /**
-   * Initialization vector for encryption
-   * @minLength 1
-   */
-  iv: string;
-  /**
-   * Encrypted password string
-   * @minLength 1
-   */
-  encrypted: string;
+export type DeleteApiV1PasswordsMany4xxAnyOfStatus =
+  (typeof DeleteApiV1PasswordsMany4xxAnyOfStatus)[keyof typeof DeleteApiV1PasswordsMany4xxAnyOfStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const DeleteApiV1PasswordsMany4xxAnyOfStatus = {
+  success: "success",
+  fail: "fail",
+  error: "error",
+} as const;
+
+/**
+ * @nullable
+ */
+export type DeleteApiV1PasswordsMany4xxAnyOfIssues = unknown | null;
+
+export type DeleteApiV1PasswordsMany4xxAnyOf = {
+  /** Response status indicating success, failure or error */
+  status?: DeleteApiV1PasswordsMany4xxAnyOfStatus;
+  message?: string;
+  /** @nullable */
+  issues?: DeleteApiV1PasswordsMany4xxAnyOfIssues;
 };
 
 /**
- * Schema for selecting password records
+ * Response status indicating success, failure or error
  */
-export type PostApiV1PasswordsImport200AllOfThreeData = {
-  /**
-   * Unique identifier for the password record
-   * @minimum -2147483648
-   * @maximum 2147483647
-   */
-  id: number;
-  /**
-   * User id
-   * @minimum -2147483648
-   * @maximum 2147483647
-   */
-  userId: number;
-  /**
-   * @minimum -2147483648
-   * @maximum 2147483647
-   */
+export type DeleteApiV1PasswordsMany4xxAnyOfFourStatus =
+  (typeof DeleteApiV1PasswordsMany4xxAnyOfFourStatus)[keyof typeof DeleteApiV1PasswordsMany4xxAnyOfFourStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const DeleteApiV1PasswordsMany4xxAnyOfFourStatus = {
+  success: "success",
+  fail: "fail",
+  error: "error",
+} as const;
+
+export type DeleteApiV1PasswordsMany4xxAnyOfFour = {
+  /** Response status indicating success, failure or error */
+  status?: DeleteApiV1PasswordsMany4xxAnyOfFourStatus;
+  message?: string;
+  /** @nullable */
+  stack?: string | null;
+};
+
+/**
+ * Response status indicating success, failure or error
+ */
+export type DeleteApiV1PasswordsMany4xxAnyOfSixStatus =
+  (typeof DeleteApiV1PasswordsMany4xxAnyOfSixStatus)[keyof typeof DeleteApiV1PasswordsMany4xxAnyOfSixStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const DeleteApiV1PasswordsMany4xxAnyOfSixStatus = {
+  success: "success",
+  fail: "fail",
+  error: "error",
+} as const;
+
+export type DeleteApiV1PasswordsMany4xxAnyOfSix = {
+  /** Response status indicating success, failure or error */
+  status?: DeleteApiV1PasswordsMany4xxAnyOfSixStatus;
+  message?: string;
+};
+
+/**
+ * Error response schema with optional issues or stack trace
+ */
+export type DeleteApiV1PasswordsMany4xx =
+  | DeleteApiV1PasswordsMany4xxAnyOf
+  | DeleteApiV1PasswordsMany4xxAnyOfFour
+  | DeleteApiV1PasswordsMany4xxAnyOfSix;
+
+/**
+ * Response status indicating success, failure or error
+ */
+export type DeleteApiV1PasswordsMany5xxAnyOfStatus =
+  (typeof DeleteApiV1PasswordsMany5xxAnyOfStatus)[keyof typeof DeleteApiV1PasswordsMany5xxAnyOfStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const DeleteApiV1PasswordsMany5xxAnyOfStatus = {
+  success: "success",
+  fail: "fail",
+  error: "error",
+} as const;
+
+/**
+ * @nullable
+ */
+export type DeleteApiV1PasswordsMany5xxAnyOfIssues = unknown | null;
+
+export type DeleteApiV1PasswordsMany5xxAnyOf = {
+  /** Response status indicating success, failure or error */
+  status?: DeleteApiV1PasswordsMany5xxAnyOfStatus;
+  message?: string;
+  /** @nullable */
+  issues?: DeleteApiV1PasswordsMany5xxAnyOfIssues;
+};
+
+/**
+ * Response status indicating success, failure or error
+ */
+export type DeleteApiV1PasswordsMany5xxAnyOfFourStatus =
+  (typeof DeleteApiV1PasswordsMany5xxAnyOfFourStatus)[keyof typeof DeleteApiV1PasswordsMany5xxAnyOfFourStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const DeleteApiV1PasswordsMany5xxAnyOfFourStatus = {
+  success: "success",
+  fail: "fail",
+  error: "error",
+} as const;
+
+export type DeleteApiV1PasswordsMany5xxAnyOfFour = {
+  /** Response status indicating success, failure or error */
+  status?: DeleteApiV1PasswordsMany5xxAnyOfFourStatus;
+  message?: string;
+  /** @nullable */
+  stack?: string | null;
+};
+
+/**
+ * Response status indicating success, failure or error
+ */
+export type DeleteApiV1PasswordsMany5xxAnyOfSixStatus =
+  (typeof DeleteApiV1PasswordsMany5xxAnyOfSixStatus)[keyof typeof DeleteApiV1PasswordsMany5xxAnyOfSixStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const DeleteApiV1PasswordsMany5xxAnyOfSixStatus = {
+  success: "success",
+  fail: "fail",
+  error: "error",
+} as const;
+
+export type DeleteApiV1PasswordsMany5xxAnyOfSix = {
+  /** Response status indicating success, failure or error */
+  status?: DeleteApiV1PasswordsMany5xxAnyOfSixStatus;
+  message?: string;
+};
+
+/**
+ * Error response schema with optional issues or stack trace
+ */
+export type DeleteApiV1PasswordsMany5xx =
+  | DeleteApiV1PasswordsMany5xxAnyOf
+  | DeleteApiV1PasswordsMany5xxAnyOfFour
+  | DeleteApiV1PasswordsMany5xxAnyOfSix;
+
+export type PostApiV1PasswordsMoveVaultsBody = {
+  /** @minimum 1 */
   vaultId: number;
-  /**
-   * Name of the application or website
-   * @maxLength 255
-   */
-  site: string;
-  /**
-   * Username for the account
-   * @maxLength 255
-   */
-  username: string;
-  /** Password for the account */
-  password: PostApiV1PasswordsImport200AllOfThreeDataPassword;
-  /**
-   * URL of the service favicon
-   * @maxLength 255
-   * @nullable
-   */
-  faviconUrl: string | null;
-  /**
-   * Additional notes about the account
-   * @maxLength 500
-   * @nullable
-   */
-  note: string | null;
-  /** Timestamp when the record was created */
-  createdAt: string;
-  /** Timestamp when the record was last updated */
-  updatedAt: string;
+  /** @minItems 1 */
+  ids: number[];
 };
-
-export type PostApiV1PasswordsImport200AllOfThree = {
-  /** Schema for selecting password records */
-  data: PostApiV1PasswordsImport200AllOfThreeData;
-};
-
-/**
- * Schema for import password response
- */
-export type PostApiV1PasswordsImport200 = PostApiV1PasswordsImport200AllOf &
-  PostApiV1PasswordsImport200AllOfThree &
-  Required<
-    Pick<
-      PostApiV1PasswordsImport200AllOf & PostApiV1PasswordsImport200AllOfThree,
-      "status" | "message" | "data"
-    >
-  >;
 
 /**
  * Response status indicating success, failure or error
  */
-export type PostApiV1PasswordsImport4xxAnyOfStatus =
-  (typeof PostApiV1PasswordsImport4xxAnyOfStatus)[keyof typeof PostApiV1PasswordsImport4xxAnyOfStatus];
+export type PostApiV1PasswordsMoveVaults200Status =
+  (typeof PostApiV1PasswordsMoveVaults200Status)[keyof typeof PostApiV1PasswordsMoveVaults200Status];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PostApiV1PasswordsImport4xxAnyOfStatus = {
+export const PostApiV1PasswordsMoveVaults200Status = {
+  success: "success",
+  fail: "fail",
+  error: "error",
+} as const;
+
+/**
+ * Generic response schema with status and message
+ */
+export type PostApiV1PasswordsMoveVaults200 = {
+  /** Response status indicating success, failure or error */
+  status: PostApiV1PasswordsMoveVaults200Status;
+  message: string;
+};
+
+/**
+ * Response status indicating success, failure or error
+ */
+export type PostApiV1PasswordsMoveVaults4xxAnyOfStatus =
+  (typeof PostApiV1PasswordsMoveVaults4xxAnyOfStatus)[keyof typeof PostApiV1PasswordsMoveVaults4xxAnyOfStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PostApiV1PasswordsMoveVaults4xxAnyOfStatus = {
   success: "success",
   fail: "fail",
   error: "error",
@@ -3789,32 +4198,32 @@ export const PostApiV1PasswordsImport4xxAnyOfStatus = {
 /**
  * @nullable
  */
-export type PostApiV1PasswordsImport4xxAnyOfIssues = unknown | null;
+export type PostApiV1PasswordsMoveVaults4xxAnyOfIssues = unknown | null;
 
-export type PostApiV1PasswordsImport4xxAnyOf = {
+export type PostApiV1PasswordsMoveVaults4xxAnyOf = {
   /** Response status indicating success, failure or error */
-  status?: PostApiV1PasswordsImport4xxAnyOfStatus;
+  status?: PostApiV1PasswordsMoveVaults4xxAnyOfStatus;
   message?: string;
   /** @nullable */
-  issues?: PostApiV1PasswordsImport4xxAnyOfIssues;
+  issues?: PostApiV1PasswordsMoveVaults4xxAnyOfIssues;
 };
 
 /**
  * Response status indicating success, failure or error
  */
-export type PostApiV1PasswordsImport4xxAnyOfFourStatus =
-  (typeof PostApiV1PasswordsImport4xxAnyOfFourStatus)[keyof typeof PostApiV1PasswordsImport4xxAnyOfFourStatus];
+export type PostApiV1PasswordsMoveVaults4xxAnyOfFourStatus =
+  (typeof PostApiV1PasswordsMoveVaults4xxAnyOfFourStatus)[keyof typeof PostApiV1PasswordsMoveVaults4xxAnyOfFourStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PostApiV1PasswordsImport4xxAnyOfFourStatus = {
+export const PostApiV1PasswordsMoveVaults4xxAnyOfFourStatus = {
   success: "success",
   fail: "fail",
   error: "error",
 } as const;
 
-export type PostApiV1PasswordsImport4xxAnyOfFour = {
+export type PostApiV1PasswordsMoveVaults4xxAnyOfFour = {
   /** Response status indicating success, failure or error */
-  status?: PostApiV1PasswordsImport4xxAnyOfFourStatus;
+  status?: PostApiV1PasswordsMoveVaults4xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
@@ -3823,38 +4232,38 @@ export type PostApiV1PasswordsImport4xxAnyOfFour = {
 /**
  * Response status indicating success, failure or error
  */
-export type PostApiV1PasswordsImport4xxAnyOfSixStatus =
-  (typeof PostApiV1PasswordsImport4xxAnyOfSixStatus)[keyof typeof PostApiV1PasswordsImport4xxAnyOfSixStatus];
+export type PostApiV1PasswordsMoveVaults4xxAnyOfSixStatus =
+  (typeof PostApiV1PasswordsMoveVaults4xxAnyOfSixStatus)[keyof typeof PostApiV1PasswordsMoveVaults4xxAnyOfSixStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PostApiV1PasswordsImport4xxAnyOfSixStatus = {
+export const PostApiV1PasswordsMoveVaults4xxAnyOfSixStatus = {
   success: "success",
   fail: "fail",
   error: "error",
 } as const;
 
-export type PostApiV1PasswordsImport4xxAnyOfSix = {
+export type PostApiV1PasswordsMoveVaults4xxAnyOfSix = {
   /** Response status indicating success, failure or error */
-  status?: PostApiV1PasswordsImport4xxAnyOfSixStatus;
+  status?: PostApiV1PasswordsMoveVaults4xxAnyOfSixStatus;
   message?: string;
 };
 
 /**
  * Error response schema with optional issues or stack trace
  */
-export type PostApiV1PasswordsImport4xx =
-  | PostApiV1PasswordsImport4xxAnyOf
-  | PostApiV1PasswordsImport4xxAnyOfFour
-  | PostApiV1PasswordsImport4xxAnyOfSix;
+export type PostApiV1PasswordsMoveVaults4xx =
+  | PostApiV1PasswordsMoveVaults4xxAnyOf
+  | PostApiV1PasswordsMoveVaults4xxAnyOfFour
+  | PostApiV1PasswordsMoveVaults4xxAnyOfSix;
 
 /**
  * Response status indicating success, failure or error
  */
-export type PostApiV1PasswordsImport5xxAnyOfStatus =
-  (typeof PostApiV1PasswordsImport5xxAnyOfStatus)[keyof typeof PostApiV1PasswordsImport5xxAnyOfStatus];
+export type PostApiV1PasswordsMoveVaults5xxAnyOfStatus =
+  (typeof PostApiV1PasswordsMoveVaults5xxAnyOfStatus)[keyof typeof PostApiV1PasswordsMoveVaults5xxAnyOfStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PostApiV1PasswordsImport5xxAnyOfStatus = {
+export const PostApiV1PasswordsMoveVaults5xxAnyOfStatus = {
   success: "success",
   fail: "fail",
   error: "error",
@@ -3863,32 +4272,32 @@ export const PostApiV1PasswordsImport5xxAnyOfStatus = {
 /**
  * @nullable
  */
-export type PostApiV1PasswordsImport5xxAnyOfIssues = unknown | null;
+export type PostApiV1PasswordsMoveVaults5xxAnyOfIssues = unknown | null;
 
-export type PostApiV1PasswordsImport5xxAnyOf = {
+export type PostApiV1PasswordsMoveVaults5xxAnyOf = {
   /** Response status indicating success, failure or error */
-  status?: PostApiV1PasswordsImport5xxAnyOfStatus;
+  status?: PostApiV1PasswordsMoveVaults5xxAnyOfStatus;
   message?: string;
   /** @nullable */
-  issues?: PostApiV1PasswordsImport5xxAnyOfIssues;
+  issues?: PostApiV1PasswordsMoveVaults5xxAnyOfIssues;
 };
 
 /**
  * Response status indicating success, failure or error
  */
-export type PostApiV1PasswordsImport5xxAnyOfFourStatus =
-  (typeof PostApiV1PasswordsImport5xxAnyOfFourStatus)[keyof typeof PostApiV1PasswordsImport5xxAnyOfFourStatus];
+export type PostApiV1PasswordsMoveVaults5xxAnyOfFourStatus =
+  (typeof PostApiV1PasswordsMoveVaults5xxAnyOfFourStatus)[keyof typeof PostApiV1PasswordsMoveVaults5xxAnyOfFourStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PostApiV1PasswordsImport5xxAnyOfFourStatus = {
+export const PostApiV1PasswordsMoveVaults5xxAnyOfFourStatus = {
   success: "success",
   fail: "fail",
   error: "error",
 } as const;
 
-export type PostApiV1PasswordsImport5xxAnyOfFour = {
+export type PostApiV1PasswordsMoveVaults5xxAnyOfFour = {
   /** Response status indicating success, failure or error */
-  status?: PostApiV1PasswordsImport5xxAnyOfFourStatus;
+  status?: PostApiV1PasswordsMoveVaults5xxAnyOfFourStatus;
   message?: string;
   /** @nullable */
   stack?: string | null;
@@ -3897,29 +4306,29 @@ export type PostApiV1PasswordsImport5xxAnyOfFour = {
 /**
  * Response status indicating success, failure or error
  */
-export type PostApiV1PasswordsImport5xxAnyOfSixStatus =
-  (typeof PostApiV1PasswordsImport5xxAnyOfSixStatus)[keyof typeof PostApiV1PasswordsImport5xxAnyOfSixStatus];
+export type PostApiV1PasswordsMoveVaults5xxAnyOfSixStatus =
+  (typeof PostApiV1PasswordsMoveVaults5xxAnyOfSixStatus)[keyof typeof PostApiV1PasswordsMoveVaults5xxAnyOfSixStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PostApiV1PasswordsImport5xxAnyOfSixStatus = {
+export const PostApiV1PasswordsMoveVaults5xxAnyOfSixStatus = {
   success: "success",
   fail: "fail",
   error: "error",
 } as const;
 
-export type PostApiV1PasswordsImport5xxAnyOfSix = {
+export type PostApiV1PasswordsMoveVaults5xxAnyOfSix = {
   /** Response status indicating success, failure or error */
-  status?: PostApiV1PasswordsImport5xxAnyOfSixStatus;
+  status?: PostApiV1PasswordsMoveVaults5xxAnyOfSixStatus;
   message?: string;
 };
 
 /**
  * Error response schema with optional issues or stack trace
  */
-export type PostApiV1PasswordsImport5xx =
-  | PostApiV1PasswordsImport5xxAnyOf
-  | PostApiV1PasswordsImport5xxAnyOfFour
-  | PostApiV1PasswordsImport5xxAnyOfSix;
+export type PostApiV1PasswordsMoveVaults5xx =
+  | PostApiV1PasswordsMoveVaults5xxAnyOf
+  | PostApiV1PasswordsMoveVaults5xxAnyOfFour
+  | PostApiV1PasswordsMoveVaults5xxAnyOfSix;
 
 /**
  * Schema for updating user information
