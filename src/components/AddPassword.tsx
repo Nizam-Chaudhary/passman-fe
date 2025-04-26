@@ -57,7 +57,7 @@ export default function AddPassword() {
     defaultValues: {
       username: "",
       password: "",
-      site: "",
+      url: "",
       note: "",
     },
   });
@@ -121,19 +121,19 @@ export default function AddPassword() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-2"
           >
-            {/* Site Field */}
+            {/* Url Field */}
             <FormField
               control={form.control}
-              name="site"
+              name="url"
               render={({ field }) => (
                 <FormItem className="mt-2">
-                  <FormLabel>Site</FormLabel>
+                  <FormLabel>URL</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      id="site"
+                      id="url"
                       type="text"
-                      placeholder="Enter Site"
+                      placeholder="Enter URL"
                       className="mt-2"
                     />
                   </FormControl>

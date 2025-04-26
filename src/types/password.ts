@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const passwordSchema = z.object({
-  site: z.string().min(1, "Site is required"),
+  url: z.string().min(1, "Url is required"),
   username: z.string().min(1, "Username is required"),
   password: z.string().min(1, "Password is required"),
   note: z
@@ -34,7 +34,7 @@ export type UpdatePasswordPayload = z.infer<typeof updatePasswordPayloadSchema>;
 
 export interface GetPassword {
   id: number;
-  site: string;
+  url: string;
   username: string;
   password: {
     iv: string;

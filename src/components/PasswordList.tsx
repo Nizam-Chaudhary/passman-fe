@@ -61,7 +61,7 @@ export function PasswordList() {
                 <PasswordRow
                   key={index}
                   id={password.id.toString()}
-                  site={password.site}
+                  url={password.url}
                   username={password.username}
                 />
               ))

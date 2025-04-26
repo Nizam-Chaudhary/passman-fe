@@ -71,7 +71,7 @@ export function PasswordView() {
   const editPasswordForm = useForm<Password>({
     resolver: zodResolver(passwordSchema),
     defaultValues: {
-      site: "",
+      url: "",
       username: "",
       password: "",
       note: "",
@@ -80,7 +80,7 @@ export function PasswordView() {
 
   useEffect(() => {
     editPasswordForm.reset({
-      site: response?.data.site || "",
+      url: response?.data.url || "",
       username: response?.data.username || "",
       password: password || "",
       note: response?.data.note || "",
@@ -226,7 +226,7 @@ export function PasswordView() {
                     src={response.data.faviconUrl ?? ""}
                   />
                   <AvatarFallback>
-                    {getInitials(response.data.site)}
+                    {getInitials(response.data.url)}
                   </AvatarFallback>
                 </Avatar>
 
@@ -250,16 +250,16 @@ export function PasswordView() {
               >
                 <FormField
                   control={editPasswordForm.control}
-                  name="site"
+                  name="url"
                   render={({ field }) => (
                     <FormItem className="mt-2">
-                      <FormLabel>Site</FormLabel>
+                      <FormLabel>Url</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          id="site"
+                          id="url"
                           type="text"
-                          placeholder="Enter Site"
+                          placeholder="Enter URL"
                           className="mt-2"
                         />
                       </FormControl>
