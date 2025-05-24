@@ -9,15 +9,15 @@ import { createUserSlice } from "./user.slice";
 import { createVaultSlice } from "./vault.slice";
 
 export const useStore = create<Store>()(
-  devtools(
-    subscribeWithSelector(
-      immer((...a) => ({
-        ...createVaultSlice(...a),
-        ...createSidebarSlice(...a),
-        ...createPasswordSlice(...a),
-        ...createAuthSlice(...a),
-        ...createUserSlice(...a),
-      }))
+    devtools(
+        subscribeWithSelector(
+            immer((...a) => ({
+                ...createVaultSlice(...a),
+                ...createSidebarSlice(...a),
+                ...createPasswordSlice(...a),
+                ...createAuthSlice(...a),
+                ...createUserSlice(...a),
+            }))
+        )
     )
-  )
 );

@@ -7,115 +7,115 @@
  */
 import { useMutation, useQuery } from "@tanstack/react-query";
 import type {
-  DataTag,
-  DefinedInitialDataOptions,
-  DefinedUseQueryResult,
-  MutationFunction,
-  QueryFunction,
-  QueryKey,
-  UndefinedInitialDataOptions,
-  UseMutationOptions,
-  UseMutationResult,
-  UseQueryOptions,
-  UseQueryResult,
+    DataTag,
+    DefinedInitialDataOptions,
+    DefinedUseQueryResult,
+    MutationFunction,
+    QueryFunction,
+    QueryKey,
+    UndefinedInitialDataOptions,
+    UseMutationOptions,
+    UseMutationResult,
+    UseQueryOptions,
+    UseQueryResult,
 } from "@tanstack/react-query";
 import type {
-  DeleteApiV1PasswordsId200,
-  DeleteApiV1PasswordsId4xx,
-  DeleteApiV1PasswordsId5xx,
-  DeleteApiV1PasswordsMany200,
-  DeleteApiV1PasswordsMany4xx,
-  DeleteApiV1PasswordsMany5xx,
-  DeleteApiV1PasswordsManyBody,
-  DeleteApiV1VaultsId200,
-  DeleteApiV1VaultsId4xx,
-  DeleteApiV1VaultsId5xx,
-  GetApiV1Passwords200,
-  GetApiV1Passwords4xx,
-  GetApiV1Passwords5xx,
-  GetApiV1PasswordsId200,
-  GetApiV1PasswordsId4xx,
-  GetApiV1PasswordsId5xx,
-  GetApiV1PasswordsParams,
-  GetApiV1Users200,
-  GetApiV1Users4xx,
-  GetApiV1Users5xx,
-  GetApiV1Vaults200,
-  GetApiV1Vaults4xx,
-  GetApiV1Vaults5xx,
-  GetHealth200,
-  PatchApiV1AuthCreateMasterKey200,
-  PatchApiV1AuthCreateMasterKey4xx,
-  PatchApiV1AuthCreateMasterKey5xx,
-  PatchApiV1AuthCreateMasterKeyBody,
-  PatchApiV1AuthMasterPassword200,
-  PatchApiV1AuthMasterPassword4xx,
-  PatchApiV1AuthMasterPassword5xx,
-  PatchApiV1AuthMasterPasswordBody,
-  PatchApiV1AuthResetPassword200,
-  PatchApiV1AuthResetPassword4xx,
-  PatchApiV1AuthResetPassword5xx,
-  PatchApiV1AuthResetPasswordBody,
-  PatchApiV1AuthVerify200,
-  PatchApiV1AuthVerify4xx,
-  PatchApiV1AuthVerify5xx,
-  PatchApiV1AuthVerifyBody,
-  PatchApiV1Users200,
-  PatchApiV1Users4xx,
-  PatchApiV1Users5xx,
-  PatchApiV1UsersBody,
-  PostApiV1AuthRefreshToken200,
-  PostApiV1AuthRefreshToken4xx,
-  PostApiV1AuthRefreshToken5xx,
-  PostApiV1AuthRefreshTokenBody,
-  PostApiV1AuthResendOtp200,
-  PostApiV1AuthResendOtp4xx,
-  PostApiV1AuthResendOtp5xx,
-  PostApiV1AuthResendOtpBody,
-  PostApiV1AuthResetPasswordMail200,
-  PostApiV1AuthResetPasswordMail4xx,
-  PostApiV1AuthResetPasswordMail5xx,
-  PostApiV1AuthResetPasswordMailBody,
-  PostApiV1AuthSignIn200,
-  PostApiV1AuthSignIn4xx,
-  PostApiV1AuthSignIn5xx,
-  PostApiV1AuthSignInBody,
-  PostApiV1AuthSignUp200,
-  PostApiV1AuthSignUp4xx,
-  PostApiV1AuthSignUp5xx,
-  PostApiV1AuthSignUpBody,
-  PostApiV1AuthVerifyMasterPassword200,
-  PostApiV1AuthVerifyMasterPassword4xx,
-  PostApiV1AuthVerifyMasterPassword5xx,
-  PostApiV1AuthVerifyMasterPasswordBody,
-  PostApiV1FilesUpload200,
-  PostApiV1FilesUpload4xx,
-  PostApiV1FilesUpload5xx,
-  PostApiV1FilesUploadBody,
-  PostApiV1Passwords200,
-  PostApiV1Passwords4xx,
-  PostApiV1Passwords5xx,
-  PostApiV1PasswordsBody,
-  PostApiV1PasswordsImport200,
-  PostApiV1PasswordsImport4xx,
-  PostApiV1PasswordsImport5xx,
-  PostApiV1PasswordsImportBodyItem,
-  PostApiV1PasswordsMoveVaults200,
-  PostApiV1PasswordsMoveVaults4xx,
-  PostApiV1PasswordsMoveVaults5xx,
-  PostApiV1PasswordsMoveVaultsBody,
-  PostApiV1Vaults200,
-  PostApiV1Vaults4xx,
-  PostApiV1Vaults5xx,
-  PostApiV1VaultsBody,
-  PutApiV1PasswordsId200,
-  PutApiV1PasswordsId4xx,
-  PutApiV1PasswordsId5xx,
-  PutApiV1PasswordsIdBody,
-  PutApiV1VaultsId200,
-  PutApiV1VaultsId4xx,
-  PutApiV1VaultsId5xx,
-  PutApiV1VaultsIdBody,
+    DeleteApiV1PasswordsId200,
+    DeleteApiV1PasswordsId4xx,
+    DeleteApiV1PasswordsId5xx,
+    DeleteApiV1PasswordsMany200,
+    DeleteApiV1PasswordsMany4xx,
+    DeleteApiV1PasswordsMany5xx,
+    DeleteApiV1PasswordsManyBody,
+    DeleteApiV1VaultsId200,
+    DeleteApiV1VaultsId4xx,
+    DeleteApiV1VaultsId5xx,
+    GetApiV1Passwords200,
+    GetApiV1Passwords4xx,
+    GetApiV1Passwords5xx,
+    GetApiV1PasswordsId200,
+    GetApiV1PasswordsId4xx,
+    GetApiV1PasswordsId5xx,
+    GetApiV1PasswordsParams,
+    GetApiV1Users200,
+    GetApiV1Users4xx,
+    GetApiV1Users5xx,
+    GetApiV1Vaults200,
+    GetApiV1Vaults4xx,
+    GetApiV1Vaults5xx,
+    GetHealth200,
+    PatchApiV1AuthCreateMasterKey200,
+    PatchApiV1AuthCreateMasterKey4xx,
+    PatchApiV1AuthCreateMasterKey5xx,
+    PatchApiV1AuthCreateMasterKeyBody,
+    PatchApiV1AuthMasterPassword200,
+    PatchApiV1AuthMasterPassword4xx,
+    PatchApiV1AuthMasterPassword5xx,
+    PatchApiV1AuthMasterPasswordBody,
+    PatchApiV1AuthResetPassword200,
+    PatchApiV1AuthResetPassword4xx,
+    PatchApiV1AuthResetPassword5xx,
+    PatchApiV1AuthResetPasswordBody,
+    PatchApiV1AuthVerify200,
+    PatchApiV1AuthVerify4xx,
+    PatchApiV1AuthVerify5xx,
+    PatchApiV1AuthVerifyBody,
+    PatchApiV1Users200,
+    PatchApiV1Users4xx,
+    PatchApiV1Users5xx,
+    PatchApiV1UsersBody,
+    PostApiV1AuthRefreshToken200,
+    PostApiV1AuthRefreshToken4xx,
+    PostApiV1AuthRefreshToken5xx,
+    PostApiV1AuthRefreshTokenBody,
+    PostApiV1AuthResendOtp200,
+    PostApiV1AuthResendOtp4xx,
+    PostApiV1AuthResendOtp5xx,
+    PostApiV1AuthResendOtpBody,
+    PostApiV1AuthResetPasswordMail200,
+    PostApiV1AuthResetPasswordMail4xx,
+    PostApiV1AuthResetPasswordMail5xx,
+    PostApiV1AuthResetPasswordMailBody,
+    PostApiV1AuthSignIn200,
+    PostApiV1AuthSignIn4xx,
+    PostApiV1AuthSignIn5xx,
+    PostApiV1AuthSignInBody,
+    PostApiV1AuthSignUp200,
+    PostApiV1AuthSignUp4xx,
+    PostApiV1AuthSignUp5xx,
+    PostApiV1AuthSignUpBody,
+    PostApiV1AuthVerifyMasterPassword200,
+    PostApiV1AuthVerifyMasterPassword4xx,
+    PostApiV1AuthVerifyMasterPassword5xx,
+    PostApiV1AuthVerifyMasterPasswordBody,
+    PostApiV1FilesUpload200,
+    PostApiV1FilesUpload4xx,
+    PostApiV1FilesUpload5xx,
+    PostApiV1FilesUploadBody,
+    PostApiV1Passwords200,
+    PostApiV1Passwords4xx,
+    PostApiV1Passwords5xx,
+    PostApiV1PasswordsBody,
+    PostApiV1PasswordsImport200,
+    PostApiV1PasswordsImport4xx,
+    PostApiV1PasswordsImport5xx,
+    PostApiV1PasswordsImportBodyItem,
+    PostApiV1PasswordsMoveVaults200,
+    PostApiV1PasswordsMoveVaults4xx,
+    PostApiV1PasswordsMoveVaults5xx,
+    PostApiV1PasswordsMoveVaultsBody,
+    PostApiV1Vaults200,
+    PostApiV1Vaults4xx,
+    PostApiV1Vaults5xx,
+    PostApiV1VaultsBody,
+    PutApiV1PasswordsId200,
+    PutApiV1PasswordsId4xx,
+    PutApiV1PasswordsId5xx,
+    PutApiV1PasswordsIdBody,
+    PutApiV1VaultsId200,
+    PutApiV1VaultsId4xx,
+    PutApiV1VaultsId5xx,
+    PutApiV1VaultsIdBody,
 } from "./api.schemas";
 import { customFetch } from "../lib/custom.fetch";
 
@@ -126,90 +126,90 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
  * @summary Sign up user
  */
 export const getPostApiV1AuthSignUpUrl = () => {
-  return `/api/v1/auth/sign-up`;
+    return `/api/v1/auth/sign-up`;
 };
 
 export const postApiV1AuthSignUp = async (
-  postApiV1AuthSignUpBody: PostApiV1AuthSignUpBody,
-  options?: RequestInit
+    postApiV1AuthSignUpBody: PostApiV1AuthSignUpBody,
+    options?: RequestInit
 ): Promise<PostApiV1AuthSignUp200> => {
-  return customFetch<PostApiV1AuthSignUp200>(getPostApiV1AuthSignUpUrl(), {
-    ...options,
-    method: "POST",
-    headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(postApiV1AuthSignUpBody),
-  });
+    return customFetch<PostApiV1AuthSignUp200>(getPostApiV1AuthSignUpUrl(), {
+        ...options,
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...options?.headers },
+        body: JSON.stringify(postApiV1AuthSignUpBody),
+    });
 };
 
 export const getPostApiV1AuthSignUpMutationOptions = <
-  TError = PostApiV1AuthSignUp4xx | PostApiV1AuthSignUp5xx,
-  TContext = unknown,
+    TError = PostApiV1AuthSignUp4xx | PostApiV1AuthSignUp5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1AuthSignUp>>,
+        TError,
+        { data: PostApiV1AuthSignUpBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof postApiV1AuthSignUp>>,
     TError,
     { data: PostApiV1AuthSignUpBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postApiV1AuthSignUp>>,
-  TError,
-  { data: PostApiV1AuthSignUpBody },
-  TContext
 > => {
-  const mutationKey = ["postApiV1AuthSignUp"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["postApiV1AuthSignUp"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postApiV1AuthSignUp>>,
-    { data: PostApiV1AuthSignUpBody }
-  > = (props) => {
-    const { data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof postApiV1AuthSignUp>>,
+        { data: PostApiV1AuthSignUpBody }
+    > = (props) => {
+        const { data } = props ?? {};
 
-    return postApiV1AuthSignUp(data, requestOptions);
-  };
+        return postApiV1AuthSignUp(data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PostApiV1AuthSignUpMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postApiV1AuthSignUp>>
+    Awaited<ReturnType<typeof postApiV1AuthSignUp>>
 >;
 export type PostApiV1AuthSignUpMutationBody = PostApiV1AuthSignUpBody;
 export type PostApiV1AuthSignUpMutationError =
-  | PostApiV1AuthSignUp4xx
-  | PostApiV1AuthSignUp5xx;
+    | PostApiV1AuthSignUp4xx
+    | PostApiV1AuthSignUp5xx;
 
 /**
  * @summary Sign up user
  */
 export const usePostApiV1AuthSignUp = <
-  TError = PostApiV1AuthSignUp4xx | PostApiV1AuthSignUp5xx,
-  TContext = unknown,
+    TError = PostApiV1AuthSignUp4xx | PostApiV1AuthSignUp5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1AuthSignUp>>,
+        TError,
+        { data: PostApiV1AuthSignUpBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof postApiV1AuthSignUp>>,
     TError,
     { data: PostApiV1AuthSignUpBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postApiV1AuthSignUp>>,
-  TError,
-  { data: PostApiV1AuthSignUpBody },
-  TContext
 > => {
-  const mutationOptions = getPostApiV1AuthSignUpMutationOptions(options);
+    const mutationOptions = getPostApiV1AuthSignUpMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -217,90 +217,90 @@ export const usePostApiV1AuthSignUp = <
  * @summary Sign in user
  */
 export const getPostApiV1AuthSignInUrl = () => {
-  return `/api/v1/auth/sign-in`;
+    return `/api/v1/auth/sign-in`;
 };
 
 export const postApiV1AuthSignIn = async (
-  postApiV1AuthSignInBody: PostApiV1AuthSignInBody,
-  options?: RequestInit
+    postApiV1AuthSignInBody: PostApiV1AuthSignInBody,
+    options?: RequestInit
 ): Promise<PostApiV1AuthSignIn200> => {
-  return customFetch<PostApiV1AuthSignIn200>(getPostApiV1AuthSignInUrl(), {
-    ...options,
-    method: "POST",
-    headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(postApiV1AuthSignInBody),
-  });
+    return customFetch<PostApiV1AuthSignIn200>(getPostApiV1AuthSignInUrl(), {
+        ...options,
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...options?.headers },
+        body: JSON.stringify(postApiV1AuthSignInBody),
+    });
 };
 
 export const getPostApiV1AuthSignInMutationOptions = <
-  TError = PostApiV1AuthSignIn4xx | PostApiV1AuthSignIn5xx,
-  TContext = unknown,
+    TError = PostApiV1AuthSignIn4xx | PostApiV1AuthSignIn5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1AuthSignIn>>,
+        TError,
+        { data: PostApiV1AuthSignInBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof postApiV1AuthSignIn>>,
     TError,
     { data: PostApiV1AuthSignInBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postApiV1AuthSignIn>>,
-  TError,
-  { data: PostApiV1AuthSignInBody },
-  TContext
 > => {
-  const mutationKey = ["postApiV1AuthSignIn"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["postApiV1AuthSignIn"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postApiV1AuthSignIn>>,
-    { data: PostApiV1AuthSignInBody }
-  > = (props) => {
-    const { data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof postApiV1AuthSignIn>>,
+        { data: PostApiV1AuthSignInBody }
+    > = (props) => {
+        const { data } = props ?? {};
 
-    return postApiV1AuthSignIn(data, requestOptions);
-  };
+        return postApiV1AuthSignIn(data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PostApiV1AuthSignInMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postApiV1AuthSignIn>>
+    Awaited<ReturnType<typeof postApiV1AuthSignIn>>
 >;
 export type PostApiV1AuthSignInMutationBody = PostApiV1AuthSignInBody;
 export type PostApiV1AuthSignInMutationError =
-  | PostApiV1AuthSignIn4xx
-  | PostApiV1AuthSignIn5xx;
+    | PostApiV1AuthSignIn4xx
+    | PostApiV1AuthSignIn5xx;
 
 /**
  * @summary Sign in user
  */
 export const usePostApiV1AuthSignIn = <
-  TError = PostApiV1AuthSignIn4xx | PostApiV1AuthSignIn5xx,
-  TContext = unknown,
+    TError = PostApiV1AuthSignIn4xx | PostApiV1AuthSignIn5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1AuthSignIn>>,
+        TError,
+        { data: PostApiV1AuthSignInBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof postApiV1AuthSignIn>>,
     TError,
     { data: PostApiV1AuthSignInBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postApiV1AuthSignIn>>,
-  TError,
-  { data: PostApiV1AuthSignInBody },
-  TContext
 > => {
-  const mutationOptions = getPostApiV1AuthSignInMutationOptions(options);
+    const mutationOptions = getPostApiV1AuthSignInMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -308,94 +308,98 @@ export const usePostApiV1AuthSignIn = <
  * @summary Refresh access token
  */
 export const getPostApiV1AuthRefreshTokenUrl = () => {
-  return `/api/v1/auth/refresh-token`;
+    return `/api/v1/auth/refresh-token`;
 };
 
 export const postApiV1AuthRefreshToken = async (
-  postApiV1AuthRefreshTokenBody: PostApiV1AuthRefreshTokenBody,
-  options?: RequestInit
+    postApiV1AuthRefreshTokenBody: PostApiV1AuthRefreshTokenBody,
+    options?: RequestInit
 ): Promise<PostApiV1AuthRefreshToken200> => {
-  return customFetch<PostApiV1AuthRefreshToken200>(
-    getPostApiV1AuthRefreshTokenUrl(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(postApiV1AuthRefreshTokenBody),
-    }
-  );
+    return customFetch<PostApiV1AuthRefreshToken200>(
+        getPostApiV1AuthRefreshTokenUrl(),
+        {
+            ...options,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                ...options?.headers,
+            },
+            body: JSON.stringify(postApiV1AuthRefreshTokenBody),
+        }
+    );
 };
 
 export const getPostApiV1AuthRefreshTokenMutationOptions = <
-  TError = PostApiV1AuthRefreshToken4xx | PostApiV1AuthRefreshToken5xx,
-  TContext = unknown,
+    TError = PostApiV1AuthRefreshToken4xx | PostApiV1AuthRefreshToken5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1AuthRefreshToken>>,
+        TError,
+        { data: PostApiV1AuthRefreshTokenBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof postApiV1AuthRefreshToken>>,
     TError,
     { data: PostApiV1AuthRefreshTokenBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postApiV1AuthRefreshToken>>,
-  TError,
-  { data: PostApiV1AuthRefreshTokenBody },
-  TContext
 > => {
-  const mutationKey = ["postApiV1AuthRefreshToken"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["postApiV1AuthRefreshToken"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postApiV1AuthRefreshToken>>,
-    { data: PostApiV1AuthRefreshTokenBody }
-  > = (props) => {
-    const { data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof postApiV1AuthRefreshToken>>,
+        { data: PostApiV1AuthRefreshTokenBody }
+    > = (props) => {
+        const { data } = props ?? {};
 
-    return postApiV1AuthRefreshToken(data, requestOptions);
-  };
+        return postApiV1AuthRefreshToken(data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PostApiV1AuthRefreshTokenMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postApiV1AuthRefreshToken>>
+    Awaited<ReturnType<typeof postApiV1AuthRefreshToken>>
 >;
 export type PostApiV1AuthRefreshTokenMutationBody =
-  PostApiV1AuthRefreshTokenBody;
+    PostApiV1AuthRefreshTokenBody;
 export type PostApiV1AuthRefreshTokenMutationError =
-  | PostApiV1AuthRefreshToken4xx
-  | PostApiV1AuthRefreshToken5xx;
+    | PostApiV1AuthRefreshToken4xx
+    | PostApiV1AuthRefreshToken5xx;
 
 /**
  * @summary Refresh access token
  */
 export const usePostApiV1AuthRefreshToken = <
-  TError = PostApiV1AuthRefreshToken4xx | PostApiV1AuthRefreshToken5xx,
-  TContext = unknown,
+    TError = PostApiV1AuthRefreshToken4xx | PostApiV1AuthRefreshToken5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1AuthRefreshToken>>,
+        TError,
+        { data: PostApiV1AuthRefreshTokenBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof postApiV1AuthRefreshToken>>,
     TError,
     { data: PostApiV1AuthRefreshTokenBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postApiV1AuthRefreshToken>>,
-  TError,
-  { data: PostApiV1AuthRefreshTokenBody },
-  TContext
 > => {
-  const mutationOptions = getPostApiV1AuthRefreshTokenMutationOptions(options);
+    const mutationOptions =
+        getPostApiV1AuthRefreshTokenMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -403,90 +407,90 @@ export const usePostApiV1AuthRefreshToken = <
  * @summary Verify user email
  */
 export const getPatchApiV1AuthVerifyUrl = () => {
-  return `/api/v1/auth/verify`;
+    return `/api/v1/auth/verify`;
 };
 
 export const patchApiV1AuthVerify = async (
-  patchApiV1AuthVerifyBody: PatchApiV1AuthVerifyBody,
-  options?: RequestInit
+    patchApiV1AuthVerifyBody: PatchApiV1AuthVerifyBody,
+    options?: RequestInit
 ): Promise<PatchApiV1AuthVerify200> => {
-  return customFetch<PatchApiV1AuthVerify200>(getPatchApiV1AuthVerifyUrl(), {
-    ...options,
-    method: "PATCH",
-    headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(patchApiV1AuthVerifyBody),
-  });
+    return customFetch<PatchApiV1AuthVerify200>(getPatchApiV1AuthVerifyUrl(), {
+        ...options,
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", ...options?.headers },
+        body: JSON.stringify(patchApiV1AuthVerifyBody),
+    });
 };
 
 export const getPatchApiV1AuthVerifyMutationOptions = <
-  TError = PatchApiV1AuthVerify4xx | PatchApiV1AuthVerify5xx,
-  TContext = unknown,
+    TError = PatchApiV1AuthVerify4xx | PatchApiV1AuthVerify5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof patchApiV1AuthVerify>>,
+        TError,
+        { data: PatchApiV1AuthVerifyBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof patchApiV1AuthVerify>>,
     TError,
     { data: PatchApiV1AuthVerifyBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof patchApiV1AuthVerify>>,
-  TError,
-  { data: PatchApiV1AuthVerifyBody },
-  TContext
 > => {
-  const mutationKey = ["patchApiV1AuthVerify"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["patchApiV1AuthVerify"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof patchApiV1AuthVerify>>,
-    { data: PatchApiV1AuthVerifyBody }
-  > = (props) => {
-    const { data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof patchApiV1AuthVerify>>,
+        { data: PatchApiV1AuthVerifyBody }
+    > = (props) => {
+        const { data } = props ?? {};
 
-    return patchApiV1AuthVerify(data, requestOptions);
-  };
+        return patchApiV1AuthVerify(data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PatchApiV1AuthVerifyMutationResult = NonNullable<
-  Awaited<ReturnType<typeof patchApiV1AuthVerify>>
+    Awaited<ReturnType<typeof patchApiV1AuthVerify>>
 >;
 export type PatchApiV1AuthVerifyMutationBody = PatchApiV1AuthVerifyBody;
 export type PatchApiV1AuthVerifyMutationError =
-  | PatchApiV1AuthVerify4xx
-  | PatchApiV1AuthVerify5xx;
+    | PatchApiV1AuthVerify4xx
+    | PatchApiV1AuthVerify5xx;
 
 /**
  * @summary Verify user email
  */
 export const usePatchApiV1AuthVerify = <
-  TError = PatchApiV1AuthVerify4xx | PatchApiV1AuthVerify5xx,
-  TContext = unknown,
+    TError = PatchApiV1AuthVerify4xx | PatchApiV1AuthVerify5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof patchApiV1AuthVerify>>,
+        TError,
+        { data: PatchApiV1AuthVerifyBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof patchApiV1AuthVerify>>,
     TError,
     { data: PatchApiV1AuthVerifyBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof patchApiV1AuthVerify>>,
-  TError,
-  { data: PatchApiV1AuthVerifyBody },
-  TContext
 > => {
-  const mutationOptions = getPatchApiV1AuthVerifyMutationOptions(options);
+    const mutationOptions = getPatchApiV1AuthVerifyMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -494,95 +498,102 @@ export const usePatchApiV1AuthVerify = <
  * @summary Create master key for user
  */
 export const getPatchApiV1AuthCreateMasterKeyUrl = () => {
-  return `/api/v1/auth/create-master-key`;
+    return `/api/v1/auth/create-master-key`;
 };
 
 export const patchApiV1AuthCreateMasterKey = async (
-  patchApiV1AuthCreateMasterKeyBody: PatchApiV1AuthCreateMasterKeyBody,
-  options?: RequestInit
+    patchApiV1AuthCreateMasterKeyBody: PatchApiV1AuthCreateMasterKeyBody,
+    options?: RequestInit
 ): Promise<PatchApiV1AuthCreateMasterKey200> => {
-  return customFetch<PatchApiV1AuthCreateMasterKey200>(
-    getPatchApiV1AuthCreateMasterKeyUrl(),
-    {
-      ...options,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(patchApiV1AuthCreateMasterKeyBody),
-    }
-  );
+    return customFetch<PatchApiV1AuthCreateMasterKey200>(
+        getPatchApiV1AuthCreateMasterKeyUrl(),
+        {
+            ...options,
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                ...options?.headers,
+            },
+            body: JSON.stringify(patchApiV1AuthCreateMasterKeyBody),
+        }
+    );
 };
 
 export const getPatchApiV1AuthCreateMasterKeyMutationOptions = <
-  TError = PatchApiV1AuthCreateMasterKey4xx | PatchApiV1AuthCreateMasterKey5xx,
-  TContext = unknown,
+    TError =
+        | PatchApiV1AuthCreateMasterKey4xx
+        | PatchApiV1AuthCreateMasterKey5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof patchApiV1AuthCreateMasterKey>>,
+        TError,
+        { data: PatchApiV1AuthCreateMasterKeyBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof patchApiV1AuthCreateMasterKey>>,
     TError,
     { data: PatchApiV1AuthCreateMasterKeyBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof patchApiV1AuthCreateMasterKey>>,
-  TError,
-  { data: PatchApiV1AuthCreateMasterKeyBody },
-  TContext
 > => {
-  const mutationKey = ["patchApiV1AuthCreateMasterKey"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["patchApiV1AuthCreateMasterKey"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof patchApiV1AuthCreateMasterKey>>,
-    { data: PatchApiV1AuthCreateMasterKeyBody }
-  > = (props) => {
-    const { data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof patchApiV1AuthCreateMasterKey>>,
+        { data: PatchApiV1AuthCreateMasterKeyBody }
+    > = (props) => {
+        const { data } = props ?? {};
 
-    return patchApiV1AuthCreateMasterKey(data, requestOptions);
-  };
+        return patchApiV1AuthCreateMasterKey(data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PatchApiV1AuthCreateMasterKeyMutationResult = NonNullable<
-  Awaited<ReturnType<typeof patchApiV1AuthCreateMasterKey>>
+    Awaited<ReturnType<typeof patchApiV1AuthCreateMasterKey>>
 >;
 export type PatchApiV1AuthCreateMasterKeyMutationBody =
-  PatchApiV1AuthCreateMasterKeyBody;
+    PatchApiV1AuthCreateMasterKeyBody;
 export type PatchApiV1AuthCreateMasterKeyMutationError =
-  | PatchApiV1AuthCreateMasterKey4xx
-  | PatchApiV1AuthCreateMasterKey5xx;
+    | PatchApiV1AuthCreateMasterKey4xx
+    | PatchApiV1AuthCreateMasterKey5xx;
 
 /**
  * @summary Create master key for user
  */
 export const usePatchApiV1AuthCreateMasterKey = <
-  TError = PatchApiV1AuthCreateMasterKey4xx | PatchApiV1AuthCreateMasterKey5xx,
-  TContext = unknown,
+    TError =
+        | PatchApiV1AuthCreateMasterKey4xx
+        | PatchApiV1AuthCreateMasterKey5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof patchApiV1AuthCreateMasterKey>>,
+        TError,
+        { data: PatchApiV1AuthCreateMasterKeyBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof patchApiV1AuthCreateMasterKey>>,
     TError,
     { data: PatchApiV1AuthCreateMasterKeyBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof patchApiV1AuthCreateMasterKey>>,
-  TError,
-  { data: PatchApiV1AuthCreateMasterKeyBody },
-  TContext
 > => {
-  const mutationOptions =
-    getPatchApiV1AuthCreateMasterKeyMutationOptions(options);
+    const mutationOptions =
+        getPatchApiV1AuthCreateMasterKeyMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -590,99 +601,102 @@ export const usePatchApiV1AuthCreateMasterKey = <
  * @summary Verify Master password for user
  */
 export const getPostApiV1AuthVerifyMasterPasswordUrl = () => {
-  return `/api/v1/auth/verify-master-password`;
+    return `/api/v1/auth/verify-master-password`;
 };
 
 export const postApiV1AuthVerifyMasterPassword = async (
-  postApiV1AuthVerifyMasterPasswordBody: PostApiV1AuthVerifyMasterPasswordBody,
-  options?: RequestInit
+    postApiV1AuthVerifyMasterPasswordBody: PostApiV1AuthVerifyMasterPasswordBody,
+    options?: RequestInit
 ): Promise<PostApiV1AuthVerifyMasterPassword200> => {
-  return customFetch<PostApiV1AuthVerifyMasterPassword200>(
-    getPostApiV1AuthVerifyMasterPasswordUrl(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(postApiV1AuthVerifyMasterPasswordBody),
-    }
-  );
+    return customFetch<PostApiV1AuthVerifyMasterPassword200>(
+        getPostApiV1AuthVerifyMasterPasswordUrl(),
+        {
+            ...options,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                ...options?.headers,
+            },
+            body: JSON.stringify(postApiV1AuthVerifyMasterPasswordBody),
+        }
+    );
 };
 
 export const getPostApiV1AuthVerifyMasterPasswordMutationOptions = <
-  TError =
-    | PostApiV1AuthVerifyMasterPassword4xx
-    | PostApiV1AuthVerifyMasterPassword5xx,
-  TContext = unknown,
+    TError =
+        | PostApiV1AuthVerifyMasterPassword4xx
+        | PostApiV1AuthVerifyMasterPassword5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1AuthVerifyMasterPassword>>,
+        TError,
+        { data: PostApiV1AuthVerifyMasterPasswordBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof postApiV1AuthVerifyMasterPassword>>,
     TError,
     { data: PostApiV1AuthVerifyMasterPasswordBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postApiV1AuthVerifyMasterPassword>>,
-  TError,
-  { data: PostApiV1AuthVerifyMasterPasswordBody },
-  TContext
 > => {
-  const mutationKey = ["postApiV1AuthVerifyMasterPassword"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["postApiV1AuthVerifyMasterPassword"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postApiV1AuthVerifyMasterPassword>>,
-    { data: PostApiV1AuthVerifyMasterPasswordBody }
-  > = (props) => {
-    const { data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof postApiV1AuthVerifyMasterPassword>>,
+        { data: PostApiV1AuthVerifyMasterPasswordBody }
+    > = (props) => {
+        const { data } = props ?? {};
 
-    return postApiV1AuthVerifyMasterPassword(data, requestOptions);
-  };
+        return postApiV1AuthVerifyMasterPassword(data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PostApiV1AuthVerifyMasterPasswordMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postApiV1AuthVerifyMasterPassword>>
+    Awaited<ReturnType<typeof postApiV1AuthVerifyMasterPassword>>
 >;
 export type PostApiV1AuthVerifyMasterPasswordMutationBody =
-  PostApiV1AuthVerifyMasterPasswordBody;
+    PostApiV1AuthVerifyMasterPasswordBody;
 export type PostApiV1AuthVerifyMasterPasswordMutationError =
-  | PostApiV1AuthVerifyMasterPassword4xx
-  | PostApiV1AuthVerifyMasterPassword5xx;
+    | PostApiV1AuthVerifyMasterPassword4xx
+    | PostApiV1AuthVerifyMasterPassword5xx;
 
 /**
  * @summary Verify Master password for user
  */
 export const usePostApiV1AuthVerifyMasterPassword = <
-  TError =
-    | PostApiV1AuthVerifyMasterPassword4xx
-    | PostApiV1AuthVerifyMasterPassword5xx,
-  TContext = unknown,
+    TError =
+        | PostApiV1AuthVerifyMasterPassword4xx
+        | PostApiV1AuthVerifyMasterPassword5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1AuthVerifyMasterPassword>>,
+        TError,
+        { data: PostApiV1AuthVerifyMasterPasswordBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof postApiV1AuthVerifyMasterPassword>>,
     TError,
     { data: PostApiV1AuthVerifyMasterPasswordBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postApiV1AuthVerifyMasterPassword>>,
-  TError,
-  { data: PostApiV1AuthVerifyMasterPasswordBody },
-  TContext
 > => {
-  const mutationOptions =
-    getPostApiV1AuthVerifyMasterPasswordMutationOptions(options);
+    const mutationOptions =
+        getPostApiV1AuthVerifyMasterPasswordMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -690,93 +704,96 @@ export const usePostApiV1AuthVerifyMasterPassword = <
  * @summary Resend otp to user's email
  */
 export const getPostApiV1AuthResendOtpUrl = () => {
-  return `/api/v1/auth/resend-otp`;
+    return `/api/v1/auth/resend-otp`;
 };
 
 export const postApiV1AuthResendOtp = async (
-  postApiV1AuthResendOtpBody: PostApiV1AuthResendOtpBody,
-  options?: RequestInit
+    postApiV1AuthResendOtpBody: PostApiV1AuthResendOtpBody,
+    options?: RequestInit
 ): Promise<PostApiV1AuthResendOtp200> => {
-  return customFetch<PostApiV1AuthResendOtp200>(
-    getPostApiV1AuthResendOtpUrl(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(postApiV1AuthResendOtpBody),
-    }
-  );
+    return customFetch<PostApiV1AuthResendOtp200>(
+        getPostApiV1AuthResendOtpUrl(),
+        {
+            ...options,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                ...options?.headers,
+            },
+            body: JSON.stringify(postApiV1AuthResendOtpBody),
+        }
+    );
 };
 
 export const getPostApiV1AuthResendOtpMutationOptions = <
-  TError = PostApiV1AuthResendOtp4xx | PostApiV1AuthResendOtp5xx,
-  TContext = unknown,
+    TError = PostApiV1AuthResendOtp4xx | PostApiV1AuthResendOtp5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1AuthResendOtp>>,
+        TError,
+        { data: PostApiV1AuthResendOtpBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof postApiV1AuthResendOtp>>,
     TError,
     { data: PostApiV1AuthResendOtpBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postApiV1AuthResendOtp>>,
-  TError,
-  { data: PostApiV1AuthResendOtpBody },
-  TContext
 > => {
-  const mutationKey = ["postApiV1AuthResendOtp"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["postApiV1AuthResendOtp"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postApiV1AuthResendOtp>>,
-    { data: PostApiV1AuthResendOtpBody }
-  > = (props) => {
-    const { data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof postApiV1AuthResendOtp>>,
+        { data: PostApiV1AuthResendOtpBody }
+    > = (props) => {
+        const { data } = props ?? {};
 
-    return postApiV1AuthResendOtp(data, requestOptions);
-  };
+        return postApiV1AuthResendOtp(data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PostApiV1AuthResendOtpMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postApiV1AuthResendOtp>>
+    Awaited<ReturnType<typeof postApiV1AuthResendOtp>>
 >;
 export type PostApiV1AuthResendOtpMutationBody = PostApiV1AuthResendOtpBody;
 export type PostApiV1AuthResendOtpMutationError =
-  | PostApiV1AuthResendOtp4xx
-  | PostApiV1AuthResendOtp5xx;
+    | PostApiV1AuthResendOtp4xx
+    | PostApiV1AuthResendOtp5xx;
 
 /**
  * @summary Resend otp to user's email
  */
 export const usePostApiV1AuthResendOtp = <
-  TError = PostApiV1AuthResendOtp4xx | PostApiV1AuthResendOtp5xx,
-  TContext = unknown,
+    TError = PostApiV1AuthResendOtp4xx | PostApiV1AuthResendOtp5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1AuthResendOtp>>,
+        TError,
+        { data: PostApiV1AuthResendOtpBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof postApiV1AuthResendOtp>>,
     TError,
     { data: PostApiV1AuthResendOtpBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postApiV1AuthResendOtp>>,
-  TError,
-  { data: PostApiV1AuthResendOtpBody },
-  TContext
 > => {
-  const mutationOptions = getPostApiV1AuthResendOtpMutationOptions(options);
+    const mutationOptions = getPostApiV1AuthResendOtpMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -784,99 +801,102 @@ export const usePostApiV1AuthResendOtp = <
  * @summary send reset password email
  */
 export const getPostApiV1AuthResetPasswordMailUrl = () => {
-  return `/api/v1/auth/reset-password-mail`;
+    return `/api/v1/auth/reset-password-mail`;
 };
 
 export const postApiV1AuthResetPasswordMail = async (
-  postApiV1AuthResetPasswordMailBody: PostApiV1AuthResetPasswordMailBody,
-  options?: RequestInit
+    postApiV1AuthResetPasswordMailBody: PostApiV1AuthResetPasswordMailBody,
+    options?: RequestInit
 ): Promise<PostApiV1AuthResetPasswordMail200> => {
-  return customFetch<PostApiV1AuthResetPasswordMail200>(
-    getPostApiV1AuthResetPasswordMailUrl(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(postApiV1AuthResetPasswordMailBody),
-    }
-  );
+    return customFetch<PostApiV1AuthResetPasswordMail200>(
+        getPostApiV1AuthResetPasswordMailUrl(),
+        {
+            ...options,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                ...options?.headers,
+            },
+            body: JSON.stringify(postApiV1AuthResetPasswordMailBody),
+        }
+    );
 };
 
 export const getPostApiV1AuthResetPasswordMailMutationOptions = <
-  TError =
-    | PostApiV1AuthResetPasswordMail4xx
-    | PostApiV1AuthResetPasswordMail5xx,
-  TContext = unknown,
+    TError =
+        | PostApiV1AuthResetPasswordMail4xx
+        | PostApiV1AuthResetPasswordMail5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1AuthResetPasswordMail>>,
+        TError,
+        { data: PostApiV1AuthResetPasswordMailBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof postApiV1AuthResetPasswordMail>>,
     TError,
     { data: PostApiV1AuthResetPasswordMailBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postApiV1AuthResetPasswordMail>>,
-  TError,
-  { data: PostApiV1AuthResetPasswordMailBody },
-  TContext
 > => {
-  const mutationKey = ["postApiV1AuthResetPasswordMail"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["postApiV1AuthResetPasswordMail"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postApiV1AuthResetPasswordMail>>,
-    { data: PostApiV1AuthResetPasswordMailBody }
-  > = (props) => {
-    const { data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof postApiV1AuthResetPasswordMail>>,
+        { data: PostApiV1AuthResetPasswordMailBody }
+    > = (props) => {
+        const { data } = props ?? {};
 
-    return postApiV1AuthResetPasswordMail(data, requestOptions);
-  };
+        return postApiV1AuthResetPasswordMail(data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PostApiV1AuthResetPasswordMailMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postApiV1AuthResetPasswordMail>>
+    Awaited<ReturnType<typeof postApiV1AuthResetPasswordMail>>
 >;
 export type PostApiV1AuthResetPasswordMailMutationBody =
-  PostApiV1AuthResetPasswordMailBody;
+    PostApiV1AuthResetPasswordMailBody;
 export type PostApiV1AuthResetPasswordMailMutationError =
-  | PostApiV1AuthResetPasswordMail4xx
-  | PostApiV1AuthResetPasswordMail5xx;
+    | PostApiV1AuthResetPasswordMail4xx
+    | PostApiV1AuthResetPasswordMail5xx;
 
 /**
  * @summary send reset password email
  */
 export const usePostApiV1AuthResetPasswordMail = <
-  TError =
-    | PostApiV1AuthResetPasswordMail4xx
-    | PostApiV1AuthResetPasswordMail5xx,
-  TContext = unknown,
+    TError =
+        | PostApiV1AuthResetPasswordMail4xx
+        | PostApiV1AuthResetPasswordMail5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1AuthResetPasswordMail>>,
+        TError,
+        { data: PostApiV1AuthResetPasswordMailBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof postApiV1AuthResetPasswordMail>>,
     TError,
     { data: PostApiV1AuthResetPasswordMailBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postApiV1AuthResetPasswordMail>>,
-  TError,
-  { data: PostApiV1AuthResetPasswordMailBody },
-  TContext
 > => {
-  const mutationOptions =
-    getPostApiV1AuthResetPasswordMailMutationOptions(options);
+    const mutationOptions =
+        getPostApiV1AuthResetPasswordMailMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -884,95 +904,98 @@ export const usePostApiV1AuthResetPasswordMail = <
  * @summary reset login password
  */
 export const getPatchApiV1AuthResetPasswordUrl = () => {
-  return `/api/v1/auth/reset-password`;
+    return `/api/v1/auth/reset-password`;
 };
 
 export const patchApiV1AuthResetPassword = async (
-  patchApiV1AuthResetPasswordBody: PatchApiV1AuthResetPasswordBody,
-  options?: RequestInit
+    patchApiV1AuthResetPasswordBody: PatchApiV1AuthResetPasswordBody,
+    options?: RequestInit
 ): Promise<PatchApiV1AuthResetPassword200> => {
-  return customFetch<PatchApiV1AuthResetPassword200>(
-    getPatchApiV1AuthResetPasswordUrl(),
-    {
-      ...options,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(patchApiV1AuthResetPasswordBody),
-    }
-  );
+    return customFetch<PatchApiV1AuthResetPassword200>(
+        getPatchApiV1AuthResetPasswordUrl(),
+        {
+            ...options,
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                ...options?.headers,
+            },
+            body: JSON.stringify(patchApiV1AuthResetPasswordBody),
+        }
+    );
 };
 
 export const getPatchApiV1AuthResetPasswordMutationOptions = <
-  TError = PatchApiV1AuthResetPassword4xx | PatchApiV1AuthResetPassword5xx,
-  TContext = unknown,
+    TError = PatchApiV1AuthResetPassword4xx | PatchApiV1AuthResetPassword5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof patchApiV1AuthResetPassword>>,
+        TError,
+        { data: PatchApiV1AuthResetPasswordBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof patchApiV1AuthResetPassword>>,
     TError,
     { data: PatchApiV1AuthResetPasswordBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof patchApiV1AuthResetPassword>>,
-  TError,
-  { data: PatchApiV1AuthResetPasswordBody },
-  TContext
 > => {
-  const mutationKey = ["patchApiV1AuthResetPassword"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["patchApiV1AuthResetPassword"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof patchApiV1AuthResetPassword>>,
-    { data: PatchApiV1AuthResetPasswordBody }
-  > = (props) => {
-    const { data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof patchApiV1AuthResetPassword>>,
+        { data: PatchApiV1AuthResetPasswordBody }
+    > = (props) => {
+        const { data } = props ?? {};
 
-    return patchApiV1AuthResetPassword(data, requestOptions);
-  };
+        return patchApiV1AuthResetPassword(data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PatchApiV1AuthResetPasswordMutationResult = NonNullable<
-  Awaited<ReturnType<typeof patchApiV1AuthResetPassword>>
+    Awaited<ReturnType<typeof patchApiV1AuthResetPassword>>
 >;
 export type PatchApiV1AuthResetPasswordMutationBody =
-  PatchApiV1AuthResetPasswordBody;
+    PatchApiV1AuthResetPasswordBody;
 export type PatchApiV1AuthResetPasswordMutationError =
-  | PatchApiV1AuthResetPassword4xx
-  | PatchApiV1AuthResetPassword5xx;
+    | PatchApiV1AuthResetPassword4xx
+    | PatchApiV1AuthResetPassword5xx;
 
 /**
  * @summary reset login password
  */
 export const usePatchApiV1AuthResetPassword = <
-  TError = PatchApiV1AuthResetPassword4xx | PatchApiV1AuthResetPassword5xx,
-  TContext = unknown,
+    TError = PatchApiV1AuthResetPassword4xx | PatchApiV1AuthResetPassword5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof patchApiV1AuthResetPassword>>,
+        TError,
+        { data: PatchApiV1AuthResetPasswordBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof patchApiV1AuthResetPassword>>,
     TError,
     { data: PatchApiV1AuthResetPasswordBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof patchApiV1AuthResetPassword>>,
-  TError,
-  { data: PatchApiV1AuthResetPasswordBody },
-  TContext
 > => {
-  const mutationOptions =
-    getPatchApiV1AuthResetPasswordMutationOptions(options);
+    const mutationOptions =
+        getPatchApiV1AuthResetPasswordMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -980,95 +1003,98 @@ export const usePatchApiV1AuthResetPassword = <
  * @summary Update master password
  */
 export const getPatchApiV1AuthMasterPasswordUrl = () => {
-  return `/api/v1/auth/master-password`;
+    return `/api/v1/auth/master-password`;
 };
 
 export const patchApiV1AuthMasterPassword = async (
-  patchApiV1AuthMasterPasswordBody: PatchApiV1AuthMasterPasswordBody,
-  options?: RequestInit
+    patchApiV1AuthMasterPasswordBody: PatchApiV1AuthMasterPasswordBody,
+    options?: RequestInit
 ): Promise<PatchApiV1AuthMasterPassword200> => {
-  return customFetch<PatchApiV1AuthMasterPassword200>(
-    getPatchApiV1AuthMasterPasswordUrl(),
-    {
-      ...options,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(patchApiV1AuthMasterPasswordBody),
-    }
-  );
+    return customFetch<PatchApiV1AuthMasterPassword200>(
+        getPatchApiV1AuthMasterPasswordUrl(),
+        {
+            ...options,
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                ...options?.headers,
+            },
+            body: JSON.stringify(patchApiV1AuthMasterPasswordBody),
+        }
+    );
 };
 
 export const getPatchApiV1AuthMasterPasswordMutationOptions = <
-  TError = PatchApiV1AuthMasterPassword4xx | PatchApiV1AuthMasterPassword5xx,
-  TContext = unknown,
+    TError = PatchApiV1AuthMasterPassword4xx | PatchApiV1AuthMasterPassword5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof patchApiV1AuthMasterPassword>>,
+        TError,
+        { data: PatchApiV1AuthMasterPasswordBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof patchApiV1AuthMasterPassword>>,
     TError,
     { data: PatchApiV1AuthMasterPasswordBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof patchApiV1AuthMasterPassword>>,
-  TError,
-  { data: PatchApiV1AuthMasterPasswordBody },
-  TContext
 > => {
-  const mutationKey = ["patchApiV1AuthMasterPassword"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["patchApiV1AuthMasterPassword"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof patchApiV1AuthMasterPassword>>,
-    { data: PatchApiV1AuthMasterPasswordBody }
-  > = (props) => {
-    const { data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof patchApiV1AuthMasterPassword>>,
+        { data: PatchApiV1AuthMasterPasswordBody }
+    > = (props) => {
+        const { data } = props ?? {};
 
-    return patchApiV1AuthMasterPassword(data, requestOptions);
-  };
+        return patchApiV1AuthMasterPassword(data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PatchApiV1AuthMasterPasswordMutationResult = NonNullable<
-  Awaited<ReturnType<typeof patchApiV1AuthMasterPassword>>
+    Awaited<ReturnType<typeof patchApiV1AuthMasterPassword>>
 >;
 export type PatchApiV1AuthMasterPasswordMutationBody =
-  PatchApiV1AuthMasterPasswordBody;
+    PatchApiV1AuthMasterPasswordBody;
 export type PatchApiV1AuthMasterPasswordMutationError =
-  | PatchApiV1AuthMasterPassword4xx
-  | PatchApiV1AuthMasterPassword5xx;
+    | PatchApiV1AuthMasterPassword4xx
+    | PatchApiV1AuthMasterPassword5xx;
 
 /**
  * @summary Update master password
  */
 export const usePatchApiV1AuthMasterPassword = <
-  TError = PatchApiV1AuthMasterPassword4xx | PatchApiV1AuthMasterPassword5xx,
-  TContext = unknown,
+    TError = PatchApiV1AuthMasterPassword4xx | PatchApiV1AuthMasterPassword5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof patchApiV1AuthMasterPassword>>,
+        TError,
+        { data: PatchApiV1AuthMasterPasswordBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof patchApiV1AuthMasterPassword>>,
     TError,
     { data: PatchApiV1AuthMasterPasswordBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof patchApiV1AuthMasterPassword>>,
-  TError,
-  { data: PatchApiV1AuthMasterPasswordBody },
-  TContext
 > => {
-  const mutationOptions =
-    getPatchApiV1AuthMasterPasswordMutationOptions(options);
+    const mutationOptions =
+        getPatchApiV1AuthMasterPasswordMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -1076,92 +1102,92 @@ export const usePatchApiV1AuthMasterPassword = <
  * @summary Upload file
  */
 export const getPostApiV1FilesUploadUrl = () => {
-  return `/api/v1/files/upload`;
+    return `/api/v1/files/upload`;
 };
 
 export const postApiV1FilesUpload = async (
-  postApiV1FilesUploadBody: PostApiV1FilesUploadBody,
-  options?: RequestInit
+    postApiV1FilesUploadBody: PostApiV1FilesUploadBody,
+    options?: RequestInit
 ): Promise<PostApiV1FilesUpload200> => {
-  const formData = new FormData();
-  formData.append("file", postApiV1FilesUploadBody.file);
+    const formData = new FormData();
+    formData.append("file", postApiV1FilesUploadBody.file);
 
-  return customFetch<PostApiV1FilesUpload200>(getPostApiV1FilesUploadUrl(), {
-    ...options,
-    method: "POST",
-    body: formData,
-  });
+    return customFetch<PostApiV1FilesUpload200>(getPostApiV1FilesUploadUrl(), {
+        ...options,
+        method: "POST",
+        body: formData,
+    });
 };
 
 export const getPostApiV1FilesUploadMutationOptions = <
-  TError = PostApiV1FilesUpload4xx | PostApiV1FilesUpload5xx,
-  TContext = unknown,
+    TError = PostApiV1FilesUpload4xx | PostApiV1FilesUpload5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1FilesUpload>>,
+        TError,
+        { data: PostApiV1FilesUploadBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof postApiV1FilesUpload>>,
     TError,
     { data: PostApiV1FilesUploadBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postApiV1FilesUpload>>,
-  TError,
-  { data: PostApiV1FilesUploadBody },
-  TContext
 > => {
-  const mutationKey = ["postApiV1FilesUpload"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["postApiV1FilesUpload"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postApiV1FilesUpload>>,
-    { data: PostApiV1FilesUploadBody }
-  > = (props) => {
-    const { data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof postApiV1FilesUpload>>,
+        { data: PostApiV1FilesUploadBody }
+    > = (props) => {
+        const { data } = props ?? {};
 
-    return postApiV1FilesUpload(data, requestOptions);
-  };
+        return postApiV1FilesUpload(data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PostApiV1FilesUploadMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postApiV1FilesUpload>>
+    Awaited<ReturnType<typeof postApiV1FilesUpload>>
 >;
 export type PostApiV1FilesUploadMutationBody = PostApiV1FilesUploadBody;
 export type PostApiV1FilesUploadMutationError =
-  | PostApiV1FilesUpload4xx
-  | PostApiV1FilesUpload5xx;
+    | PostApiV1FilesUpload4xx
+    | PostApiV1FilesUpload5xx;
 
 /**
  * @summary Upload file
  */
 export const usePostApiV1FilesUpload = <
-  TError = PostApiV1FilesUpload4xx | PostApiV1FilesUpload5xx,
-  TContext = unknown,
+    TError = PostApiV1FilesUpload4xx | PostApiV1FilesUpload5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1FilesUpload>>,
+        TError,
+        { data: PostApiV1FilesUploadBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof postApiV1FilesUpload>>,
     TError,
     { data: PostApiV1FilesUploadBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postApiV1FilesUpload>>,
-  TError,
-  { data: PostApiV1FilesUploadBody },
-  TContext
 > => {
-  const mutationOptions = getPostApiV1FilesUploadMutationOptions(options);
+    const mutationOptions = getPostApiV1FilesUploadMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -1169,124 +1195,124 @@ export const usePostApiV1FilesUpload = <
  * @summary Check server health
  */
 export const getGetHealthUrl = () => {
-  return `/health/`;
+    return `/health/`;
 };
 
 export const getHealth = async (
-  options?: RequestInit
+    options?: RequestInit
 ): Promise<GetHealth200> => {
-  return customFetch<GetHealth200>(getGetHealthUrl(), {
-    ...options,
-    method: "GET",
-  });
+    return customFetch<GetHealth200>(getGetHealthUrl(), {
+        ...options,
+        method: "GET",
+    });
 };
 
 export const getGetHealthQueryKey = () => {
-  return [`/health/`] as const;
+    return [`/health/`] as const;
 };
 
 export const getGetHealthQueryOptions = <
-  TData = Awaited<ReturnType<typeof getHealth>>,
-  TError = unknown,
+    TData = Awaited<ReturnType<typeof getHealth>>,
+    TError = unknown,
 >(options?: {
-  query?: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof getHealth>>, TError, TData>
-  >;
-  request?: SecondParameter<typeof customFetch>;
+    query?: Partial<
+        UseQueryOptions<Awaited<ReturnType<typeof getHealth>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof customFetch>;
 }) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
+    const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetHealthQueryKey();
+    const queryKey = queryOptions?.queryKey ?? getGetHealthQueryKey();
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getHealth>>> = ({
-    signal,
-  }) => getHealth({ signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getHealth>>> = ({
+        signal,
+    }) => getHealth({ signal, ...requestOptions });
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getHealth>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+    return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof getHealth>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
 };
 
 export type GetHealthQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getHealth>>
+    Awaited<ReturnType<typeof getHealth>>
 >;
 export type GetHealthQueryError = unknown;
 
 export function useGetHealth<
-  TData = Awaited<ReturnType<typeof getHealth>>,
-  TError = unknown,
+    TData = Awaited<ReturnType<typeof getHealth>>,
+    TError = unknown,
 >(options: {
-  query: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof getHealth>>, TError, TData>
-  > &
-    Pick<
-      DefinedInitialDataOptions<
-        Awaited<ReturnType<typeof getHealth>>,
-        TError,
-        Awaited<ReturnType<typeof getHealth>>
-      >,
-      "initialData"
-    >;
-  request?: SecondParameter<typeof customFetch>;
+    query: Partial<
+        UseQueryOptions<Awaited<ReturnType<typeof getHealth>>, TError, TData>
+    > &
+        Pick<
+            DefinedInitialDataOptions<
+                Awaited<ReturnType<typeof getHealth>>,
+                TError,
+                Awaited<ReturnType<typeof getHealth>>
+            >,
+            "initialData"
+        >;
+    request?: SecondParameter<typeof customFetch>;
 }): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
+    queryKey: DataTag<QueryKey, TData, TError>;
 };
 export function useGetHealth<
-  TData = Awaited<ReturnType<typeof getHealth>>,
-  TError = unknown,
+    TData = Awaited<ReturnType<typeof getHealth>>,
+    TError = unknown,
 >(options?: {
-  query?: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof getHealth>>, TError, TData>
-  > &
-    Pick<
-      UndefinedInitialDataOptions<
-        Awaited<ReturnType<typeof getHealth>>,
-        TError,
-        Awaited<ReturnType<typeof getHealth>>
-      >,
-      "initialData"
+    query?: Partial<
+        UseQueryOptions<Awaited<ReturnType<typeof getHealth>>, TError, TData>
+    > &
+        Pick<
+            UndefinedInitialDataOptions<
+                Awaited<ReturnType<typeof getHealth>>,
+                TError,
+                Awaited<ReturnType<typeof getHealth>>
+            >,
+            "initialData"
+        >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetHealth<
+    TData = Awaited<ReturnType<typeof getHealth>>,
+    TError = unknown,
+>(options?: {
+    query?: Partial<
+        UseQueryOptions<Awaited<ReturnType<typeof getHealth>>, TError, TData>
     >;
-  request?: SecondParameter<typeof customFetch>;
+    request?: SecondParameter<typeof customFetch>;
 }): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useGetHealth<
-  TData = Awaited<ReturnType<typeof getHealth>>,
-  TError = unknown,
->(options?: {
-  query?: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof getHealth>>, TError, TData>
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
+    queryKey: DataTag<QueryKey, TData, TError>;
 };
 /**
  * @summary Check server health
  */
 
 export function useGetHealth<
-  TData = Awaited<ReturnType<typeof getHealth>>,
-  TError = unknown,
+    TData = Awaited<ReturnType<typeof getHealth>>,
+    TError = unknown,
 >(options?: {
-  query?: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof getHealth>>, TError, TData>
-  >;
-  request?: SecondParameter<typeof customFetch>;
+    query?: Partial<
+        UseQueryOptions<Awaited<ReturnType<typeof getHealth>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof customFetch>;
 }): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions = getGetHealthQueryOptions(options);
-
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: DataTag<QueryKey, TData, TError>;
-  };
+} {
+    const queryOptions = getGetHealthQueryOptions(options);
 
-  query.queryKey = queryOptions.queryKey;
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
 
-  return query;
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
 }
 
 /**
@@ -1294,90 +1320,90 @@ export function useGetHealth<
  * @summary Add a new password
  */
 export const getPostApiV1PasswordsUrl = () => {
-  return `/api/v1/passwords/`;
+    return `/api/v1/passwords/`;
 };
 
 export const postApiV1Passwords = async (
-  postApiV1PasswordsBody: PostApiV1PasswordsBody,
-  options?: RequestInit
+    postApiV1PasswordsBody: PostApiV1PasswordsBody,
+    options?: RequestInit
 ): Promise<PostApiV1Passwords200> => {
-  return customFetch<PostApiV1Passwords200>(getPostApiV1PasswordsUrl(), {
-    ...options,
-    method: "POST",
-    headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(postApiV1PasswordsBody),
-  });
+    return customFetch<PostApiV1Passwords200>(getPostApiV1PasswordsUrl(), {
+        ...options,
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...options?.headers },
+        body: JSON.stringify(postApiV1PasswordsBody),
+    });
 };
 
 export const getPostApiV1PasswordsMutationOptions = <
-  TError = PostApiV1Passwords4xx | PostApiV1Passwords5xx,
-  TContext = unknown,
+    TError = PostApiV1Passwords4xx | PostApiV1Passwords5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1Passwords>>,
+        TError,
+        { data: PostApiV1PasswordsBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof postApiV1Passwords>>,
     TError,
     { data: PostApiV1PasswordsBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postApiV1Passwords>>,
-  TError,
-  { data: PostApiV1PasswordsBody },
-  TContext
 > => {
-  const mutationKey = ["postApiV1Passwords"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["postApiV1Passwords"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postApiV1Passwords>>,
-    { data: PostApiV1PasswordsBody }
-  > = (props) => {
-    const { data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof postApiV1Passwords>>,
+        { data: PostApiV1PasswordsBody }
+    > = (props) => {
+        const { data } = props ?? {};
 
-    return postApiV1Passwords(data, requestOptions);
-  };
+        return postApiV1Passwords(data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PostApiV1PasswordsMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postApiV1Passwords>>
+    Awaited<ReturnType<typeof postApiV1Passwords>>
 >;
 export type PostApiV1PasswordsMutationBody = PostApiV1PasswordsBody;
 export type PostApiV1PasswordsMutationError =
-  | PostApiV1Passwords4xx
-  | PostApiV1Passwords5xx;
+    | PostApiV1Passwords4xx
+    | PostApiV1Passwords5xx;
 
 /**
  * @summary Add a new password
  */
 export const usePostApiV1Passwords = <
-  TError = PostApiV1Passwords4xx | PostApiV1Passwords5xx,
-  TContext = unknown,
+    TError = PostApiV1Passwords4xx | PostApiV1Passwords5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1Passwords>>,
+        TError,
+        { data: PostApiV1PasswordsBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof postApiV1Passwords>>,
     TError,
     { data: PostApiV1PasswordsBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postApiV1Passwords>>,
-  TError,
-  { data: PostApiV1PasswordsBody },
-  TContext
 > => {
-  const mutationOptions = getPostApiV1PasswordsMutationOptions(options);
+    const mutationOptions = getPostApiV1PasswordsMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -1385,175 +1411,179 @@ export const usePostApiV1Passwords = <
  * @summary Get all passwords
  */
 export const getGetApiV1PasswordsUrl = (params: GetApiV1PasswordsParams) => {
-  const normalizedParams = new URLSearchParams();
+    const normalizedParams = new URLSearchParams();
 
-  Object.entries(params || {}).forEach(([key, value]) => {
-    if (value !== undefined) {
-      normalizedParams.append(key, value === null ? "null" : value.toString());
-    }
-  });
+    Object.entries(params || {}).forEach(([key, value]) => {
+        if (value !== undefined) {
+            normalizedParams.append(
+                key,
+                value === null ? "null" : value.toString()
+            );
+        }
+    });
 
-  return normalizedParams.size
-    ? `/api/v1/passwords/?${normalizedParams.toString()}`
-    : `/api/v1/passwords/`;
+    return normalizedParams.size
+        ? `/api/v1/passwords/?${normalizedParams.toString()}`
+        : `/api/v1/passwords/`;
 };
 
 export const getApiV1Passwords = async (
-  params: GetApiV1PasswordsParams,
-  options?: RequestInit
+    params: GetApiV1PasswordsParams,
+    options?: RequestInit
 ): Promise<GetApiV1Passwords200> => {
-  return customFetch<GetApiV1Passwords200>(getGetApiV1PasswordsUrl(params), {
-    ...options,
-    method: "GET",
-  });
+    return customFetch<GetApiV1Passwords200>(getGetApiV1PasswordsUrl(params), {
+        ...options,
+        method: "GET",
+    });
 };
 
 export const getGetApiV1PasswordsQueryKey = (
-  params: GetApiV1PasswordsParams
+    params: GetApiV1PasswordsParams
 ) => {
-  return [`/api/v1/passwords/`, ...(params ? [params] : [])] as const;
+    return [`/api/v1/passwords/`, ...(params ? [params] : [])] as const;
 };
 
 export const getGetApiV1PasswordsQueryOptions = <
-  TData = Awaited<ReturnType<typeof getApiV1Passwords>>,
-  TError = GetApiV1Passwords4xx | GetApiV1Passwords5xx,
+    TData = Awaited<ReturnType<typeof getApiV1Passwords>>,
+    TError = GetApiV1Passwords4xx | GetApiV1Passwords5xx,
 >(
-  params: GetApiV1PasswordsParams,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
+    params: GetApiV1PasswordsParams,
+    options?: {
+        query?: Partial<
+            UseQueryOptions<
+                Awaited<ReturnType<typeof getApiV1Passwords>>,
+                TError,
+                TData
+            >
+        >;
+        request?: SecondParameter<typeof customFetch>;
+    }
+) => {
+    const { query: queryOptions, request: requestOptions } = options ?? {};
+
+    const queryKey =
+        queryOptions?.queryKey ?? getGetApiV1PasswordsQueryKey(params);
+
+    const queryFn: QueryFunction<
+        Awaited<ReturnType<typeof getApiV1Passwords>>
+    > = ({ signal }) =>
+        getApiV1Passwords(params, { signal, ...requestOptions });
+
+    return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
         Awaited<ReturnType<typeof getApiV1Passwords>>,
         TError,
         TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  }
-) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
-
-  const queryKey =
-    queryOptions?.queryKey ?? getGetApiV1PasswordsQueryKey(params);
-
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getApiV1Passwords>>
-  > = ({ signal }) => getApiV1Passwords(params, { signal, ...requestOptions });
-
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getApiV1Passwords>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
 };
 
 export type GetApiV1PasswordsQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getApiV1Passwords>>
+    Awaited<ReturnType<typeof getApiV1Passwords>>
 >;
 export type GetApiV1PasswordsQueryError =
-  | GetApiV1Passwords4xx
-  | GetApiV1Passwords5xx;
+    | GetApiV1Passwords4xx
+    | GetApiV1Passwords5xx;
 
 export function useGetApiV1Passwords<
-  TData = Awaited<ReturnType<typeof getApiV1Passwords>>,
-  TError = GetApiV1Passwords4xx | GetApiV1Passwords5xx,
+    TData = Awaited<ReturnType<typeof getApiV1Passwords>>,
+    TError = GetApiV1Passwords4xx | GetApiV1Passwords5xx,
 >(
-  params: GetApiV1PasswordsParams,
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof getApiV1Passwords>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getApiV1Passwords>>,
-          TError,
-          Awaited<ReturnType<typeof getApiV1Passwords>>
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customFetch>;
-  }
+    params: GetApiV1PasswordsParams,
+    options: {
+        query: Partial<
+            UseQueryOptions<
+                Awaited<ReturnType<typeof getApiV1Passwords>>,
+                TError,
+                TData
+            >
+        > &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof getApiV1Passwords>>,
+                    TError,
+                    Awaited<ReturnType<typeof getApiV1Passwords>>
+                >,
+                "initialData"
+            >;
+        request?: SecondParameter<typeof customFetch>;
+    }
 ): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
+    queryKey: DataTag<QueryKey, TData, TError>;
 };
 export function useGetApiV1Passwords<
-  TData = Awaited<ReturnType<typeof getApiV1Passwords>>,
-  TError = GetApiV1Passwords4xx | GetApiV1Passwords5xx,
+    TData = Awaited<ReturnType<typeof getApiV1Passwords>>,
+    TError = GetApiV1Passwords4xx | GetApiV1Passwords5xx,
 >(
-  params: GetApiV1PasswordsParams,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof getApiV1Passwords>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getApiV1Passwords>>,
-          TError,
-          Awaited<ReturnType<typeof getApiV1Passwords>>
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customFetch>;
-  }
+    params: GetApiV1PasswordsParams,
+    options?: {
+        query?: Partial<
+            UseQueryOptions<
+                Awaited<ReturnType<typeof getApiV1Passwords>>,
+                TError,
+                TData
+            >
+        > &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof getApiV1Passwords>>,
+                    TError,
+                    Awaited<ReturnType<typeof getApiV1Passwords>>
+                >,
+                "initialData"
+            >;
+        request?: SecondParameter<typeof customFetch>;
+    }
 ): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
+    queryKey: DataTag<QueryKey, TData, TError>;
 };
 export function useGetApiV1Passwords<
-  TData = Awaited<ReturnType<typeof getApiV1Passwords>>,
-  TError = GetApiV1Passwords4xx | GetApiV1Passwords5xx,
+    TData = Awaited<ReturnType<typeof getApiV1Passwords>>,
+    TError = GetApiV1Passwords4xx | GetApiV1Passwords5xx,
 >(
-  params: GetApiV1PasswordsParams,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof getApiV1Passwords>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  }
+    params: GetApiV1PasswordsParams,
+    options?: {
+        query?: Partial<
+            UseQueryOptions<
+                Awaited<ReturnType<typeof getApiV1Passwords>>,
+                TError,
+                TData
+            >
+        >;
+        request?: SecondParameter<typeof customFetch>;
+    }
 ): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
+    queryKey: DataTag<QueryKey, TData, TError>;
 };
 /**
  * @summary Get all passwords
  */
 
 export function useGetApiV1Passwords<
-  TData = Awaited<ReturnType<typeof getApiV1Passwords>>,
-  TError = GetApiV1Passwords4xx | GetApiV1Passwords5xx,
+    TData = Awaited<ReturnType<typeof getApiV1Passwords>>,
+    TError = GetApiV1Passwords4xx | GetApiV1Passwords5xx,
 >(
-  params: GetApiV1PasswordsParams,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof getApiV1Passwords>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  }
+    params: GetApiV1PasswordsParams,
+    options?: {
+        query?: Partial<
+            UseQueryOptions<
+                Awaited<ReturnType<typeof getApiV1Passwords>>,
+                TError,
+                TData
+            >
+        >;
+        request?: SecondParameter<typeof customFetch>;
+    }
 ): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions = getGetApiV1PasswordsQueryOptions(params, options);
-
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: DataTag<QueryKey, TData, TError>;
-  };
+} {
+    const queryOptions = getGetApiV1PasswordsQueryOptions(params, options);
 
-  query.queryKey = queryOptions.queryKey;
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
 
-  return query;
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
 }
 
 /**
@@ -1561,94 +1591,97 @@ export function useGetApiV1Passwords<
  * @summary Import multiple passwords
  */
 export const getPostApiV1PasswordsImportUrl = () => {
-  return `/api/v1/passwords/import`;
+    return `/api/v1/passwords/import`;
 };
 
 export const postApiV1PasswordsImport = async (
-  postApiV1PasswordsImportBodyItem: PostApiV1PasswordsImportBodyItem[],
-  options?: RequestInit
+    postApiV1PasswordsImportBodyItem: PostApiV1PasswordsImportBodyItem[],
+    options?: RequestInit
 ): Promise<PostApiV1PasswordsImport200> => {
-  return customFetch<PostApiV1PasswordsImport200>(
-    getPostApiV1PasswordsImportUrl(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(postApiV1PasswordsImportBodyItem),
-    }
-  );
+    return customFetch<PostApiV1PasswordsImport200>(
+        getPostApiV1PasswordsImportUrl(),
+        {
+            ...options,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                ...options?.headers,
+            },
+            body: JSON.stringify(postApiV1PasswordsImportBodyItem),
+        }
+    );
 };
 
 export const getPostApiV1PasswordsImportMutationOptions = <
-  TError = PostApiV1PasswordsImport4xx | PostApiV1PasswordsImport5xx,
-  TContext = unknown,
+    TError = PostApiV1PasswordsImport4xx | PostApiV1PasswordsImport5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
+        TError,
+        { data: PostApiV1PasswordsImportBodyItem[] },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
     TError,
     { data: PostApiV1PasswordsImportBodyItem[] },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
-  TError,
-  { data: PostApiV1PasswordsImportBodyItem[] },
-  TContext
 > => {
-  const mutationKey = ["postApiV1PasswordsImport"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["postApiV1PasswordsImport"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
-    { data: PostApiV1PasswordsImportBodyItem[] }
-  > = (props) => {
-    const { data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
+        { data: PostApiV1PasswordsImportBodyItem[] }
+    > = (props) => {
+        const { data } = props ?? {};
 
-    return postApiV1PasswordsImport(data, requestOptions);
-  };
+        return postApiV1PasswordsImport(data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PostApiV1PasswordsImportMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postApiV1PasswordsImport>>
+    Awaited<ReturnType<typeof postApiV1PasswordsImport>>
 >;
 export type PostApiV1PasswordsImportMutationBody =
-  PostApiV1PasswordsImportBodyItem[];
+    PostApiV1PasswordsImportBodyItem[];
 export type PostApiV1PasswordsImportMutationError =
-  | PostApiV1PasswordsImport4xx
-  | PostApiV1PasswordsImport5xx;
+    | PostApiV1PasswordsImport4xx
+    | PostApiV1PasswordsImport5xx;
 
 /**
  * @summary Import multiple passwords
  */
 export const usePostApiV1PasswordsImport = <
-  TError = PostApiV1PasswordsImport4xx | PostApiV1PasswordsImport5xx,
-  TContext = unknown,
+    TError = PostApiV1PasswordsImport4xx | PostApiV1PasswordsImport5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
+        TError,
+        { data: PostApiV1PasswordsImportBodyItem[] },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
     TError,
     { data: PostApiV1PasswordsImportBodyItem[] },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postApiV1PasswordsImport>>,
-  TError,
-  { data: PostApiV1PasswordsImportBodyItem[] },
-  TContext
 > => {
-  const mutationOptions = getPostApiV1PasswordsImportMutationOptions(options);
+    const mutationOptions = getPostApiV1PasswordsImportMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -1656,167 +1689,168 @@ export const usePostApiV1PasswordsImport = <
  * @summary Get password by ID
  */
 export const getGetApiV1PasswordsIdUrl = (id: number) => {
-  return `/api/v1/passwords/${id}`;
+    return `/api/v1/passwords/${id}`;
 };
 
 export const getApiV1PasswordsId = async (
-  id: number,
-  options?: RequestInit
+    id: number,
+    options?: RequestInit
 ): Promise<GetApiV1PasswordsId200> => {
-  return customFetch<GetApiV1PasswordsId200>(getGetApiV1PasswordsIdUrl(id), {
-    ...options,
-    method: "GET",
-  });
+    return customFetch<GetApiV1PasswordsId200>(getGetApiV1PasswordsIdUrl(id), {
+        ...options,
+        method: "GET",
+    });
 };
 
 export const getGetApiV1PasswordsIdQueryKey = (id: number) => {
-  return [`/api/v1/passwords/${id}`] as const;
+    return [`/api/v1/passwords/${id}`] as const;
 };
 
 export const getGetApiV1PasswordsIdQueryOptions = <
-  TData = Awaited<ReturnType<typeof getApiV1PasswordsId>>,
-  TError = GetApiV1PasswordsId4xx | GetApiV1PasswordsId5xx,
+    TData = Awaited<ReturnType<typeof getApiV1PasswordsId>>,
+    TError = GetApiV1PasswordsId4xx | GetApiV1PasswordsId5xx,
 >(
-  id: number,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
+    id: number,
+    options?: {
+        query?: Partial<
+            UseQueryOptions<
+                Awaited<ReturnType<typeof getApiV1PasswordsId>>,
+                TError,
+                TData
+            >
+        >;
+        request?: SecondParameter<typeof customFetch>;
+    }
+) => {
+    const { query: queryOptions, request: requestOptions } = options ?? {};
+
+    const queryKey =
+        queryOptions?.queryKey ?? getGetApiV1PasswordsIdQueryKey(id);
+
+    const queryFn: QueryFunction<
+        Awaited<ReturnType<typeof getApiV1PasswordsId>>
+    > = ({ signal }) => getApiV1PasswordsId(id, { signal, ...requestOptions });
+
+    return {
+        queryKey,
+        queryFn,
+        enabled: !!id,
+        ...queryOptions,
+    } as UseQueryOptions<
         Awaited<ReturnType<typeof getApiV1PasswordsId>>,
         TError,
         TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  }
-) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
-
-  const queryKey = queryOptions?.queryKey ?? getGetApiV1PasswordsIdQueryKey(id);
-
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getApiV1PasswordsId>>
-  > = ({ signal }) => getApiV1PasswordsId(id, { signal, ...requestOptions });
-
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof getApiV1PasswordsId>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
 };
 
 export type GetApiV1PasswordsIdQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getApiV1PasswordsId>>
+    Awaited<ReturnType<typeof getApiV1PasswordsId>>
 >;
 export type GetApiV1PasswordsIdQueryError =
-  | GetApiV1PasswordsId4xx
-  | GetApiV1PasswordsId5xx;
+    | GetApiV1PasswordsId4xx
+    | GetApiV1PasswordsId5xx;
 
 export function useGetApiV1PasswordsId<
-  TData = Awaited<ReturnType<typeof getApiV1PasswordsId>>,
-  TError = GetApiV1PasswordsId4xx | GetApiV1PasswordsId5xx,
+    TData = Awaited<ReturnType<typeof getApiV1PasswordsId>>,
+    TError = GetApiV1PasswordsId4xx | GetApiV1PasswordsId5xx,
 >(
-  id: number,
-  options: {
-    query: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof getApiV1PasswordsId>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getApiV1PasswordsId>>,
-          TError,
-          Awaited<ReturnType<typeof getApiV1PasswordsId>>
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customFetch>;
-  }
+    id: number,
+    options: {
+        query: Partial<
+            UseQueryOptions<
+                Awaited<ReturnType<typeof getApiV1PasswordsId>>,
+                TError,
+                TData
+            >
+        > &
+            Pick<
+                DefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof getApiV1PasswordsId>>,
+                    TError,
+                    Awaited<ReturnType<typeof getApiV1PasswordsId>>
+                >,
+                "initialData"
+            >;
+        request?: SecondParameter<typeof customFetch>;
+    }
 ): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
+    queryKey: DataTag<QueryKey, TData, TError>;
 };
 export function useGetApiV1PasswordsId<
-  TData = Awaited<ReturnType<typeof getApiV1PasswordsId>>,
-  TError = GetApiV1PasswordsId4xx | GetApiV1PasswordsId5xx,
+    TData = Awaited<ReturnType<typeof getApiV1PasswordsId>>,
+    TError = GetApiV1PasswordsId4xx | GetApiV1PasswordsId5xx,
 >(
-  id: number,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof getApiV1PasswordsId>>,
-        TError,
-        TData
-      >
-    > &
-      Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getApiV1PasswordsId>>,
-          TError,
-          Awaited<ReturnType<typeof getApiV1PasswordsId>>
-        >,
-        "initialData"
-      >;
-    request?: SecondParameter<typeof customFetch>;
-  }
+    id: number,
+    options?: {
+        query?: Partial<
+            UseQueryOptions<
+                Awaited<ReturnType<typeof getApiV1PasswordsId>>,
+                TError,
+                TData
+            >
+        > &
+            Pick<
+                UndefinedInitialDataOptions<
+                    Awaited<ReturnType<typeof getApiV1PasswordsId>>,
+                    TError,
+                    Awaited<ReturnType<typeof getApiV1PasswordsId>>
+                >,
+                "initialData"
+            >;
+        request?: SecondParameter<typeof customFetch>;
+    }
 ): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
+    queryKey: DataTag<QueryKey, TData, TError>;
 };
 export function useGetApiV1PasswordsId<
-  TData = Awaited<ReturnType<typeof getApiV1PasswordsId>>,
-  TError = GetApiV1PasswordsId4xx | GetApiV1PasswordsId5xx,
+    TData = Awaited<ReturnType<typeof getApiV1PasswordsId>>,
+    TError = GetApiV1PasswordsId4xx | GetApiV1PasswordsId5xx,
 >(
-  id: number,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof getApiV1PasswordsId>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  }
+    id: number,
+    options?: {
+        query?: Partial<
+            UseQueryOptions<
+                Awaited<ReturnType<typeof getApiV1PasswordsId>>,
+                TError,
+                TData
+            >
+        >;
+        request?: SecondParameter<typeof customFetch>;
+    }
 ): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
+    queryKey: DataTag<QueryKey, TData, TError>;
 };
 /**
  * @summary Get password by ID
  */
 
 export function useGetApiV1PasswordsId<
-  TData = Awaited<ReturnType<typeof getApiV1PasswordsId>>,
-  TError = GetApiV1PasswordsId4xx | GetApiV1PasswordsId5xx,
+    TData = Awaited<ReturnType<typeof getApiV1PasswordsId>>,
+    TError = GetApiV1PasswordsId4xx | GetApiV1PasswordsId5xx,
 >(
-  id: number,
-  options?: {
-    query?: Partial<
-      UseQueryOptions<
-        Awaited<ReturnType<typeof getApiV1PasswordsId>>,
-        TError,
-        TData
-      >
-    >;
-    request?: SecondParameter<typeof customFetch>;
-  }
+    id: number,
+    options?: {
+        query?: Partial<
+            UseQueryOptions<
+                Awaited<ReturnType<typeof getApiV1PasswordsId>>,
+                TError,
+                TData
+            >
+        >;
+        request?: SecondParameter<typeof customFetch>;
+    }
 ): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions = getGetApiV1PasswordsIdQueryOptions(id, options);
-
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: DataTag<QueryKey, TData, TError>;
-  };
+} {
+    const queryOptions = getGetApiV1PasswordsIdQueryOptions(id, options);
 
-  query.queryKey = queryOptions.queryKey;
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
 
-  return query;
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
 }
 
 /**
@@ -1824,91 +1858,91 @@ export function useGetApiV1PasswordsId<
  * @summary Update password by ID
  */
 export const getPutApiV1PasswordsIdUrl = (id: number) => {
-  return `/api/v1/passwords/${id}`;
+    return `/api/v1/passwords/${id}`;
 };
 
 export const putApiV1PasswordsId = async (
-  id: number,
-  putApiV1PasswordsIdBody: PutApiV1PasswordsIdBody,
-  options?: RequestInit
+    id: number,
+    putApiV1PasswordsIdBody: PutApiV1PasswordsIdBody,
+    options?: RequestInit
 ): Promise<PutApiV1PasswordsId200> => {
-  return customFetch<PutApiV1PasswordsId200>(getPutApiV1PasswordsIdUrl(id), {
-    ...options,
-    method: "PUT",
-    headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(putApiV1PasswordsIdBody),
-  });
+    return customFetch<PutApiV1PasswordsId200>(getPutApiV1PasswordsIdUrl(id), {
+        ...options,
+        method: "PUT",
+        headers: { "Content-Type": "application/json", ...options?.headers },
+        body: JSON.stringify(putApiV1PasswordsIdBody),
+    });
 };
 
 export const getPutApiV1PasswordsIdMutationOptions = <
-  TError = PutApiV1PasswordsId4xx | PutApiV1PasswordsId5xx,
-  TContext = unknown,
+    TError = PutApiV1PasswordsId4xx | PutApiV1PasswordsId5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof putApiV1PasswordsId>>,
+        TError,
+        { id: number; data: PutApiV1PasswordsIdBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof putApiV1PasswordsId>>,
     TError,
     { id: number; data: PutApiV1PasswordsIdBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof putApiV1PasswordsId>>,
-  TError,
-  { id: number; data: PutApiV1PasswordsIdBody },
-  TContext
 > => {
-  const mutationKey = ["putApiV1PasswordsId"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["putApiV1PasswordsId"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof putApiV1PasswordsId>>,
-    { id: number; data: PutApiV1PasswordsIdBody }
-  > = (props) => {
-    const { id, data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof putApiV1PasswordsId>>,
+        { id: number; data: PutApiV1PasswordsIdBody }
+    > = (props) => {
+        const { id, data } = props ?? {};
 
-    return putApiV1PasswordsId(id, data, requestOptions);
-  };
+        return putApiV1PasswordsId(id, data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PutApiV1PasswordsIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof putApiV1PasswordsId>>
+    Awaited<ReturnType<typeof putApiV1PasswordsId>>
 >;
 export type PutApiV1PasswordsIdMutationBody = PutApiV1PasswordsIdBody;
 export type PutApiV1PasswordsIdMutationError =
-  | PutApiV1PasswordsId4xx
-  | PutApiV1PasswordsId5xx;
+    | PutApiV1PasswordsId4xx
+    | PutApiV1PasswordsId5xx;
 
 /**
  * @summary Update password by ID
  */
 export const usePutApiV1PasswordsId = <
-  TError = PutApiV1PasswordsId4xx | PutApiV1PasswordsId5xx,
-  TContext = unknown,
+    TError = PutApiV1PasswordsId4xx | PutApiV1PasswordsId5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof putApiV1PasswordsId>>,
+        TError,
+        { id: number; data: PutApiV1PasswordsIdBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof putApiV1PasswordsId>>,
     TError,
     { id: number; data: PutApiV1PasswordsIdBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof putApiV1PasswordsId>>,
-  TError,
-  { id: number; data: PutApiV1PasswordsIdBody },
-  TContext
 > => {
-  const mutationOptions = getPutApiV1PasswordsIdMutationOptions(options);
+    const mutationOptions = getPutApiV1PasswordsIdMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -1916,91 +1950,91 @@ export const usePutApiV1PasswordsId = <
  * @summary Delete password by ID
  */
 export const getDeleteApiV1PasswordsIdUrl = (id: number) => {
-  return `/api/v1/passwords/${id}`;
+    return `/api/v1/passwords/${id}`;
 };
 
 export const deleteApiV1PasswordsId = async (
-  id: number,
-  options?: RequestInit
+    id: number,
+    options?: RequestInit
 ): Promise<DeleteApiV1PasswordsId200> => {
-  return customFetch<DeleteApiV1PasswordsId200>(
-    getDeleteApiV1PasswordsIdUrl(id),
-    {
-      ...options,
-      method: "DELETE",
-    }
-  );
+    return customFetch<DeleteApiV1PasswordsId200>(
+        getDeleteApiV1PasswordsIdUrl(id),
+        {
+            ...options,
+            method: "DELETE",
+        }
+    );
 };
 
 export const getDeleteApiV1PasswordsIdMutationOptions = <
-  TError = DeleteApiV1PasswordsId4xx | DeleteApiV1PasswordsId5xx,
-  TContext = unknown,
+    TError = DeleteApiV1PasswordsId4xx | DeleteApiV1PasswordsId5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof deleteApiV1PasswordsId>>,
+        TError,
+        { id: number },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof deleteApiV1PasswordsId>>,
     TError,
     { id: number },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof deleteApiV1PasswordsId>>,
-  TError,
-  { id: number },
-  TContext
 > => {
-  const mutationKey = ["deleteApiV1PasswordsId"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["deleteApiV1PasswordsId"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof deleteApiV1PasswordsId>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof deleteApiV1PasswordsId>>,
+        { id: number }
+    > = (props) => {
+        const { id } = props ?? {};
 
-    return deleteApiV1PasswordsId(id, requestOptions);
-  };
+        return deleteApiV1PasswordsId(id, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type DeleteApiV1PasswordsIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof deleteApiV1PasswordsId>>
+    Awaited<ReturnType<typeof deleteApiV1PasswordsId>>
 >;
 
 export type DeleteApiV1PasswordsIdMutationError =
-  | DeleteApiV1PasswordsId4xx
-  | DeleteApiV1PasswordsId5xx;
+    | DeleteApiV1PasswordsId4xx
+    | DeleteApiV1PasswordsId5xx;
 
 /**
  * @summary Delete password by ID
  */
 export const useDeleteApiV1PasswordsId = <
-  TError = DeleteApiV1PasswordsId4xx | DeleteApiV1PasswordsId5xx,
-  TContext = unknown,
+    TError = DeleteApiV1PasswordsId4xx | DeleteApiV1PasswordsId5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof deleteApiV1PasswordsId>>,
+        TError,
+        { id: number },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof deleteApiV1PasswordsId>>,
     TError,
     { id: number },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof deleteApiV1PasswordsId>>,
-  TError,
-  { id: number },
-  TContext
 > => {
-  const mutationOptions = getDeleteApiV1PasswordsIdMutationOptions(options);
+    const mutationOptions = getDeleteApiV1PasswordsIdMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -2008,93 +2042,96 @@ export const useDeleteApiV1PasswordsId = <
  * @summary Delete multiple passwords
  */
 export const getDeleteApiV1PasswordsManyUrl = () => {
-  return `/api/v1/passwords/many`;
+    return `/api/v1/passwords/many`;
 };
 
 export const deleteApiV1PasswordsMany = async (
-  deleteApiV1PasswordsManyBody: DeleteApiV1PasswordsManyBody,
-  options?: RequestInit
+    deleteApiV1PasswordsManyBody: DeleteApiV1PasswordsManyBody,
+    options?: RequestInit
 ): Promise<DeleteApiV1PasswordsMany200> => {
-  return customFetch<DeleteApiV1PasswordsMany200>(
-    getDeleteApiV1PasswordsManyUrl(),
-    {
-      ...options,
-      method: "DELETE",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(deleteApiV1PasswordsManyBody),
-    }
-  );
+    return customFetch<DeleteApiV1PasswordsMany200>(
+        getDeleteApiV1PasswordsManyUrl(),
+        {
+            ...options,
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                ...options?.headers,
+            },
+            body: JSON.stringify(deleteApiV1PasswordsManyBody),
+        }
+    );
 };
 
 export const getDeleteApiV1PasswordsManyMutationOptions = <
-  TError = DeleteApiV1PasswordsMany4xx | DeleteApiV1PasswordsMany5xx,
-  TContext = unknown,
+    TError = DeleteApiV1PasswordsMany4xx | DeleteApiV1PasswordsMany5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof deleteApiV1PasswordsMany>>,
+        TError,
+        { data: DeleteApiV1PasswordsManyBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof deleteApiV1PasswordsMany>>,
     TError,
     { data: DeleteApiV1PasswordsManyBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof deleteApiV1PasswordsMany>>,
-  TError,
-  { data: DeleteApiV1PasswordsManyBody },
-  TContext
 > => {
-  const mutationKey = ["deleteApiV1PasswordsMany"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["deleteApiV1PasswordsMany"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof deleteApiV1PasswordsMany>>,
-    { data: DeleteApiV1PasswordsManyBody }
-  > = (props) => {
-    const { data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof deleteApiV1PasswordsMany>>,
+        { data: DeleteApiV1PasswordsManyBody }
+    > = (props) => {
+        const { data } = props ?? {};
 
-    return deleteApiV1PasswordsMany(data, requestOptions);
-  };
+        return deleteApiV1PasswordsMany(data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type DeleteApiV1PasswordsManyMutationResult = NonNullable<
-  Awaited<ReturnType<typeof deleteApiV1PasswordsMany>>
+    Awaited<ReturnType<typeof deleteApiV1PasswordsMany>>
 >;
 export type DeleteApiV1PasswordsManyMutationBody = DeleteApiV1PasswordsManyBody;
 export type DeleteApiV1PasswordsManyMutationError =
-  | DeleteApiV1PasswordsMany4xx
-  | DeleteApiV1PasswordsMany5xx;
+    | DeleteApiV1PasswordsMany4xx
+    | DeleteApiV1PasswordsMany5xx;
 
 /**
  * @summary Delete multiple passwords
  */
 export const useDeleteApiV1PasswordsMany = <
-  TError = DeleteApiV1PasswordsMany4xx | DeleteApiV1PasswordsMany5xx,
-  TContext = unknown,
+    TError = DeleteApiV1PasswordsMany4xx | DeleteApiV1PasswordsMany5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof deleteApiV1PasswordsMany>>,
+        TError,
+        { data: DeleteApiV1PasswordsManyBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof deleteApiV1PasswordsMany>>,
     TError,
     { data: DeleteApiV1PasswordsManyBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof deleteApiV1PasswordsMany>>,
-  TError,
-  { data: DeleteApiV1PasswordsManyBody },
-  TContext
 > => {
-  const mutationOptions = getDeleteApiV1PasswordsManyMutationOptions(options);
+    const mutationOptions = getDeleteApiV1PasswordsManyMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -2102,95 +2139,98 @@ export const useDeleteApiV1PasswordsMany = <
  * @summary Move multiple passwords to a different vault
  */
 export const getPostApiV1PasswordsMoveVaultsUrl = () => {
-  return `/api/v1/passwords/move-vaults`;
+    return `/api/v1/passwords/move-vaults`;
 };
 
 export const postApiV1PasswordsMoveVaults = async (
-  postApiV1PasswordsMoveVaultsBody: PostApiV1PasswordsMoveVaultsBody,
-  options?: RequestInit
+    postApiV1PasswordsMoveVaultsBody: PostApiV1PasswordsMoveVaultsBody,
+    options?: RequestInit
 ): Promise<PostApiV1PasswordsMoveVaults200> => {
-  return customFetch<PostApiV1PasswordsMoveVaults200>(
-    getPostApiV1PasswordsMoveVaultsUrl(),
-    {
-      ...options,
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(postApiV1PasswordsMoveVaultsBody),
-    }
-  );
+    return customFetch<PostApiV1PasswordsMoveVaults200>(
+        getPostApiV1PasswordsMoveVaultsUrl(),
+        {
+            ...options,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                ...options?.headers,
+            },
+            body: JSON.stringify(postApiV1PasswordsMoveVaultsBody),
+        }
+    );
 };
 
 export const getPostApiV1PasswordsMoveVaultsMutationOptions = <
-  TError = PostApiV1PasswordsMoveVaults4xx | PostApiV1PasswordsMoveVaults5xx,
-  TContext = unknown,
+    TError = PostApiV1PasswordsMoveVaults4xx | PostApiV1PasswordsMoveVaults5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1PasswordsMoveVaults>>,
+        TError,
+        { data: PostApiV1PasswordsMoveVaultsBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof postApiV1PasswordsMoveVaults>>,
     TError,
     { data: PostApiV1PasswordsMoveVaultsBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postApiV1PasswordsMoveVaults>>,
-  TError,
-  { data: PostApiV1PasswordsMoveVaultsBody },
-  TContext
 > => {
-  const mutationKey = ["postApiV1PasswordsMoveVaults"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["postApiV1PasswordsMoveVaults"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postApiV1PasswordsMoveVaults>>,
-    { data: PostApiV1PasswordsMoveVaultsBody }
-  > = (props) => {
-    const { data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof postApiV1PasswordsMoveVaults>>,
+        { data: PostApiV1PasswordsMoveVaultsBody }
+    > = (props) => {
+        const { data } = props ?? {};
 
-    return postApiV1PasswordsMoveVaults(data, requestOptions);
-  };
+        return postApiV1PasswordsMoveVaults(data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PostApiV1PasswordsMoveVaultsMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postApiV1PasswordsMoveVaults>>
+    Awaited<ReturnType<typeof postApiV1PasswordsMoveVaults>>
 >;
 export type PostApiV1PasswordsMoveVaultsMutationBody =
-  PostApiV1PasswordsMoveVaultsBody;
+    PostApiV1PasswordsMoveVaultsBody;
 export type PostApiV1PasswordsMoveVaultsMutationError =
-  | PostApiV1PasswordsMoveVaults4xx
-  | PostApiV1PasswordsMoveVaults5xx;
+    | PostApiV1PasswordsMoveVaults4xx
+    | PostApiV1PasswordsMoveVaults5xx;
 
 /**
  * @summary Move multiple passwords to a different vault
  */
 export const usePostApiV1PasswordsMoveVaults = <
-  TError = PostApiV1PasswordsMoveVaults4xx | PostApiV1PasswordsMoveVaults5xx,
-  TContext = unknown,
+    TError = PostApiV1PasswordsMoveVaults4xx | PostApiV1PasswordsMoveVaults5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1PasswordsMoveVaults>>,
+        TError,
+        { data: PostApiV1PasswordsMoveVaultsBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof postApiV1PasswordsMoveVaults>>,
     TError,
     { data: PostApiV1PasswordsMoveVaultsBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postApiV1PasswordsMoveVaults>>,
-  TError,
-  { data: PostApiV1PasswordsMoveVaultsBody },
-  TContext
 > => {
-  const mutationOptions =
-    getPostApiV1PasswordsMoveVaultsMutationOptions(options);
+    const mutationOptions =
+        getPostApiV1PasswordsMoveVaultsMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -2198,90 +2238,90 @@ export const usePostApiV1PasswordsMoveVaults = <
  * @summary Update user details
  */
 export const getPatchApiV1UsersUrl = () => {
-  return `/api/v1/users/`;
+    return `/api/v1/users/`;
 };
 
 export const patchApiV1Users = async (
-  patchApiV1UsersBody: PatchApiV1UsersBody,
-  options?: RequestInit
+    patchApiV1UsersBody: PatchApiV1UsersBody,
+    options?: RequestInit
 ): Promise<PatchApiV1Users200> => {
-  return customFetch<PatchApiV1Users200>(getPatchApiV1UsersUrl(), {
-    ...options,
-    method: "PATCH",
-    headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(patchApiV1UsersBody),
-  });
+    return customFetch<PatchApiV1Users200>(getPatchApiV1UsersUrl(), {
+        ...options,
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", ...options?.headers },
+        body: JSON.stringify(patchApiV1UsersBody),
+    });
 };
 
 export const getPatchApiV1UsersMutationOptions = <
-  TError = PatchApiV1Users4xx | PatchApiV1Users5xx,
-  TContext = unknown,
+    TError = PatchApiV1Users4xx | PatchApiV1Users5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof patchApiV1Users>>,
+        TError,
+        { data: PatchApiV1UsersBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof patchApiV1Users>>,
     TError,
     { data: PatchApiV1UsersBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof patchApiV1Users>>,
-  TError,
-  { data: PatchApiV1UsersBody },
-  TContext
 > => {
-  const mutationKey = ["patchApiV1Users"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["patchApiV1Users"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof patchApiV1Users>>,
-    { data: PatchApiV1UsersBody }
-  > = (props) => {
-    const { data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof patchApiV1Users>>,
+        { data: PatchApiV1UsersBody }
+    > = (props) => {
+        const { data } = props ?? {};
 
-    return patchApiV1Users(data, requestOptions);
-  };
+        return patchApiV1Users(data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PatchApiV1UsersMutationResult = NonNullable<
-  Awaited<ReturnType<typeof patchApiV1Users>>
+    Awaited<ReturnType<typeof patchApiV1Users>>
 >;
 export type PatchApiV1UsersMutationBody = PatchApiV1UsersBody;
 export type PatchApiV1UsersMutationError =
-  | PatchApiV1Users4xx
-  | PatchApiV1Users5xx;
+    | PatchApiV1Users4xx
+    | PatchApiV1Users5xx;
 
 /**
  * @summary Update user details
  */
 export const usePatchApiV1Users = <
-  TError = PatchApiV1Users4xx | PatchApiV1Users5xx,
-  TContext = unknown,
+    TError = PatchApiV1Users4xx | PatchApiV1Users5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof patchApiV1Users>>,
+        TError,
+        { data: PatchApiV1UsersBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof patchApiV1Users>>,
     TError,
     { data: PatchApiV1UsersBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof patchApiV1Users>>,
-  TError,
-  { data: PatchApiV1UsersBody },
-  TContext
 > => {
-  const mutationOptions = getPatchApiV1UsersMutationOptions(options);
+    const mutationOptions = getPatchApiV1UsersMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -2289,124 +2329,144 @@ export const usePatchApiV1Users = <
  * @summary Get logged in user detail
  */
 export const getGetApiV1UsersUrl = () => {
-  return `/api/v1/users/`;
+    return `/api/v1/users/`;
 };
 
 export const getApiV1Users = async (
-  options?: RequestInit
+    options?: RequestInit
 ): Promise<GetApiV1Users200> => {
-  return customFetch<GetApiV1Users200>(getGetApiV1UsersUrl(), {
-    ...options,
-    method: "GET",
-  });
+    return customFetch<GetApiV1Users200>(getGetApiV1UsersUrl(), {
+        ...options,
+        method: "GET",
+    });
 };
 
 export const getGetApiV1UsersQueryKey = () => {
-  return [`/api/v1/users/`] as const;
+    return [`/api/v1/users/`] as const;
 };
 
 export const getGetApiV1UsersQueryOptions = <
-  TData = Awaited<ReturnType<typeof getApiV1Users>>,
-  TError = GetApiV1Users4xx | GetApiV1Users5xx,
+    TData = Awaited<ReturnType<typeof getApiV1Users>>,
+    TError = GetApiV1Users4xx | GetApiV1Users5xx,
 >(options?: {
-  query?: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof getApiV1Users>>, TError, TData>
-  >;
-  request?: SecondParameter<typeof customFetch>;
+    query?: Partial<
+        UseQueryOptions<
+            Awaited<ReturnType<typeof getApiV1Users>>,
+            TError,
+            TData
+        >
+    >;
+    request?: SecondParameter<typeof customFetch>;
 }) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
+    const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetApiV1UsersQueryKey();
+    const queryKey = queryOptions?.queryKey ?? getGetApiV1UsersQueryKey();
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getApiV1Users>>> = ({
-    signal,
-  }) => getApiV1Users({ signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getApiV1Users>>> = ({
+        signal,
+    }) => getApiV1Users({ signal, ...requestOptions });
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getApiV1Users>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+    return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof getApiV1Users>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
 };
 
 export type GetApiV1UsersQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getApiV1Users>>
+    Awaited<ReturnType<typeof getApiV1Users>>
 >;
 export type GetApiV1UsersQueryError = GetApiV1Users4xx | GetApiV1Users5xx;
 
 export function useGetApiV1Users<
-  TData = Awaited<ReturnType<typeof getApiV1Users>>,
-  TError = GetApiV1Users4xx | GetApiV1Users5xx,
+    TData = Awaited<ReturnType<typeof getApiV1Users>>,
+    TError = GetApiV1Users4xx | GetApiV1Users5xx,
 >(options: {
-  query: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof getApiV1Users>>, TError, TData>
-  > &
-    Pick<
-      DefinedInitialDataOptions<
-        Awaited<ReturnType<typeof getApiV1Users>>,
-        TError,
-        Awaited<ReturnType<typeof getApiV1Users>>
-      >,
-      "initialData"
-    >;
-  request?: SecondParameter<typeof customFetch>;
+    query: Partial<
+        UseQueryOptions<
+            Awaited<ReturnType<typeof getApiV1Users>>,
+            TError,
+            TData
+        >
+    > &
+        Pick<
+            DefinedInitialDataOptions<
+                Awaited<ReturnType<typeof getApiV1Users>>,
+                TError,
+                Awaited<ReturnType<typeof getApiV1Users>>
+            >,
+            "initialData"
+        >;
+    request?: SecondParameter<typeof customFetch>;
 }): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
+    queryKey: DataTag<QueryKey, TData, TError>;
 };
 export function useGetApiV1Users<
-  TData = Awaited<ReturnType<typeof getApiV1Users>>,
-  TError = GetApiV1Users4xx | GetApiV1Users5xx,
+    TData = Awaited<ReturnType<typeof getApiV1Users>>,
+    TError = GetApiV1Users4xx | GetApiV1Users5xx,
 >(options?: {
-  query?: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof getApiV1Users>>, TError, TData>
-  > &
-    Pick<
-      UndefinedInitialDataOptions<
-        Awaited<ReturnType<typeof getApiV1Users>>,
-        TError,
-        Awaited<ReturnType<typeof getApiV1Users>>
-      >,
-      "initialData"
+    query?: Partial<
+        UseQueryOptions<
+            Awaited<ReturnType<typeof getApiV1Users>>,
+            TError,
+            TData
+        >
+    > &
+        Pick<
+            UndefinedInitialDataOptions<
+                Awaited<ReturnType<typeof getApiV1Users>>,
+                TError,
+                Awaited<ReturnType<typeof getApiV1Users>>
+            >,
+            "initialData"
+        >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetApiV1Users<
+    TData = Awaited<ReturnType<typeof getApiV1Users>>,
+    TError = GetApiV1Users4xx | GetApiV1Users5xx,
+>(options?: {
+    query?: Partial<
+        UseQueryOptions<
+            Awaited<ReturnType<typeof getApiV1Users>>,
+            TError,
+            TData
+        >
     >;
-  request?: SecondParameter<typeof customFetch>;
+    request?: SecondParameter<typeof customFetch>;
 }): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useGetApiV1Users<
-  TData = Awaited<ReturnType<typeof getApiV1Users>>,
-  TError = GetApiV1Users4xx | GetApiV1Users5xx,
->(options?: {
-  query?: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof getApiV1Users>>, TError, TData>
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
+    queryKey: DataTag<QueryKey, TData, TError>;
 };
 /**
  * @summary Get logged in user detail
  */
 
 export function useGetApiV1Users<
-  TData = Awaited<ReturnType<typeof getApiV1Users>>,
-  TError = GetApiV1Users4xx | GetApiV1Users5xx,
+    TData = Awaited<ReturnType<typeof getApiV1Users>>,
+    TError = GetApiV1Users4xx | GetApiV1Users5xx,
 >(options?: {
-  query?: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof getApiV1Users>>, TError, TData>
-  >;
-  request?: SecondParameter<typeof customFetch>;
+    query?: Partial<
+        UseQueryOptions<
+            Awaited<ReturnType<typeof getApiV1Users>>,
+            TError,
+            TData
+        >
+    >;
+    request?: SecondParameter<typeof customFetch>;
 }): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions = getGetApiV1UsersQueryOptions(options);
-
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: DataTag<QueryKey, TData, TError>;
-  };
+} {
+    const queryOptions = getGetApiV1UsersQueryOptions(options);
 
-  query.queryKey = queryOptions.queryKey;
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
 
-  return query;
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
 }
 
 /**
@@ -2414,124 +2474,144 @@ export function useGetApiV1Users<
  * @summary Get vaults
  */
 export const getGetApiV1VaultsUrl = () => {
-  return `/api/v1/vaults/`;
+    return `/api/v1/vaults/`;
 };
 
 export const getApiV1Vaults = async (
-  options?: RequestInit
+    options?: RequestInit
 ): Promise<GetApiV1Vaults200> => {
-  return customFetch<GetApiV1Vaults200>(getGetApiV1VaultsUrl(), {
-    ...options,
-    method: "GET",
-  });
+    return customFetch<GetApiV1Vaults200>(getGetApiV1VaultsUrl(), {
+        ...options,
+        method: "GET",
+    });
 };
 
 export const getGetApiV1VaultsQueryKey = () => {
-  return [`/api/v1/vaults/`] as const;
+    return [`/api/v1/vaults/`] as const;
 };
 
 export const getGetApiV1VaultsQueryOptions = <
-  TData = Awaited<ReturnType<typeof getApiV1Vaults>>,
-  TError = GetApiV1Vaults4xx | GetApiV1Vaults5xx,
+    TData = Awaited<ReturnType<typeof getApiV1Vaults>>,
+    TError = GetApiV1Vaults4xx | GetApiV1Vaults5xx,
 >(options?: {
-  query?: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof getApiV1Vaults>>, TError, TData>
-  >;
-  request?: SecondParameter<typeof customFetch>;
+    query?: Partial<
+        UseQueryOptions<
+            Awaited<ReturnType<typeof getApiV1Vaults>>,
+            TError,
+            TData
+        >
+    >;
+    request?: SecondParameter<typeof customFetch>;
 }) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
+    const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetApiV1VaultsQueryKey();
+    const queryKey = queryOptions?.queryKey ?? getGetApiV1VaultsQueryKey();
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getApiV1Vaults>>> = ({
-    signal,
-  }) => getApiV1Vaults({ signal, ...requestOptions });
+    const queryFn: QueryFunction<
+        Awaited<ReturnType<typeof getApiV1Vaults>>
+    > = ({ signal }) => getApiV1Vaults({ signal, ...requestOptions });
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getApiV1Vaults>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+    return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof getApiV1Vaults>>,
+        TError,
+        TData
+    > & { queryKey: DataTag<QueryKey, TData, TError> };
 };
 
 export type GetApiV1VaultsQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getApiV1Vaults>>
+    Awaited<ReturnType<typeof getApiV1Vaults>>
 >;
 export type GetApiV1VaultsQueryError = GetApiV1Vaults4xx | GetApiV1Vaults5xx;
 
 export function useGetApiV1Vaults<
-  TData = Awaited<ReturnType<typeof getApiV1Vaults>>,
-  TError = GetApiV1Vaults4xx | GetApiV1Vaults5xx,
+    TData = Awaited<ReturnType<typeof getApiV1Vaults>>,
+    TError = GetApiV1Vaults4xx | GetApiV1Vaults5xx,
 >(options: {
-  query: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof getApiV1Vaults>>, TError, TData>
-  > &
-    Pick<
-      DefinedInitialDataOptions<
-        Awaited<ReturnType<typeof getApiV1Vaults>>,
-        TError,
-        Awaited<ReturnType<typeof getApiV1Vaults>>
-      >,
-      "initialData"
-    >;
-  request?: SecondParameter<typeof customFetch>;
+    query: Partial<
+        UseQueryOptions<
+            Awaited<ReturnType<typeof getApiV1Vaults>>,
+            TError,
+            TData
+        >
+    > &
+        Pick<
+            DefinedInitialDataOptions<
+                Awaited<ReturnType<typeof getApiV1Vaults>>,
+                TError,
+                Awaited<ReturnType<typeof getApiV1Vaults>>
+            >,
+            "initialData"
+        >;
+    request?: SecondParameter<typeof customFetch>;
 }): DefinedUseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
+    queryKey: DataTag<QueryKey, TData, TError>;
 };
 export function useGetApiV1Vaults<
-  TData = Awaited<ReturnType<typeof getApiV1Vaults>>,
-  TError = GetApiV1Vaults4xx | GetApiV1Vaults5xx,
+    TData = Awaited<ReturnType<typeof getApiV1Vaults>>,
+    TError = GetApiV1Vaults4xx | GetApiV1Vaults5xx,
 >(options?: {
-  query?: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof getApiV1Vaults>>, TError, TData>
-  > &
-    Pick<
-      UndefinedInitialDataOptions<
-        Awaited<ReturnType<typeof getApiV1Vaults>>,
-        TError,
-        Awaited<ReturnType<typeof getApiV1Vaults>>
-      >,
-      "initialData"
+    query?: Partial<
+        UseQueryOptions<
+            Awaited<ReturnType<typeof getApiV1Vaults>>,
+            TError,
+            TData
+        >
+    > &
+        Pick<
+            UndefinedInitialDataOptions<
+                Awaited<ReturnType<typeof getApiV1Vaults>>,
+                TError,
+                Awaited<ReturnType<typeof getApiV1Vaults>>
+            >,
+            "initialData"
+        >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetApiV1Vaults<
+    TData = Awaited<ReturnType<typeof getApiV1Vaults>>,
+    TError = GetApiV1Vaults4xx | GetApiV1Vaults5xx,
+>(options?: {
+    query?: Partial<
+        UseQueryOptions<
+            Awaited<ReturnType<typeof getApiV1Vaults>>,
+            TError,
+            TData
+        >
     >;
-  request?: SecondParameter<typeof customFetch>;
+    request?: SecondParameter<typeof customFetch>;
 }): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-};
-export function useGetApiV1Vaults<
-  TData = Awaited<ReturnType<typeof getApiV1Vaults>>,
-  TError = GetApiV1Vaults4xx | GetApiV1Vaults5xx,
->(options?: {
-  query?: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof getApiV1Vaults>>, TError, TData>
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
+    queryKey: DataTag<QueryKey, TData, TError>;
 };
 /**
  * @summary Get vaults
  */
 
 export function useGetApiV1Vaults<
-  TData = Awaited<ReturnType<typeof getApiV1Vaults>>,
-  TError = GetApiV1Vaults4xx | GetApiV1Vaults5xx,
+    TData = Awaited<ReturnType<typeof getApiV1Vaults>>,
+    TError = GetApiV1Vaults4xx | GetApiV1Vaults5xx,
 >(options?: {
-  query?: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof getApiV1Vaults>>, TError, TData>
-  >;
-  request?: SecondParameter<typeof customFetch>;
+    query?: Partial<
+        UseQueryOptions<
+            Awaited<ReturnType<typeof getApiV1Vaults>>,
+            TError,
+            TData
+        >
+    >;
+    request?: SecondParameter<typeof customFetch>;
 }): UseQueryResult<TData, TError> & {
-  queryKey: DataTag<QueryKey, TData, TError>;
-} {
-  const queryOptions = getGetApiV1VaultsQueryOptions(options);
-
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: DataTag<QueryKey, TData, TError>;
-  };
+} {
+    const queryOptions = getGetApiV1VaultsQueryOptions(options);
 
-  query.queryKey = queryOptions.queryKey;
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+        queryKey: DataTag<QueryKey, TData, TError>;
+    };
 
-  return query;
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
 }
 
 /**
@@ -2539,90 +2619,90 @@ export function useGetApiV1Vaults<
  * @summary Add vault
  */
 export const getPostApiV1VaultsUrl = () => {
-  return `/api/v1/vaults/`;
+    return `/api/v1/vaults/`;
 };
 
 export const postApiV1Vaults = async (
-  postApiV1VaultsBody: PostApiV1VaultsBody,
-  options?: RequestInit
+    postApiV1VaultsBody: PostApiV1VaultsBody,
+    options?: RequestInit
 ): Promise<PostApiV1Vaults200> => {
-  return customFetch<PostApiV1Vaults200>(getPostApiV1VaultsUrl(), {
-    ...options,
-    method: "POST",
-    headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(postApiV1VaultsBody),
-  });
+    return customFetch<PostApiV1Vaults200>(getPostApiV1VaultsUrl(), {
+        ...options,
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...options?.headers },
+        body: JSON.stringify(postApiV1VaultsBody),
+    });
 };
 
 export const getPostApiV1VaultsMutationOptions = <
-  TError = PostApiV1Vaults4xx | PostApiV1Vaults5xx,
-  TContext = unknown,
+    TError = PostApiV1Vaults4xx | PostApiV1Vaults5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1Vaults>>,
+        TError,
+        { data: PostApiV1VaultsBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof postApiV1Vaults>>,
     TError,
     { data: PostApiV1VaultsBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postApiV1Vaults>>,
-  TError,
-  { data: PostApiV1VaultsBody },
-  TContext
 > => {
-  const mutationKey = ["postApiV1Vaults"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["postApiV1Vaults"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postApiV1Vaults>>,
-    { data: PostApiV1VaultsBody }
-  > = (props) => {
-    const { data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof postApiV1Vaults>>,
+        { data: PostApiV1VaultsBody }
+    > = (props) => {
+        const { data } = props ?? {};
 
-    return postApiV1Vaults(data, requestOptions);
-  };
+        return postApiV1Vaults(data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PostApiV1VaultsMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postApiV1Vaults>>
+    Awaited<ReturnType<typeof postApiV1Vaults>>
 >;
 export type PostApiV1VaultsMutationBody = PostApiV1VaultsBody;
 export type PostApiV1VaultsMutationError =
-  | PostApiV1Vaults4xx
-  | PostApiV1Vaults5xx;
+    | PostApiV1Vaults4xx
+    | PostApiV1Vaults5xx;
 
 /**
  * @summary Add vault
  */
 export const usePostApiV1Vaults = <
-  TError = PostApiV1Vaults4xx | PostApiV1Vaults5xx,
-  TContext = unknown,
+    TError = PostApiV1Vaults4xx | PostApiV1Vaults5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postApiV1Vaults>>,
+        TError,
+        { data: PostApiV1VaultsBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof postApiV1Vaults>>,
     TError,
     { data: PostApiV1VaultsBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postApiV1Vaults>>,
-  TError,
-  { data: PostApiV1VaultsBody },
-  TContext
 > => {
-  const mutationOptions = getPostApiV1VaultsMutationOptions(options);
+    const mutationOptions = getPostApiV1VaultsMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -2630,91 +2710,91 @@ export const usePostApiV1Vaults = <
  * @summary Update vault
  */
 export const getPutApiV1VaultsIdUrl = (id: number) => {
-  return `/api/v1/vaults/${id}`;
+    return `/api/v1/vaults/${id}`;
 };
 
 export const putApiV1VaultsId = async (
-  id: number,
-  putApiV1VaultsIdBody: PutApiV1VaultsIdBody,
-  options?: RequestInit
+    id: number,
+    putApiV1VaultsIdBody: PutApiV1VaultsIdBody,
+    options?: RequestInit
 ): Promise<PutApiV1VaultsId200> => {
-  return customFetch<PutApiV1VaultsId200>(getPutApiV1VaultsIdUrl(id), {
-    ...options,
-    method: "PUT",
-    headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(putApiV1VaultsIdBody),
-  });
+    return customFetch<PutApiV1VaultsId200>(getPutApiV1VaultsIdUrl(id), {
+        ...options,
+        method: "PUT",
+        headers: { "Content-Type": "application/json", ...options?.headers },
+        body: JSON.stringify(putApiV1VaultsIdBody),
+    });
 };
 
 export const getPutApiV1VaultsIdMutationOptions = <
-  TError = PutApiV1VaultsId4xx | PutApiV1VaultsId5xx,
-  TContext = unknown,
+    TError = PutApiV1VaultsId4xx | PutApiV1VaultsId5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof putApiV1VaultsId>>,
+        TError,
+        { id: number; data: PutApiV1VaultsIdBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof putApiV1VaultsId>>,
     TError,
     { id: number; data: PutApiV1VaultsIdBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof putApiV1VaultsId>>,
-  TError,
-  { id: number; data: PutApiV1VaultsIdBody },
-  TContext
 > => {
-  const mutationKey = ["putApiV1VaultsId"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["putApiV1VaultsId"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof putApiV1VaultsId>>,
-    { id: number; data: PutApiV1VaultsIdBody }
-  > = (props) => {
-    const { id, data } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof putApiV1VaultsId>>,
+        { id: number; data: PutApiV1VaultsIdBody }
+    > = (props) => {
+        const { id, data } = props ?? {};
 
-    return putApiV1VaultsId(id, data, requestOptions);
-  };
+        return putApiV1VaultsId(id, data, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type PutApiV1VaultsIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof putApiV1VaultsId>>
+    Awaited<ReturnType<typeof putApiV1VaultsId>>
 >;
 export type PutApiV1VaultsIdMutationBody = PutApiV1VaultsIdBody;
 export type PutApiV1VaultsIdMutationError =
-  | PutApiV1VaultsId4xx
-  | PutApiV1VaultsId5xx;
+    | PutApiV1VaultsId4xx
+    | PutApiV1VaultsId5xx;
 
 /**
  * @summary Update vault
  */
 export const usePutApiV1VaultsId = <
-  TError = PutApiV1VaultsId4xx | PutApiV1VaultsId5xx,
-  TContext = unknown,
+    TError = PutApiV1VaultsId4xx | PutApiV1VaultsId5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof putApiV1VaultsId>>,
+        TError,
+        { id: number; data: PutApiV1VaultsIdBody },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof putApiV1VaultsId>>,
     TError,
     { id: number; data: PutApiV1VaultsIdBody },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof putApiV1VaultsId>>,
-  TError,
-  { id: number; data: PutApiV1VaultsIdBody },
-  TContext
 > => {
-  const mutationOptions = getPutApiV1VaultsIdMutationOptions(options);
+    const mutationOptions = getPutApiV1VaultsIdMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };
 
 /**
@@ -2722,86 +2802,86 @@ export const usePutApiV1VaultsId = <
  * @summary Add vault
  */
 export const getDeleteApiV1VaultsIdUrl = (id: number) => {
-  return `/api/v1/vaults/${id}`;
+    return `/api/v1/vaults/${id}`;
 };
 
 export const deleteApiV1VaultsId = async (
-  id: number,
-  options?: RequestInit
+    id: number,
+    options?: RequestInit
 ): Promise<DeleteApiV1VaultsId200> => {
-  return customFetch<DeleteApiV1VaultsId200>(getDeleteApiV1VaultsIdUrl(id), {
-    ...options,
-    method: "DELETE",
-  });
+    return customFetch<DeleteApiV1VaultsId200>(getDeleteApiV1VaultsIdUrl(id), {
+        ...options,
+        method: "DELETE",
+    });
 };
 
 export const getDeleteApiV1VaultsIdMutationOptions = <
-  TError = DeleteApiV1VaultsId4xx | DeleteApiV1VaultsId5xx,
-  TContext = unknown,
+    TError = DeleteApiV1VaultsId4xx | DeleteApiV1VaultsId5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof deleteApiV1VaultsId>>,
+        TError,
+        { id: number },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
     Awaited<ReturnType<typeof deleteApiV1VaultsId>>,
     TError,
     { id: number },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof deleteApiV1VaultsId>>,
-  TError,
-  { id: number },
-  TContext
 > => {
-  const mutationKey = ["deleteApiV1VaultsId"];
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      "mutationKey" in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined };
+    const mutationKey = ["deleteApiV1VaultsId"];
+    const { mutation: mutationOptions, request: requestOptions } = options
+        ? options.mutation &&
+          "mutationKey" in options.mutation &&
+          options.mutation.mutationKey
+            ? options
+            : { ...options, mutation: { ...options.mutation, mutationKey } }
+        : { mutation: { mutationKey }, request: undefined };
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof deleteApiV1VaultsId>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof deleteApiV1VaultsId>>,
+        { id: number }
+    > = (props) => {
+        const { id } = props ?? {};
 
-    return deleteApiV1VaultsId(id, requestOptions);
-  };
+        return deleteApiV1VaultsId(id, requestOptions);
+    };
 
-  return { mutationFn, ...mutationOptions };
+    return { mutationFn, ...mutationOptions };
 };
 
 export type DeleteApiV1VaultsIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof deleteApiV1VaultsId>>
+    Awaited<ReturnType<typeof deleteApiV1VaultsId>>
 >;
 
 export type DeleteApiV1VaultsIdMutationError =
-  | DeleteApiV1VaultsId4xx
-  | DeleteApiV1VaultsId5xx;
+    | DeleteApiV1VaultsId4xx
+    | DeleteApiV1VaultsId5xx;
 
 /**
  * @summary Add vault
  */
 export const useDeleteApiV1VaultsId = <
-  TError = DeleteApiV1VaultsId4xx | DeleteApiV1VaultsId5xx,
-  TContext = unknown,
+    TError = DeleteApiV1VaultsId4xx | DeleteApiV1VaultsId5xx,
+    TContext = unknown,
 >(options?: {
-  mutation?: UseMutationOptions<
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof deleteApiV1VaultsId>>,
+        TError,
+        { id: number },
+        TContext
+    >;
+    request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
     Awaited<ReturnType<typeof deleteApiV1VaultsId>>,
     TError,
     { id: number },
     TContext
-  >;
-  request?: SecondParameter<typeof customFetch>;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof deleteApiV1VaultsId>>,
-  TError,
-  { id: number },
-  TContext
 > => {
-  const mutationOptions = getDeleteApiV1VaultsIdMutationOptions(options);
+    const mutationOptions = getDeleteApiV1VaultsIdMutationOptions(options);
 
-  return useMutation(mutationOptions);
+    return useMutation(mutationOptions);
 };

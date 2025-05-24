@@ -7,15 +7,15 @@ import AppRoutes from "./routes.tsx";
 const queryClient = new QueryClient();
 
 export function App() {
-  return (
-    <>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={false} />
-          <Toaster />
-          <AppRoutes />
-        </QueryClientProvider>
-      </ThemeProvider>
-    </>
-  );
+    return (
+        <>
+            <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+                <QueryClientProvider client={queryClient}>
+                    <ReactQueryDevtools initialIsOpen={false} />
+                    <Toaster />
+                    <AppRoutes />
+                </QueryClientProvider>
+            </ThemeProvider>
+        </>
+    );
 }

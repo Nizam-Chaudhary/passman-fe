@@ -5,7 +5,7 @@ import type { UserSlice } from "@/store/user.slice";
 import type { VaultSlice } from "@/store/vault.slice";
 
 export type Store = VaultSlice &
-  SidebarSlice &
-  PasswordSlice &
-  AuthSlice &
-  UserSlice;
+    SidebarSlice &
+    PasswordSlice &
+    AuthSlice &
+    UserSlice;
